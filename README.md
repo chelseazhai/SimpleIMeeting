@@ -1,2 +1,2 @@
-IMeeting_Simple
+SimpleIMeeting
 ===============
