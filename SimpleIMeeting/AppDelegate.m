@@ -8,14 +8,29 @@
 
 #import "AppDelegate.h"
 
+#import <CommonToolkit/CommonToolkit.h>
+
+#import "SimpleIMeetingContentViewController.h"
+
 @implementation AppDelegate
+
+@synthesize rootViewController = _rootViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    // traversal addressBook
+    [[AddressBookManager shareAddressBookManager] traversalAddressBook];
+    
+    // init application root view controller
+    _rootViewController = [[AppRootViewController alloc] initWithNavigationViewController:[[SimpleIMeetingContentViewController alloc] init] andBarBackgroundImage:[UIImage imageNamed:@"img_navigationbar_bg"]];
+    
+    // set application window rootViewController and show the main window
+    self.window.rootViewController = _rootViewController;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

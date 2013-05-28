@@ -5,3 +5,17 @@
   Created by Ares on 13-5-27.
   Copyright (c) 2013年 richitec. All rights reserved.
 */
+
+// simple imeeting content container view
+"tap to generate new talking group title view title" = "Tap to gen new meeting";
+"more menu bar button item title" = "Menu";
+
+// contacts select content view
+"my talking group list left bar button item title" = "AB contacts";
+"contacts select contacts list head tip view text" = "AB contacts";
+"contacts select selected contacts head tip view text" = "Invited contacts";
+
+// my talking group list content view
+"contacts select left bar button item title" = "My meetings";
+"my talking groups head tip view text" = "Meeting list";
+"my talking group attendees head tip view text" = "Attendees";

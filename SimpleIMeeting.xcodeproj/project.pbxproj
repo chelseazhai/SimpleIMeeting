@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC5CE9AF17543E8F0016835B /* MyTalkingGroupListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5CE9AE17543E8F0016835B /* MyTalkingGroupListView.m */; };
+		DC5CE9B217543EEC0016835B /* SelectedTalkingGroupAttendeeListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5CE9B117543EEC0016835B /* SelectedTalkingGroupAttendeeListView.m */; };
+		DC5CE9B917545DBD0016835B /* img_left_tipview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9B317545DBD0016835B /* img_left_tipview_bg.png */; };
+		DC5CE9BA17545DBD0016835B /* img_left_tipview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9B417545DBD0016835B /* img_left_tipview_bg@2x.png */; };
+		DC5CE9BB17545DBD0016835B /* img_navigationbar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9B517545DBD0016835B /* img_navigationbar_bg.png */; };
+		DC5CE9BC17545DBD0016835B /* img_navigationbar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9B617545DBD0016835B /* img_navigationbar_bg@2x.png */; };
+		DC5CE9BD17545DBD0016835B /* img_right_tipview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9B717545DBD0016835B /* img_right_tipview_bg.png */; };
+		DC5CE9BE17545DBD0016835B /* img_right_tipview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9B817545DBD0016835B /* img_right_tipview_bg@2x.png */; };
+		DC5CE9C9175491E00016835B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9C7175491E00016835B /* Icon.png */; };
+		DC5CE9CA175491E00016835B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9C8175491E00016835B /* Icon@2x.png */; };
+		DC5CE9D1175497630016835B /* img_left_barbtnitem_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9CF175497630016835B /* img_left_barbtnitem_bg.png */; };
+		DC5CE9D2175497630016835B /* img_right_barbtnitem_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5CE9D0175497630016835B /* img_right_barbtnitem_bg.png */; };
 		DC756B551752EADB00F287FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756B541752EADB00F287FA /* UIKit.framework */; };
 		DC756B571752EADB00F287FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756B561752EADB00F287FA /* Foundation.framework */; };
 		DC756B591752EADB00F287FA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756B581752EADB00F287FA /* CoreGraphics.framework */; };
@@ -19,9 +31,38 @@
 		DC756BB21752F09300F287FA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC756BAB1752F09300F287FA /* Default-568h@2x.png */; };
 		DC756BB31752F09300F287FA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DC756BAC1752F09300F287FA /* Default.png */; };
 		DC756BB41752F09300F287FA /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC756BAD1752F09300F287FA /* Default@2x.png */; };
+		DC756BBB1752F36F00F287FA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756BBA1752F36F00F287FA /* CFNetwork.framework */; };
+		DC756BBD1752F38D00F287FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756BBC1752F38D00F287FA /* SystemConfiguration.framework */; };
+		DC756BBF1752F39400F287FA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756BBE1752F39400F287FA /* MobileCoreServices.framework */; };
+		DC756BC11752F39B00F287FA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756BC01752F39B00F287FA /* libz.dylib */; };
+		DC756BC31752F3A300F287FA /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756BC21752F3A300F287FA /* libicucore.dylib */; };
+		DC756BC51752F3B700F287FA /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756BC41752F3B700F287FA /* CoreText.framework */; };
+		DC756BC71752F3BD00F287FA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756BC61752F3BD00F287FA /* AddressBook.framework */; };
+		DC756BC91752F3C500F287FA /* CommonToolkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC756BC81752F3C500F287FA /* CommonToolkit.framework */; };
+		DC756BCF1752F81E00F287FA /* SimpleIMeetingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BCE1752F81E00F287FA /* SimpleIMeetingContentViewController.m */; };
+		DC756BD21752F8B200F287FA /* SimpleIMeetingContentContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BD11752F8B200F287FA /* SimpleIMeetingContentContainerView.m */; };
+		DC756BD91753341800F287FA /* ContactsSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BD81753341800F287FA /* ContactsSelectView.m */; };
+		DC756BDC1753345900F287FA /* MyTalkingGroups7AttendeesView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BDB1753345900F287FA /* MyTalkingGroups7AttendeesView.m */; };
+		DC756BE1175358DC00F287FA /* ContactsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE0175358DC00F287FA /* ContactsListView.m */; };
+		DC756BE41753590900F287FA /* SelectedContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE31753590900F287FA /* SelectedContactsView.m */; };
+		DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC5CE9AD17543E8F0016835B /* MyTalkingGroupListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTalkingGroupListView.h; path = Views/MyTalkingGroupListView.h; sourceTree = "<group>"; };
+		DC5CE9AE17543E8F0016835B /* MyTalkingGroupListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTalkingGroupListView.m; path = Views/MyTalkingGroupListView.m; sourceTree = "<group>"; };
+		DC5CE9B017543EEC0016835B /* SelectedTalkingGroupAttendeeListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectedTalkingGroupAttendeeListView.h; path = Views/SelectedTalkingGroupAttendeeListView.h; sourceTree = "<group>"; };
+		DC5CE9B117543EEC0016835B /* SelectedTalkingGroupAttendeeListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedTalkingGroupAttendeeListView.m; path = Views/SelectedTalkingGroupAttendeeListView.m; sourceTree = "<group>"; };
+		DC5CE9B317545DBD0016835B /* img_left_tipview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_left_tipview_bg.png; path = SimpleIMeeting/Resources/Images/img_left_tipview_bg.png; sourceTree = SOURCE_ROOT; };
+		DC5CE9B417545DBD0016835B /* img_left_tipview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_left_tipview_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_left_tipview_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC5CE9B517545DBD0016835B /* img_navigationbar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_navigationbar_bg.png; path = SimpleIMeeting/Resources/Images/img_navigationbar_bg.png; sourceTree = SOURCE_ROOT; };
+		DC5CE9B617545DBD0016835B /* img_navigationbar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_navigationbar_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_navigationbar_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC5CE9B717545DBD0016835B /* img_right_tipview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_right_tipview_bg.png; path = SimpleIMeeting/Resources/Images/img_right_tipview_bg.png; sourceTree = SOURCE_ROOT; };
+		DC5CE9B817545DBD0016835B /* img_right_tipview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_right_tipview_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_right_tipview_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC5CE9C7175491E00016835B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		DC5CE9C8175491E00016835B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		DC5CE9CF175497630016835B /* img_left_barbtnitem_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_left_barbtnitem_bg.png; path = SimpleIMeeting/Resources/Images/img_left_barbtnitem_bg.png; sourceTree = SOURCE_ROOT; };
+		DC5CE9D0175497630016835B /* img_right_barbtnitem_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_right_barbtnitem_bg.png; path = SimpleIMeeting/Resources/Images/img_right_barbtnitem_bg.png; sourceTree = SOURCE_ROOT; };
 		DC756B511752EADB00F287FA /* SimpleIMeeting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleIMeeting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC756B541752EADB00F287FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DC756B561752EADB00F287FA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -42,6 +83,28 @@
 		DC756BAB1752F09300F287FA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DC756BAC1752F09300F287FA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		DC756BAD1752F09300F287FA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		DC756BBA1752F36F00F287FA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		DC756BBC1752F38D00F287FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DC756BBE1752F39400F287FA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		DC756BC01752F39B00F287FA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DC756BC21752F3A300F287FA /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		DC756BC41752F3B700F287FA /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		DC756BC61752F3BD00F287FA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		DC756BC81752F3C500F287FA /* CommonToolkit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommonToolkit.framework; path = SimpleIMeeting/OtherFrameworks/CommonToolkit.framework; sourceTree = "<group>"; };
+		DC756BCD1752F81E00F287FA /* SimpleIMeetingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleIMeetingContentViewController.h; path = ViewControllers/SimpleIMeetingContentViewController.h; sourceTree = "<group>"; };
+		DC756BCE1752F81E00F287FA /* SimpleIMeetingContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleIMeetingContentViewController.m; path = ViewControllers/SimpleIMeetingContentViewController.m; sourceTree = "<group>"; };
+		DC756BD01752F8B200F287FA /* SimpleIMeetingContentContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleIMeetingContentContainerView.h; path = Views/SimpleIMeetingContentContainerView.h; sourceTree = "<group>"; };
+		DC756BD11752F8B200F287FA /* SimpleIMeetingContentContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleIMeetingContentContainerView.m; path = Views/SimpleIMeetingContentContainerView.m; sourceTree = "<group>"; };
+		DC756BD71753341800F287FA /* ContactsSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsSelectView.h; path = Views/ContactsSelectView.h; sourceTree = "<group>"; };
+		DC756BD81753341800F287FA /* ContactsSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsSelectView.m; path = Views/ContactsSelectView.m; sourceTree = "<group>"; };
+		DC756BDA1753345900F287FA /* MyTalkingGroups7AttendeesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTalkingGroups7AttendeesView.h; path = Views/MyTalkingGroups7AttendeesView.h; sourceTree = "<group>"; };
+		DC756BDB1753345900F287FA /* MyTalkingGroups7AttendeesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTalkingGroups7AttendeesView.m; path = Views/MyTalkingGroups7AttendeesView.m; sourceTree = "<group>"; };
+		DC756BDF175358DC00F287FA /* ContactsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsListView.h; path = Views/ContactsListView.h; sourceTree = "<group>"; };
+		DC756BE0175358DC00F287FA /* ContactsListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsListView.m; path = Views/ContactsListView.m; sourceTree = "<group>"; };
+		DC756BE21753590900F287FA /* SelectedContactsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectedContactsView.h; path = Views/SelectedContactsView.h; sourceTree = "<group>"; };
+		DC756BE31753590900F287FA /* SelectedContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedContactsView.m; path = Views/SelectedContactsView.m; sourceTree = "<group>"; };
+		DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleIMeetingTableViewTipView.h; sourceTree = "<group>"; };
+		DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleIMeetingTableViewTipView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +112,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC756BC91752F3C500F287FA /* CommonToolkit.framework in Frameworks */,
+				DC756BC71752F3BD00F287FA /* AddressBook.framework in Frameworks */,
+				DC756BC51752F3B700F287FA /* CoreText.framework in Frameworks */,
+				DC756BC31752F3A300F287FA /* libicucore.dylib in Frameworks */,
+				DC756BC11752F39B00F287FA /* libz.dylib in Frameworks */,
+				DC756BBF1752F39400F287FA /* MobileCoreServices.framework in Frameworks */,
+				DC756BBD1752F38D00F287FA /* SystemConfiguration.framework in Frameworks */,
+				DC756BBB1752F36F00F287FA /* CFNetwork.framework in Frameworks */,
 				DC756B551752EADB00F287FA /* UIKit.framework in Frameworks */,
 				DC756B571752EADB00F287FA /* Foundation.framework in Frameworks */,
 				DC756B591752EADB00F287FA /* CoreGraphics.framework in Frameworks */,
@@ -58,6 +129,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC5CE9AB17543A030016835B /* TalkingGroups */ = {
+			isa = PBXGroup;
+			children = (
+				DC5CE9AD17543E8F0016835B /* MyTalkingGroupListView.h */,
+				DC5CE9AE17543E8F0016835B /* MyTalkingGroupListView.m */,
+			);
+			name = TalkingGroups;
+			sourceTree = "<group>";
+		};
+		DC5CE9AC17543A160016835B /* TalkingGroupAttendees */ = {
+			isa = PBXGroup;
+			children = (
+				DC5CE9B017543EEC0016835B /* SelectedTalkingGroupAttendeeListView.h */,
+				DC5CE9B117543EEC0016835B /* SelectedTalkingGroupAttendeeListView.m */,
+			);
+			name = TalkingGroupAttendees;
+			sourceTree = "<group>";
+		};
 		DC756B481752EADB00F287FA = {
 			isa = PBXGroup;
 			children = (
@@ -78,9 +167,17 @@
 		DC756B531752EADB00F287FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DC756B541752EADB00F287FA /* UIKit.framework */,
-				DC756B561752EADB00F287FA /* Foundation.framework */,
+				DC756BC21752F3A300F287FA /* libicucore.dylib */,
+				DC756BC01752F39B00F287FA /* libz.dylib */,
+				DC756BC61752F3BD00F287FA /* AddressBook.framework */,
+				DC756BBA1752F36F00F287FA /* CFNetwork.framework */,
+				DC756BC81752F3C500F287FA /* CommonToolkit.framework */,
 				DC756B581752EADB00F287FA /* CoreGraphics.framework */,
+				DC756BC41752F3B700F287FA /* CoreText.framework */,
+				DC756B561752EADB00F287FA /* Foundation.framework */,
+				DC756BBE1752F39400F287FA /* MobileCoreServices.framework */,
+				DC756BBC1752F38D00F287FA /* SystemConfiguration.framework */,
+				DC756B541752EADB00F287FA /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -88,8 +185,10 @@
 		DC756B5A1752EADB00F287FA /* SimpleIMeeting */ = {
 			isa = PBXGroup;
 			children = (
+				DC756BB51752F17900F287FA /* App */,
 				DC756B631752EADB00F287FA /* AppDelegate.h */,
 				DC756B641752EADB00F287FA /* AppDelegate.m */,
+				DC756BE517535D7B00F287FA /* CustomComponents */,
 				DC756B9C1752F09300F287FA /* Resources */,
 				DC756B5B1752EADB00F287FA /* Supporting Files */,
 			);
@@ -131,6 +230,8 @@
 		DC756BA01752F09300F287FA /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				DC5CE9C7175491E00016835B /* Icon.png */,
+				DC5CE9C8175491E00016835B /* Icon@2x.png */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -138,6 +239,14 @@
 		DC756BA11752F09300F287FA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DC5CE9CF175497630016835B /* img_left_barbtnitem_bg.png */,
+				DC5CE9D0175497630016835B /* img_right_barbtnitem_bg.png */,
+				DC5CE9B317545DBD0016835B /* img_left_tipview_bg.png */,
+				DC5CE9B417545DBD0016835B /* img_left_tipview_bg@2x.png */,
+				DC5CE9B517545DBD0016835B /* img_navigationbar_bg.png */,
+				DC5CE9B617545DBD0016835B /* img_navigationbar_bg@2x.png */,
+				DC5CE9B717545DBD0016835B /* img_right_tipview_bg.png */,
+				DC5CE9B817545DBD0016835B /* img_right_tipview_bg@2x.png */,
 			);
 			name = Images;
 			path = Internationalization;
@@ -151,6 +260,108 @@
 				DC756BAD1752F09300F287FA /* Default@2x.png */,
 			);
 			path = Splashes;
+			sourceTree = "<group>";
+		};
+		DC756BB51752F17900F287FA /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DC756BB61752F21300F287FA /* Assistant */,
+				DC756BCC1752F79A00F287FA /* Content */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		DC756BB61752F21300F287FA /* Assistant */ = {
+			isa = PBXGroup;
+			children = (
+				DC756BB71752F24F00F287FA /* About */,
+				DC756BB91752F28F00F287FA /* Setting */,
+				DC756BB81752F27D00F287FA /* Support */,
+			);
+			name = Assistant;
+			sourceTree = "<group>";
+		};
+		DC756BB71752F24F00F287FA /* About */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
+		DC756BB81752F27D00F287FA /* Support */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		DC756BB91752F28F00F287FA /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		DC756BCA1752F72300F287FA /* ContactsSelect */ = {
+			isa = PBXGroup;
+			children = (
+				DC756BDD1753583200F287FA /* ContactsList */,
+				DC756BD71753341800F287FA /* ContactsSelectView.h */,
+				DC756BD81753341800F287FA /* ContactsSelectView.m */,
+				DC756BDE1753586100F287FA /* SelectedContacts */,
+			);
+			name = ContactsSelect;
+			sourceTree = "<group>";
+		};
+		DC756BCB1752F77900F287FA /* TalkingGroups&Attendees */ = {
+			isa = PBXGroup;
+			children = (
+				DC756BDA1753345900F287FA /* MyTalkingGroups7AttendeesView.h */,
+				DC756BDB1753345900F287FA /* MyTalkingGroups7AttendeesView.m */,
+				DC5CE9AC17543A160016835B /* TalkingGroupAttendees */,
+				DC5CE9AB17543A030016835B /* TalkingGroups */,
+			);
+			name = "TalkingGroups&Attendees";
+			sourceTree = "<group>";
+		};
+		DC756BCC1752F79A00F287FA /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				DC756BCA1752F72300F287FA /* ContactsSelect */,
+				DC756BD01752F8B200F287FA /* SimpleIMeetingContentContainerView.h */,
+				DC756BD11752F8B200F287FA /* SimpleIMeetingContentContainerView.m */,
+				DC756BCD1752F81E00F287FA /* SimpleIMeetingContentViewController.h */,
+				DC756BCE1752F81E00F287FA /* SimpleIMeetingContentViewController.m */,
+				DC756BCB1752F77900F287FA /* TalkingGroups&Attendees */,
+			);
+			name = Content;
+			sourceTree = "<group>";
+		};
+		DC756BDD1753583200F287FA /* ContactsList */ = {
+			isa = PBXGroup;
+			children = (
+				DC756BDF175358DC00F287FA /* ContactsListView.h */,
+				DC756BE0175358DC00F287FA /* ContactsListView.m */,
+			);
+			name = ContactsList;
+			sourceTree = "<group>";
+		};
+		DC756BDE1753586100F287FA /* SelectedContacts */ = {
+			isa = PBXGroup;
+			children = (
+				DC756BE21753590900F287FA /* SelectedContactsView.h */,
+				DC756BE31753590900F287FA /* SelectedContactsView.m */,
+			);
+			name = SelectedContacts;
+			sourceTree = "<group>";
+		};
+		DC756BE517535D7B00F287FA /* CustomComponents */ = {
+			isa = PBXGroup;
+			children = (
+				DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */,
+				DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */,
+			);
+			path = CustomComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +424,16 @@
 				DC756BB21752F09300F287FA /* Default-568h@2x.png in Resources */,
 				DC756BB31752F09300F287FA /* Default.png in Resources */,
 				DC756BB41752F09300F287FA /* Default@2x.png in Resources */,
+				DC5CE9B917545DBD0016835B /* img_left_tipview_bg.png in Resources */,
+				DC5CE9BA17545DBD0016835B /* img_left_tipview_bg@2x.png in Resources */,
+				DC5CE9BB17545DBD0016835B /* img_navigationbar_bg.png in Resources */,
+				DC5CE9BC17545DBD0016835B /* img_navigationbar_bg@2x.png in Resources */,
+				DC5CE9BD17545DBD0016835B /* img_right_tipview_bg.png in Resources */,
+				DC5CE9BE17545DBD0016835B /* img_right_tipview_bg@2x.png in Resources */,
+				DC5CE9C9175491E00016835B /* Icon.png in Resources */,
+				DC5CE9CA175491E00016835B /* Icon@2x.png in Resources */,
+				DC5CE9D1175497630016835B /* img_left_barbtnitem_bg.png in Resources */,
+				DC5CE9D2175497630016835B /* img_right_barbtnitem_bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +446,15 @@
 			files = (
 				DC756B611752EADB00F287FA /* main.m in Sources */,
 				DC756B651752EADB00F287FA /* AppDelegate.m in Sources */,
+				DC756BCF1752F81E00F287FA /* SimpleIMeetingContentViewController.m in Sources */,
+				DC756BD21752F8B200F287FA /* SimpleIMeetingContentContainerView.m in Sources */,
+				DC756BD91753341800F287FA /* ContactsSelectView.m in Sources */,
+				DC756BDC1753345900F287FA /* MyTalkingGroups7AttendeesView.m in Sources */,
+				DC756BE1175358DC00F287FA /* ContactsListView.m in Sources */,
+				DC756BE41753590900F287FA /* SelectedContactsView.m in Sources */,
+				DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */,
+				DC5CE9AF17543E8F0016835B /* MyTalkingGroupListView.m in Sources */,
+				DC5CE9B217543EEC0016835B /* SelectedTalkingGroupAttendeeListView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +546,10 @@
 		DC756B6F1752EADB00F287FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SimpleIMeeting/OtherFrameworks\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleIMeeting/SimpleIMeeting-Prefix.pch";
 				INFOPLIST_FILE = "SimpleIMeeting/SimpleIMeeting-Info.plist";
@@ -327,6 +561,10 @@
 		DC756B701752EADB00F287FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SimpleIMeeting/OtherFrameworks\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleIMeeting/SimpleIMeeting-Prefix.pch";
 				INFOPLIST_FILE = "SimpleIMeeting/SimpleIMeeting-Info.plist";
