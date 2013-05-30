@@ -10,6 +10,9 @@
 
 #import "UIViewGestureRecognizerDelegate.h"
 
+// UIView width or height param
+#define FILL_PARENT USHRT_MAX
+
 // UIView UI category
 @interface UIView (UI)
 
@@ -32,6 +35,18 @@
 @property (nonatomic, retain) UITabBarItem *tabBarItem;
 
 @end
+
+
+
+
+// UIView draw category
+@interface UIView (Draw)
+
+// resize all subviews, call when layoutSubviews be called
+- (void)resizesSubviews;
+
+@end
+
 
 
 

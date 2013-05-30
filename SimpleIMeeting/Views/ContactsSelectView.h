@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class ContactsListView;
+@class ContactListView;
 @class SelectedContactsView;
 
 @interface ContactsSelectView : UIView {
     // present subviews
     // subview addressbook contacts view
-    ContactsListView *_mABContactsListView;
+    ContactListView *_mABContactListView;
     // subview selected contacts view
     SelectedContactsView *_mSelectedContactsView;
 }

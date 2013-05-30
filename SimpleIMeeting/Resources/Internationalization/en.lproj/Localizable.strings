@@ -12,7 +12,7 @@
 
 // contacts select content view
 "my talking group list left bar button item title" = "AB contacts";
-"contacts select contacts list head tip view text" = "AB contacts";
+"contacts select contact list head tip view text" = "AB contacts";
 "contacts select selected contacts head tip view text" = "Invited contacts";
 
 // my talking group list content view

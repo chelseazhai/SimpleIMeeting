@@ -8,6 +8,8 @@
 
 #import "MyTalkingGroups7AttendeesView.h"
 
+#import <CommonToolkit/CommonToolkit.h>
+
 #import "MyTalkingGroupListView.h"
 #import "SelectedTalkingGroupAttendeeListView.h"
 
@@ -20,12 +22,13 @@
         // Initialization code
         // create and init subviews
         // init my talking groups view
-        _mMyTalkingGroupsView = [[MyTalkingGroupListView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
+        _mMyTalkingGroupsView = [[MyTalkingGroupListView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT * (2 / 3.0), FILL_PARENT)];
         // init selected talking group attendees view
-        _mSelectedTalkingGroupAttendeesView = [[SelectedTalkingGroupAttendeeListView alloc] initWithFrame:CGRectMake(self.frame.origin.x + _mMyTalkingGroupsView.frame.size.width, self.frame.origin.y, self.frame.size.width / 3, self.frame.size.height)];
+        _mSelectedTalkingGroupAttendeesView = [[SelectedTalkingGroupAttendeeListView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + _mMyTalkingGroupsView.bounds.size.width, self.bounds.origin.y, FILL_PARENT / 3.0, FILL_PARENT)];
         
         // add my talking groups view as subview
         [self addSubview:_mMyTalkingGroupsView];
+        [self addSubview:_mSelectedTalkingGroupAttendeesView];
     }
     return self;
 }

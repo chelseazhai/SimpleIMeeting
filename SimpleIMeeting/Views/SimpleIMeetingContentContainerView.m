@@ -11,7 +11,7 @@
 #import "ContactsSelectView.h"
 #import "MyTalkingGroups7AttendeesView.h"
 
-@interface SimpleIMeetingContentContainerView (Private)
+@interface SimpleIMeetingContentContainerView ()
 
 // set navigation title and left bar button item
 - (void)setNavigationTitle7LeftBarButtonItem;
@@ -26,9 +26,6 @@
 - (void)setContentViewWithMode:(SIMContentViewMode)contentViewType;
 
 @end
-
-
-
 
 @implementation SimpleIMeetingContentContainerView
 
@@ -47,8 +44,8 @@
         self.frame = CGRectMake(_screenBounds.origin.x, _screenBounds.origin.y, _screenBounds.size.width, _screenBounds.size.height - /*statusBar height*/[DisplayScreenUtils statusBarHeight] - /*navigationBar default height*/[DisplayScreenUtils navigationBarHeight]);
         
         // create and init subviews and switch one as content view
-        _mContactsSelectContentView = [[ContactsSelectView alloc] initWithFrame:self.bounds];
-        _mMyTalkingGroups7AttendeesContentView = [[MyTalkingGroups7AttendeesView alloc] initWithFrame:self.bounds];
+        _mContactsSelectContentView = [[ContactsSelectView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
+        _mMyTalkingGroups7AttendeesContentView = [[MyTalkingGroups7AttendeesView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
         
         // set content view, contacts select as default
         [self setContentViewWithMode:_mContentViewType = AddressBookContacts];
@@ -67,6 +64,11 @@
     // Drawing code
 }
 */
+
+- (void)layoutSubviews{
+    // resize all subviews
+    [self resizesSubviews];
+}
 
 - (UILabel *)tap2GenNewTalkingGroupTitleView{
     // check tap to generate new talking group title view
@@ -89,6 +91,7 @@
     return _mTap2GenNewTalkingGroupTitleView;
 }
 
+// UIViewGestureRecognizerDelegate
 - (GestureType)supportedGestureInView:(UIView *)pView{
     GestureType _ret = tap;
     
@@ -112,13 +115,7 @@
     }
 }
 
-@end
-
-
-
-
-@implementation SimpleIMeetingContentContainerView (Private)
-
+// inner extension
 - (void)setNavigationTitle7LeftBarButtonItem{
     // set title
     self.titleView = self.tap2GenNewTalkingGroupTitleView;
@@ -192,7 +189,7 @@
         case MyTalkingGroups:
             _mContentView = _mMyTalkingGroups7AttendeesContentView;
             break;
-        
+            
         case AddressBookContacts:
         default:
             _mContentView = _mContactsSelectContentView;

@@ -27,7 +27,7 @@
         [_selectedTalkingGroupAttendeesHeadTipView setTipViewText:NSLocalizedString(@"my talking group attendees head tip view text", nil)];
         
         // init selected talking group attendees table view
-        _mSelectedTalkingGroupAttendeesTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + _selectedTalkingGroupAttendeesHeadTipView.height, self.bounds.size.width, self.bounds.size.height - _selectedTalkingGroupAttendeesHeadTipView.height)];
+        _mSelectedTalkingGroupAttendeesTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + _selectedTalkingGroupAttendeesHeadTipView.height, FILL_PARENT, FILL_PARENT - (self.bounds.origin.y + _selectedTalkingGroupAttendeesHeadTipView.height))];
         
         // add selected talking group attendees head tip view and selected talking group attendees table view as subviews
         [self addSubview:_selectedTalkingGroupAttendeesHeadTipView];

@@ -43,7 +43,7 @@
 		DC756BD21752F8B200F287FA /* SimpleIMeetingContentContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BD11752F8B200F287FA /* SimpleIMeetingContentContainerView.m */; };
 		DC756BD91753341800F287FA /* ContactsSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BD81753341800F287FA /* ContactsSelectView.m */; };
 		DC756BDC1753345900F287FA /* MyTalkingGroups7AttendeesView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BDB1753345900F287FA /* MyTalkingGroups7AttendeesView.m */; };
-		DC756BE1175358DC00F287FA /* ContactsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE0175358DC00F287FA /* ContactsListView.m */; };
+		DC756BE1175358DC00F287FA /* ContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE0175358DC00F287FA /* ContactListView.m */; };
 		DC756BE41753590900F287FA /* SelectedContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE31753590900F287FA /* SelectedContactsView.m */; };
 		DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */; };
 /* End PBXBuildFile section */
@@ -99,8 +99,8 @@
 		DC756BD81753341800F287FA /* ContactsSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsSelectView.m; path = Views/ContactsSelectView.m; sourceTree = "<group>"; };
 		DC756BDA1753345900F287FA /* MyTalkingGroups7AttendeesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTalkingGroups7AttendeesView.h; path = Views/MyTalkingGroups7AttendeesView.h; sourceTree = "<group>"; };
 		DC756BDB1753345900F287FA /* MyTalkingGroups7AttendeesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTalkingGroups7AttendeesView.m; path = Views/MyTalkingGroups7AttendeesView.m; sourceTree = "<group>"; };
-		DC756BDF175358DC00F287FA /* ContactsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsListView.h; path = Views/ContactsListView.h; sourceTree = "<group>"; };
-		DC756BE0175358DC00F287FA /* ContactsListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsListView.m; path = Views/ContactsListView.m; sourceTree = "<group>"; };
+		DC756BDF175358DC00F287FA /* ContactListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactListView.h; path = Views/ContactListView.h; sourceTree = "<group>"; };
+		DC756BE0175358DC00F287FA /* ContactListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactListView.m; path = Views/ContactListView.m; sourceTree = "<group>"; };
 		DC756BE21753590900F287FA /* SelectedContactsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectedContactsView.h; path = Views/SelectedContactsView.h; sourceTree = "<group>"; };
 		DC756BE31753590900F287FA /* SelectedContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedContactsView.m; path = Views/SelectedContactsView.m; sourceTree = "<group>"; };
 		DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleIMeetingTableViewTipView.h; sourceTree = "<group>"; };
@@ -305,7 +305,7 @@
 		DC756BCA1752F72300F287FA /* ContactsSelect */ = {
 			isa = PBXGroup;
 			children = (
-				DC756BDD1753583200F287FA /* ContactsList */,
+				DC756BDD1753583200F287FA /* ContactList */,
 				DC756BD71753341800F287FA /* ContactsSelectView.h */,
 				DC756BD81753341800F287FA /* ContactsSelectView.m */,
 				DC756BDE1753586100F287FA /* SelectedContacts */,
@@ -337,13 +337,13 @@
 			name = Content;
 			sourceTree = "<group>";
 		};
-		DC756BDD1753583200F287FA /* ContactsList */ = {
+		DC756BDD1753583200F287FA /* ContactList */ = {
 			isa = PBXGroup;
 			children = (
-				DC756BDF175358DC00F287FA /* ContactsListView.h */,
-				DC756BE0175358DC00F287FA /* ContactsListView.m */,
+				DC756BDF175358DC00F287FA /* ContactListView.h */,
+				DC756BE0175358DC00F287FA /* ContactListView.m */,
 			);
-			name = ContactsList;
+			name = ContactList;
 			sourceTree = "<group>";
 		};
 		DC756BDE1753586100F287FA /* SelectedContacts */ = {
@@ -450,7 +450,7 @@
 				DC756BD21752F8B200F287FA /* SimpleIMeetingContentContainerView.m in Sources */,
 				DC756BD91753341800F287FA /* ContactsSelectView.m in Sources */,
 				DC756BDC1753345900F287FA /* MyTalkingGroups7AttendeesView.m in Sources */,
-				DC756BE1175358DC00F287FA /* ContactsListView.m in Sources */,
+				DC756BE1175358DC00F287FA /* ContactListView.m in Sources */,
 				DC756BE41753590900F287FA /* SelectedContactsView.m in Sources */,
 				DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */,
 				DC5CE9AF17543E8F0016835B /* MyTalkingGroupListView.m in Sources */,

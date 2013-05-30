@@ -10,7 +10,7 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
-#import "ContactsListView.h"
+#import "ContactListView.h"
 #import "SelectedContactsView.h"
 
 @implementation ContactsSelectView
@@ -21,13 +21,13 @@
     if (self) {
         // Initialization code
         // create and init subviews
-        // init addressbook contacts list view
-        _mABContactsListView = [[ContactsListView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height)];
+        // init addressbook contact list view
+        _mABContactListView = [[ContactListView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
         // init selected contacts view
-        _mSelectedContactsView = [[SelectedContactsView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + _mABContactsListView.bounds.size.width, self.bounds.origin.y, self.bounds.size.width / 3, self.bounds.size.height)];
+        _mSelectedContactsView = [[SelectedContactsView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + _mABContactListView.bounds.size.width, self.bounds.origin.y, FILL_PARENT / 3.0, FILL_PARENT)];
         
-        // add addressBook contacts list view as subview
-        [self addSubview:_mABContactsListView];
+        // add addressBook contact list view as subview
+        [self addSubview:_mABContactListView];
     }
     return self;
 }

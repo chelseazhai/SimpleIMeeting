@@ -10,6 +10,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import <CommonToolkit/CommonToolkit.h>
+
 // padding
 #define PADDING_LEFT7RIGHT  14
 #define PADDING_TOP7BOTTOM  4
@@ -30,7 +32,7 @@
     // check parent view
     if (nil != parentView) {
         // update its frame rectangle
-        _frameRectangle = parentView.bounds;
+        _frameRectangle.size.width = FILL_PARENT;
         _frameRectangle.size.height = TIPVIEW_HEIGHT;
     }
     
