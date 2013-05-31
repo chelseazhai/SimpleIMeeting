@@ -35,7 +35,7 @@
     if (self) {
         // Initialization code
         // set more menu as right bar button item
-        self.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"more menu bar button item title", nil) image:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(moreMenuBarBtnItemClicked)];
+        self.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"img_moremenu_barbuttonitem"] bgImage:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(moreMenuBarBtnItemClicked)];
         
         // get UIScreen bounds
         CGRect _screenBounds = [[UIScreen mainScreen] bounds];
@@ -128,7 +128,7 @@
         case MyTalkingGroups:
             // check my talking groups bar button item
             if (nil == _mMyTalkingGroupsBarBtnItem) {
-                _mMyTalkingGroupsBarBtnItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"my talking group list left bar button item title", nil) image:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(switchContentView)];
+                _mMyTalkingGroupsBarBtnItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"my talking group list left bar button item title", nil) bgImage:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(switchContentView)];
             }
             
             _leftBarBtnItem = _mMyTalkingGroupsBarBtnItem;
@@ -138,7 +138,7 @@
         default:
             // check contacts select bar button item
             if (nil == _mContactsSelectBarBtnItem) {
-                _mContactsSelectBarBtnItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"contacts select left bar button item title", nil) image:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(switchContentView)];
+                _mContactsSelectBarBtnItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"contacts select left bar button item title", nil) bgImage:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(switchContentView)];
             }
             
             _leftBarBtnItem = _mContactsSelectBarBtnItem;

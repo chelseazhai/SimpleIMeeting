@@ -8,7 +8,6 @@
 
 // simple imeeting content container view
 "tap to generate new talking group title view title" = "Tap to gen new meeting";
-"more menu bar button item title" = "Menu";
 
 // contacts select content view
 "my talking group list left bar button item title" = "AB contacts";
