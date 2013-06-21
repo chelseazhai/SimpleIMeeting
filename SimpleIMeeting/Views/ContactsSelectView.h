@@ -12,8 +12,11 @@
 @class SelectedContactsView;
 
 @interface ContactsSelectView : UIView {
+    // ready for adding selected contact for inviting to the new talking group
+    BOOL _mReady4AddingSelectedContact4Inviting;
+    
     // present subviews
-    // subview addressbook contacts view
+    // subview addressbook contact list view
     ContactListView *_mABContactListView;
     // subview selected contacts view
     SelectedContactsView *_mSelectedContactsView;

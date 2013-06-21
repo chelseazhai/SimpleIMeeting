@@ -15,8 +15,9 @@
 
 // simple imeeting content view mode
 typedef NS_ENUM(NSInteger, SIMContentViewMode) {
-    AddressBookContacts,
-    MyTalkingGroups
+    // adress book contacts and my talking groups
+    ADDRESSBOOKCONTACTS,
+    MYTALKINGGROUPS
 };
 
 
@@ -30,9 +31,8 @@ typedef NS_ENUM(NSInteger, SIMContentViewMode) {
     UIBarButtonItem *_mMyTalkingGroupsBarBtnItem;
     UIBarButtonItem *_mContactsSelectBarBtnItem;
     
-    // content view type and content view
+    // content view type
     SIMContentViewMode _mContentViewType;
-    UIView *_mContentView;
     
     // content present subviews
     // subview contacts select view

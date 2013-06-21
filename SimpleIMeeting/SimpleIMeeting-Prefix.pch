@@ -11,4 +11,9 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+    // contacts select view or my talking groups and its attendees view subview weight and total weight
+#define LEFTSEPARATESUBVIEW_WEIGHT  2
+#define RIGHTSEPARATESUBVIEW_WEIGHT 1
+#define TOTAL_WEIGHT    3.0
 #endif

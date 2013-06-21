@@ -12,6 +12,10 @@
 
 @interface ContactListView : UIView <UITableViewDataSource, UITableViewDelegate, AddressBookChangedDelegate> {
     // present subviews
+    // subview contact operate view
+    // contact search text field
+    UITextField *_mContactSearchTextField;
+    
     // subview contact list table view
     UITableView *_mABContactListTableView;
 }

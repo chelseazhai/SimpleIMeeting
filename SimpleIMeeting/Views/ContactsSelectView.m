@@ -13,6 +13,13 @@
 #import "ContactListView.h"
 #import "SelectedContactsView.h"
 
+@interface ContactsSelectView ()
+
+// generate contact list view draw rectangle
+- (CGRect)genContactListViewDrawRect;
+
+@end
+
 @implementation ContactsSelectView
 
 - (id)initWithFrame:(CGRect)frame
@@ -22,12 +29,17 @@
         // Initialization code
         // create and init subviews
         // init addressbook contact list view
-        _mABContactListView = [[ContactListView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
-        // init selected contacts view
-        _mSelectedContactsView = [[SelectedContactsView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + _mABContactListView.bounds.size.width, self.bounds.origin.y, FILL_PARENT / 3.0, FILL_PARENT)];
+        _mABContactListView = [[ContactListView alloc] initWithFrame:[self genContactListViewDrawRect]];
         
-        // add addressBook contact list view as subview
+        // init selected contacts view
+        _mSelectedContactsView = [[SelectedContactsView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + FILL_PARENT * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), self.bounds.origin.y, FILL_PARENT * (RIGHTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), FILL_PARENT)];
+        
+        // hidden first
+        _mSelectedContactsView.hidden = YES;
+        
+        // add addressBook contact list view and selected contacts view as subviews of contacts select view
         [self addSubview:_mABContactListView];
+        [self addSubview:_mSelectedContactsView];
     }
     return self;
 }
@@ -40,5 +52,20 @@
     // Drawing code
 }
 */
+
+// inner extension
+- (CGRect)genContactListViewDrawRect{
+    CGRect _contactListViewDrawRectangle = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, 0.0, FILL_PARENT);
+    
+    // check is ready for adding selected contact for inviting to the new talking group and update contact list view draw rectangle width
+    if (_mReady4AddingSelectedContact4Inviting) {
+        _contactListViewDrawRectangle.size.width = FILL_PARENT * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT);
+    }
+    else {
+        _contactListViewDrawRectangle.size.width = FILL_PARENT;
+    }
+    
+    return _contactListViewDrawRectangle;
+}
 
 @end

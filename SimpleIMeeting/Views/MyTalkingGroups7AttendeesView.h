@@ -12,6 +12,9 @@
 @class SelectedTalkingGroupAttendeeListView;
 
 @interface MyTalkingGroups7AttendeesView : UIView {
+    // selcted talking group index
+    NSNumber *_mSelectedTalkingGroupIndex;
+    
     // present subviews
     // subview my talking groups view
     MyTalkingGroupListView *_mMyTalkingGroupsView;

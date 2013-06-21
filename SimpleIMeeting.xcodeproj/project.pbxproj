@@ -27,7 +27,6 @@
 		DC756B611752EADB00F287FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756B601752EADB00F287FA /* main.m */; };
 		DC756B651752EADB00F287FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756B641752EADB00F287FA /* AppDelegate.m */; };
 		DC756B7E1752ECE300F287FA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC756B7A1752ECE300F287FA /* InfoPlist.strings */; };
-		DC756B7F1752ECE300F287FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC756B7C1752ECE300F287FA /* Localizable.strings */; };
 		DC756BAE1752F09300F287FA /* CommonToolkitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DC756B9E1752F09300F287FA /* CommonToolkitBundle.bundle */; };
 		DC756BAF1752F09300F287FA /* Pinyin4jBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DC756B9F1752F09300F287FA /* Pinyin4jBundle.bundle */; };
 		DC756BB21752F09300F287FA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC756BAB1752F09300F287FA /* Default-568h@2x.png */; };
@@ -48,6 +47,10 @@
 		DC756BE1175358DC00F287FA /* ContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE0175358DC00F287FA /* ContactListView.m */; };
 		DC756BE41753590900F287FA /* SelectedContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE31753590900F287FA /* SelectedContactsView.m */; };
 		DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */; };
+		DC80B06517741912009BA163 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06417741912009BA163 /* AddressBookUI.framework */; };
+		DC80B06717741918009BA163 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06617741918009BA163 /* libsqlite3.dylib */; };
+		DC80B06B17741969009BA163 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC80B06917741969009BA163 /* Localizable.strings */; };
+		DC80B06F17741B03009BA163 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06E17741B02009BA163 /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,11 +80,8 @@
 		DC756B631752EADB00F287FA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DC756B641752EADB00F287FA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DC756B7B1752ECE300F287FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/Internationalization/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DC756B7D1752ECE300F287FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/Internationalization/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC756B801752ECEB00F287FA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Resources/Internationalization/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		DC756B811752ECEB00F287FA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Resources/Internationalization/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DC756B821752ECF300F287FA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Resources/Internationalization/zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		DC756B831752ECF300F287FA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Resources/Internationalization/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DC756B9E1752F09300F287FA /* CommonToolkitBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CommonToolkitBundle.bundle; sourceTree = "<group>"; };
 		DC756B9F1752F09300F287FA /* Pinyin4jBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Pinyin4jBundle.bundle; sourceTree = "<group>"; };
 		DC756BAB1752F09300F287FA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -109,6 +109,12 @@
 		DC756BE31753590900F287FA /* SelectedContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedContactsView.m; path = Views/SelectedContactsView.m; sourceTree = "<group>"; };
 		DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleIMeetingTableViewTipView.h; sourceTree = "<group>"; };
 		DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleIMeetingTableViewTipView.m; sourceTree = "<group>"; };
+		DC80B06417741912009BA163 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		DC80B06617741918009BA163 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		DC80B06A17741969009BA163 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Internationalization/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DC80B06C17741971009BA163 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Internationalization/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DC80B06D17741977009BA163 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Internationalization/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DC80B06E17741B02009BA163 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +122,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC80B06F17741B03009BA163 /* AudioToolbox.framework in Frameworks */,
+				DC80B06717741918009BA163 /* libsqlite3.dylib in Frameworks */,
+				DC80B06517741912009BA163 /* AddressBookUI.framework in Frameworks */,
 				DC756BC91752F3C500F287FA /* CommonToolkit.framework in Frameworks */,
 				DC756BC71752F3BD00F287FA /* AddressBook.framework in Frameworks */,
 				DC756BC51752F3B700F287FA /* CoreText.framework in Frameworks */,
@@ -172,8 +181,11 @@
 			isa = PBXGroup;
 			children = (
 				DC756BC21752F3A300F287FA /* libicucore.dylib */,
+				DC80B06617741918009BA163 /* libsqlite3.dylib */,
 				DC756BC01752F39B00F287FA /* libz.dylib */,
 				DC756BC61752F3BD00F287FA /* AddressBook.framework */,
+				DC80B06417741912009BA163 /* AddressBookUI.framework */,
+				DC80B06E17741B02009BA163 /* AudioToolbox.framework */,
 				DC756BBA1752F36F00F287FA /* CFNetwork.framework */,
 				DC756BC81752F3C500F287FA /* CommonToolkit.framework */,
 				DC756B581752EADB00F287FA /* CoreGraphics.framework */,
@@ -203,7 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				DC756B7A1752ECE300F287FA /* InfoPlist.strings */,
-				DC756B7C1752ECE300F287FA /* Localizable.strings */,
 				DC756B601752EADB00F287FA /* main.m */,
 				DC756B5C1752EADB00F287FA /* SimpleIMeeting-Info.plist */,
 				DC756B621752EADB00F287FA /* SimpleIMeeting-Prefix.pch */,
@@ -217,6 +228,7 @@
 				DC756B9D1752F09300F287FA /* Bundles */,
 				DC756BA01752F09300F287FA /* Icons */,
 				DC756BA11752F09300F287FA /* Images */,
+				DC80B06817741933009BA163 /* Internationalization */,
 				DC756BAA1752F09300F287FA /* Splashes */,
 			);
 			path = Resources;
@@ -370,6 +382,14 @@
 			path = CustomComponents;
 			sourceTree = "<group>";
 		};
+		DC80B06817741933009BA163 /* Internationalization */ = {
+			isa = PBXGroup;
+			children = (
+				DC80B06917741969009BA163 /* Localizable.strings */,
+			);
+			name = Internationalization;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -424,7 +444,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC756B7E1752ECE300F287FA /* InfoPlist.strings in Resources */,
-				DC756B7F1752ECE300F287FA /* Localizable.strings in Resources */,
 				DC756BAE1752F09300F287FA /* CommonToolkitBundle.bundle in Resources */,
 				DC756BAF1752F09300F287FA /* Pinyin4jBundle.bundle in Resources */,
 				DC756BB21752F09300F287FA /* Default-568h@2x.png in Resources */,
@@ -442,6 +461,7 @@
 				DC5CE9D2175497630016835B /* img_right_barbtnitem_bg.png in Resources */,
 				DC5ED29717583893002B5B81 /* img_moremenu_barbuttonitem.png in Resources */,
 				DC5ED29817583893002B5B81 /* img_moremenu_barbuttonitem@2x.png in Resources */,
+				DC80B06B17741969009BA163 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,12 +499,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		DC756B7C1752ECE300F287FA /* Localizable.strings */ = {
+		DC80B06917741969009BA163 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC756B7D1752ECE300F287FA /* en */,
-				DC756B811752ECEB00F287FA /* zh-Hans */,
-				DC756B831752ECF300F287FA /* zh-Hant */,
+				DC80B06A17741969009BA163 /* en */,
+				DC80B06C17741971009BA163 /* zh-Hans */,
+				DC80B06D17741977009BA163 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

@@ -11,10 +11,13 @@
 #import "ContactsSelectView.h"
 #import "MyTalkingGroups7AttendeesView.h"
 
+// tap to generate new talking group title view width
+#define TAP2GENNEWTALKINGGROUPTITLEVIEW_WIDTH   100.0
+
 @interface SimpleIMeetingContentContainerView ()
 
-// set navigation title and left bar button item
-- (void)setNavigationTitle7LeftBarButtonItem;
+// set navigation title and left bar button item with content view type
+- (void)setNavigationTitle7LeftBarButtonItem:(SIMContentViewMode)contentViewType;
 
 // more menu bar button item action selector
 - (void)moreMenuBarBtnItemClicked;
@@ -22,8 +25,8 @@
 // switch content view
 - (void)switchContentView;
 
-// set one subview as content view
-- (void)setContentViewWithMode:(SIMContentViewMode)contentViewType;
+// set contacts select or my talking groups and its attednees subview as content view
+- (void)setContentView:(SIMContentViewMode)contentViewType;
 
 @end
 
@@ -34,24 +37,25 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        // set navigation title and left bar button item with default contacts select as content view
+        [self setNavigationTitle7LeftBarButtonItem:_mContentViewType = ADDRESSBOOKCONTACTS];
+        
         // set more menu as right bar button item
         self.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"img_moremenu_barbuttonitem"] bgImage:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(moreMenuBarBtnItemClicked)];
         
-        // get UIScreen bounds
-        CGRect _screenBounds = [[UIScreen mainScreen] bounds];
-        
-        // update contacts select container view frame
-        self.frame = CGRectMake(_screenBounds.origin.x, _screenBounds.origin.y, _screenBounds.size.width, _screenBounds.size.height - /*statusBar height*/[DisplayScreenUtils statusBarHeight] - /*navigationBar default height*/[DisplayScreenUtils navigationBarHeight]);
-        
         // create and init subviews and switch one as content view
+        // init contacts select content view
         _mContactsSelectContentView = [[ContactsSelectView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
+        
+        // init my talking groups and selected talking group attendees content view
         _mMyTalkingGroups7AttendeesContentView = [[MyTalkingGroups7AttendeesView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
         
         // set content view, contacts select as default
-        [self setContentViewWithMode:_mContentViewType = AddressBookContacts];
+        [self setContentView:_mContentViewType];
         
-        // set navigation title and left bar button item
-        [self setNavigationTitle7LeftBarButtonItem];
+        // add contacts select and my talking groups and selected talking group attendees content view as subviews of simple imeeting content container view
+        [self addSubview:_mContactsSelectContentView];
+        [self addSubview:_mMyTalkingGroups7AttendeesContentView];
     }
     return self;
 }
@@ -74,7 +78,7 @@
     // check tap to generate new talking group title view
     if (nil == _mTap2GenNewTalkingGroupTitleView) {
         // create and init tap to generate new talking group title view
-        _mTap2GenNewTalkingGroupTitleView = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, [DisplayScreenUtils navigationBarHeight])];
+        _mTap2GenNewTalkingGroupTitleView = [[UILabel alloc] initWithFrame:CGRectMake(CGPointZero.x, CGPointZero.y, TAP2GENNEWTALKINGGROUPTITLEVIEW_WIDTH, [DisplayScreenUtils navigationBarHeight])];
         
         // set its attributes
         _mTap2GenNewTalkingGroupTitleView.text = NSLocalizedString(@"tap to generate new talking group title view title", nil);
@@ -111,12 +115,12 @@
     if (_mTap2GenNewTalkingGroupTitleView == pView) {
         NSLog(@"Tap to generate new talking group");
         
-        // ??
+        //
     }
 }
 
 // inner extension
-- (void)setNavigationTitle7LeftBarButtonItem{
+- (void)setNavigationTitle7LeftBarButtonItem:(SIMContentViewMode)contentViewType{
     // set title
     self.titleView = self.tap2GenNewTalkingGroupTitleView;
     
@@ -124,8 +128,8 @@
     UIBarButtonItem *_leftBarBtnItem;
     
     // check content view type and set left bar button item
-    switch (_mContentViewType) {
-        case MyTalkingGroups:
+    switch (contentViewType) {
+        case MYTALKINGGROUPS:
             // check my talking groups bar button item
             if (nil == _mMyTalkingGroupsBarBtnItem) {
                 _mMyTalkingGroupsBarBtnItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"my talking group list left bar button item title", nil) bgImage:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(switchContentView)];
@@ -134,7 +138,7 @@
             _leftBarBtnItem = _mMyTalkingGroupsBarBtnItem;
             break;
             
-        case AddressBookContacts:
+        case ADDRESSBOOKCONTACTS:
         default:
             // check contacts select bar button item
             if (nil == _mContactsSelectBarBtnItem) {
@@ -153,51 +157,55 @@
     // show more menu as popup menu
     NSLog(@"Show more menu as popup menu");
     
-    // ??
+    //
 }
 
 - (void)switchContentView{
     // set content view
     switch (_mContentViewType) {
-        case MyTalkingGroups:
-            // set content view
-            [self setContentViewWithMode:(AddressBookContacts)];
+        case MYTALKINGGROUPS:
+            // switch to contacts select view
+            [self setContentView:ADDRESSBOOKCONTACTS];
             break;
             
-        case AddressBookContacts:
+        case ADDRESSBOOKCONTACTS:
         default:
-            // set content view
-            [self setContentViewWithMode:(MyTalkingGroups)];
+            // switch to my talking groups and its attendees view
+            [self setContentView:MYTALKINGGROUPS];
             break;
     }
     
-    // set navigation title and left bar button item
-    [self setNavigationTitle7LeftBarButtonItem];
+    // update navigation title and left bar button item
+    [self setNavigationTitle7LeftBarButtonItem:_mContentViewType];
 }
 
-- (void)setContentViewWithMode:(SIMContentViewMode)contentViewType{
-    // save content view type
+- (void)setContentView:(SIMContentViewMode)contentViewType{
+    // save content view tpye
     _mContentViewType = contentViewType;
-    
-    // get, check and remove old content view first
-    if (nil != _mContentView) {
-        [_mContentView removeFromSuperview];
-    }
     
     // check content view type
     switch (contentViewType) {
-        case MyTalkingGroups:
-            _mContentView = _mMyTalkingGroups7AttendeesContentView;
+        case MYTALKINGGROUPS:
+            // show my talking groups and its attendees view and hide contacts select view
+            if ([_mMyTalkingGroups7AttendeesContentView isHidden]) {
+                _mMyTalkingGroups7AttendeesContentView.hidden = NO;
+            }
+            if (![_mContactsSelectContentView isHidden]) {
+                _mContactsSelectContentView.hidden = YES;
+            }
             break;
             
-        case AddressBookContacts:
+        case ADDRESSBOOKCONTACTS:
         default:
-            _mContentView = _mContactsSelectContentView;
+            // show contacts select view and hide my talking groups and its attendees view
+            if ([_mContactsSelectContentView isHidden]) {
+                _mContactsSelectContentView.hidden = NO;
+            }
+            if (![_mMyTalkingGroups7AttendeesContentView isHidden]) {
+                _mMyTalkingGroups7AttendeesContentView.hidden = YES;
+            }
             break;
     }
-    
-    // add content view as subview
-    [self addSubview:_mContentView];
 }
 
 @end

@@ -13,15 +13,25 @@
 #import "ContactBean.h"
 #import "ContactBean_Extension.h"
 #import "AddressBookManager.h"
+#import "AddressBookUIUtils.h"
 
 #import "CommonUtils.h"
 
-#import "HttpUtil.h"
-#import "HttpUtil+Signature.h"
+#import "HttpUtils.h"
+#import "HttpUtils+Signature.h"
 
 #import "PinyinUtils.h"
 
 #import "DisplayScreenUtils.h"
+
+#import "DeviceUtils.h"
+
+#import "AudioServicesUtils.h"
+
+#import "DataStorageUtils.h"
+
+// C&C++Extension
+#import "C&CPP+Extension.h"
 
 // FoundationExtension
 #import "NSArray+Extension.h"
@@ -30,7 +40,11 @@
 #import "NSBundle+Extension.h"
 #import "NSDate+Extension.h"
 #import "NSNumber+Extension.h"
+#import "NSValue+Extension.h"
 #import "NSAttributedString+Extension.h"
+#import "NSMutableString+Extension.h"
+
+#import "NSStack.h"
 
 // DataStruct
 #import "UserBean.h"
@@ -60,6 +74,13 @@
 #import "MBProgressHUD.h"
 
 #import "RegexKitLite.h"
+
+#import "FMDatabase.h"
+#import "FMResultSet.h"
+#import "FMDatabase+InMemoryOnDiskIO.h"
+#import "FMDatabaseAdditions.h"
+#import "FMDatabasePool.h"
+#import "FMDatabaseQueue.h"
 
 // UIExtension
 #import "AppRootViewController.h"
