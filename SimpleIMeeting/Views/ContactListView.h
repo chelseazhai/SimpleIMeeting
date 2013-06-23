@@ -10,7 +10,16 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
-@interface ContactListView : UIView <UITableViewDataSource, UITableViewDelegate, AddressBookChangedDelegate> {
+@interface ContactListView : UIView <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, AddressBookChangedDelegate> {
+    // all contacts info array in addressBook reference
+    NSMutableArray *_mAllContactsInfoArrayInABRef;
+    
+    // present contacts info array reference
+    NSMutableArray *_mPresentContactsInfoArrayRef;
+    
+    // selected address book contact cell index
+    NSInteger _mSelectedABContactCellIndex;
+    
     // present subviews
     // subview contact operate view
     // contact search text field
@@ -19,5 +28,9 @@
     // subview contact list table view
     UITableView *_mABContactListTableView;
 }
+
+@property (nonatomic, readonly) NSMutableArray *allContactsInfoArrayInABRef;
+
+@property (nonatomic, retain) NSMutableArray *presentContactsInfoArrayRef;
 
 @end

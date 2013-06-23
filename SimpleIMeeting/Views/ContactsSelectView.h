@@ -22,4 +22,16 @@
     SelectedContactsView *_mSelectedContactsView;
 }
 
+@property (nonatomic, retain) NSArray *inTalkingGroupAttendeesPhoneArray;
+
+@property (nonatomic, readonly) NSMutableArray *preinTalkingGroupContactsInfoArray;
+
+//
+
+// remove contact from selected contact table view prein talking group secton
+- (void)removeContactFromPreinTalkingGroupSection:(NSInteger)index;
+
+// cancel or finish contacts selecting
+- (void)cancel6finishContactsSelecting;
+
 @end

@@ -10,16 +10,58 @@
 
 #import "SimpleIMeetingTableViewTipView.h"
 
+#import "ABContactListTableViewCell.h"
+
+#import "ContactsSelectView.h"
+
+#import "ContactBean+SimpleIMeeting.h"
+
 // contact operate view height
 #define CONTACTOPERATEVIEW_HEIGHT   38.0
 
+// contact operate view margin and padding
+#define CONTACTOPERATEVIEW_MATGIN7PADDING   4.0
+
+// search image view width, height and right margin
+#define SEARCHIMAGEVIEW_WIDTH7HEIGHT    24.0
+#define SEARCHIMAGEVIEW_MARGINRIGHT 4.0
+
+// add temp added contact button width
+#define ADDTEMPADDEDCONTACTBUTTON_WIDTH 38.0
+
+// phonetics indication string
+#define PHONETICSINDIACATION_STRING  @"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
+
+@interface ContactListView ()
+
+// contact search user input text field text did changed
+- (void)contactSearchTextDidChanged;
+
+// add temp added contact button on clicked
+- (void)addTempAddedContactButtonOnClicked;
+
+// add the selected contact with the selected phone number to selected contacts table view prein talking group section
+- (void)addSelectedContact2PreinTalkingGroupSection:(ContactBean *)selectedContact andSelectedPhone:(NSString *)selectedPhoneNumber;
+
+// selected contact phone numbers select action sheet button clicked event selector
+- (void)selectedContactPhonesSelectActionSheet:(UIActionSheet *)pActionSheet clickedButtonAtIndex:(NSInteger)pButtonIndex;
+
+@end
+
 @implementation ContactListView
+
+@synthesize allContactsInfoArrayInABRef = _mAllContactsInfoArrayInABRef;
+
+@synthesize presentContactsInfoArrayRef = _mPresentContactsInfoArrayRef;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        // set background image
+        self.backgroundImg = [UIImage compatibleImageNamed:@"img_contactlistview_bg"];
+        
         // create and init subviews
         // init contact list head tip view
         SimpleIMeetingTableViewTipView *_contactListHeadTipView = [[SimpleIMeetingTableViewTipView alloc] initWithTipViewMode:LeftAlign_TipView andParentView:self];
@@ -27,35 +69,78 @@
         // set contact list head tip view text
         [_contactListHeadTipView setTipViewText:NSLocalizedString(@"contacts select contact list head tip view text", nil)];
         
-        // define contacts container view
-        UIView *_contactsContainerView;
-        
-        // init contacts container view
-        _contactsContainerView = [_contactsContainerView = [UIView alloc] initWithFrame:CGRectMakeWithFormat(_contactsContainerView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + _contactListHeadTipView.height], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_contactListHeadTipView.height] cStringUsingEncoding:NSUTF8StringEncoding]])];
-        
-        // set contacts container view background image
-        _contactsContainerView.backgroundImg = nil;
-        
         // init contact operate view
-        UIView *_contactOperateView = [[UIView alloc] initWithFrame:CGRectMake(_contactsContainerView.bounds.origin.x, _contactsContainerView.bounds.origin.y, FILL_PARENT, CONTACTOPERATEVIEW_HEIGHT)];
+        UIView *_contactOperateView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + _contactListHeadTipView.height, FILL_PARENT, CONTACTOPERATEVIEW_HEIGHT)];
         
-        // set contact operate view background color
-        _contactOperateView.backgroundColor = [UIColor clearColor];
+        // init contact search text field
+        _mContactSearchTextField = [_mContactSearchTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mContactSearchTextField, [NSNumber numberWithFloat:_contactOperateView.bounds.origin.x + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSNumber numberWithFloat:_contactOperateView.bounds.origin.y + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)ADDTEMPADDEDCONTACTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        
+        // set contact search text field border style, content vertical alignment, return key, clear button, keyboard type and placeholder
+        _mContactSearchTextField.borderStyle = UITextBorderStyleRoundedRect;
+        _mContactSearchTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        _mContactSearchTextField.returnKeyType = UIReturnKeySearch;
+        _mContactSearchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _mContactSearchTextField.keyboardType = UIKeyboardTypeASCIICapable;
+        _mContactSearchTextField.placeholder = NSLocalizedString(@"", nil);
+        
+        // define search image view as contact search text field left view and show always
+        UIImageView *_searchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_contactsearchtextfield_search"]];
+        
+        // set its frame
+        [_searchImageView setFrame:CGRectMake(CGPointZero.x, CGPointZero.y, SEARCHIMAGEVIEW_WIDTH7HEIGHT + SEARCHIMAGEVIEW_MARGINRIGHT, SEARCHIMAGEVIEW_WIDTH7HEIGHT)];
+        
+        // set content mode
+        _searchImageView.contentMode = UIViewContentModeLeft;
+        
+        // set as contact search text field left view and show always
+        _mContactSearchTextField.leftView = _searchImageView;
+        _mContactSearchTextField.leftViewMode = UITextFieldViewModeAlways;
+        
+        // set contact search text field delegate
+        _mContactSearchTextField.delegate = self;
+        
+        // add contact search text field text did changed notification
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contactSearchTextDidChanged) name:UITextFieldTextDidChangeNotification object:_mContactSearchTextField];
+        
+        // init add temp added contact button
+        UIButton *_addTempAddedContactButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        // set its frame
+        [_addTempAddedContactButton setFrame:CGRectMakeWithFormat(_addTempAddedContactButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)ADDTEMPADDEDCONTACTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_contactOperateView.bounds.origin.y + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTBUTTON_WIDTH], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        
+        // set background image for normal state
+        [_addTempAddedContactButton setBackgroundImage:[UIImage imageNamed:@"img_addtempaddedcontactbutton_bg"] forState:UIControlStateNormal];
+        
+        // add action selector and its response target for event
+        [_addTempAddedContactButton addTarget:self action:@selector(addTempAddedContactButtonOnClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        // add contact search text field and add temp added contact button as subviews of contact operate view
+        [_contactOperateView addSubview:_mContactSearchTextField];
+        [_contactOperateView addSubview:_addTempAddedContactButton];
         
         // init addressbook contact list table view
-        _mABContactListTableView = [_mABContactListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mABContactListTableView, [NSNumber numberWithFloat:_contactsContainerView.bounds.origin.x], [NSNumber numberWithFloat:_contactsContainerView.bounds.origin.y + CONTACTOPERATEVIEW_HEIGHT], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)_contactsContainerView.bounds.origin.y, (int)CONTACTOPERATEVIEW_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        _mABContactListTableView = [_mABContactListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mABContactListTableView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + _contactListHeadTipView.height + CONTACTOPERATEVIEW_HEIGHT], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-%d", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_contactListHeadTipView.height, (int)CONTACTOPERATEVIEW_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        
+        // set its background color
+        _mABContactListTableView.backgroundColor = [UIColor clearColor];
+        
+        // set separator style UITableViewCellSeparatorStyleNone
+        //_mABContactListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         // set contact list table view dataSource and delegate
         _mABContactListTableView.dataSource = self;
         _mABContactListTableView.delegate = self;
         
-        // add contact operate view and contact list table view as subviews of contacts container view
-        [_contactsContainerView addSubview:_contactOperateView];
-        [_contactsContainerView addSubview:_mABContactListTableView];
+        // get all contacts info array from addressBook
+        _mAllContactsInfoArrayInABRef = _mPresentContactsInfoArrayRef = [[AddressBookManager shareAddressBookManager].allContactsInfoArray optPhoneticsSortedContactsInfoArray];
         
-        // add contact list head tip view and contacts container view as subviews of contact list view
+        // add addressBook changed observer
+        [[AddressBookManager shareAddressBookManager] addABChangedObserver:self];
+        
+        // add contact list head tip view, contact operate view and contact list table view as subviews of contact list view
         [self addSubview:_contactListHeadTipView];
-        [self addSubview:_contactsContainerView];
+        [self addSubview:_contactOperateView];
+        [self addSubview:_mABContactListTableView];
     }
     return self;
 }
@@ -71,35 +156,282 @@
 
 // UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    // Return the number of rows in the section.
+    return [_mPresentContactsInfoArrayRef count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentifier = @"AB Contact cell";
     
     // get contact list table view cell
-    UITableViewCell *_cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    ABContactListTableViewCell *_cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (nil == _cell) {
-        _cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        _cell = [[ABContactListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
     // Configure the cell...
-    _cell.textLabel.text = @"张山";
+    // get contact bean
+    ContactBean *_contactBean = [_mPresentContactsInfoArrayRef objectAtIndex:indexPath.row];
+    
+    // set cell attributes
+    _cell.contactIsSelectedFlag = _contactBean.isSelected;
+    _cell.displayName = _contactBean.displayName;
+    _cell.fullNames = _contactBean.fullNames;
+    _cell.phoneNumbersArray = _contactBean.phoneNumbers;
+    _cell.phoneNumberMatchingIndexs = [_contactBean.extensionDic objectForKey:PHONENUMBER_MATCHING_INDEXS];
+    _cell.nameMatchingIndexs = [_contactBean.extensionDic objectForKey:NAME_MATCHING_INDEXS];
     
     return _cell;
 }
 
-// UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"contact list did select row at index path = %@", indexPath);
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
+    // define phonetics indication string array
+    NSMutableSet *_indices = [[NSMutableSet alloc] init];
     
-    //
+    // process present contacts info array
+    for (ContactBean *_contact in _mPresentContactsInfoArrayRef) {
+        // contact has name
+        if ([_contact.namePhonetics count] > 0) {
+            [_indices addObject:[[[[_contact.namePhonetics objectAtIndex:0] objectAtIndex:0] substringToIndex:1] uppercaseString]];
+        }
+        // contact has no name
+        else {
+            [_indices addObject:[PHONETICSINDIACATION_STRING substringFromIndex:[PHONETICSINDIACATION_STRING length] - 1]];
+        }
+    }
+    
+    return [[_indices allObjects] sortedArrayUsingComparator:^(NSString *_string1, NSString *_string2){
+        NSComparisonResult _stringComparisonResult = NSOrderedSame;
+        
+        // compare
+        if ([_string1 isEqualToString:[PHONETICSINDIACATION_STRING substringFromIndex:[PHONETICSINDIACATION_STRING length] - 1]]) {
+            _stringComparisonResult = NSOrderedDescending;
+        }
+        else if ([_string2 isEqualToString:[PHONETICSINDIACATION_STRING substringFromIndex:[PHONETICSINDIACATION_STRING length] - 1]]) {
+            _stringComparisonResult = NSOrderedAscending;
+        }
+        else {
+            _stringComparisonResult = [_string1 compare:_string2];
+        }
+        
+        return _stringComparisonResult;
+    }];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
+    // process procent contacts info array
+    for (NSInteger _index = 0; _index < [_mPresentContactsInfoArrayRef count]; _index++) {
+        // 26 chars, 'ABCD...XYZ'
+        if (![[title lowercaseString] isEqualToString:[PHONETICSINDIACATION_STRING substringFromIndex:[PHONETICSINDIACATION_STRING length] - 1]]) {
+            // contact has name
+            if ([((ContactBean *)[_mPresentContactsInfoArrayRef objectAtIndex:_index]).namePhonetics count] > 0) {
+                // get the matching contacts header
+                if ([[[[((ContactBean *)[_mPresentContactsInfoArrayRef objectAtIndex:_index]).namePhonetics objectAtIndex:0] objectAtIndex:0] substringToIndex:1] compare:[title lowercaseString]] >= NSOrderedSame) {
+                    // scroll to row at indexPath
+                    [_mABContactListTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                    
+                    break;
+                }
+            }
+            // contact has no name
+            else {
+                // scroll to row at indexPath
+                [_mABContactListTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                
+                break;
+            }
+        }
+        // '#'
+        else {
+            // contact has no name
+            if ([((ContactBean *)[_mPresentContactsInfoArrayRef objectAtIndex:_index]).namePhonetics count] == 0) {
+                // scroll to row at indexPath
+                [_mABContactListTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                
+                break;
+            }
+        }
+    }
+    
+    // default value
+    return -1;
+}
+
+// UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    // Return the height for row at indexPath.
+    return [ABContactListTableViewCell cellHeightWithContact:[_mPresentContactsInfoArrayRef objectAtIndex:indexPath.row]];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    // save selected cell index
+    _mSelectedABContactCellIndex = indexPath.row;
+    
+    // get the selected contact contactBean
+    ContactBean *_selectedContactBean = [_mPresentContactsInfoArrayRef objectAtIndex:indexPath.row];
+    
+    // get parent view: contacts select view
+    ContactsSelectView *_contactsSelectView = (ContactsSelectView *)self.superview;
+    
+    // check the selected contact if or not existed in prein talking group contacts info array which are in selected contacts table view prein talking group section
+    if ([_contactsSelectView.preinTalkingGroupContactsInfoArray containsObject:_selectedContactBean]) {
+        // the selected contact existed in prein talking group contacts info array which are in selected contacts table view prein talking group section, remove it
+        for (NSInteger _index = 0; _index < [_contactsSelectView.preinTalkingGroupContactsInfoArray count]; _index++) {
+            // compare contact id in present contacts info array with each contact which in prein talking group contacts info array
+            if (((ContactBean *)[_contactsSelectView.preinTalkingGroupContactsInfoArray objectAtIndex:_index]).id == _selectedContactBean.id) {
+                // remove the selected contact from selected contacts table view prein talking group section
+//                [(ContactsSelectContainerView *)self.contactsSelectView removeSelectedContactFromMeetingWithIndexPath:[NSIndexPath indexPathForRow:_index inSection:1]];
+                
+                break;
+            }
+        }
+    }
+    else {
+        // check selected contact phone number array
+        if (!_selectedContactBean.phoneNumbers || 0 == [_selectedContactBean.phoneNumbers count]) {
+            // show contact has no phone number alertView
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"contact has no phone number alertView title", nil) message:_selectedContactBean.displayName delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"contact has no phone number alertView reselect button title", nil), nil] show];
+        }
+        else if (1 == [_selectedContactBean.phoneNumbers count]) {
+            // add the selected contact with his phone number to selected contacts table view prein talking group section
+            [self addSelectedContact2PreinTalkingGroupSection:_selectedContactBean andSelectedPhone:[_selectedContactBean.phoneNumbers objectAtIndex:0]];
+        }
+        else {
+            // init the selected contact phones select action sheet and show it
+            UIActionSheet *_selectedContactPhonesSelectActionSheet = [[UIActionSheet alloc] initWithContent:_selectedContactBean.phoneNumbers andTitleFormat:NSLocalizedString(@"contact phone numbers select actionSheet title format", nil), _selectedContactBean.displayName];
+            
+            // set actionSheet processor and button clicked event selector
+            _selectedContactPhonesSelectActionSheet.processor = self;
+            _selectedContactPhonesSelectActionSheet.buttonClickedEventSelector = @selector(selectedContactPhonesSelectActionSheet:clickedButtonAtIndex:);
+            
+            // show the selected contact phones select action sheet
+            [_selectedContactPhonesSelectActionSheet showInView:tableView];
+        }
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    // dismiss soft input keyboard
+    [_mContactSearchTextField resignFirstResponder];
+}
+
+// UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    // dismiss soft input keyboard
+    [_mContactSearchTextField resignFirstResponder];
+    
+    return YES;
 }
 
 // AddressBookChangedDelegate
 - (void)addressBookChanged:(ABAddressBookRef)pAddressBook info:(NSDictionary *)pInfo observer:(id)pObserver{
+    NSLog(@"addressBookChanged");
+    
     //
+}
+
+// inner extension
+- (void)contactSearchTextDidChanged{
+    // get contact search text field user input text
+    NSString *_searchText = _mContactSearchTextField.text;
+    
+    // check search parameter, check if or not nil or empty string
+    if (nil == _searchText || [@"" isEqualToString:_searchText]) {
+        // reset contact matching index array
+        for (ContactBean *_contact in _mAllContactsInfoArrayInABRef) {
+            [_contact.extensionDic removeObjectForKey:PHONENUMBER_MATCHING_INDEXS];
+            [_contact.extensionDic removeObjectForKey:NAME_MATCHING_INDEXS];
+        }
+        
+        // show all contacts in addressBook
+        _mPresentContactsInfoArrayRef = _mAllContactsInfoArrayInABRef;
+    }
+    else {
+        // define temp array
+        NSArray *_tmpArray = nil;
+        
+        // check search parameter again, check if or not contains none numeric character
+        BOOL _isNumeric;
+        if ((_isNumeric = [_searchText isMatchedByRegex:@"^[0-9]+$"])) {
+            // search by phone number
+            _tmpArray = [[AddressBookManager shareAddressBookManager] getContactByPhoneNumber:_searchText];
+        }
+        else {
+            // search by name
+            _tmpArray = [[AddressBookManager shareAddressBookManager] getContactByName:_searchText];
+        }
+        
+        // define searched contacts array
+        NSMutableArray *_searchedContactsArray = [[NSMutableArray alloc] initWithCapacity:[_tmpArray count]];
+        
+        // compare seached contacts temp array contact with all contacts info array in addressBook contact
+        for (ContactBean *_searchedContact in _tmpArray) {
+            for (ContactBean *_contact in _mAllContactsInfoArrayInABRef) {
+                // if the two contacts id is equal, add it to searched contacts array
+                if (_contact.id == _searchedContact.id) {
+                    [_searchedContactsArray addObject:_searchedContact];
+                    
+                    // check the search text is numeric and reset searched contact matching index array
+                    if (_isNumeric) {
+                        // remove name matching indexs
+                        [_contact.extensionDic removeObjectForKey:NAME_MATCHING_INDEXS];
+                    }
+                    else {
+                        // remove phone number matching indexs
+                        [_contact.extensionDic removeObjectForKey:PHONENUMBER_MATCHING_INDEXS];
+                    }
+                    
+                    break;
+                }
+            }
+        }
+        
+        // set addressBook contact list view present contacts info array
+        _mPresentContactsInfoArrayRef = _searchedContactsArray;
+    }
+    
+    // reload addressBook contact list table view data
+    [_mABContactListTableView reloadData];
+}
+
+- (void)addTempAddedContactButtonOnClicked{
+    NSLog(@"addTempAddedContactButtonOnClicked");
+    
+    //
+}
+
+- (void)addSelectedContact2PreinTalkingGroupSection:(ContactBean *)selectedContact andSelectedPhone:(NSString *)selectedPhoneNumber{
+    // check the selected contact the selected phone number if or not existed in talking group phone array which are in selected contacts table view in talking group section
+    if (![((ContactsSelectView *)self.superview).inTalkingGroupAttendeesPhoneArray containsObject:selectedPhoneNumber]) {
+        // the selected contact the selected phone number not existed in talking group phone array which are in selected contacts table view in talking group section
+        // update selected address book contact list table view cell contact is selected flag
+        ((ABContactListTableViewCell *)[_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex inSection:0]]).contactIsSelectedFlag = YES;
+        
+        // get the selected contact contactBean
+        ContactBean *_selectedContactBean = [_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex];
+        
+        // set the selected contact selected flag image and phone number
+        _selectedContactBean.isSelected = YES;
+        _selectedContactBean.selectedPhoneNumber = selectedPhoneNumber;
+        
+        // add the selected contact to prein talking group contacts info array
+        [((ContactsSelectView *)self.superview).preinTalkingGroupContactsInfoArray addObject:_selectedContactBean];
+        
+//        // add the selected contact to selected contacts table view prein talking group section
+//        [_mMeetingContactsListView insertRowAtIndexPath:[NSIndexPath indexPathForRow:[_mMeetingContactsListView.preinMeetingContactsInfoArrayRef count] - 1 inSection:_mMeetingContactsListView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationLeft];
+    }
+    else {
+        NSLog(@"Error: the selected contact = %@ with the selected phone number = %@ had been in the conference, mustn't add twice", selectedContact, selectedPhoneNumber);
+        
+        // show toast
+        //
+    }
+}
+
+- (void)selectedContactPhonesSelectActionSheet:(UIActionSheet *)pActionSheet clickedButtonAtIndex:(NSInteger)pButtonIndex{
+    // add the selected contact with the selected phone number to selected contacts table view prein talking group section
+    [self addSelectedContact2PreinTalkingGroupSection:[_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex] andSelectedPhone:[pActionSheet buttonTitleAtIndex:pButtonIndex]];
 }
 
 @end

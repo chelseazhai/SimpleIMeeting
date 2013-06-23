@@ -14,6 +14,10 @@
 
 @implementation SelectedContactsView
 
+@synthesize inTalkingGroupAttendeesPhoneArray = _mInTalkingGroupAttendeesPhoneArray;
+
+@synthesize preinTalkingGroupContactsInfoArray = _mPreinTalkingGroupContactsInfoArray;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -50,8 +54,12 @@
 */
 
 // UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 16;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
