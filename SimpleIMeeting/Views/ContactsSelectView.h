@@ -26,10 +26,11 @@
 
 @property (nonatomic, readonly) NSMutableArray *preinTalkingGroupContactsInfoArray;
 
-//
+// add contact to selected contacts view
+- (void)addContact2SelectedContactsView;
 
-// remove contact from selected contact table view prein talking group secton
-- (void)removeContactFromPreinTalkingGroupSection:(NSInteger)index;
+// remove the selected contact from selected contacts view with index
+- (void)removeSelectedContactFromSelectedContactsView:(NSInteger)index;
 
 // cancel or finish contacts selecting
 - (void)cancel6finishContactsSelecting;

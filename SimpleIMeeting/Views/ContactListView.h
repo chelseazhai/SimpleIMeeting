@@ -29,8 +29,11 @@
     UITableView *_mABContactListTableView;
 }
 
-@property (nonatomic, readonly) NSMutableArray *allContactsInfoArrayInABRef;
+@property (nonatomic, readonly) NSArray *allContactsInfoArrayInABRef;
 
-@property (nonatomic, retain) NSMutableArray *presentContactsInfoArrayRef;
+@property (nonatomic, readonly) NSMutableArray *presentContactsInfoArrayRef;
+
+// recover the selected contact which is in present contacts info array cell is selected flag with index
+- (void)recoverSelectedContactCellIsSelectedFlag:(NSInteger)index;
 
 @end

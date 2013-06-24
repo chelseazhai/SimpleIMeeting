@@ -103,7 +103,7 @@
     // set contact is selected flag
     _mContactIsSelectedFlag = contactIsSelectedFlag;
     
-    // check contact if or be selected
+    // check contact if or not be selected
     if (contactIsSelectedFlag) {
         // set contact selected photo as selected flag photo image view image
         _mSelectedFlagPhotoImgView.image = CONTACT_SELECTED_PHOTO;

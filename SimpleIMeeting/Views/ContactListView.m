@@ -40,7 +40,7 @@
 // add temp added contact button on clicked
 - (void)addTempAddedContactButtonOnClicked;
 
-// add the selected contact with the selected phone number to selected contacts table view prein talking group section
+// add the selected contact with the selected phone number to in or prein talking group contacts table view prein talking group section
 - (void)addSelectedContact2PreinTalkingGroupSection:(ContactBean *)selectedContact andSelectedPhone:(NSString *)selectedPhoneNumber;
 
 // selected contact phone numbers select action sheet button clicked event selector
@@ -73,7 +73,7 @@
         UIView *_contactOperateView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + _contactListHeadTipView.height, FILL_PARENT, CONTACTOPERATEVIEW_HEIGHT)];
         
         // init contact search text field
-        _mContactSearchTextField = [_mContactSearchTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mContactSearchTextField, [NSNumber numberWithFloat:_contactOperateView.bounds.origin.x + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSNumber numberWithFloat:_contactOperateView.bounds.origin.y + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)ADDTEMPADDEDCONTACTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        _mContactSearchTextField = [_mContactSearchTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mContactSearchTextField, [NSNumber numberWithFloat:_contactOperateView.bounds.origin.x + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSNumber numberWithFloat:_contactOperateView.bounds.origin.y + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)ADDTEMPADDEDCONTACTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING] cStringUsingEncoding:NSUTF8StringEncoding]])];
         
         // set contact search text field border style, content vertical alignment, return key, clear button, keyboard type and placeholder
         _mContactSearchTextField.borderStyle = UITextBorderStyleRoundedRect;
@@ -106,7 +106,7 @@
         UIButton *_addTempAddedContactButton = [UIButton buttonWithType:UIButtonTypeCustom];
         
         // set its frame
-        [_addTempAddedContactButton setFrame:CGRectMakeWithFormat(_addTempAddedContactButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)ADDTEMPADDEDCONTACTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_contactOperateView.bounds.origin.y + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTBUTTON_WIDTH], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        [_addTempAddedContactButton setFrame:CGRectMakeWithFormat(_addTempAddedContactButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)ADDTEMPADDEDCONTACTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_contactOperateView.bounds.origin.y + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTBUTTON_WIDTH], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING] cStringUsingEncoding:NSUTF8StringEncoding]])];
         
         // set background image for normal state
         [_addTempAddedContactButton setBackgroundImage:[UIImage imageNamed:@"img_addtempaddedcontactbutton_bg"] forState:UIControlStateNormal];
@@ -127,12 +127,12 @@
         // set separator style UITableViewCellSeparatorStyleNone
         //_mABContactListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
+        // get all contacts info array from addressBook
+        _mAllContactsInfoArrayInABRef = _mPresentContactsInfoArrayRef = [[AddressBookManager shareAddressBookManager].allContactsInfoArray optPhoneticsSortedContactsInfoArray];
+        
         // set contact list table view dataSource and delegate
         _mABContactListTableView.dataSource = self;
         _mABContactListTableView.delegate = self;
-        
-        // get all contacts info array from addressBook
-        _mAllContactsInfoArrayInABRef = _mPresentContactsInfoArrayRef = [[AddressBookManager shareAddressBookManager].allContactsInfoArray optPhoneticsSortedContactsInfoArray];
         
         // add addressBook changed observer
         [[AddressBookManager shareAddressBookManager] addABChangedObserver:self];
@@ -153,6 +153,11 @@
     // Drawing code
 }
 */
+
+- (void)recoverSelectedContactCellIsSelectedFlag:(NSInteger)index{
+    // recover the cell contact is selected flag
+    ((ABContactListTableViewCell *)[_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]]).contactIsSelectedFlag = NO;
+}
 
 // UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -274,14 +279,14 @@
     // get parent view: contacts select view
     ContactsSelectView *_contactsSelectView = (ContactsSelectView *)self.superview;
     
-    // check the selected contact if or not existed in prein talking group contacts info array which are in selected contacts table view prein talking group section
+    // check the selected contact if or not existed in prein talking group contacts info array which are in in or prein talking group contacts table view prein talking group section
     if ([_contactsSelectView.preinTalkingGroupContactsInfoArray containsObject:_selectedContactBean]) {
-        // the selected contact existed in prein talking group contacts info array which are in selected contacts table view prein talking group section, remove it
+        // the selected contact existed in prein talking group contacts info array which are in in or prein talking group contacts table view prein talking group section, remove it
         for (NSInteger _index = 0; _index < [_contactsSelectView.preinTalkingGroupContactsInfoArray count]; _index++) {
             // compare contact id in present contacts info array with each contact which in prein talking group contacts info array
             if (((ContactBean *)[_contactsSelectView.preinTalkingGroupContactsInfoArray objectAtIndex:_index]).id == _selectedContactBean.id) {
-                // remove the selected contact from selected contacts table view prein talking group section
-//                [(ContactsSelectContainerView *)self.contactsSelectView removeSelectedContactFromMeetingWithIndexPath:[NSIndexPath indexPathForRow:_index inSection:1]];
+                // remove the selected contact from selected contacts view
+                [_contactsSelectView removeSelectedContactFromSelectedContactsView:_index];
                 
                 break;
             }
@@ -294,7 +299,7 @@
             [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"contact has no phone number alertView title", nil) message:_selectedContactBean.displayName delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"contact has no phone number alertView reselect button title", nil), nil] show];
         }
         else if (1 == [_selectedContactBean.phoneNumbers count]) {
-            // add the selected contact with his phone number to selected contacts table view prein talking group section
+            // add the selected contact with his phone number to in or prein talking group contacts table view prein talking group section
             [self addSelectedContact2PreinTalkingGroupSection:_selectedContactBean andSelectedPhone:[_selectedContactBean.phoneNumbers objectAtIndex:0]];
         }
         else {
@@ -402,9 +407,12 @@
 }
 
 - (void)addSelectedContact2PreinTalkingGroupSection:(ContactBean *)selectedContact andSelectedPhone:(NSString *)selectedPhoneNumber{
-    // check the selected contact the selected phone number if or not existed in talking group phone array which are in selected contacts table view in talking group section
-    if (![((ContactsSelectView *)self.superview).inTalkingGroupAttendeesPhoneArray containsObject:selectedPhoneNumber]) {
-        // the selected contact the selected phone number not existed in talking group phone array which are in selected contacts table view in talking group section
+    // get parent view: contacts select view
+    ContactsSelectView *_contactsSelectView = (ContactsSelectView *)self.superview;
+    
+    // check the selected contact the selected phone number if or not existed in talking group phone array which are in in or prein talking group contacts table view in talking group section
+    if (![_contactsSelectView.inTalkingGroupAttendeesPhoneArray containsObject:selectedPhoneNumber]) {
+        // the selected contact the selected phone number not existed in talking group phone array which are in in or prein talking group contacts table view in talking group section
         // update selected address book contact list table view cell contact is selected flag
         ((ABContactListTableViewCell *)[_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex inSection:0]]).contactIsSelectedFlag = YES;
         
@@ -416,10 +424,10 @@
         _selectedContactBean.selectedPhoneNumber = selectedPhoneNumber;
         
         // add the selected contact to prein talking group contacts info array
-        [((ContactsSelectView *)self.superview).preinTalkingGroupContactsInfoArray addObject:_selectedContactBean];
+        [_contactsSelectView.preinTalkingGroupContactsInfoArray addObject:_selectedContactBean];
         
-//        // add the selected contact to selected contacts table view prein talking group section
-//        [_mMeetingContactsListView insertRowAtIndexPath:[NSIndexPath indexPathForRow:[_mMeetingContactsListView.preinMeetingContactsInfoArrayRef count] - 1 inSection:_mMeetingContactsListView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationLeft];
+        // add the selected contact to selected contacts view
+        [_contactsSelectView addContact2SelectedContactsView];
     }
     else {
         NSLog(@"Error: the selected contact = %@ with the selected phone number = %@ had been in the conference, mustn't add twice", selectedContact, selectedPhoneNumber);
@@ -430,7 +438,7 @@
 }
 
 - (void)selectedContactPhonesSelectActionSheet:(UIActionSheet *)pActionSheet clickedButtonAtIndex:(NSInteger)pButtonIndex{
-    // add the selected contact with the selected phone number to selected contacts table view prein talking group section
+    // add the selected contact with the selected phone number to in or prein talking group contacts table view prein talking group section
     [self addSelectedContact2PreinTalkingGroupSection:[_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex] andSelectedPhone:[pActionSheet buttonTitleAtIndex:pButtonIndex]];
 }
 

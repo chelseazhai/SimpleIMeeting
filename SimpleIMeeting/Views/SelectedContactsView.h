@@ -16,12 +16,18 @@
     NSMutableArray *_mPreinTalkingGroupContactsInfoArray;
     
     // present subviews
-    // subview selected contacts table view
-    UITableView *_mSelectedContactsTableView;
+    // subview in or prein talking group contacts table view
+    UITableView *_mIn6PreinTalkingGroupContactsTableView;
 }
 
-@property (nonatomic, retain) NSMutableArray *inTalkingGroupAttendeesPhoneArray;
+@property (nonatomic, readonly) NSMutableArray *inTalkingGroupAttendeesPhoneArray;
 
-@property (nonatomic, retain) NSMutableArray *preinTalkingGroupContactsInfoArray;
+@property (nonatomic, readonly) NSMutableArray *preinTalkingGroupContactsInfoArray;
+
+// add contact to in or prein talking group contacts table view prein talking group section
+- (void)addContact2PreinTalkingGroupSection;
+
+// remove the selected contact from in or prein talking group contacts table view prein talking group section
+- (void)removeSelectedContactFromPreinTalkingGroupSection:(NSInteger)index;
 
 @end

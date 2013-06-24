@@ -13,10 +13,10 @@
 "my talking group list left bar button item title" = "通讯录";
 "contacts select contact list head tip view text" = "通讯录";
 "contacts select selected contacts head tip view text" = "预邀参与者";
-
 "contact has no phone number alertView title" = "此联系人没有号码";
 "contact has no phone number alertView reselect button title" = "重新选择";
 "contact phone numbers select actionSheet title format" = "选择邀请 %@ 加入会议的号码";
+"invite the selected contacts to talking group button title" = "邀请";
 
 // my talking group list content view
 "contacts select left bar button item title" = "我的会议";

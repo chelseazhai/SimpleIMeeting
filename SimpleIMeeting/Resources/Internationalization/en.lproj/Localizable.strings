@@ -13,10 +13,10 @@
 "my talking group list left bar button item title" = "AB contacts";
 "contacts select contact list head tip view text" = "AB contacts";
 "contacts select selected contacts head tip view text" = "Invited contacts";
-
 "contact has no phone number alertView title" = "The contact has no phone number";
 "contact has no phone number alertView reselect button title" = "Reselect again";
 "contact phone numbers select actionSheet title format" = "Select %@'s phone number for join the conference";
+"invite the selected contacts to talking group button title" = "Invite";
 
 // my talking group list content view
 "contacts select left bar button item title" = "My meetings";
