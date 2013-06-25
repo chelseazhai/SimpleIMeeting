@@ -25,7 +25,7 @@
 @property (nonatomic, assign) BOOL contactIsInTalkingGroupFlag;
 @property (nonatomic, retain) NSString *displayName;
 
-// get the height of the in or prein talking group contacts tableViewCell
+// get the height of the in or prein talking group contact list tableViewCell
 + (CGFloat)cellHeight;
 
 @end

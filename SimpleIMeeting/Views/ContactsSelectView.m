@@ -11,7 +11,7 @@
 #import <CommonToolkit/CommonToolkit.h>
 
 #import "ContactListView.h"
-#import "SelectedContactsView.h"
+#import "SelectedContactListView.h"
 
 #import "ContactBean+SimpleIMeeting.h"
 
@@ -33,15 +33,15 @@
         // init addressbook contact list view
         _mABContactListView = [[ContactListView alloc] initWithFrame:[self genContactListViewDrawRect]];
         
-        // init selected contacts view
-        _mSelectedContactsView = [[SelectedContactsView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + FILL_PARENT * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), self.bounds.origin.y, FILL_PARENT * (RIGHTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), FILL_PARENT)];
+        // init selected contact list view
+        _mSelectedContactListView = [[SelectedContactListView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + FILL_PARENT * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), self.bounds.origin.y, FILL_PARENT * (RIGHTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), FILL_PARENT)];
         
         // hidden first
-        _mSelectedContactsView.hidden = YES;
+        _mSelectedContactListView.hidden = YES;
         
-        // add addressBook contact list view and selected contacts view as subviews of contacts select view
+        // add addressBook contact list view and selected contact list view as subviews of contacts select view
         [self addSubview:_mABContactListView];
-        [self addSubview:_mSelectedContactsView];
+        [self addSubview:_mSelectedContactListView];
     }
     return self;
 }
@@ -57,30 +57,30 @@
 
 - (void)setInTalkingGroupAttendeesPhoneArray:(NSArray *)inTalkingGroupAttendeesPhoneArray{
     // clear in talking group attendees phone array if needed
-    if (0 < [_mSelectedContactsView.inTalkingGroupAttendeesPhoneArray count]) {
-        [_mSelectedContactsView.inTalkingGroupAttendeesPhoneArray removeAllObjects];
+    if (0 < [_mSelectedContactListView.inTalkingGroupAttendeesPhoneArray count]) {
+        [_mSelectedContactListView.inTalkingGroupAttendeesPhoneArray removeAllObjects];
     }
     
     // set new in talking group attendees phone array if not nil
     if (nil != inTalkingGroupAttendeesPhoneArray) {
-        [_mSelectedContactsView.inTalkingGroupAttendeesPhoneArray addObjectsFromArray:inTalkingGroupAttendeesPhoneArray];
+        [_mSelectedContactListView.inTalkingGroupAttendeesPhoneArray addObjectsFromArray:inTalkingGroupAttendeesPhoneArray];
     }
 }
 
 - (NSArray *)inTalkingGroupAttendeesPhoneArray{
-    return _mSelectedContactsView.inTalkingGroupAttendeesPhoneArray;
+    return _mSelectedContactListView.inTalkingGroupAttendeesPhoneArray;
 }
 
 - (NSMutableArray *)preinTalkingGroupContactsInfoArray{
-    return _mSelectedContactsView.preinTalkingGroupContactsInfoArray;
+    return _mSelectedContactListView.preinTalkingGroupContactsInfoArray;
 }
 
-- (void)addContact2SelectedContactsView{
-    // add contact to in or prein talking group contacts table view prein talking group section
-    [_mSelectedContactsView addContact2PreinTalkingGroupSection];
+- (void)addContact2SelectedContactListView{
+    // add contact to in or prein talking group contact list table view prein talking group section
+    [_mSelectedContactListView addContact2PreinTalkingGroupSection];
 }
 
-- (void)removeSelectedContactFromSelectedContactsView:(NSInteger)index{
+- (void)removeSelectedContactFromSelectedContactListView:(NSInteger)index{
     // get the selected contact index which is in addressBook contact list table view all contacts info array  and present contacts info array
     NSInteger _indexOfAllContactsInfoArray, _indexOfPresentContactsInfoArray = _indexOfAllContactsInfoArray = -1;
     for (NSInteger _index = 0; _index < [_mABContactListView.allContactsInfoArrayInABRef count]; _index++) {
@@ -120,8 +120,8 @@
     // remove the selected contact from prein talking group contacts info array
     [self.preinTalkingGroupContactsInfoArray removeObjectAtIndex:index];
     
-    // remove the selected contact from in or prein talking group contacts table view prein talking group section
-    [_mSelectedContactsView removeSelectedContactFromPreinTalkingGroupSection:index];
+    // remove the selected contact from in or prein talking group contact list table view prein talking group section
+    [_mSelectedContactListView removeSelectedContactFromPreinTalkingGroupSection:index];
 }
 
 - (void)cancel6finishContactsSelecting{
@@ -138,8 +138,8 @@
         // remove each contact extension dictionary and contact from prein talking group contacts info array
         [((ContactBean *)[self.preinTalkingGroupContactsInfoArray objectAtIndex:_index]).extensionDic removeAllObjects];
         
-        // remove selected contact from selected contacts view
-        [self removeSelectedContactFromSelectedContactsView:_index];
+        // remove selected contact from selected contact list view
+        [self removeSelectedContactFromSelectedContactListView:_index];
     }
     
     // clear contact list view contact search text field text and selected address book contact cell index
@@ -154,9 +154,9 @@
     // update address book contact list view
     [_mABContactListView setFrame:[self genContactListViewDrawRect]];
     
-    // show selected contacts view
-    if ([_mSelectedContactsView isHidden]) {
-        _mSelectedContactsView.hidden = NO;
+    // show selected contact list view
+    if ([_mSelectedContactListView isHidden]) {
+        _mSelectedContactListView.hidden = NO;
     }
 }
 
@@ -167,9 +167,9 @@
     // update address book contact list view
     [_mABContactListView setFrame:[self genContactListViewDrawRect]];
     
-    // show selected contacts view
-    if (![_mSelectedContactsView isHidden]) {
-        _mSelectedContactsView.hidden = YES;
+    // hide selected contact list view
+    if (![_mSelectedContactListView isHidden]) {
+        _mSelectedContactListView.hidden = YES;
     }
     
     // cancel contacts selecting

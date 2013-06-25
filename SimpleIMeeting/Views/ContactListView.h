@@ -18,7 +18,7 @@
     NSMutableArray *_mPresentContactsInfoArrayRef;
     
     // selected address book contact cell index
-    NSInteger _mSelectedABContactCellIndex;
+    NSNumber *_mSelectedABContactCellIndex;
     
     // present subviews
     // subview contact operate view

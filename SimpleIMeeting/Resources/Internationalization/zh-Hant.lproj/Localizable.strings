@@ -25,3 +25,4 @@
 "contacts select left bar button item title" = "我的会议";
 "my talking groups head tip view text" = "会议列表";
 "my talking group attendees head tip view text" = "与会者";
+"no talking group tip label Text" = "当前没有待参与的会议，你可以点击来开启一个新的会议";

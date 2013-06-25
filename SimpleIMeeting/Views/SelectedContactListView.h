@@ -1,5 +1,5 @@
 //
-//  SelectedContactsView.h
+//  SelectedContactListView.h
 //  SimpleIMeeting
 //
 //  Created by Ares on 13-5-27.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SelectedContactsView : UIView <UITableViewDataSource, UITableViewDelegate> {
+@interface SelectedContactListView : UIView <UITableViewDataSource, UITableViewDelegate> {
     // in talking group attendees phone array
     NSMutableArray *_mInTalkingGroupAttendeesPhoneArray;
     
@@ -16,18 +16,18 @@
     NSMutableArray *_mPreinTalkingGroupContactsInfoArray;
     
     // present subviews
-    // subview in or prein talking group contacts table view
-    UITableView *_mIn6PreinTalkingGroupContactsTableView;
+    // subview in or prein talking group contact list table view
+    UITableView *_mIn6PreinTalkingGroupContactListTableView;
 }
 
 @property (nonatomic, readonly) NSMutableArray *inTalkingGroupAttendeesPhoneArray;
 
 @property (nonatomic, readonly) NSMutableArray *preinTalkingGroupContactsInfoArray;
 
-// add contact to in or prein talking group contacts table view prein talking group section
+// add contact to in or prein talking group contact list table view prein talking group section
 - (void)addContact2PreinTalkingGroupSection;
 
-// remove the selected contact from in or prein talking group contacts table view prein talking group section
+// remove the selected contact from in or prein talking group contact list table view prein talking group section
 - (void)removeSelectedContactFromPreinTalkingGroupSection:(NSInteger)index;
 
 @end

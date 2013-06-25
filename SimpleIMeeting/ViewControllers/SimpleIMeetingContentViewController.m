@@ -37,6 +37,14 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSLog(@"SimpleIMeetingContentViewController - viewWillAppear");
+    //
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

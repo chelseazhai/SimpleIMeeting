@@ -10,8 +10,8 @@
 
 @interface SelectedTalkingGroupAttendeeListView : UIView <UITableViewDataSource, UITableViewDelegate> {
     // present subviews
-    // subview selected talking group attendees table view
-    UITableView *_mSelectedTalkingGroupAttendeesTableView;
+    // subview selected talking group attendee list table view
+    UITableView *_mSelectedTalkingGroupAttendeeListTableView;
 }
 
 @end

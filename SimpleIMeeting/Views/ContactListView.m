@@ -45,7 +45,7 @@
 // add temp added contact button on clicked
 - (void)addTempAddedContactButtonOnClicked;
 
-// add the selected contact with the selected phone number to in or prein talking group contacts table view prein talking group section
+// add the selected contact with the selected phone number to in or prein talking group contact list table view prein talking group section
 - (void)addSelectedContact2PreinTalkingGroupSection:(ContactBean *)selectedContact andSelectedPhone:(NSString *)selectedPhoneNumber;
 
 // selected contact phone numbers select action sheet button clicked event selector
@@ -171,7 +171,7 @@
 }
 
 - (void)clearContactSearchTextFieldText7SelectedABContactCellIndex{
-    // check contact search text field text, if first not search contact, the contact search text firld text is nil, set the selected address book contact cell index is -1
+    // check contact search text field text
     if (![@"" isEqualToString:_mContactSearchTextField.text]) {
         // clear contact search text field text
         _mContactSearchTextField.text = @"";
@@ -181,14 +181,14 @@
     }
     else {
         // check selected address book contact cell index
-        if (-1 != _mSelectedABContactCellIndex) {
+        if (nil != _mSelectedABContactCellIndex) {
             // clear selected address book contact cell background color
-            [_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex inSection:0]].backgroundColor = [UIColor clearColor];
+            [_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex.integerValue inSection:0]].backgroundColor = [UIColor clearColor];
         }
     }
     
     // clear selected address book contact cell index
-    _mSelectedABContactCellIndex = -1;
+    _mSelectedABContactCellIndex = nil;
 }
 
 // UITableViewDataSource
@@ -198,9 +198,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @"AB Contact cell";
+    static NSString *cellIdentifier = @"Address book contact cell";
     
-    // get contact list table view cell
+    // get address book contact list table view cell
     ABContactListTableViewCell *_cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (nil == _cell) {
@@ -309,19 +309,19 @@
     [(SimpleIMeetingContentContainerView *)_contactsSelectView.superview tap2GenerateNewTalkingGroup];
     
     // save selected cell index
-    _mSelectedABContactCellIndex = indexPath.row;
+    _mSelectedABContactCellIndex = [NSNumber numberWithInteger:indexPath.row];
     
     // get the selected contact contactBean
     ContactBean *_selectedContactBean = [_mPresentContactsInfoArrayRef objectAtIndex:indexPath.row];
     
-    // check the selected contact if or not existed in prein talking group contacts info array which are in in or prein talking group contacts table view prein talking group section
+    // check the selected contact if or not existed in prein talking group contacts info array which are in in or prein talking group contact list table view prein talking group section
     if ([_contactsSelectView.preinTalkingGroupContactsInfoArray containsObject:_selectedContactBean]) {
-        // the selected contact existed in prein talking group contacts info array which are in in or prein talking group contacts table view prein talking group section, remove it
+        // the selected contact existed in prein talking group contacts info array which are in in or prein talking group contact list table view prein talking group section, remove it
         for (NSInteger _index = 0; _index < [_contactsSelectView.preinTalkingGroupContactsInfoArray count]; _index++) {
             // compare contact id in present contacts info array with each contact which in prein talking group contacts info array
             if (((ContactBean *)[_contactsSelectView.preinTalkingGroupContactsInfoArray objectAtIndex:_index]).id == _selectedContactBean.id) {
-                // remove the selected contact from selected contacts view
-                [_contactsSelectView removeSelectedContactFromSelectedContactsView:_index];
+                // remove the selected contact from selected contact list view
+                [_contactsSelectView removeSelectedContactFromSelectedContactListView:_index];
                 
                 break;
             }
@@ -334,7 +334,7 @@
             [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"contact has no phone number alertView title", nil) message:_selectedContactBean.displayName delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"contact has no phone number alertView reselect button title", nil), nil] show];
         }
         else if (1 == [_selectedContactBean.phoneNumbers count]) {
-            // add the selected contact with his phone number to in or prein talking group contacts table view prein talking group section
+            // add the selected contact with his phone number to in or prein talking group contact list table view prein talking group section
             [self addSelectedContact2PreinTalkingGroupSection:_selectedContactBean andSelectedPhone:[_selectedContactBean.phoneNumbers objectAtIndex:0]];
         }
         else {
@@ -445,14 +445,14 @@
     // get parent view: contacts select view
     ContactsSelectView *_contactsSelectView = (ContactsSelectView *)self.superview;
     
-    // check the selected contact the selected phone number if or not existed in talking group phone array which are in in or prein talking group contacts table view in talking group section
+    // check the selected contact the selected phone number if or not existed in talking group phone array which are in in or prein talking group contact list table view in talking group section
     if (![_contactsSelectView.inTalkingGroupAttendeesPhoneArray containsObject:selectedPhoneNumber]) {
-        // the selected contact the selected phone number not existed in talking group phone array which are in in or prein talking group contacts table view in talking group section
+        // the selected contact the selected phone number not existed in talking group phone array which are in in or prein talking group contact list table view in talking group section
         // update selected address book contact list table view cell contact is selected flag
-        ((ABContactListTableViewCell *)[_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex inSection:0]]).contactIsSelectedFlag = YES;
+        ((ABContactListTableViewCell *)[_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex.integerValue inSection:0]]).contactIsSelectedFlag = YES;
         
         // get the selected contact contactBean
-        ContactBean *_selectedContactBean = [_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex];
+        ContactBean *_selectedContactBean = [_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex.integerValue];
         
         // set the selected contact selected flag image and phone number
         _selectedContactBean.isSelected = YES;
@@ -461,8 +461,8 @@
         // add the selected contact to prein talking group contacts info array
         [_contactsSelectView.preinTalkingGroupContactsInfoArray addObject:_selectedContactBean];
         
-        // add the selected contact to selected contacts view
-        [_contactsSelectView addContact2SelectedContactsView];
+        // add the selected contact to selected contact list view
+        [_contactsSelectView addContact2SelectedContactListView];
     }
     else {
         NSLog(@"Error: the selected contact = %@ with the selected phone number = %@ had been in the conference, mustn't add twice", selectedContact, selectedPhoneNumber);
@@ -473,8 +473,8 @@
 }
 
 - (void)selectedContactPhonesSelectActionSheet:(UIActionSheet *)pActionSheet clickedButtonAtIndex:(NSInteger)pButtonIndex{
-    // add the selected contact with the selected phone number to in or prein talking group contacts table view prein talking group section
-    [self addSelectedContact2PreinTalkingGroupSection:[_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex] andSelectedPhone:[pActionSheet buttonTitleAtIndex:pButtonIndex]];
+    // add the selected contact with the selected phone number to in or prein talking group contact list table view prein talking group section
+    [self addSelectedContact2PreinTalkingGroupSection:[_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex.integerValue] andSelectedPhone:[pActionSheet buttonTitleAtIndex:pButtonIndex]];
 }
 
 @end

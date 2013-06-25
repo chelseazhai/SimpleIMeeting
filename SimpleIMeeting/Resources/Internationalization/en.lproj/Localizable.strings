@@ -25,3 +25,4 @@
 "contacts select left bar button item title" = "My meetings";
 "my talking groups head tip view text" = "Meeting list";
 "my talking group attendees head tip view text" = "Attendees";
+"no talking group tip label Text" = "There is no meeting with you, you can tap to generate new meeting by yourself";

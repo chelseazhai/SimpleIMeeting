@@ -42,6 +42,9 @@ typedef NS_ENUM(NSInteger, SIMContentViewMode) {
     // new talking group protocol implementation
     id<NewTalkingGroupProtocol> _mNewTalkingGroupProtocolImpl;
     
+    // my talking group list table view need to refresh
+    BOOL _mMyTalkingGroupListTableViewNeed2Refresh;
+    
     // content present subviews
     // subview contacts select view
     ContactsSelectView *_mContactsSelectContentView;

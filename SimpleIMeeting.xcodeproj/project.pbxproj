@@ -68,12 +68,20 @@
 		DC756BD91753341800F287FA /* ContactsSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BD81753341800F287FA /* ContactsSelectView.m */; };
 		DC756BDC1753345900F287FA /* MyTalkingGroups7AttendeesView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BDB1753345900F287FA /* MyTalkingGroups7AttendeesView.m */; };
 		DC756BE1175358DC00F287FA /* ContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE0175358DC00F287FA /* ContactListView.m */; };
-		DC756BE41753590900F287FA /* SelectedContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE31753590900F287FA /* SelectedContactsView.m */; };
+		DC756BE41753590900F287FA /* SelectedContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE31753590900F287FA /* SelectedContactListView.m */; };
 		DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */; };
 		DC80B06517741912009BA163 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06417741912009BA163 /* AddressBookUI.framework */; };
 		DC80B06717741918009BA163 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06617741918009BA163 /* libsqlite3.dylib */; };
 		DC80B06B17741969009BA163 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC80B06917741969009BA163 /* Localizable.strings */; };
 		DC80B06F17741B03009BA163 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06E17741B02009BA163 /* AudioToolbox.framework */; };
+		DC95233D1779702400587748 /* MyTalkingGroupListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC95233C1779702300587748 /* MyTalkingGroupListTableViewCell.m */; };
+		DC9523401779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC95233F1779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m */; };
+		DC9523471779861B00587748 /* img_simpleimeeting_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC9523441779861B00587748 /* img_simpleimeeting_bg-568h@2x.png */; };
+		DC9523481779861B00587748 /* img_simpleimeeting_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC9523451779861B00587748 /* img_simpleimeeting_bg.png */; };
+		DC9523491779861B00587748 /* img_simpleimeeting_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC9523461779861B00587748 /* img_simpleimeeting_bg@2x.png */; };
+		DC95234D1779883B00587748 /* img_mytalkinggroups7attendeesview_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC95234A1779883A00587748 /* img_mytalkinggroups7attendeesview_bg-568h@2x.png */; };
+		DC95234E1779883B00587748 /* img_mytalkinggroups7attendeesview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC95234B1779883A00587748 /* img_mytalkinggroups7attendeesview_bg.png */; };
+		DC95234F1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC95234C1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,8 +162,8 @@
 		DC756BDB1753345900F287FA /* MyTalkingGroups7AttendeesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTalkingGroups7AttendeesView.m; path = Views/MyTalkingGroups7AttendeesView.m; sourceTree = "<group>"; };
 		DC756BDF175358DC00F287FA /* ContactListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactListView.h; path = Views/ContactListView.h; sourceTree = "<group>"; };
 		DC756BE0175358DC00F287FA /* ContactListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactListView.m; path = Views/ContactListView.m; sourceTree = "<group>"; };
-		DC756BE21753590900F287FA /* SelectedContactsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectedContactsView.h; path = Views/SelectedContactsView.h; sourceTree = "<group>"; };
-		DC756BE31753590900F287FA /* SelectedContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedContactsView.m; path = Views/SelectedContactsView.m; sourceTree = "<group>"; };
+		DC756BE21753590900F287FA /* SelectedContactListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectedContactListView.h; path = Views/SelectedContactListView.h; sourceTree = "<group>"; };
+		DC756BE31753590900F287FA /* SelectedContactListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedContactListView.m; path = Views/SelectedContactListView.m; sourceTree = "<group>"; };
 		DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleIMeetingTableViewTipView.h; sourceTree = "<group>"; };
 		DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleIMeetingTableViewTipView.m; sourceTree = "<group>"; };
 		DC80B06417741912009BA163 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -165,6 +173,16 @@
 		DC80B06D17741977009BA163 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Internationalization/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DC80B06E17741B02009BA163 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC95233A177934A700587748 /* NewTalkingGroupProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NewTalkingGroupProtocol.h; path = Data/NewTalkingGroupProtocol.h; sourceTree = "<group>"; };
+		DC95233B1779702300587748 /* MyTalkingGroupListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTalkingGroupListTableViewCell.h; path = Views/MyTalkingGroupListTableViewCell.h; sourceTree = "<group>"; };
+		DC95233C1779702300587748 /* MyTalkingGroupListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTalkingGroupListTableViewCell.m; path = Views/MyTalkingGroupListTableViewCell.m; sourceTree = "<group>"; };
+		DC95233E1779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectedTalkingGroupAttendeeListTableViewCell.h; path = Views/SelectedTalkingGroupAttendeeListTableViewCell.h; sourceTree = "<group>"; };
+		DC95233F1779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedTalkingGroupAttendeeListTableViewCell.m; path = Views/SelectedTalkingGroupAttendeeListTableViewCell.m; sourceTree = "<group>"; };
+		DC9523441779861B00587748 /* img_simpleimeeting_bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_simpleimeeting_bg-568h@2x.png"; path = "SimpleIMeeting/Resources/Images/img_simpleimeeting_bg-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC9523451779861B00587748 /* img_simpleimeeting_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_simpleimeeting_bg.png; path = SimpleIMeeting/Resources/Images/img_simpleimeeting_bg.png; sourceTree = SOURCE_ROOT; };
+		DC9523461779861B00587748 /* img_simpleimeeting_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_simpleimeeting_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_simpleimeeting_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC95234A1779883A00587748 /* img_mytalkinggroups7attendeesview_bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_mytalkinggroups7attendeesview_bg-568h@2x.png"; path = "SimpleIMeeting/Resources/Images/img_mytalkinggroups7attendeesview_bg-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC95234B1779883A00587748 /* img_mytalkinggroups7attendeesview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_mytalkinggroups7attendeesview_bg.png; path = SimpleIMeeting/Resources/Images/img_mytalkinggroups7attendeesview_bg.png; sourceTree = SOURCE_ROOT; };
+		DC95234C1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_mytalkinggroups7attendeesview_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_mytalkinggroups7attendeesview_bg@2x.png"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +213,8 @@
 		DC5CE9AB17543A030016835B /* TalkingGroups */ = {
 			isa = PBXGroup;
 			children = (
+				DC95233B1779702300587748 /* MyTalkingGroupListTableViewCell.h */,
+				DC95233C1779702300587748 /* MyTalkingGroupListTableViewCell.m */,
 				DC5CE9AD17543E8F0016835B /* MyTalkingGroupListView.h */,
 				DC5CE9AE17543E8F0016835B /* MyTalkingGroupListView.m */,
 			);
@@ -204,6 +224,8 @@
 		DC5CE9AC17543A160016835B /* TalkingGroupAttendees */ = {
 			isa = PBXGroup;
 			children = (
+				DC95233E1779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.h */,
+				DC95233F1779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m */,
 				DC5CE9B017543EEC0016835B /* SelectedTalkingGroupAttendeeListView.h */,
 				DC5CE9B117543EEC0016835B /* SelectedTalkingGroupAttendeeListView.m */,
 			);
@@ -325,6 +347,9 @@
 				DC5CE9B417545DBD0016835B /* img_left_tipview_bg@2x.png */,
 				DC5ED29517583893002B5B81 /* img_moremenu_barbuttonitem.png */,
 				DC5ED29617583893002B5B81 /* img_moremenu_barbuttonitem@2x.png */,
+				DC95234A1779883A00587748 /* img_mytalkinggroups7attendeesview_bg-568h@2x.png */,
+				DC95234B1779883A00587748 /* img_mytalkinggroups7attendeesview_bg.png */,
+				DC95234C1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png */,
 				DC5CE9B517545DBD0016835B /* img_navigationbar_bg.png */,
 				DC5CE9B617545DBD0016835B /* img_navigationbar_bg@2x.png */,
 				DC68EA781777E6370034A807 /* img_preintalkinggroup_indicatephoto.png */,
@@ -335,6 +360,9 @@
 				DC68EA6F1777DF3C0034A807 /* img_selectedcontactsview_bg-568h@2x.png */,
 				DC68EA701777DF3C0034A807 /* img_selectedcontactsview_bg.png */,
 				DC68EA711777DF3C0034A807 /* img_selectedcontactsview_bg@2x.png */,
+				DC9523441779861B00587748 /* img_simpleimeeting_bg-568h@2x.png */,
+				DC9523451779861B00587748 /* img_simpleimeeting_bg.png */,
+				DC9523461779861B00587748 /* img_simpleimeeting_bg@2x.png */,
 			);
 			name = Images;
 			path = Internationalization;
@@ -363,6 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				DC756BB71752F24F00F287FA /* About */,
+				DC9523501779951900587748 /* NetworkUnavailable  */,
 				DC756BB91752F28F00F287FA /* Setting */,
 				DC756BB81752F27D00F287FA /* Support */,
 			);
@@ -444,8 +473,8 @@
 			children = (
 				DC68EA751777E1120034A807 /* In6PreinTalkingGroupContactTableViewCell.h */,
 				DC68EA761777E1120034A807 /* In6PreinTalkingGroupContactTableViewCell.m */,
-				DC756BE21753590900F287FA /* SelectedContactsView.h */,
-				DC756BE31753590900F287FA /* SelectedContactsView.m */,
+				DC756BE21753590900F287FA /* SelectedContactListView.h */,
+				DC756BE31753590900F287FA /* SelectedContactListView.m */,
 			);
 			name = SelectedContacts;
 			sourceTree = "<group>";
@@ -465,6 +494,13 @@
 				DC80B06917741969009BA163 /* Localizable.strings */,
 			);
 			name = Internationalization;
+			sourceTree = "<group>";
+		};
+		DC9523501779951900587748 /* NetworkUnavailable  */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "NetworkUnavailable ";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -559,6 +595,12 @@
 				DC68EA7B1777E6370034A807 /* img_preintalkinggroup_indicatephoto@2x.png in Resources */,
 				DC68EA7E1777F2A90034A807 /* img_in6preintalkinggroupcontactcell_selected_bg.png in Resources */,
 				DC68EA7F1777F2A90034A807 /* img_in6preintalkinggroupcontactcell_selected_bg@2x.png in Resources */,
+				DC9523471779861B00587748 /* img_simpleimeeting_bg-568h@2x.png in Resources */,
+				DC9523481779861B00587748 /* img_simpleimeeting_bg.png in Resources */,
+				DC9523491779861B00587748 /* img_simpleimeeting_bg@2x.png in Resources */,
+				DC95234D1779883B00587748 /* img_mytalkinggroups7attendeesview_bg-568h@2x.png in Resources */,
+				DC95234E1779883B00587748 /* img_mytalkinggroups7attendeesview_bg.png in Resources */,
+				DC95234F1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,13 +618,15 @@
 				DC756BD91753341800F287FA /* ContactsSelectView.m in Sources */,
 				DC756BDC1753345900F287FA /* MyTalkingGroups7AttendeesView.m in Sources */,
 				DC756BE1175358DC00F287FA /* ContactListView.m in Sources */,
-				DC756BE41753590900F287FA /* SelectedContactsView.m in Sources */,
+				DC756BE41753590900F287FA /* SelectedContactListView.m in Sources */,
 				DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */,
 				DC5CE9AF17543E8F0016835B /* MyTalkingGroupListView.m in Sources */,
 				DC5CE9B217543EEC0016835B /* SelectedTalkingGroupAttendeeListView.m in Sources */,
 				DC5A7EC51775A70F00C8534F /* ABContactListTableViewCell.m in Sources */,
 				DC5A7ED41776FAD400C8534F /* ContactBean+SimpleIMeeting.m in Sources */,
 				DC68EA771777E1120034A807 /* In6PreinTalkingGroupContactTableViewCell.m in Sources */,
+				DC95233D1779702400587748 /* MyTalkingGroupListTableViewCell.m in Sources */,
+				DC9523401779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

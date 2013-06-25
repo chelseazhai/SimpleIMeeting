@@ -233,6 +233,11 @@
                 _mContactsSelectContentView.hidden = YES;
             }
             
+            // check my talking groups if or not need to refresh
+            if (_mMyTalkingGroupListTableViewNeed2Refresh) {
+                //_mMyTalkingGroups7AttendeesContentView
+            }
+            
             // set my talking groups and selected talking group attendees content view as new talking group protocol implementation
             _mNewTalkingGroupProtocolImpl = _mMyTalkingGroups7AttendeesContentView;
             

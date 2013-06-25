@@ -12,7 +12,11 @@
 
 #import "SimpleIMeetingTableViewTipView.h"
 
+#import "MyTalkingGroupListTableViewCell.h"
+
 @implementation MyTalkingGroupListView
+
+@synthesize myTalkingGroupsInfoArray = _mMyTalkingGroupsInfoArray;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,16 +30,25 @@
         // set my talking groups head tip view text
         [_myTalkingGroupsHeadTipView setTipViewText:NSLocalizedString(@"my talking groups head tip view text", nil)];
         
-        // init my talking groups table view
-        _mMyTalkingGroupsTableView = [_mMyTalkingGroupsTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mMyTalkingGroupsTableView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + _myTalkingGroupsHeadTipView.height], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_myTalkingGroupsHeadTipView.height] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        // init my talking group list table view
+        _mMyTalkingGroupListTableView = [_mMyTalkingGroupListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mMyTalkingGroupListTableView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + _myTalkingGroupsHeadTipView.height], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_myTalkingGroupsHeadTipView.height] cStringUsingEncoding:NSUTF8StringEncoding]])];
         
-        // set my talking groups table view dataSource and delegate
-        _mMyTalkingGroupsTableView.dataSource = self;
-        _mMyTalkingGroupsTableView.delegate = self;
+        // init my talking groups info array
+        _mMyTalkingGroupsInfoArray = [[NSMutableArray alloc] init];
         
-        // add my talking groups head tip view and my talking groups table view as subviews of my talking groups view
+        // set its background color
+        _mMyTalkingGroupListTableView.backgroundColor = [UIColor clearColor];
+        
+        // set separator style UITableViewCellSeparatorStyleNone
+        _mMyTalkingGroupListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        // set my talking group list table view dataSource and delegate
+        _mMyTalkingGroupListTableView.dataSource = self;
+        _mMyTalkingGroupListTableView.delegate = self;
+        
+        // add my talking groups head tip view and my talking group list table view as subviews of my talking group list view
         [self addSubview:_myTalkingGroupsHeadTipView];
-        [self addSubview:_mMyTalkingGroupsTableView];
+        [self addSubview:_mMyTalkingGroupListTableView];
     }
     return self;
 }
@@ -51,17 +64,18 @@
 
 // UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 15;
+    // Return the number of rows in the section.
+    return [_mMyTalkingGroupsInfoArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentifier = @"My talking group cell";
     
-    // get contact list table view cell
-    UITableViewCell *_cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    // get my talking group list table view cell
+    MyTalkingGroupListTableViewCell *_cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (nil == _cell) {
-        _cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        _cell = [[MyTalkingGroupListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
     // Configure the cell...
