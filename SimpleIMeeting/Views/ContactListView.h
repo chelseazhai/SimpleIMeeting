@@ -36,4 +36,7 @@
 // recover the selected contact which is in present contacts info array cell is selected flag with index
 - (void)recoverSelectedContactCellIsSelectedFlag:(NSInteger)index;
 
+// clear contact search text field text and selected address book contact cell index
+- (void)clearContactSearchTextFieldText7SelectedABContactCellIndex;
+
 @end

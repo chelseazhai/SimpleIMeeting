@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "NewTalkingGroupProtocol.h"
+
 @class ContactListView;
 @class SelectedContactsView;
 
-@interface ContactsSelectView : UIView {
+@interface ContactsSelectView : UIView <NewTalkingGroupProtocol> {
     // ready for adding selected contact for inviting to the new talking group
     BOOL _mReady4AddingSelectedContact4Inviting;
     

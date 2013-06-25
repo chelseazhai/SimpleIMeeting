@@ -164,6 +164,7 @@
 		DC80B06C17741971009BA163 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Internationalization/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DC80B06D17741977009BA163 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Internationalization/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DC80B06E17741B02009BA163 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DC95233A177934A700587748 /* NewTalkingGroupProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NewTalkingGroupProtocol.h; path = Data/NewTalkingGroupProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				DC756BCA1752F72300F287FA /* ContactsSelect */,
+				DC95233A177934A700587748 /* NewTalkingGroupProtocol.h */,
 				DC756BD01752F8B200F287FA /* SimpleIMeetingContentContainerView.h */,
 				DC756BD11752F8B200F287FA /* SimpleIMeetingContentContainerView.m */,
 				DC756BCD1752F81E00F287FA /* SimpleIMeetingContentViewController.h */,

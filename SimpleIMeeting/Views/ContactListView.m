@@ -14,6 +14,8 @@
 
 #import "ContactsSelectView.h"
 
+#import "SimpleIMeetingContentContainerView.h"
+
 #import "ContactBean+SimpleIMeeting.h"
 
 // contact operate view height
@@ -21,6 +23,9 @@
 
 // contact operate view margin and padding
 #define CONTACTOPERATEVIEW_MATGIN7PADDING   4.0
+
+// contact search text field text font size
+#define CONTACTSEARCHTEXTFIELDTEXTFONTSIZE  14.0
 
 // search image view width, height and right margin
 #define SEARCHIMAGEVIEW_WIDTH7HEIGHT    24.0
@@ -75,13 +80,14 @@
         // init contact search text field
         _mContactSearchTextField = [_mContactSearchTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mContactSearchTextField, [NSNumber numberWithFloat:_contactOperateView.bounds.origin.x + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSNumber numberWithFloat:_contactOperateView.bounds.origin.y + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)ADDTEMPADDEDCONTACTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING] cStringUsingEncoding:NSUTF8StringEncoding]])];
         
-        // set contact search text field border style, content vertical alignment, return key, clear button, keyboard type and placeholder
+        // set contact search text field border style, content vertical alignment, return key, clear button, keyboard type, text font and placeholder
         _mContactSearchTextField.borderStyle = UITextBorderStyleRoundedRect;
         _mContactSearchTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         _mContactSearchTextField.returnKeyType = UIReturnKeySearch;
         _mContactSearchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _mContactSearchTextField.keyboardType = UIKeyboardTypeASCIICapable;
-        _mContactSearchTextField.placeholder = NSLocalizedString(@"", nil);
+        _mContactSearchTextField.font = [UIFont systemFontOfSize:CONTACTSEARCHTEXTFIELDTEXTFONTSIZE];
+        _mContactSearchTextField.placeholder = NSLocalizedString(@"contact search text field placeholder", nil);
         
         // define search image view as contact search text field left view and show always
         UIImageView *_searchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_contactsearchtextfield_search"]];
@@ -141,6 +147,11 @@
         [self addSubview:_contactListHeadTipView];
         [self addSubview:_contactOperateView];
         [self addSubview:_mABContactListTableView];
+        
+        // set contact list view all subviews auto resizing mask
+        for (int _index = 0; _index < [self.subviews count]; _index++) {
+            ((UIView *)[self.subviews objectAtIndex:_index]).autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        }
     }
     return self;
 }
@@ -157,6 +168,27 @@
 - (void)recoverSelectedContactCellIsSelectedFlag:(NSInteger)index{
     // recover the cell contact is selected flag
     ((ABContactListTableViewCell *)[_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]]).contactIsSelectedFlag = NO;
+}
+
+- (void)clearContactSearchTextFieldText7SelectedABContactCellIndex{
+    // check contact search text field text, if first not search contact, the contact search text firld text is nil, set the selected address book contact cell index is -1
+    if (![@"" isEqualToString:_mContactSearchTextField.text]) {
+        // clear contact search text field text
+        _mContactSearchTextField.text = @"";
+        
+        // notify contact search text did changed
+        [self contactSearchTextDidChanged];
+    }
+    else {
+        // check selected address book contact cell index
+        if (-1 != _mSelectedABContactCellIndex) {
+            // clear selected address book contact cell background color
+            [_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex inSection:0]].backgroundColor = [UIColor clearColor];
+        }
+    }
+    
+    // clear selected address book contact cell index
+    _mSelectedABContactCellIndex = -1;
 }
 
 // UITableViewDataSource
@@ -270,14 +302,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    // get parent view: contacts select view
+    ContactsSelectView *_contactsSelectView = (ContactsSelectView *)self.superview;
+    
+    // set it is ready for adding selected contact for inviting to talking group
+    [(SimpleIMeetingContentContainerView *)_contactsSelectView.superview tap2GenerateNewTalkingGroup];
+    
     // save selected cell index
     _mSelectedABContactCellIndex = indexPath.row;
     
     // get the selected contact contactBean
     ContactBean *_selectedContactBean = [_mPresentContactsInfoArrayRef objectAtIndex:indexPath.row];
-    
-    // get parent view: contacts select view
-    ContactsSelectView *_contactsSelectView = (ContactsSelectView *)self.superview;
     
     // check the selected contact if or not existed in prein talking group contacts info array which are in in or prein talking group contacts table view prein talking group section
     if ([_contactsSelectView.preinTalkingGroupContactsInfoArray containsObject:_selectedContactBean]) {

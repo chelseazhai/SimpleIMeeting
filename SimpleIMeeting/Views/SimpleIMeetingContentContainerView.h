@@ -10,6 +10,8 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
+#import "NewTalkingGroupProtocol.h"
+
 @class ContactsSelectView;
 @class MyTalkingGroups7AttendeesView;
 
@@ -31,8 +33,14 @@ typedef NS_ENUM(NSInteger, SIMContentViewMode) {
     UIBarButtonItem *_mMyTalkingGroupsBarBtnItem;
     UIBarButtonItem *_mContactsSelectBarBtnItem;
     
+    // back to my talking groups and selected talking group attendees or contacts select content view bar button item
+    UIBarButtonItem *_mBack2MyTalkingGroups7Attendees6ContactsSelectContentViewBarBtnItem;
+    
     // content view type
     SIMContentViewMode _mContentViewType;
+    
+    // new talking group protocol implementation
+    id<NewTalkingGroupProtocol> _mNewTalkingGroupProtocolImpl;
     
     // content present subviews
     // subview contacts select view
@@ -41,6 +49,13 @@ typedef NS_ENUM(NSInteger, SIMContentViewMode) {
     MyTalkingGroups7AttendeesView *_mMyTalkingGroups7AttendeesContentView;
 }
 
-@property (nonatomic, readonly) UILabel *tap2GenNewTalkingGroupTitleView;
+// tap to generate new talking group
+- (void)tap2GenerateNewTalkingGroup;
+
+// switch to contacts select content view for adding selected contact for inviting to talking group
+- (void)switch2ContactsSelectContentView4AddingSelectedContact4Inviting;
+
+// back to my talking groups and selected talking group attendees content view for ending add selected contact for inviting to talking group
+- (void)back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting;
 
 @end

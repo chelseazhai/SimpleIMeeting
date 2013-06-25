@@ -29,9 +29,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        // test by ares
-        _mReady4AddingSelectedContact4Inviting = YES;
-        
         // create and init subviews
         // init addressbook contact list view
         _mABContactListView = [[ContactListView alloc] initWithFrame:[self genContactListViewDrawRect]];
@@ -39,8 +36,8 @@
         // init selected contacts view
         _mSelectedContactsView = [[SelectedContactsView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + FILL_PARENT * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), self.bounds.origin.y, FILL_PARENT * (RIGHTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), FILL_PARENT)];
         
-//        // hidden first
-//        _mSelectedContactsView.hidden = YES;
+        // hidden first
+        _mSelectedContactsView.hidden = YES;
         
         // add addressBook contact list view and selected contacts view as subviews of contacts select view
         [self addSubview:_mABContactListView];
@@ -128,34 +125,80 @@
 }
 
 - (void)cancel6finishContactsSelecting{
-    // clear in talking group attendees phone array and prein talking group contacts info array if needed
+    // clear in talking group attendees phone array if needed
     if (0 < [self.inTalkingGroupAttendeesPhoneArray count]) {
         [self setInTalkingGroupAttendeesPhoneArray:nil];
     }
+    
+    // clear prein talking group contacts info array if needed
     while (0 < [self.preinTalkingGroupContactsInfoArray count]) {
-        // remove each contact extension dictionary and contact from prein talking group contacts info array
         // get the will be removed prein talking group contact index
         NSInteger _index = [self.preinTalkingGroupContactsInfoArray count] - 1;
         
+        // remove each contact extension dictionary and contact from prein talking group contacts info array
         [((ContactBean *)[self.preinTalkingGroupContactsInfoArray objectAtIndex:_index]).extensionDic removeAllObjects];
         
-        // test by ares
-        NSLog(@"%d", _index);
-        [self.preinTalkingGroupContactsInfoArray removeObjectAtIndex:_index];
-        //[self removeSelectedContactFromSelectedContactsView:_index];
+        // remove selected contact from selected contacts view
+        [self removeSelectedContactFromSelectedContactsView:_index];
     }
+    
+    // clear contact list view contact search text field text and selected address book contact cell index
+    [_mABContactListView clearContactSearchTextFieldText7SelectedABContactCellIndex];
+}
+
+// NewTalkingGroupProtocol
+- (void)generateNewTalkingGroup{
+    // set it is ready for adding selected contact for inviting
+    _mReady4AddingSelectedContact4Inviting = YES;
+    
+    // update address book contact list view
+    [_mABContactListView setFrame:[self genContactListViewDrawRect]];
+    
+    // show selected contacts view
+    if ([_mSelectedContactsView isHidden]) {
+        _mSelectedContactsView.hidden = NO;
+    }
+}
+
+- (void)cancelGenNewTalkingGroup{
+    // set it is not ready for adding selected contact for inviting
+    _mReady4AddingSelectedContact4Inviting = NO;
+    
+    // update address book contact list view
+    [_mABContactListView setFrame:[self genContactListViewDrawRect]];
+    
+    // show selected contacts view
+    if (![_mSelectedContactsView isHidden]) {
+        _mSelectedContactsView.hidden = YES;
+    }
+    
+    // cancel contacts selecting
+    [self cancel6finishContactsSelecting];
 }
 
 // inner extension
 - (CGRect)genContactListViewDrawRect{
-    CGRect _contactListViewDrawRectangle = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, 0.0, FILL_PARENT);
+    CGRect _contactListViewDrawRectangle;
     
-    // check is ready for adding selected contact for inviting to the new talking group and update contact list view draw rectangle width
-    if (_mReady4AddingSelectedContact4Inviting) {
-        _contactListViewDrawRectangle.size.width = FILL_PARENT * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT);
+    // check address book contact list view if or not init
+    if (nil == _mABContactListView) {
+        _contactListViewDrawRectangle = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT);
     }
     else {
-        _contactListViewDrawRectangle.size.width = FILL_PARENT;
+        // get address book contact list view frame
+        _contactListViewDrawRectangle = _mABContactListView.frame;
+        
+        // check is ready for adding selected contact for inviting to the new talking group and update address book contact list view draw rectangle width
+        if (_mReady4AddingSelectedContact4Inviting) {
+            // compare address book contact list view frame size width with its parent view frame size width
+            if (self.frame.size.width == _mABContactListView.frame.size.width) {
+                _contactListViewDrawRectangle.size.width = _mABContactListView.frame.size.width * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT);
+            }
+        }
+        else {
+            // recover as parent view frame size width
+            _contactListViewDrawRectangle.size.width = self.frame.size.width;
+        }
     }
     
     return _contactListViewDrawRectangle;

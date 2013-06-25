@@ -13,6 +13,8 @@
 #import "MyTalkingGroupListView.h"
 #import "SelectedTalkingGroupAttendeeListView.h"
 
+#import "SimpleIMeetingContentContainerView.h"
+
 @interface MyTalkingGroups7AttendeesView ()
 
 // generate my talking groups view draw rectangle
@@ -52,6 +54,17 @@
     // Drawing code
 }
 */
+
+// NewTalkingGroupProtocol
+- (void)generateNewTalkingGroup{
+    // switch to contacts select content view for adding selected contact for inviting to talking group
+    [((SimpleIMeetingContentContainerView *)self.superview) switch2ContactsSelectContentView4AddingSelectedContact4Inviting];
+}
+
+- (void)cancelGenNewTalkingGroup{
+    // back to my talking groups and selected talking group attendees content view for ending add selected contact for inviting to talking group
+    [((SimpleIMeetingContentContainerView *)self.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting];
+}
 
 // inner extension
 - (CGRect)genMyTalkingGroupsViewDrawRect{

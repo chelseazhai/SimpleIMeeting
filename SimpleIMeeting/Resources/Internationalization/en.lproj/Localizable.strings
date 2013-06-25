@@ -8,11 +8,14 @@
 
 // simple imeeting content container view
 "tap to generate new talking group title view title" = "Tap to gen new meeting";
+"back to content view bar button item title" = "Back";
+"ready for adding selected contact for inviting to talking group title" = "Add contacts";
 
 // contacts select content view
 "my talking group list left bar button item title" = "AB contacts";
 "contacts select contact list head tip view text" = "AB contacts";
 "contacts select selected contacts head tip view text" = "Invited contacts";
+"contact search text field placeholder" = "Search contact with character or phone";
 "contact has no phone number alertView title" = "The contact has no phone number";
 "contact has no phone number alertView reselect button title" = "Reselect again";
 "contact phone numbers select actionSheet title format" = "Select %@'s phone number for join the conference";

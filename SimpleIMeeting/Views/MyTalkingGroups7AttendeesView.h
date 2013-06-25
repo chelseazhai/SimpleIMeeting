@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "NewTalkingGroupProtocol.h"
+
 @class MyTalkingGroupListView;
 @class SelectedTalkingGroupAttendeeListView;
 
-@interface MyTalkingGroups7AttendeesView : UIView {
+@interface MyTalkingGroups7AttendeesView : UIView <NewTalkingGroupProtocol> {
     // selcted talking group index
     NSNumber *_mSelectedTalkingGroupIndex;
     
