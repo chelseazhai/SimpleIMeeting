@@ -11,6 +11,13 @@
 #import "ContactsSelectView.h"
 #import "MyTalkingGroups7AttendeesView.h"
 
+#import "SettingViewController.h"
+
+#import "SettingView.h"
+
+#import "SupportView.h"
+#import "AboutView.h"
+
 // tap to generate new talking group title view width
 #define TAP2GENNEWTALKINGGROUPTITLEVIEW_WIDTH   100.0
 
@@ -55,6 +62,9 @@
         
         // init my talking groups and selected talking group attendees content view
         _mMyTalkingGroups7AttendeesContentView = [[MyTalkingGroups7AttendeesView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
+        
+        // set my talking groups need to refresh
+        _mMyTalkingGroups7AttendeesContentView.myTalkingGroupsNeed2Refresh = YES;
         
         // set content view, contacts select as default
         [self setContentView:_mContentViewType];
@@ -206,8 +216,11 @@
     // show more menu as popup menu
     NSLog(@"Show more menu as popup menu");
     
-    // test by ares
-    [self.viewControllerRef.navigationController pushViewController:[[UIViewController alloc] init] animated:YES];
+    // go to setting view using setting view controller
+    //
+    
+    // go to support or about view using assistant common view controller
+    [self.viewControllerRef.navigationController pushViewController:[[AssistantCommonViewController alloc] initWithSponsorContentViewType:_mContentViewType presentView:[[AboutView alloc] init]] animated:YES];
 }
 
 - (void)back2MyTalkingGroups7Attendees6ContactsSelectContentView{
@@ -233,9 +246,10 @@
                 _mContactsSelectContentView.hidden = YES;
             }
             
-            // check my talking groups if or not need to refresh
-            if (_mMyTalkingGroupListTableViewNeed2Refresh) {
-                //_mMyTalkingGroups7AttendeesContentView
+            // check if or not my talking groups need to refresh
+            if (_mMyTalkingGroups7AttendeesContentView.myTalkingGroupsNeed2Refresh) {
+                // refresh my talking groups
+                [_mMyTalkingGroups7AttendeesContentView refreshMyTalkingGroups];
             }
             
             // set my talking groups and selected talking group attendees content view as new talking group protocol implementation

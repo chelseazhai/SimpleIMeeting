@@ -13,6 +13,7 @@
 
 // contacts select content view
 "my talking group list left bar button item title" = "AB contacts";
+"back to contacts select content view bar button item title" = "AB contacts";
 "contacts select contact list head tip view text" = "AB contacts";
 "contacts select selected contacts head tip view text" = "Invited contacts";
 "contact search text field placeholder" = "Search contact with character or phone";
@@ -23,6 +24,21 @@
 
 // my talking group list content view
 "contacts select left bar button item title" = "My meetings";
+"back to my talking groups and selected talking group attendees content view bar button item title" = "My meetings";
 "my talking groups head tip view text" = "Meeting list";
 "my talking group attendees head tip view text" = "Attendees";
+"my talking groups loading tip" = "Loading my meetings ...";
 "no talking group tip label Text" = "There is no meeting with you, you can tap to generate new meeting by yourself";
+
+// support view
+"support view title" = "Help";
+"support page loading tip" = "Loading ...";
+
+// about view
+"about view title" = "About";
+"product description label text" = "Intelligent Choice For Highly Efficient People";
+"version label text format" = "Version: %@";
+"programming author label text" = "Programming\nChelsea Zhai\t\t\t\tStar king";
+"user interface author label text" = "UI Design\nLi Xin";
+"copyright label text" = "Copyright © 2013\nHefei Youyun Info Tech Ltd.\nAll Rights Reserved";
+"acknowledgement label text" = "Acknowledgement\nNanjing Futuo Network Tech Ltd.";

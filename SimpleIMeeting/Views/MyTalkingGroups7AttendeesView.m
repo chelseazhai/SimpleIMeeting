@@ -8,8 +8,6 @@
 
 #import "MyTalkingGroups7AttendeesView.h"
 
-#import <CommonToolkit/CommonToolkit.h>
-
 #import "MyTalkingGroupListView.h"
 #import "SelectedTalkingGroupAttendeeListView.h"
 
@@ -29,7 +27,7 @@
 
 @implementation MyTalkingGroups7AttendeesView
 
-@synthesize myTalkingGroupNeed2Refresh = _mMyTalkingGroupNeed2Refresh;
+@synthesize myTalkingGroupsNeed2Refresh = _mMyTalkingGroupsNeed2Refresh;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -40,6 +38,12 @@
         self.backgroundImg = [UIImage compatibleImageNamed:@"img_mytalkinggroups7attendeesview_bg"];
         
         // create and init subviews
+        // init my talking groups loading indicator view
+        _mMyTalkingGroupsLoadingIndicatorView = [[UIDataLoadingIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge tip:NSLocalizedString(@"my talking groups loading tip", nil)];
+        
+        // set its frame
+        [_mMyTalkingGroupsLoadingIndicatorView setFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
+        
         // init no talking group tip label
         _mNoTalkingGroupTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + FILL_PARENT * (MYTALKINGGROUPS7ATTENDEESVIEW_TOTALSUMWEIGHT - NOTALKINGGROUPTIPLABEL_WIDTHWEIGHT) / (2 * MYTALKINGGROUPS7ATTENDEESVIEW_TOTALSUMWEIGHT), self.bounds.origin.y + FILL_PARENT * (NOTALKINGGROUPTIPLABEL_HEIGHTWEIGHT / (3 * MYTALKINGGROUPS7ATTENDEESVIEW_TOTALSUMWEIGHT)), FILL_PARENT * (NOTALKINGGROUPTIPLABEL_WIDTHWEIGHT / MYTALKINGGROUPS7ATTENDEESVIEW_TOTALSUMWEIGHT), FILL_PARENT * (NOTALKINGGROUPTIPLABEL_HEIGHTWEIGHT / MYTALKINGGROUPS7ATTENDEESVIEW_TOTALSUMWEIGHT))];
         
@@ -53,13 +57,17 @@
         // init my talking group list view
         _mMyTalkingGroupListView = [[MyTalkingGroupListView alloc] initWithFrame:[self genMyTalkingGroupListViewDrawRect]];
         
+        // hidden first
+        _mMyTalkingGroupListView.hidden = YES;
+        
         // init selected talking group attendee list view
         _mSelectedTalkingGroupAttendeeListView = [[SelectedTalkingGroupAttendeeListView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + FILL_PARENT * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), self.bounds.origin.y, FILL_PARENT * (RIGHTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT), FILL_PARENT)];
         
         // hidden first
         _mSelectedTalkingGroupAttendeeListView.hidden = YES;
         
-        // add no talking group tip label, my talking group list view and selected talking group attendee list view as subviews of my talking groups and selected talking group attendees view
+        // add my talking groups loading indicator view, no talking group tip label, my talking group list view and selected talking group attendee list view as subviews of my talking groups and selected talking group attendees view
+        [self addSubview:_mMyTalkingGroupsLoadingIndicatorView];
         [self addSubview:_mNoTalkingGroupTipLabel];
         [self addSubview:_mMyTalkingGroupListView];
         [self addSubview:_mSelectedTalkingGroupAttendeeListView];
@@ -80,8 +88,50 @@
     return _mMyTalkingGroupListView.myTalkingGroupsInfoArray;
 }
 
-- (void)setMyTalkingGroupNeed2Refresh:(BOOL)myTalkingGroupNeed2Refresh{
-    //
+- (void)refreshMyTalkingGroups{
+    // set my talking group list table view not need to refresh
+    _mMyTalkingGroupsNeed2Refresh = NO;
+    
+    // check my talking groups loading indicator view if is or not animating
+    if (!_mMyTalkingGroupsLoadingIndicatorView.isAnimating) {
+        //
+    }
+    
+    // load my talking group list table view data source
+    [_mMyTalkingGroupListView loadMyTalkingGroupListTableViewDataSource:^(NSInteger result) {
+        // stop my talking groups loading indicator view animating
+        [_mMyTalkingGroupsLoadingIndicatorView stopAnimating];
+        
+        // check load my talking group list table view data source result
+        if (0 == result) {
+            // check my talking groups info array
+            if (0 == [[self myTalkingGroupsInfoArray] count]) {
+                // update no talking group tip label number of lines and show it if needed
+                if ([_mNoTalkingGroupTipLabel isHidden]) {
+                    // get no talking group tip label number of lines float
+                    float _numberOfLinesFloat = [_mNoTalkingGroupTipLabel.text stringPixelLengthByFontSize:_mNoTalkingGroupTipLabel.font.pointSize andIsBold:NO] / _mNoTalkingGroupTipLabel.bounds.size.width;
+                    
+                    // update no talking group tip label number of lines
+                    _mNoTalkingGroupTipLabel.numberOfLines = (int)_numberOfLinesFloat < _numberOfLinesFloat ? (int)_numberOfLinesFloat + 1 : (int)_numberOfLinesFloat;
+                    
+                    // show it
+                    _mNoTalkingGroupTipLabel.hidden = NO;
+                }
+            }
+            else {
+                // show my talking group list table view if needed
+                if ([_mMyTalkingGroupListView isHidden]) {
+                    _mMyTalkingGroupListView.hidden = NO;
+                }
+            }
+        }
+        else {
+            // show my talking group list table view if needed
+            if ([_mMyTalkingGroupListView isHidden]) {
+                _mMyTalkingGroupListView.hidden = NO;
+            }
+        }
+    }];
 }
 
 // NewTalkingGroupProtocol

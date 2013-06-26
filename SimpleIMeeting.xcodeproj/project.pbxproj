@@ -74,6 +74,14 @@
 		DC80B06717741918009BA163 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06617741918009BA163 /* libsqlite3.dylib */; };
 		DC80B06B17741969009BA163 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC80B06917741969009BA163 /* Localizable.strings */; };
 		DC80B06F17741B03009BA163 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06E17741B02009BA163 /* AudioToolbox.framework */; };
+		DC82FB1D177AAAD700480E61 /* AssistantCommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC82FB1C177AAAD700480E61 /* AssistantCommonViewController.m */; };
+		DC82FB20177AAAFF00480E61 /* AboutView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC82FB1F177AAAFF00480E61 /* AboutView.m */; };
+		DC82FB23177AAB1B00480E61 /* SupportView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC82FB22177AAB1B00480E61 /* SupportView.m */; };
+		DC82FB26177AAB8900480E61 /* SettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC82FB25177AAB8900480E61 /* SettingView.m */; };
+		DC82FB29177AAB9F00480E61 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC82FB28177AAB9F00480E61 /* SettingViewController.m */; };
+		DC82FB2C177AABD400480E61 /* NetworkUnavailableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC82FB2B177AABD400480E61 /* NetworkUnavailableViewController.m */; };
+		DC82FB2F177AABE300480E61 /* NetworkUnavailableView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC82FB2E177AABE300480E61 /* NetworkUnavailableView.m */; };
+		DC82FB31177AC35D00480E61 /* Urls.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC82FB30177AC35D00480E61 /* Urls.strings */; };
 		DC95233D1779702400587748 /* MyTalkingGroupListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC95233C1779702300587748 /* MyTalkingGroupListTableViewCell.m */; };
 		DC9523401779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC95233F1779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m */; };
 		DC9523471779861B00587748 /* img_simpleimeeting_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC9523441779861B00587748 /* img_simpleimeeting_bg-568h@2x.png */; };
@@ -82,6 +90,8 @@
 		DC95234D1779883B00587748 /* img_mytalkinggroups7attendeesview_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC95234A1779883A00587748 /* img_mytalkinggroups7attendeesview_bg-568h@2x.png */; };
 		DC95234E1779883B00587748 /* img_mytalkinggroups7attendeesview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC95234B1779883A00587748 /* img_mytalkinggroups7attendeesview_bg.png */; };
 		DC95234F1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC95234C1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png */; };
+		DCECE5F0177ACC1E00DB83BB /* Toasts.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCECE5EE177ACC1E00DB83BB /* Toasts.strings */; };
+		DCECE5F4177ACC8000DB83BB /* RBGServerFields.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCECE5F3177ACC8000DB83BB /* RBGServerFields.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -172,6 +182,21 @@
 		DC80B06C17741971009BA163 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Internationalization/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DC80B06D17741977009BA163 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Internationalization/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DC80B06E17741B02009BA163 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DC82FB1B177AAAD700480E61 /* AssistantCommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssistantCommonViewController.h; path = ViewControllers/AssistantCommonViewController.h; sourceTree = "<group>"; };
+		DC82FB1C177AAAD700480E61 /* AssistantCommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssistantCommonViewController.m; path = ViewControllers/AssistantCommonViewController.m; sourceTree = "<group>"; };
+		DC82FB1E177AAAFF00480E61 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutView.h; path = Views/AboutView.h; sourceTree = "<group>"; };
+		DC82FB1F177AAAFF00480E61 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutView.m; path = Views/AboutView.m; sourceTree = "<group>"; };
+		DC82FB21177AAB1B00480E61 /* SupportView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SupportView.h; path = Views/SupportView.h; sourceTree = "<group>"; };
+		DC82FB22177AAB1B00480E61 /* SupportView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupportView.m; path = Views/SupportView.m; sourceTree = "<group>"; };
+		DC82FB24177AAB8900480E61 /* SettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingView.h; path = Views/SettingView.h; sourceTree = "<group>"; };
+		DC82FB25177AAB8900480E61 /* SettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingView.m; path = Views/SettingView.m; sourceTree = "<group>"; };
+		DC82FB27177AAB9F00480E61 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = ViewControllers/SettingViewController.h; sourceTree = "<group>"; };
+		DC82FB28177AAB9F00480E61 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = ViewControllers/SettingViewController.m; sourceTree = "<group>"; };
+		DC82FB2A177AABD400480E61 /* NetworkUnavailableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkUnavailableViewController.h; path = ViewControllers/NetworkUnavailableViewController.h; sourceTree = "<group>"; };
+		DC82FB2B177AABD400480E61 /* NetworkUnavailableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkUnavailableViewController.m; path = ViewControllers/NetworkUnavailableViewController.m; sourceTree = "<group>"; };
+		DC82FB2D177AABE300480E61 /* NetworkUnavailableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkUnavailableView.h; path = Views/NetworkUnavailableView.h; sourceTree = "<group>"; };
+		DC82FB2E177AABE300480E61 /* NetworkUnavailableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkUnavailableView.m; path = Views/NetworkUnavailableView.m; sourceTree = "<group>"; };
+		DC82FB30177AC35D00480E61 /* Urls.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Urls.strings; path = Internationalization/Urls.strings; sourceTree = "<group>"; };
 		DC95233A177934A700587748 /* NewTalkingGroupProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NewTalkingGroupProtocol.h; path = Data/NewTalkingGroupProtocol.h; sourceTree = "<group>"; };
 		DC95233B1779702300587748 /* MyTalkingGroupListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTalkingGroupListTableViewCell.h; path = Views/MyTalkingGroupListTableViewCell.h; sourceTree = "<group>"; };
 		DC95233C1779702300587748 /* MyTalkingGroupListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTalkingGroupListTableViewCell.m; path = Views/MyTalkingGroupListTableViewCell.m; sourceTree = "<group>"; };
@@ -183,6 +208,10 @@
 		DC95234A1779883A00587748 /* img_mytalkinggroups7attendeesview_bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_mytalkinggroups7attendeesview_bg-568h@2x.png"; path = "SimpleIMeeting/Resources/Images/img_mytalkinggroups7attendeesview_bg-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		DC95234B1779883A00587748 /* img_mytalkinggroups7attendeesview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_mytalkinggroups7attendeesview_bg.png; path = SimpleIMeeting/Resources/Images/img_mytalkinggroups7attendeesview_bg.png; sourceTree = SOURCE_ROOT; };
 		DC95234C1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_mytalkinggroups7attendeesview_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_mytalkinggroups7attendeesview_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DCECE5EF177ACC1E00DB83BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Internationalization/en.lproj/Toasts.strings; sourceTree = "<group>"; };
+		DCECE5F1177ACC2800DB83BB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Internationalization/zh-Hans.lproj/Toasts.strings"; sourceTree = "<group>"; };
+		DCECE5F2177ACC3000DB83BB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Internationalization/zh-Hant.lproj/Toasts.strings"; sourceTree = "<group>"; };
+		DCECE5F3177ACC8000DB83BB /* RBGServerFields.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = RBGServerFields.strings; path = Internationalization/RBGServerFields.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,6 +420,8 @@
 			isa = PBXGroup;
 			children = (
 				DC756BB71752F24F00F287FA /* About */,
+				DC82FB1B177AAAD700480E61 /* AssistantCommonViewController.h */,
+				DC82FB1C177AAAD700480E61 /* AssistantCommonViewController.m */,
 				DC9523501779951900587748 /* NetworkUnavailable  */,
 				DC756BB91752F28F00F287FA /* Setting */,
 				DC756BB81752F27D00F287FA /* Support */,
@@ -401,6 +432,8 @@
 		DC756BB71752F24F00F287FA /* About */ = {
 			isa = PBXGroup;
 			children = (
+				DC82FB1E177AAAFF00480E61 /* AboutView.h */,
+				DC82FB1F177AAAFF00480E61 /* AboutView.m */,
 			);
 			name = About;
 			sourceTree = "<group>";
@@ -408,6 +441,8 @@
 		DC756BB81752F27D00F287FA /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				DC82FB21177AAB1B00480E61 /* SupportView.h */,
+				DC82FB22177AAB1B00480E61 /* SupportView.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -415,6 +450,10 @@
 		DC756BB91752F28F00F287FA /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				DC82FB24177AAB8900480E61 /* SettingView.h */,
+				DC82FB25177AAB8900480E61 /* SettingView.m */,
+				DC82FB27177AAB9F00480E61 /* SettingViewController.h */,
+				DC82FB28177AAB9F00480E61 /* SettingViewController.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -492,6 +531,9 @@
 			isa = PBXGroup;
 			children = (
 				DC80B06917741969009BA163 /* Localizable.strings */,
+				DCECE5F3177ACC8000DB83BB /* RBGServerFields.strings */,
+				DCECE5EE177ACC1E00DB83BB /* Toasts.strings */,
+				DC82FB30177AC35D00480E61 /* Urls.strings */,
 			);
 			name = Internationalization;
 			sourceTree = "<group>";
@@ -499,6 +541,10 @@
 		DC9523501779951900587748 /* NetworkUnavailable  */ = {
 			isa = PBXGroup;
 			children = (
+				DC82FB2D177AABE300480E61 /* NetworkUnavailableView.h */,
+				DC82FB2E177AABE300480E61 /* NetworkUnavailableView.m */,
+				DC82FB2A177AABD400480E61 /* NetworkUnavailableViewController.h */,
+				DC82FB2B177AABD400480E61 /* NetworkUnavailableViewController.m */,
 			);
 			name = "NetworkUnavailable ";
 			sourceTree = "<group>";
@@ -601,6 +647,9 @@
 				DC95234D1779883B00587748 /* img_mytalkinggroups7attendeesview_bg-568h@2x.png in Resources */,
 				DC95234E1779883B00587748 /* img_mytalkinggroups7attendeesview_bg.png in Resources */,
 				DC95234F1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png in Resources */,
+				DC82FB31177AC35D00480E61 /* Urls.strings in Resources */,
+				DCECE5F0177ACC1E00DB83BB /* Toasts.strings in Resources */,
+				DCECE5F4177ACC8000DB83BB /* RBGServerFields.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +676,13 @@
 				DC68EA771777E1120034A807 /* In6PreinTalkingGroupContactTableViewCell.m in Sources */,
 				DC95233D1779702400587748 /* MyTalkingGroupListTableViewCell.m in Sources */,
 				DC9523401779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m in Sources */,
+				DC82FB1D177AAAD700480E61 /* AssistantCommonViewController.m in Sources */,
+				DC82FB20177AAAFF00480E61 /* AboutView.m in Sources */,
+				DC82FB23177AAB1B00480E61 /* SupportView.m in Sources */,
+				DC82FB26177AAB8900480E61 /* SettingView.m in Sources */,
+				DC82FB29177AAB9F00480E61 /* SettingViewController.m in Sources */,
+				DC82FB2C177AABD400480E61 /* NetworkUnavailableViewController.m in Sources */,
+				DC82FB2F177AABE300480E61 /* NetworkUnavailableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +707,16 @@
 				DC80B06D17741977009BA163 /* zh-Hant */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		DCECE5EE177ACC1E00DB83BB /* Toasts.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCECE5EF177ACC1E00DB83BB /* en */,
+				DCECE5F1177ACC2800DB83BB /* zh-Hans */,
+				DCECE5F2177ACC3000DB83BB /* zh-Hant */,
+			);
+			name = Toasts.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

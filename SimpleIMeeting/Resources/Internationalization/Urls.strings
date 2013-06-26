@@ -1,0 +1,14 @@
+/* 
+  Urls.strings
+  SimpleIMeeting
+
+  Created by Ares on 13-6-26.
+  Copyright (c) 2013年 richitec. All rights reserved.
+*/
+
+// simple IMeeting application remote background server root url
+"remote background server root url string" = "http://www.wetalking.net/imeeting";
+
+// assistant urls format
+// support url format
+"support url format string" = "%@/help";

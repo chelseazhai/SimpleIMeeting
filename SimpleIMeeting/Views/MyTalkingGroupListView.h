@@ -12,11 +12,17 @@
     // my talking groups info array
     NSMutableArray *_mMyTalkingGroupsInfoArray;
     
+    // load my talking group list table view data source completion block
+    void (^ _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock)(NSInteger);
+    
     // present subviews
     // subview my talking group list table view
     UITableView *_mMyTalkingGroupListTableView;
 }
 
 @property (nonatomic, readonly) NSMutableArray *myTalkingGroupsInfoArray;
+
+// load my talking group list table view data source
+- (void)loadMyTalkingGroupListTableViewDataSource:(void (^)(NSInteger))completion;
 
 @end

@@ -62,6 +62,22 @@
 }
 */
 
+// test by ares
+- (void)testByAres{
+    _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(0);
+}
+
+- (void)loadMyTalkingGroupListTableViewDataSource:(void (^)(NSInteger))completion{
+    // save loading my talking group list table view data source completion block
+    _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock = completion;
+    
+    // test by ares
+    [_mMyTalkingGroupsInfoArray addObjectsFromArray:[NSArray arrayWithObjects:@"123", @"456", @"789", nil]];
+    [_mMyTalkingGroupListTableView reloadData];
+    
+    [self performSelector:@selector(testByAres) withObject:nil afterDelay:3.0];
+}
+
 // UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     // Return the number of rows in the section.
