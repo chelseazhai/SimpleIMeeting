@@ -32,7 +32,7 @@
         _mSupportPageWebView.delegate = self;
         
         // load support page
-        [_mSupportPageWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:NSUrlsString(@"support url format string", nil), NSUrlsString(@"remote background server root url string", nil)]]]];
+        [_mSupportPageWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:NSUrlString(@"support url format string", nil), NSUrlString(@"remote background server root url string", nil)]]]];
         
         // hidden first
         _mSupportPageWebView.hidden = YES;
