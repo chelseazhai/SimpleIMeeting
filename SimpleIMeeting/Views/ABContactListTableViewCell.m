@@ -18,10 +18,10 @@
 // tableViewCell padding
 #define PADDING 2.0
 
-// cell selected flag photo imageView margin
+// cell selected flag photo imageview margin
 #define SELECTEDFLAGPHOTOIMGVIEW_MARGIN 8.0
 
-// cell selected flag photo imageView width and height
+// cell selected flag photo imageview width and height
 #define SELECTEDFLAGPHOTOIMGVIEW_WIDTH7HEIGHT   24.0
 // cell display name label height
 #define DISPLAYNAMELABEL_HEIGHT 20.0

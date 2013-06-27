@@ -37,7 +37,7 @@
 // about view
 "about view title" = "About";
 "product description label text" = "Intelligent Choice For Highly Efficient People";
-"version label text format" = "Version: %@";
+"product version label text format" = "Version: %@";
 "programming author label text" = "Programming\nChelsea Zhai\t\t\t\tStar king";
 "user interface author label text" = "UI Design\nLi Xin";
 "copyright label text" = "Copyright © 2013\nHefei Youyun Info Tech Ltd.\nAll Rights Reserved";

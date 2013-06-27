@@ -17,7 +17,7 @@
     {   \
         label.text = labelText; \
         label.textColor = [UIColor colorWithWhite:0.3 alpha:1.0];   \
-        label.font = [UIFont systemFontOfSize:16.0];    \
+        label.font = [UIFont systemFontOfSize:15.0];    \
         label.textAlignment = NSTextAlignmentCenter;    \
         label.numberOfLines = 0;    \
         label.lineBreakMode = NSLineBreakByCharWrapping;    \
@@ -32,6 +32,18 @@
 #define AUTHORSGROUPVIEW_WEIGHT 1
 #define COPYRIGHT7ACKNOWLEDGEMENTGROUPVIEW_WEIGHT   1
 #define ABOUTVIEW_TOTALSUMWEIGHT    3.6 
+
+// product icon name name group view margin top
+#define PRODUCTICON7NAMEGROUPVIEW_MARGINTOP 12.0
+
+// padding product icon imageview and name label
+#define PADDINGPRODUCTICON7NAME 14.0
+
+// product icon imageview width and height
+#define PRODUCTICONIMAGEVIEW_WIDTH7HEIGHT   44.0
+
+// product name label text font size
+#define PRODUCTNAMELABELTEXTFONTSIZE    20.0
 
 @implementation AboutView
 
@@ -50,7 +62,52 @@
         // init product group view
         UIView *_productGroupView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT * (PRODUCTGROUPVIEW_WEIGHT / ABOUTVIEW_TOTALSUMWEIGHT))];
         
-        _productGroupView.backgroundColor = [UIColor redColor];
+        // init product icon and name group view
+        UIView *_productIcon7NameGroupView = [[UIView alloc] initWithFrame:CGRectMake(_productGroupView.bounds.origin.x, _productGroupView.bounds.origin.y + PRODUCTICON7NAMEGROUPVIEW_MARGINTOP, FILL_PARENT, FILL_PARENT / 2.0)];
+        
+        // init product icon imageview
+        UIImageView *_productIconImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
+        
+        // set its frame
+        [_productIconImgView setFrame:CGRectMakeWithFormat(_productIconImgView, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s/2-%d-%d", (int)_productIcon7NameGroupView.bounds.origin.x, FILL_PARENT_STRING, (int)PRODUCTICONIMAGEVIEW_WIDTH7HEIGHT, (int)(PADDINGPRODUCTICON7NAME / 2)] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s-%d)/2", (int)_productIcon7NameGroupView.bounds.origin.y, FILL_PARENT_STRING, (int)PRODUCTICONIMAGEVIEW_WIDTH7HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:PRODUCTICONIMAGEVIEW_WIDTH7HEIGHT], [NSNumber numberWithFloat:PRODUCTICONIMAGEVIEW_WIDTH7HEIGHT])];
+        
+        // set its corner radius
+        [_productIconImgView setCornerRadius:6.0];
+        
+        // define product name label
+        UILabel *_productNameLabel;
+        
+        // init product name label
+        _productNameLabel = [_productNameLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_productNameLabel, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s+%d)/2", (int)_productIcon7NameGroupView.bounds.origin.x, FILL_PARENT_STRING, (int)PADDINGPRODUCTICON7NAME] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_productIcon7NameGroupView.bounds.origin.y], [NSNumber numberWithFloat:FILL_PARENT / 2.0], [NSNumber numberWithFloat:FILL_PARENT])];
+        
+        // set its attributes
+        _productNameLabel.text = NSAPPDISPLAYNAMESTRING;
+        _productNameLabel.font = [UIFont boldSystemFontOfSize:PRODUCTNAMELABELTEXTFONTSIZE];
+        _productNameLabel.backgroundColor = [UIColor clearColor];
+        
+        // add product icon imageview and name label as subviews of product icon and name group view
+        [_productIcon7NameGroupView addSubview:_productIconImgView];
+        [_productIcon7NameGroupView addSubview:_productNameLabel];
+        
+        // init product description label
+        UILabel *_productDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(_productGroupView.bounds.origin.x, _productGroupView.bounds.origin.y + FILL_PARENT / 2.0, FILL_PARENT, FILL_PARENT / 2.0 / 2.0)];
+        
+        // set its attributes
+        SetLabelAttributesWithText(_productDescriptionLabel, NSLocalizedString(@"product description label text", nil));
+        
+        // init product version label
+        UILabel *_productVersionLabel = [[UILabel alloc] initWithFrame:CGRectMake(_productGroupView.bounds.origin.x, _productGroupView.bounds.origin.y + FILL_PARENT / 2.0 + _productDescriptionLabel.frame.size.height, FILL_PARENT, FILL_PARENT / 2.0 / 2.0)];
+        
+        // generate product version label text
+        NSString *_productVersionLabelText = [NSString stringWithFormat:NSLocalizedString(@"product version label text format", nil), [VersionUtils versionName]];
+        
+        // set its attributes
+        SetLabelAttributesWithText(_productVersionLabel, _productVersionLabelText);
+        
+        // add product icon and name group view, description and version label as subviews of product group view
+        [_productGroupView addSubview:_productIcon7NameGroupView];
+        [_productGroupView addSubview:_productDescriptionLabel];
+        [_productGroupView addSubview:_productVersionLabel];
         
         // init authors group view
         UIView *_authorsGroupView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + _productGroupView.frame.size.height + FILL_PARENT * (PADDINGGROUPSVIEW_WEIGHT / ABOUTVIEW_TOTALSUMWEIGHT), FILL_PARENT, FILL_PARENT * (AUTHORSGROUPVIEW_WEIGHT / ABOUTVIEW_TOTALSUMWEIGHT))];

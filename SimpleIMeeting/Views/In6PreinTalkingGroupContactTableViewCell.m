@@ -16,10 +16,10 @@
 // tableViewCell padding
 #define PADDING 2.0
 
-// cell indicate photo imageView margin
+// cell indicate photo imageview margin
 #define INDICATEPHOTOIMGVIEW_MARGIN 4.0
 
-// cell indicate photo imageView width and height
+// cell indicate photo imageview width and height
 #define INDICATEPHOTOIMGVIEW_WIDTH7HEIGHT   14.0
 // cell display name label height
 #define DISPLAYNAMELABEL_HEIGHT 22.0

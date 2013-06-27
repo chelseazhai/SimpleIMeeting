@@ -25,7 +25,7 @@
     // name matching index array
     NSArray *_mNameMatchingIndexs;
     
-    // contact selected flag photo imageView
+    // contact selected flag photo imageview
     UIImageView *_mSelectedFlagPhotoImgView;
     // contact display name label
     UIAttributedLabel *_mDisplayNameLabel;

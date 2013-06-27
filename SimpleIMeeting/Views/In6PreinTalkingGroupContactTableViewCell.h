@@ -16,7 +16,7 @@
     // contact display name label text
     NSString *_mDisplayName;
     
-    // contact indicate photo imageView
+    // contact indicate photo imageview
     UIImageView *_mIndicatePhotoImgView;
     // contact display name label
     UILabel *_mDisplayNameLabel;

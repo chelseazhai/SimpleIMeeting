@@ -37,7 +37,7 @@
 // about view
 "about view title" = "关于";
 "product description label text" = "高效能人士的智慧选择";
-"version label text format" = "版本号：%@";
+"product version label text format" = "版本号：%@";
 "programming author label text" = "程序设计\n翟绍虎\t\t\t\t王星";
 "user interface author label text" = "UI设计\n李欣";
 "copyright label text" = "合肥优云信息技术有限公司\n版权所有";
