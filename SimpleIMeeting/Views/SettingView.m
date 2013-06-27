@@ -51,10 +51,9 @@
         // init my account group view
         _myAccountGroupView = [_myAccountGroupView = [SimpleIMeetingGroupView alloc] initWithFrame:CGRectMakeWithFormat(_myAccountGroupView, _subviewOriginXNumber, [NSNumber numberWithFloat:self.bounds.origin.y + MARGIN], _subviewWidthValue, MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(MYACCOUNTGROUPVIEW_HEIGHTWEIGHT, MYACCOUNT7BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT))];
         
-        _myAccountGroupView.backgroundColor = [UIColor redColor];
-        
         // set its attributes
         [_myAccountGroupView setTipLabelText:NSLocalizedString(@"my account group view tip", nil)];
+        _myAccountGroupView.backgroundColor = [UIColor whiteColor];
         
         // init device id or bind contact info login account label
         UILabel *_l = [[UILabel alloc] initWithFrame:CGRectMake(_myAccountGroupView.bounds.origin.x, _myAccountGroupView.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
@@ -71,10 +70,9 @@
         // init bind contact info goup view
         _bindContactInfoGroupView = [_bindContactInfoGroupView = [SimpleIMeetingGroupView alloc] initWithFrame:CGRectMakeWithFormat(_bindContactInfoGroupView, _subviewOriginXNumber, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%d+%d+%@", (int)self.bounds.origin.y, (int)MARGIN, (int)PADDING, MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(MYACCOUNTGROUPVIEW_HEIGHTWEIGHT, MYACCOUNT7BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT).stringValue] cStringUsingEncoding:NSUTF8StringEncoding]], _subviewWidthValue, MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(BINDCONTACTINFOGROUPVIEW_HEIGHTWEIGHT, MYACCOUNT7BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT))];
         
-        _bindContactInfoGroupView.backgroundColor = [UIColor greenColor];
-        
         // set its attributes
         [_bindContactInfoGroupView setTipLabelText:NSLocalizedString(@"bind contact info group tip", nil)];
+        _bindContactInfoGroupView.backgroundColor = [UIColor whiteColor];
         
         // init bind contact info account login button
         UIButton *_bindContactInfoAccountLoginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];

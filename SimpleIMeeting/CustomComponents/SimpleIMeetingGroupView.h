@@ -10,6 +10,8 @@
 
 @interface SimpleIMeetingGroupView : UIView {
     // present subviews
+    // subview border view
+    UIView *_mGroupBorderView;
     // subview group header tip label
     UILabel *_mGroupHeaderTipLabel;
     // subview group content view

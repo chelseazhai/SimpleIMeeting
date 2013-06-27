@@ -38,6 +38,13 @@
     if (self) {
         // Initialization code
         // create and init subviews
+        // init group border view
+        _mGroupBorderView = [_mGroupBorderView = [UIView alloc] initWithFrame:CGRectMakeWithFormat(_mGroupBorderView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + GROUPHEADERTIPLABEL_HEIGHT / 2], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s-%d", (int)self.bounds.origin.y, FILL_PARENT_STRING, (int)(GROUPHEADERTIPLABEL_HEIGHT / 2)] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        
+        // set corner radius, border width and color
+        [_mGroupBorderView setCornerRadius:6.0];
+        [_mGroupBorderView setBorderWithWidth:1.0 andColor:[UIColor darkGrayColor]];
+        
         // init group header tip label
         _mGroupHeaderTipLabel = [_mGroupHeaderTipLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mGroupHeaderTipLabel, [NSNumber numberWithFloat:self.bounds.origin.x + MARGINLRB + GROUPHEADERTIPLABEL_MARGINLEFT], [NSNumber numberWithFloat:self.bounds.origin.y], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d-%d", FILL_PARENT_STRING, (int)MARGINLRB, (int)GROUPHEADERTIPLABEL_MARGINLEFT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:GROUPHEADERTIPLABEL_HEIGHT])];
         
@@ -51,26 +58,38 @@
         
         _mGroupContentView.backgroundColor = [UIColor orangeColor];
         
-        // add group header tip label and content view as subviews of ui group view
+        // add group border view, header tip label and content view as subviews of ui group view
+        [self addSubview:_mGroupBorderView];
         [self addSubview:_mGroupHeaderTipLabel];
         [self addSubview:_mGroupContentView];
     }
     return self;
 }
 
-/**/
+/*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    NSLog(@"drawRect - rect = %@ and group header tip label frame = %@ --- %@", NSStringFromCGRect(rect), NSStringFromCGRect(_mGroupHeaderTipLabel.frame), _mGroupHeaderTipLabel.text);
 }
-/**/
+*/
 
 - (void)layoutSubviews{
     // resize all subviews
     [self resizesSubviews];
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor{
+    // update group header tip label background color
+    _mGroupHeaderTipLabel.backgroundColor = backgroundColor;
+    
+    [super setBackgroundColor:backgroundColor];
+}
+
+- (void)setBorderWithWidth:(CGFloat)borderWidth andColor:(UIColor *)borderColor{
+    // set group border view border width and color
+    [_mGroupBorderView setBorderWithWidth:borderWidth andColor:borderColor];
 }
 
 - (UIView *)contentView{
