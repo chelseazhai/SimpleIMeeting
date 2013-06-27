@@ -13,8 +13,7 @@
 
 #import "SettingViewController.h"
 
-#import "SettingView.h"
-
+#import "AssistantCommonViewController.h"
 #import "SupportView.h"
 #import "AboutView.h"
 
@@ -117,6 +116,18 @@
     [self setContentView:MYTALKINGGROUPS];
 }
 
+- (void)setMyTalkingGroupsNeed2Refresh{
+    // check content view type
+    if (ADDRESSBOOKCONTACTS == _mContentViewType) {
+        // set my talking groups need to refresh
+        _mMyTalkingGroups7AttendeesContentView.myTalkingGroupsNeed2Refresh = YES;
+    }
+    else {
+        // refresh my talking groups
+        [_mMyTalkingGroups7AttendeesContentView refreshMyTalkingGroups];
+    }
+}
+
 // UIViewGestureRecognizerDelegate
 - (GestureType)supportedGestureInView:(UIView *)pView{
     GestureType _ret = tap;
@@ -217,10 +228,10 @@
     NSLog(@"Show more menu as popup menu");
     
     // go to setting view using setting view controller
-    //
+    [self.viewControllerRef.navigationController pushViewController:[[SettingViewController alloc] initWithSponsorContentViewType:_mContentViewType] animated:YES];
     
-    // go to support or about view using assistant common view controller
-    [self.viewControllerRef.navigationController pushViewController:[[AssistantCommonViewController alloc] initWithSponsorContentViewType:_mContentViewType presentView:[[AboutView alloc] init]] animated:YES];
+//    // go to support or about view using assistant common view controller
+//    [self.viewControllerRef.navigationController pushViewController:[[AssistantCommonViewController alloc] initWithSponsorContentViewType:_mContentViewType presentView:[[AboutView alloc] init]] animated:YES];
 }
 
 - (void)back2MyTalkingGroups7Attendees6ContactsSelectContentView{

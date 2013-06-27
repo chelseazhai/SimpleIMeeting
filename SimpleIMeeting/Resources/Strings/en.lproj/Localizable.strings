@@ -30,6 +30,12 @@
 "my talking groups loading tip" = "Loading my meetings ...";
 "no talking group tip label Text" = "There is no meeting with you, you can tap to generate new meeting by yourself";
 
+// setting view
+"setting view title" = "Setting";
+"my account group view tip" = "My account";
+"bind contact info group tip" = "Bind contact info";
+"bind contact info account login button title" = "Bind contact info account login";
+
 // support view
 "support view title" = "Help";
 "support page loading tip" = "Loading ...";

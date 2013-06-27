@@ -71,15 +71,14 @@
         // init invite selected contacts to the talking group button
         UIButton *_inviteSelectedContacts2TalkingGroupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
-        // set title and title color for normal state
+        // set its frame
+        [_inviteSelectedContacts2TalkingGroupButton setFrame:CGRectMakeWithFormat(_inviteSelectedContacts2TalkingGroupButton, [NSNumber numberWithFloat:self.bounds.origin.x + INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_MARGIN], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-%d", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_MARGIN, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_MARGIN] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_HEIGHT])];
+        
+        // set its title for normal state
         [_inviteSelectedContacts2TalkingGroupButton setTitle:NSLocalizedString(@"invite the selected contacts to talking group button title", nil) forState:UIControlStateNormal];
-        [_inviteSelectedContacts2TalkingGroupButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
         // add action selector and its response target for event
         [_inviteSelectedContacts2TalkingGroupButton addTarget:self action:@selector(inviteSelectedContacts2TalkingGroup) forControlEvents:UIControlEventTouchUpInside];
-        
-        // set its frame
-        [_inviteSelectedContacts2TalkingGroupButton setFrame:CGRectMakeWithFormat(_inviteSelectedContacts2TalkingGroupButton, [NSNumber numberWithFloat:self.bounds.origin.x + INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_MARGIN], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-%d", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_MARGIN, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_MARGIN] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_HEIGHT])];
         
         // add selected contacts head tip view, in or prein talking group contact list table view and invite selected contacts to talking group button as subviews of selected contact list view
         [self addSubview:_selectedContactsHeadTipView];

@@ -94,7 +94,14 @@
     
     // check my talking groups loading indicator view if is or not animating
     if (!_mMyTalkingGroupsLoadingIndicatorView.isAnimating) {
-        //
+        // prepare to refresh my talking group list table view data source
+        [_mMyTalkingGroupsLoadingIndicatorView startAnimating];
+        if (![_mNoTalkingGroupTipLabel isHidden]) {
+            _mNoTalkingGroupTipLabel.hidden = YES;
+        }
+        if (![_mMyTalkingGroupListView isHidden]) {
+            _mMyTalkingGroupListView.hidden = YES;
+        }
     }
     
     // load my talking group list table view data source

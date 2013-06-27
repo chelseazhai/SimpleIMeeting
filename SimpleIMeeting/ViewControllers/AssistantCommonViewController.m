@@ -10,9 +10,6 @@
 
 @interface AssistantCommonViewController ()
 
-// back to sponsor simple imeeting content view controller content view
-- (void)back2SponsorSimpleIMeetingContentViewControllerContentView;
-
 @end
 
 @implementation AssistantCommonViewController
@@ -48,7 +45,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-// inner extension
 - (void)back2SponsorSimpleIMeetingContentViewControllerContentView{
     // pop present view using assistant common view controller
     [self.navigationController popViewControllerAnimated:YES];

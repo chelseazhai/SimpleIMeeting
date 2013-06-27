@@ -92,6 +92,7 @@
 		DCE5191A177BD65D000CA65D /* Url.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51918177BD65D000CA65D /* Url.strings */; };
 		DCE5191F177BD666000CA65D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE5191B177BD666000CA65D /* Localizable.strings */; };
 		DCE51920177BD666000CA65D /* Toast.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE5191D177BD666000CA65D /* Toast.strings */; };
+		DCE5192F177C2380000CA65D /* SimpleIMeetingGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE5192E177C2380000CA65D /* SimpleIMeetingGroupView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,6 +213,8 @@
 		DCE51922177BD66F000CA65D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Strings/zh-Hans.lproj/Toast.strings"; sourceTree = "<group>"; };
 		DCE51923177BD676000CA65D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Strings/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DCE51924177BD676000CA65D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Strings/zh-Hant.lproj/Toast.strings"; sourceTree = "<group>"; };
+		DCE5192D177C2380000CA65D /* SimpleIMeetingGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleIMeetingGroupView.h; sourceTree = "<group>"; };
+		DCE5192E177C2380000CA65D /* SimpleIMeetingGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleIMeetingGroupView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -521,6 +524,8 @@
 		DC756BE517535D7B00F287FA /* CustomComponents */ = {
 			isa = PBXGroup;
 			children = (
+				DCE5192D177C2380000CA65D /* SimpleIMeetingGroupView.h */,
+				DCE5192E177C2380000CA65D /* SimpleIMeetingGroupView.m */,
 				DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */,
 				DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */,
 			);
@@ -683,6 +688,7 @@
 				DC82FB29177AAB9F00480E61 /* SettingViewController.m in Sources */,
 				DC82FB2C177AABD400480E61 /* NetworkUnavailableViewController.m in Sources */,
 				DC82FB2F177AABE300480E61 /* NetworkUnavailableView.m in Sources */,
+				DCE5192F177C2380000CA65D /* SimpleIMeetingGroupView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

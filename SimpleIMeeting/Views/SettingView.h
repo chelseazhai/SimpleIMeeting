@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingView : UIView
+@interface SettingView : UIView {
+    // is login account changed
+    BOOL _mIsLoginAccountChanged;
+}
+
+// check and clear login account is changed flag
+- (BOOL)check7clearLoginAccountIsChangedFlag;
 
 @end

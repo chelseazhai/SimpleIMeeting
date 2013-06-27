@@ -15,4 +15,7 @@
 // init with sponsor simple imeeting content view controller content view type and present view
 - (id)initWithSponsorContentViewType:(SIMContentViewMode)contentViewType presentView:(UIView *)presentView;
 
+// back to sponsor simple imeeting content view controller content view
+- (void)back2SponsorSimpleIMeetingContentViewControllerContentView;
+
 @end

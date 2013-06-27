@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SimpleIMeetingContentViewController : UIViewController
+@interface SimpleIMeetingContentViewController : UIViewController {
+    // is login account changed
+    BOOL _mIsLoginAccountChanged;
+}
+
+// mark login account is changed
+- (void)markLoginAccountIsChanged;
 
 @end

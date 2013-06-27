@@ -12,4 +12,7 @@
 
 @interface SettingViewController : AssistantCommonViewController
 
+// init with sponsor simple imeeting content view controller content view type
+- (id)initWithSponsorContentViewType:(SIMContentViewMode)contentViewType;
+
 @end

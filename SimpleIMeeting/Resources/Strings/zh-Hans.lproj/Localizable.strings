@@ -30,6 +30,12 @@
 "my talking groups loading tip" = "正在加载我的会议 ...";
 "no talking group tip label Text" = "当前没有待参与的会议，你可以点击来开启一个新的会议";
 
+// setting view
+"setting view title" = "设置";
+"my account group view tip" = "我的账户";
+"bind contact info group tip" = "绑定联系方式";
+"bind contact info account login button title" = "绑定过联系方式的用户登录";
+
 // support view
 "support view title" = "帮助";
 "support page loading tip" = "正在加载 ...";
