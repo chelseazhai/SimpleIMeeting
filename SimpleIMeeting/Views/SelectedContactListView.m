@@ -20,7 +20,7 @@
 #define SECTIONNUMBER_ROWSNUMBERARRAY   [NSArray arrayWithObjects:[NSNumber numberWithInteger:[_mInTalkingGroupAttendeesPhoneArray count]], [NSNumber numberWithInteger:[_mPreinTalkingGroupContactsInfoArray count]], nil]
 
 // invite selected contacts to the talking group button height and margin
-#define INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_HEIGHT    40.0
+#define INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_HEIGHT    34.0
 #define INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_MARGIN    4.0
 
 @interface SelectedContactListView ()
