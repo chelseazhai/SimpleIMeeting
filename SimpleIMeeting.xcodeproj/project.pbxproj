@@ -92,6 +92,9 @@
 		DCE5191A177BD65D000CA65D /* Url.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51918177BD65D000CA65D /* Url.strings */; };
 		DCE5191F177BD666000CA65D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE5191B177BD666000CA65D /* Localizable.strings */; };
 		DCE51920177BD666000CA65D /* Toast.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE5191D177BD666000CA65D /* Toast.strings */; };
+		DCEC7E1A177D73C900E34BDF /* UserBean+BindContactInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCEC7E19177D73C900E34BDF /* UserBean+BindContactInfo.m */; };
+		DCEC7E27177D897000E34BDF /* BindedAccountLoginHttpRequestProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = DCEC7E24177D896F00E34BDF /* BindedAccountLoginHttpRequestProcessor.m */; };
+		DCEC7E28177D897000E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,6 +215,13 @@
 		DCE51922177BD66F000CA65D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Strings/zh-Hans.lproj/Toast.strings"; sourceTree = "<group>"; };
 		DCE51923177BD676000CA65D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Strings/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DCE51924177BD676000CA65D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Strings/zh-Hant.lproj/Toast.strings"; sourceTree = "<group>"; };
+		DCEC7E18177D73C900E34BDF /* UserBean+BindContactInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UserBean+BindContactInfo.h"; path = "Data/UserBean+BindContactInfo.h"; sourceTree = "<group>"; };
+		DCEC7E19177D73C900E34BDF /* UserBean+BindContactInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UserBean+BindContactInfo.m"; path = "Data/UserBean+BindContactInfo.m"; sourceTree = "<group>"; };
+		DCEC7E22177D893800E34BDF /* IHttpReqRespSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IHttpReqRespSelector.h; path = Data/IHttpReqRespSelector.h; sourceTree = "<group>"; };
+		DCEC7E23177D896E00E34BDF /* BindedAccountLoginHttpRequestProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BindedAccountLoginHttpRequestProcessor.h; path = Data/BindedAccountLoginHttpRequestProcessor.h; sourceTree = "<group>"; };
+		DCEC7E24177D896F00E34BDF /* BindedAccountLoginHttpRequestProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BindedAccountLoginHttpRequestProcessor.m; path = Data/BindedAccountLoginHttpRequestProcessor.m; sourceTree = "<group>"; };
+		DCEC7E25177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h; path = Data/RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h; sourceTree = "<group>"; };
+		DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m; path = Data/RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,8 +430,10 @@
 			isa = PBXGroup;
 			children = (
 				DC756BB71752F24F00F287FA /* About */,
+				DCEC7E17177D738500E34BDF /* Account */,
 				DC82FB1B177AAAD700480E61 /* AssistantCommonViewController.h */,
 				DC82FB1C177AAAD700480E61 /* AssistantCommonViewController.m */,
+				DCEC7E29177D8D8200E34BDF /* HttpReqProcessor&RespSelector */,
 				DC9523501779951900587748 /* NetworkUnavailable  */,
 				DC756BB91752F28F00F287FA /* Setting */,
 				DC756BB81752F27D00F287FA /* Support */,
@@ -547,6 +559,27 @@
 				DC82FB2B177AABD400480E61 /* NetworkUnavailableViewController.m */,
 			);
 			name = "NetworkUnavailable ";
+			sourceTree = "<group>";
+		};
+		DCEC7E17177D738500E34BDF /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				DCEC7E18177D73C900E34BDF /* UserBean+BindContactInfo.h */,
+				DCEC7E19177D73C900E34BDF /* UserBean+BindContactInfo.m */,
+			);
+			name = Account;
+			sourceTree = "<group>";
+		};
+		DCEC7E29177D8D8200E34BDF /* HttpReqProcessor&RespSelector */ = {
+			isa = PBXGroup;
+			children = (
+				DCEC7E23177D896E00E34BDF /* BindedAccountLoginHttpRequestProcessor.h */,
+				DCEC7E24177D896F00E34BDF /* BindedAccountLoginHttpRequestProcessor.m */,
+				DCEC7E22177D893800E34BDF /* IHttpReqRespSelector.h */,
+				DCEC7E25177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h */,
+				DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m */,
+			);
+			name = "HttpReqProcessor&RespSelector";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -683,6 +716,9 @@
 				DC82FB29177AAB9F00480E61 /* SettingViewController.m in Sources */,
 				DC82FB2C177AABD400480E61 /* NetworkUnavailableViewController.m in Sources */,
 				DC82FB2F177AABE300480E61 /* NetworkUnavailableView.m in Sources */,
+				DCEC7E1A177D73C900E34BDF /* UserBean+BindContactInfo.m in Sources */,
+				DCEC7E27177D897000E34BDF /* BindedAccountLoginHttpRequestProcessor.m in Sources */,
+				DCEC7E28177D897000E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

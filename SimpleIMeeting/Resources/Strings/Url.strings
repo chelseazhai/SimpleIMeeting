@@ -7,8 +7,26 @@
 */
 
 // simple IMeeting application remote background server root url
-"remote background server root url string" = "http://www.wetalking.net/imeeting";
+//"remote background server root url string" = "http://www.wetalking.net/imeeting";
+"remote background server root url string" = "http://192.168.1.54:8080/imeetings";
+
+// binded account login, register and login with device combined unique id, phone and email bind urls format
+"binded account login url format string" = "%@/user/login";
+"register and login with device id url format string" = "%@/user/regAndLoginWithDeviceID";
+"retrieve phone bind authentication code url format string" = "%@/user/getPhoneCode";
+"user register url format string" = "%@/user/regUser";
+
+// my talking groups urls format
+"my talking groups url format string" = "%@/conference/conflist";
+"get selected talking group attendee list url format string" = "%@/conference/attendeeList";
+"get new talking group id url format string" = "%@/conference/generateConfId";
+"invite new member to talking group url format string" = "%@/conference/invite";
+"create and start new talking group url format string" = "%@/conference/scheduleNow";
+"schedule new talking group url format string" = "%@/conference/schedule";
 
 // assistant urls format
 // support url format
 "support url format string" = "%@/help";
+
+// application version center url
+"application version center url string" = "http://www.wetalking.net/appvcenter";

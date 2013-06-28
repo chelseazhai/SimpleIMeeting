@@ -12,6 +12,12 @@
 
 #import "SimpleIMeetingContentViewController.h"
 
+#import "UserBean+BindContactInfo.h"
+
+#import "BindedAccountLoginHttpRequestProcessor.h"
+
+#import "RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h"
+
 @implementation AppDelegate
 
 @synthesize rootViewController = _rootViewController;
@@ -26,6 +32,37 @@
     
     // traversal addressBook
     [[AddressBookManager shareAddressBookManager] traversalAddressBook];
+    
+    // get binded account login user info from storage and add to user manager
+    UserBean *_localStorageUser = [[UserBean alloc] init];
+    
+    // set bind contact info and password
+    _localStorageUser.bindContactInfo = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINNAME];
+    _localStorageUser.password = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINPWD];
+    
+    // save user bean and add to user manager
+    [[UserManager shareUserManager] setUserBean:_localStorageUser];
+    
+    // check user bind contact info and password
+    if (nil != _localStorageUser.bindContactInfo && ![@"" isEqualToString:_localStorageUser.bindContactInfo]
+        && nil != _localStorageUser.password && ![@"" isEqualToString:_localStorageUser.password]) {
+        // binded account user login
+        // generate binded account login param map
+        NSMutableDictionary *_bindedAccountLoginParamMap = [[NSMutableDictionary alloc] init];
+        
+        // set some params
+        [_bindedAccountLoginParamMap setObject:_localStorageUser.bindContactInfo forKey:@""];
+        [_bindedAccountLoginParamMap setObject:_localStorageUser.password forKey:@""];
+        
+        // define binded account login http request processor
+        BindedAccountLoginHttpRequestProcessor *_bindedAccountLoginHttpRequestProcessor = [[BindedAccountLoginHttpRequestProcessor alloc] init];
+        
+        // post the http request
+        [HttpUtils postRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"binded account login url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_bindedAccountLoginParamMap andUserInfo:nil andRequestType:synchronous andProcessor:_bindedAccountLoginHttpRequestProcessor andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+    } else {
+        // register and login using device combined unique id
+        //sendReg7LoginWithDeviceCombinedUniqueIdHttpRequest();
+    }
     
     // init application root view controller
     _rootViewController = [[AppRootViewController alloc] initWithNavigationViewController:[[SimpleIMeetingContentViewController alloc] init] andBarBackgroundImage:[UIImage imageNamed:@"img_navigationbar_bg"]];

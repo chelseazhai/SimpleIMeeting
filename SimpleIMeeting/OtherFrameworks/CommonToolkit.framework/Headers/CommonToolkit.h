@@ -19,8 +19,6 @@
 
 #import "DisplayScreenUtils.h"
 
-#import "DeviceUtils.h"
-
 #import "AudioServicesUtils.h"
 
 #import "DataStorageUtils.h"

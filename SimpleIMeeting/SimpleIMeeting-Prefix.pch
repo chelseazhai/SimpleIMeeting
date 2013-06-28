@@ -12,8 +12,12 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
+    // binded account login name and password data storage key
+    #define BINDEDACCOUNT_LOGINNAME @"binded account login name"
+    #define BINDEDACCOUNT_LOGINPWD  @"binded account login password"
+
     // contacts select view or my talking groups and selected talking group attendees view subview weight and total weight
-#define LEFTSEPARATESUBVIEW_WEIGHT  2
-#define RIGHTSEPARATESUBVIEW_WEIGHT 1
-#define TOTAL_WEIGHT    3.0
+    #define LEFTSEPARATESUBVIEW_WEIGHT  2
+    #define RIGHTSEPARATESUBVIEW_WEIGHT 1
+    #define TOTAL_WEIGHT    3.0
 #endif
