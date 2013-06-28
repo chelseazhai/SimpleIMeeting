@@ -107,4 +107,6 @@
 
 #import "UIDataLoadingIndicatorView.h"
 
+#import "UIGroupView.h"
+
 #endif

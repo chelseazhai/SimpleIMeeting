@@ -10,8 +10,6 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
-#import "SimpleIMeetingGroupView.h"
-
 // margin and padding
 #define MARGIN  10.0
 #define PADDING 20.0
@@ -46,10 +44,10 @@
         NSValue *_subviewWidthValue = [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)MARGIN] cStringUsingEncoding:NSUTF8StringEncoding]];
         
         // define my account group view
-        SimpleIMeetingGroupView *_myAccountGroupView;
+        UIGroupView *_myAccountGroupView;
         
         // init my account group view
-        _myAccountGroupView = [_myAccountGroupView = [SimpleIMeetingGroupView alloc] initWithFrame:CGRectMakeWithFormat(_myAccountGroupView, _subviewOriginXNumber, [NSNumber numberWithFloat:self.bounds.origin.y + MARGIN], _subviewWidthValue, MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(MYACCOUNTGROUPVIEW_HEIGHTWEIGHT, MYACCOUNT7BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT))];
+        _myAccountGroupView = [_myAccountGroupView = [UIGroupView alloc] initWithFrame:CGRectMakeWithFormat(_myAccountGroupView, _subviewOriginXNumber, [NSNumber numberWithFloat:self.bounds.origin.y + MARGIN], _subviewWidthValue, MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(MYACCOUNTGROUPVIEW_HEIGHTWEIGHT, MYACCOUNT7BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT))];
         
         // set its attributes
         [_myAccountGroupView setTipLabelText:NSLocalizedString(@"my account group view tip", nil)];
@@ -65,10 +63,10 @@
         [_myAccountGroupView.contentView addSubview:_l];
         
         // define bind contact info goup view
-        SimpleIMeetingGroupView *_bindContactInfoGroupView;
+        UIGroupView *_bindContactInfoGroupView;
         
         // init bind contact info goup view
-        _bindContactInfoGroupView = [_bindContactInfoGroupView = [SimpleIMeetingGroupView alloc] initWithFrame:CGRectMakeWithFormat(_bindContactInfoGroupView, _subviewOriginXNumber, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%d+%d+%@", (int)self.bounds.origin.y, (int)MARGIN, (int)PADDING, MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(MYACCOUNTGROUPVIEW_HEIGHTWEIGHT, MYACCOUNT7BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT).stringValue] cStringUsingEncoding:NSUTF8StringEncoding]], _subviewWidthValue, MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(BINDCONTACTINFOGROUPVIEW_HEIGHTWEIGHT, MYACCOUNT7BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT))];
+        _bindContactInfoGroupView = [_bindContactInfoGroupView = [UIGroupView alloc] initWithFrame:CGRectMakeWithFormat(_bindContactInfoGroupView, _subviewOriginXNumber, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%d+%d+%@", (int)self.bounds.origin.y, (int)MARGIN, (int)PADDING, MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(MYACCOUNTGROUPVIEW_HEIGHTWEIGHT, MYACCOUNT7BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT).stringValue] cStringUsingEncoding:NSUTF8StringEncoding]], _subviewWidthValue, MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(BINDCONTACTINFOGROUPVIEW_HEIGHTWEIGHT, MYACCOUNT7BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT))];
         
         // set its attributes
         [_bindContactInfoGroupView setTipLabelText:NSLocalizedString(@"bind contact info group tip", nil)];
@@ -108,16 +106,16 @@
     [self resizesSubviews];
 }
 
-- (BOOL)check7clearLoginAccountIsChangedFlag{
-    BOOL _isLoginAccountChanged = _mIsLoginAccountChanged;
+- (BOOL)check7clearMyAccountIsChangedFlag{
+    BOOL _isMyAccountChanged = _mIsMyAccountChanged;
     
-    // check login account is or not changed
-    if (_mIsLoginAccountChanged) {
-        // recover login account is changed flag
-        _mIsLoginAccountChanged = NO;
+    // check my account is or not changed
+    if (_mIsMyAccountChanged) {
+        // recover my account is changed flag
+        _mIsMyAccountChanged = NO;
     }
     
-    return _isLoginAccountChanged;
+    return _isMyAccountChanged;
 }
 
 @end

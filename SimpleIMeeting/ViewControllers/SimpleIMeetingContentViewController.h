@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface SimpleIMeetingContentViewController : UIViewController {
-    // is login account changed
-    BOOL _mIsLoginAccountChanged;
+    // is my account changed
+    BOOL _mIsMyAccountChanged;
 }
 
-// mark login account is changed
-- (void)markLoginAccountIsChanged;
+// mark my account is changed
+- (void)markMyAccountIsChanged;
 
 @end

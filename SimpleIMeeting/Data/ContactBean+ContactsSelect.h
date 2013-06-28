@@ -1,5 +1,5 @@
 //
-//  ContactBean+SimpleIMeeting.h
+//  ContactBean+ContactsSelect.h
 //  SimpleIMeeting
 //
 //  Created by Ares on 13-6-23.
@@ -8,7 +8,7 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
-@interface ContactBean (SimpleIMeeting)
+@interface ContactBean (ContactsSelect)
 
 // conatct selected flag
 @property (nonatomic, assign) BOOL isSelected;

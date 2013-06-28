@@ -50,9 +50,9 @@
     // get navigation controller all view controllers array
     NSArray *_allViewControllers = self.navigationController.viewControllers;
     
-    // check navigation controller all view controllers array count and login account if is or not changed
-    if (0 < [_allViewControllers count] - 1 && [_simpleIMeetingContentViewController = [_allViewControllers objectAtIndex:[_allViewControllers count] - 1 - 1] isMemberOfClass:[SimpleIMeetingContentViewController class]] && [(SettingView *)self.view check7clearLoginAccountIsChangedFlag]) {
-        [(SimpleIMeetingContentViewController *)_simpleIMeetingContentViewController markLoginAccountIsChanged];
+    // check navigation controller all view controllers array count and my account if is or not changed
+    if (0 < [_allViewControllers count] - 1 && [_simpleIMeetingContentViewController = [_allViewControllers objectAtIndex:[_allViewControllers count] - 1 - 1] isMemberOfClass:[SimpleIMeetingContentViewController class]] && [(SettingView *)self.view check7clearMyAccountIsChangedFlag]) {
+        [(SimpleIMeetingContentViewController *)_simpleIMeetingContentViewController markMyAccountIsChanged];
     }
     
     [super back2SponsorSimpleIMeetingContentViewControllerContentView];

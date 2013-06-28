@@ -41,10 +41,10 @@
 {
     [super viewWillAppear:animated];
     
-    // check login account is or not changed
-    if (_mIsLoginAccountChanged) {
-        // recover login account is changed flag
-        _mIsLoginAccountChanged = NO;
+    // check my account is or not changed
+    if (_mIsMyAccountChanged) {
+        // recover my account is changed flag
+        _mIsMyAccountChanged = NO;
         
         // set my talking groups need to refresh
         [(SimpleIMeetingContentContainerView *)self.view setMyTalkingGroupsNeed2Refresh];
@@ -57,9 +57,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)markLoginAccountIsChanged{
-    // set login account is changed
-    _mIsLoginAccountChanged = YES;
+- (void)markMyAccountIsChanged{
+    // set my account is changed
+    _mIsMyAccountChanged = YES;
 }
 
 @end

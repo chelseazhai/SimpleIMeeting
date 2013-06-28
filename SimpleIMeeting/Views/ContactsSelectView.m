@@ -13,7 +13,7 @@
 #import "ContactListView.h"
 #import "SelectedContactListView.h"
 
-#import "ContactBean+SimpleIMeeting.h"
+#import "ContactBean+ContactsSelect.h"
 
 @interface ContactsSelectView ()
 

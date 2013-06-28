@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingView : UIView {
-    // is login account changed
-    BOOL _mIsLoginAccountChanged;
+    // is my account changed
+    BOOL _mIsMyAccountChanged;
 }
 
-// check and clear login account is changed flag
-- (BOOL)check7clearLoginAccountIsChangedFlag;
+// check and clear my account is changed flag
+- (BOOL)check7clearMyAccountIsChangedFlag;
 
 @end

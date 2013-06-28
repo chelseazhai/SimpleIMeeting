@@ -16,7 +16,7 @@
 
 #import "SimpleIMeetingContentContainerView.h"
 
-#import "ContactBean+SimpleIMeeting.h"
+#import "ContactBean+ContactsSelect.h"
 
 // contact operate view height
 #define CONTACTOPERATEVIEW_HEIGHT   38.0
