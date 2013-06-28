@@ -8,11 +8,19 @@
 
 #import "NetworkUnavailableViewController.h"
 
+#import <CommonToolkit/CommonToolkit.h>
+
+#import "NetworkUnavailableView.h"
+
 @interface NetworkUnavailableViewController ()
 
 @end
 
 @implementation NetworkUnavailableViewController
+
+- (id)init{
+    return [super initWithCompatibleView:[[NetworkUnavailableView alloc] init]];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

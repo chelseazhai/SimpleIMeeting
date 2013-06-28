@@ -8,6 +8,8 @@
 
 #import "NetworkUnavailableView.h"
 
+#import <CommonToolkit/CommonToolkit.h>
+
 @implementation NetworkUnavailableView
 
 - (id)initWithFrame:(CGRect)frame
@@ -15,6 +17,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        // set background image
+        self.backgroundImg = [UIImage compatibleImageNamed:@"img_simpleimeeting_bg"];
+        
+        //
     }
     return self;
 }

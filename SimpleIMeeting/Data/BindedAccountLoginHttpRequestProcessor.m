@@ -10,6 +10,16 @@
 
 @implementation BindedAccountLoginHttpRequestProcessor
 
+- (void)setLoginType:(BindedAccountLoginType)loginType{
+    // save binded account login type
+    _mLoginType = loginType;
+}
+
+- (void)setLoginCompletion:(void (^)(NSInteger))completion{
+    // set binded account login completion
+    _mBindedAccountLoginProcessCompletionBlock = completion;
+}
+
 // IHttpReqRespSelector
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     //

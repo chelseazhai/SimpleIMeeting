@@ -10,6 +10,24 @@
 
 #import "IHttpReqRespSelector.h"
 
-@interface RegAndLoginWithDeviceIdLoginHttpRequestProcessor : NSObject <IHttpReqRespSelector>
+// register and login with device combined id type
+typedef NS_ENUM(NSInteger, Reg7LoginWithDeviceIdType){
+    // application launch and logout
+    APPLAUNCH_REG7LOGINWITHDEVICEID, BINDEDACCOUNTLOGOUT_REG7LOGINWITHDEVICEID
+};
+
+@interface RegAndLoginWithDeviceIdLoginHttpRequestProcessor : NSObject <IHttpReqRespSelector> {
+    // register and login with device combined id type
+    Reg7LoginWithDeviceIdType _mReg7LoginWithDeviceIdType;
+    
+    // register and login with device combined id process completion block
+    void (^ _mReg7LoginWithDeviceIdProcessCompletionBlock)(NSInteger);
+}
+
+// set register and login with device combined id type
+- (void)setReg7LoginWithDeviceIdType:(Reg7LoginWithDeviceIdType)reg7loginWithDeviceIdType;
+
+// set register and login with device combined id process completion block
+- (void)setReg7LoginWithDeviceIdCompletion:(void (^)(NSInteger))completion;
 
 @end

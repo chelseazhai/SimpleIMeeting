@@ -8,7 +8,7 @@
 
 // simple IMeeting application remote background server root url
 //"remote background server root url string" = "http://www.wetalking.net/imeeting";
-"remote background server root url string" = "http://192.168.1.54:8080/imeetings";
+"remote background server root url string" = "http://192.168.1.50:8080/imeetings";
 
 // binded account login, register and login with device combined unique id, phone and email bind urls format
 "binded account login url format string" = "%@/user/login";

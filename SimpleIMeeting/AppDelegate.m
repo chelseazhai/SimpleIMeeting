@@ -18,6 +18,15 @@
 
 #import "RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h"
 
+#import "NetworkUnavailableViewController.h"
+
+@interface AppDelegate ()
+
+// send register and login using device combined unique id http request
+- (void)sendReg7LoginWithDeviceCombinedUniqueIdHttpRequest;
+
+@end
+
 @implementation AppDelegate
 
 @synthesize rootViewController = _rootViewController;
@@ -33,39 +42,58 @@
     // traversal addressBook
     [[AddressBookManager shareAddressBookManager] traversalAddressBook];
     
-    // get binded account login user info from storage and add to user manager
+    // get binded account login user info from storage
+    NSString *_storageBindedAccountLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINNAME];
+    NSString *_storageBindedAccountLoginPwd = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINPWD];
+    
+    // generate local storage user
     UserBean *_localStorageUser = [[UserBean alloc] init];
     
     // set bind contact info and password
-    _localStorageUser.bindContactInfo = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINNAME];
-    _localStorageUser.password = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINPWD];
+    if (nil != _storageBindedAccountLoginName && ![@"" isEqualToString:_storageBindedAccountLoginName]) {
+        _localStorageUser.bindContactInfo = _storageBindedAccountLoginName;
+    }
+    if (nil != _storageBindedAccountLoginPwd && ![@"" isEqualToString:_storageBindedAccountLoginPwd]) {
+        _localStorageUser.password = _storageBindedAccountLoginPwd;
+    }
     
-    // save user bean and add to user manager
+    // save local storage user bean and add it to user manager
     [[UserManager shareUserManager] setUserBean:_localStorageUser];
     
-    // check user bind contact info and password
-    if (nil != _localStorageUser.bindContactInfo && ![@"" isEqualToString:_localStorageUser.bindContactInfo]
-        && nil != _localStorageUser.password && ![@"" isEqualToString:_localStorageUser.password]) {
+    // check binded account login name and password
+    if (nil != _storageBindedAccountLoginName && ![@"" isEqualToString:_storageBindedAccountLoginName]
+        && nil != _storageBindedAccountLoginPwd && ![@"" isEqualToString:_storageBindedAccountLoginPwd]) {
         // binded account user login
         // generate binded account login param map
         NSMutableDictionary *_bindedAccountLoginParamMap = [[NSMutableDictionary alloc] init];
         
         // set some params
-        [_bindedAccountLoginParamMap setObject:_localStorageUser.bindContactInfo forKey:@""];
-        [_bindedAccountLoginParamMap setObject:_localStorageUser.password forKey:@""];
+        [_bindedAccountLoginParamMap setObject:_storageBindedAccountLoginName forKey:NSRBGServerFieldString(@"remote background server http request binded account login name", nil)];
+        [_bindedAccountLoginParamMap setObject:_storageBindedAccountLoginPwd forKey:NSRBGServerFieldString(@"remote background server http request binded account login password", nil)];
         
         // define binded account login http request processor
         BindedAccountLoginHttpRequestProcessor *_bindedAccountLoginHttpRequestProcessor = [[BindedAccountLoginHttpRequestProcessor alloc] init];
         
-        // post the http request
+        // set binded account login http request processor login type and completion
+        [_bindedAccountLoginHttpRequestProcessor setLoginType:BINDEDACCOUNT_AUTOLOGIN];
+        [_bindedAccountLoginHttpRequestProcessor setLoginCompletion:^(NSInteger result) {
+            // check binded account login request response result
+            if (0 == result) {
+                // binded account login succeed, init application root view controller with simple imeeting content view controller
+                _rootViewController = [[AppRootViewController alloc] initWithNavigationViewController:[[SimpleIMeetingContentViewController alloc] init] andBarBackgroundImage:[UIImage imageNamed:@"img_navigationbar_bg"]];
+            }
+            else {
+                // binded account login failed, register and login using device combined unique id again
+                [self sendReg7LoginWithDeviceCombinedUniqueIdHttpRequest];
+            }
+        }];
+        
+        // post binded account login http request
         [HttpUtils postRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"binded account login url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_bindedAccountLoginParamMap andUserInfo:nil andRequestType:synchronous andProcessor:_bindedAccountLoginHttpRequestProcessor andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
     } else {
         // register and login using device combined unique id
-        //sendReg7LoginWithDeviceCombinedUniqueIdHttpRequest();
+        [self sendReg7LoginWithDeviceCombinedUniqueIdHttpRequest];
     }
-    
-    // init application root view controller
-    _rootViewController = [[AppRootViewController alloc] initWithNavigationViewController:[[SimpleIMeetingContentViewController alloc] init] andBarBackgroundImage:[UIImage imageNamed:@"img_navigationbar_bg"]];
     
     // set application window rootViewController and show the main window
     self.window.rootViewController = _rootViewController;
@@ -99,6 +127,35 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+// inner extension
+- (void)sendReg7LoginWithDeviceCombinedUniqueIdHttpRequest{
+    // generate register and login with device combined unique id param map
+    NSMutableDictionary *_reg7LoginWithDeviceIdParamMap = [[NSMutableDictionary alloc] init];
+    
+    // set some params
+    [_reg7LoginWithDeviceIdParamMap setObject:[[UIDevice currentDevice] combinedUniqueId] forKey:NSRBGServerFieldString(@"remote background server http request register and login with device id or contact info bind device id", nil)];
+    
+    // define register and login with device combined unique id http request processor
+    RegAndLoginWithDeviceIdLoginHttpRequestProcessor *_regAndLoginWithDeviceIdLoginHttpRequestProcessor = [[RegAndLoginWithDeviceIdLoginHttpRequestProcessor alloc] init];
+    
+    // set register and login with device combined unique id http request processor register and login with device id type and completion
+    [_regAndLoginWithDeviceIdLoginHttpRequestProcessor setReg7LoginWithDeviceIdType:APPLAUNCH_REG7LOGINWITHDEVICEID];
+    [_regAndLoginWithDeviceIdLoginHttpRequestProcessor setReg7LoginWithDeviceIdCompletion:^(NSInteger result) {
+        // check register and login with device combined unique id request response result
+        if (0 == result) {
+            // register and login with device combined unique id succeed, init application root view controller with simple imeeting content view controller
+            _rootViewController = [[AppRootViewController alloc] initWithNavigationViewController:[[SimpleIMeetingContentViewController alloc] init] andBarBackgroundImage:[UIImage imageNamed:@"img_navigationbar_bg"]];
+        }
+        else {
+            // register and login with device combined unique id failed, init application root view controller with network unavailable view controller
+            _rootViewController = [[AppRootViewController alloc] initWithPresentViewController:[[NetworkUnavailableViewController alloc] init] andMode:normalController];
+        }
+    }];
+    
+    // post register and login with device combined unique id http request
+    [HttpUtils postRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"register and login with device id url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_reg7LoginWithDeviceIdParamMap andUserInfo:nil andRequestType:synchronous andProcessor:_regAndLoginWithDeviceIdLoginHttpRequestProcessor andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
 }
 
 @end
