@@ -17,8 +17,10 @@
 @implementation UserBean (BindContactInfo)
 
 - (void)setBindContactInfo:(NSString *)bindContactInfo{
-    // set user bind contact info to user bean extension dictionary
-    [self.extensionDic setObject:bindContactInfo forKey:EXT_USERBINDCONTACTINFO_KEY];
+    // check user bind contact info and set it to user bean extension dictionary if not nil
+    if (nil != bindContactInfo) {
+        [self.extensionDic setObject:bindContactInfo forKey:EXT_USERBINDCONTACTINFO_KEY];
+    }
 }
 
 - (NSString *)bindContactInfo{
@@ -27,8 +29,10 @@
 }
 
 - (void)setNickname:(NSString *)nickname{
-    // set user nickname to user bean extension dictionary
-    [self.extensionDic setObject:nickname forKey:EXT_USERNICKNAME_KEY];
+    // check user nickname and set it to user bean extension dictionary if not nil
+    if (nil != nickname) {
+        [self.extensionDic setObject:nickname forKey:EXT_USERNICKNAME_KEY];
+    }
 }
 
 - (NSString *)nickname{
@@ -37,8 +41,10 @@
 }
 
 - (void)setContactsInfoTypeBeBinded:(NSString *)contactsInfoTypeBeBinded{
-    // set user contacts info type be binded to user bean extension dictionary
-    [self.extensionDic setObject:contactsInfoTypeBeBinded forKey:EXT_USERCONTACTSINFOTYPEBEBINDED_KEY];
+    // check user contacts info type be binded and set it to user bean extension dictionary if not nil
+    if (nil != contactsInfoTypeBeBinded) {
+        [self.extensionDic setObject:contactsInfoTypeBeBinded forKey:EXT_USERCONTACTSINFOTYPEBEBINDED_KEY];
+    }
 }
 
 - (NSString *)contactsInfoTypeBeBinded{
@@ -47,8 +53,10 @@
 }
 
 - (void)setContactsInfoBeBinded:(NSString *)contactsInfoBeBinded{
-    // set user contacts info be binded to user bean extension dictionary
-    [self.extensionDic setObject:contactsInfoBeBinded forKey:EXT_USERCONTACTSINFOBEBINDED_KEY];
+    // check user contacts info be binded and set it to user bean extension dictionary if not nil
+    if (nil != contactsInfoBeBinded) {
+        [self.extensionDic setObject:contactsInfoBeBinded forKey:EXT_USERCONTACTSINFOBEBINDED_KEY];
+    }
 }
 
 - (NSString *)contactsInfoBeBinded{

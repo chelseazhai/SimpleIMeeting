@@ -16,6 +16,12 @@
     #define BINDEDACCOUNT_LOGINNAME @"binded account login name"
     #define BINDEDACCOUNT_LOGINPWD  @"binded account login password"
 
+    // request param with device info dictionary
+    #define REQUESTPARAMWITHDEVICEINFOIDC   [NSDictionary dictionaryWithObjectsAndKeys:IOSDEVICEBRAND, NSRBGServerFieldString(@"remote background server http request device brand", nil), [[UIDevice currentDevice] hardwareModel], NSRBGServerFieldString(@"remote background server http request device model", nil), [[UIDevice currentDevice] systemVersion], NSRBGServerFieldString(@"remote background server http request device ios version", nil), [NSNumber numberWithFloat:[[UIDevice currentDevice] systemVersionNum]], NSRBGServerFieldString(@"remote background server http request device ios API level", nil), [NSNumber numberWithFloat:[DisplayScreenUtils screenWidth]], NSRBGServerFieldString(@"remote background server http request device display screen width", nil), [NSNumber numberWithFloat:[DisplayScreenUtils screenHeight]], NSRBGServerFieldString(@"remote background server http request device display screen height", nil), nil]
+
+    // make http request response result toast
+    #define HTTPREQRESPRETTOASTMAKER(toast) [[iToast makeText:toast] setGravity:iToastGravityBottom]
+
     // contacts select view or my talking groups and selected talking group attendees view subview weight and total weight
     #define LEFTSEPARATESUBVIEW_WEIGHT  2
     #define RIGHTSEPARATESUBVIEW_WEIGHT 1

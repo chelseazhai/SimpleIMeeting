@@ -1,5 +1,5 @@
 //
-//  RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h
+//  RegAndLoginWithDeviceIdHttpRequestProcessor.h
 //  SimpleIMeeting
 //
 //  Created by Ares on 13-6-28.
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, Reg7LoginWithDeviceIdType){
     APPLAUNCH_REG7LOGINWITHDEVICEID, BINDEDACCOUNTLOGOUT_REG7LOGINWITHDEVICEID
 };
 
-@interface RegAndLoginWithDeviceIdLoginHttpRequestProcessor : NSObject <IHttpReqRespSelector> {
+@interface RegAndLoginWithDeviceIdHttpRequestProcessor : NSObject <IHttpReqRespSelector> {
     // register and login with device combined id type
     Reg7LoginWithDeviceIdType _mReg7LoginWithDeviceIdType;
     

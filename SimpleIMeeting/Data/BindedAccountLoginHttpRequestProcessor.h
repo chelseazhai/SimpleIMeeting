@@ -20,12 +20,19 @@ typedef NS_ENUM(NSInteger, BindedAccountLoginType){
     // binded account login type
     BindedAccountLoginType _mLoginType;
     
+    // manual login user name and password
+    NSString *_mManualLoginUserName;
+    NSString *_mManualLoginPwd;
+    
     // binded account login process completion block
     void (^ _mBindedAccountLoginProcessCompletionBlock)(NSInteger);
 }
 
 // set binded account login type
 - (void)setLoginType:(BindedAccountLoginType)loginType;
+
+// set binded account manual login user name and password
+- (void)setManualLoginUserName:(NSString *)userName password:(NSString *)password;
 
 // set binded account login process completion block
 - (void)setLoginCompletion:(void (^)(NSInteger))completion;

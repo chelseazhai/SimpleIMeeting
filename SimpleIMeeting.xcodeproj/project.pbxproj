@@ -94,7 +94,7 @@
 		DCE51920177BD666000CA65D /* Toast.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE5191D177BD666000CA65D /* Toast.strings */; };
 		DCEC7E1A177D73C900E34BDF /* UserBean+BindContactInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCEC7E19177D73C900E34BDF /* UserBean+BindContactInfo.m */; };
 		DCEC7E27177D897000E34BDF /* BindedAccountLoginHttpRequestProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = DCEC7E24177D896F00E34BDF /* BindedAccountLoginHttpRequestProcessor.m */; };
-		DCEC7E28177D897000E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m */; };
+		DCEC7E28177D897000E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,8 +220,8 @@
 		DCEC7E22177D893800E34BDF /* IHttpReqRespSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IHttpReqRespSelector.h; path = Data/IHttpReqRespSelector.h; sourceTree = "<group>"; };
 		DCEC7E23177D896E00E34BDF /* BindedAccountLoginHttpRequestProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BindedAccountLoginHttpRequestProcessor.h; path = Data/BindedAccountLoginHttpRequestProcessor.h; sourceTree = "<group>"; };
 		DCEC7E24177D896F00E34BDF /* BindedAccountLoginHttpRequestProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BindedAccountLoginHttpRequestProcessor.m; path = Data/BindedAccountLoginHttpRequestProcessor.m; sourceTree = "<group>"; };
-		DCEC7E25177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h; path = Data/RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h; sourceTree = "<group>"; };
-		DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m; path = Data/RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m; sourceTree = "<group>"; };
+		DCEC7E25177D896F00E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegAndLoginWithDeviceIdHttpRequestProcessor.h; path = Data/RegAndLoginWithDeviceIdHttpRequestProcessor.h; sourceTree = "<group>"; };
+		DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegAndLoginWithDeviceIdHttpRequestProcessor.m; path = Data/RegAndLoginWithDeviceIdHttpRequestProcessor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -576,8 +576,8 @@
 				DCEC7E23177D896E00E34BDF /* BindedAccountLoginHttpRequestProcessor.h */,
 				DCEC7E24177D896F00E34BDF /* BindedAccountLoginHttpRequestProcessor.m */,
 				DCEC7E22177D893800E34BDF /* IHttpReqRespSelector.h */,
-				DCEC7E25177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h */,
-				DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m */,
+				DCEC7E25177D896F00E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.h */,
+				DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.m */,
 			);
 			name = "HttpReqProcessor&RespSelector";
 			sourceTree = "<group>";
@@ -718,7 +718,7 @@
 				DC82FB2F177AABE300480E61 /* NetworkUnavailableView.m in Sources */,
 				DCEC7E1A177D73C900E34BDF /* UserBean+BindContactInfo.m in Sources */,
 				DCEC7E27177D897000E34BDF /* BindedAccountLoginHttpRequestProcessor.m in Sources */,
-				DCEC7E28177D897000E34BDF /* RegAndLoginWithDeviceIdLoginHttpRequestProcessor.m in Sources */,
+				DCEC7E28177D897000E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

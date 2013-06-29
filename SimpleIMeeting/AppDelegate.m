@@ -16,7 +16,7 @@
 
 #import "BindedAccountLoginHttpRequestProcessor.h"
 
-#import "RegAndLoginWithDeviceIdLoginHttpRequestProcessor.h"
+#import "RegAndLoginWithDeviceIdHttpRequestProcessor.h"
 
 #import "NetworkUnavailableViewController.h"
 
@@ -46,6 +46,8 @@
     NSString *_storageBindedAccountLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINNAME];
     NSString *_storageBindedAccountLoginPwd = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINPWD];
     
+    NSLog(@"storage binded account login name = %@ and password = %@", _storageBindedAccountLoginName, _storageBindedAccountLoginPwd);
+    
     // generate local storage user
     UserBean *_localStorageUser = [[UserBean alloc] init];
     
@@ -70,12 +72,12 @@
         // set some params
         [_bindedAccountLoginParamMap setObject:_storageBindedAccountLoginName forKey:NSRBGServerFieldString(@"remote background server http request binded account login name", nil)];
         [_bindedAccountLoginParamMap setObject:_storageBindedAccountLoginPwd forKey:NSRBGServerFieldString(@"remote background server http request binded account login password", nil)];
+        [_bindedAccountLoginParamMap addEntriesFromDictionary:REQUESTPARAMWITHDEVICEINFOIDC];
         
         // define binded account login http request processor
         BindedAccountLoginHttpRequestProcessor *_bindedAccountLoginHttpRequestProcessor = [[BindedAccountLoginHttpRequestProcessor alloc] init];
         
-        // set binded account login http request processor login type and completion
-        [_bindedAccountLoginHttpRequestProcessor setLoginType:BINDEDACCOUNT_AUTOLOGIN];
+        // set binded account login http request processor login completion
         [_bindedAccountLoginHttpRequestProcessor setLoginCompletion:^(NSInteger result) {
             // check binded account login request response result
             if (0 == result) {
@@ -136,12 +138,12 @@
     
     // set some params
     [_reg7LoginWithDeviceIdParamMap setObject:[[UIDevice currentDevice] combinedUniqueId] forKey:NSRBGServerFieldString(@"remote background server http request register and login with device id or contact info bind device id", nil)];
+    [_reg7LoginWithDeviceIdParamMap addEntriesFromDictionary:REQUESTPARAMWITHDEVICEINFOIDC];
     
     // define register and login with device combined unique id http request processor
-    RegAndLoginWithDeviceIdLoginHttpRequestProcessor *_regAndLoginWithDeviceIdLoginHttpRequestProcessor = [[RegAndLoginWithDeviceIdLoginHttpRequestProcessor alloc] init];
+    RegAndLoginWithDeviceIdHttpRequestProcessor *_regAndLoginWithDeviceIdLoginHttpRequestProcessor = [[RegAndLoginWithDeviceIdHttpRequestProcessor alloc] init];
     
-    // set register and login with device combined unique id http request processor register and login with device id type and completion
-    [_regAndLoginWithDeviceIdLoginHttpRequestProcessor setReg7LoginWithDeviceIdType:APPLAUNCH_REG7LOGINWITHDEVICEID];
+    // set register and login with device combined unique id http request processor register and login with device id completion
     [_regAndLoginWithDeviceIdLoginHttpRequestProcessor setReg7LoginWithDeviceIdCompletion:^(NSInteger result) {
         // check register and login with device combined unique id request response result
         if (0 == result) {
