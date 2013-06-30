@@ -33,8 +33,13 @@
 // setting view
 "setting view title" = "设置";
 "my account group view tip" = "我的账户";
+"device id tip" = "设备号：";
+"contacts info be binded tip" = "绑定信息：";
+"my account tip" = "用户名：";
+"binded account logout button title" = "注销";
 "bind contact info group tip" = "绑定联系方式";
-"bind contact info account login button title" = "绑定过联系方式的用户登录";
+"bind contact info description label text" = "绑定以下联系方式，可让您在任何设备上同步，查看和安排您的会议，以便更好的使用智会。";
+"binded account login button title" = "绑定过联系方式的用户登录";
 
 // support view
 "support view title" = "帮助";
@@ -48,3 +53,6 @@
 "user interface author label text" = "UI设计\n李欣";
 "copyright label text" = "合肥优云信息技术有限公司\n版权所有";
 "acknowledgement label text" = "鸣谢\n南京富拓网络科技有限公司";
+
+// network unavailable
+"network unavailable tip label text" = "当前网络不可用，请退出后稍后重试！";

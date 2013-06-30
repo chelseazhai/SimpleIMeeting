@@ -10,13 +10,6 @@
 
 #import "UserBean+BindContactInfo.h"
 
-@interface RegAndLoginWithDeviceIdHttpRequestProcessor ()
-
-// register and login with device id failed
-- (void)registerAndLoginWithDeviceIdFailed;
-
-@end
-
 @implementation RegAndLoginWithDeviceIdHttpRequestProcessor
 
 - (id)init{
@@ -81,30 +74,18 @@
             _mReg7LoginWithDeviceIdProcessCompletionBlock(0);
         }
         else {
-            // register and login with device id failed
-            [self registerAndLoginWithDeviceIdFailed];
+            // register and login with device id failed completion
+            _mReg7LoginWithDeviceIdProcessCompletionBlock(-1);
         }
     }
     else {
-        // register and login with device id failed
-        [self registerAndLoginWithDeviceIdFailed];
+        // register and login with device id failed completion
+        _mReg7LoginWithDeviceIdProcessCompletionBlock(-1);
     }
 }
 
 - (void)httpRequestDidFailed:(ASIHTTPRequest *)pRequest{
     NSLog(@"send register and login with device id http request failed");
-    
-    // register and login with device id failed
-    [self registerAndLoginWithDeviceIdFailed];
-}
-
-// inner extension
-- (void)registerAndLoginWithDeviceIdFailed{
-    // check register and login with device combined id type
-    if (BINDEDACCOUNTLOGOUT_REG7LOGINWITHDEVICEID == _mReg7LoginWithDeviceIdType) {
-        // make register and login with device id failed toast with reason and show it
-        [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil)) show:iToastTypeError];
-    }
     
     // register and login with device id failed completion
     _mReg7LoginWithDeviceIdProcessCompletionBlock(-1);

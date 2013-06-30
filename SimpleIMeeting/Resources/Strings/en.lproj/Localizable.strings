@@ -33,8 +33,13 @@
 // setting view
 "setting view title" = "Setting";
 "my account group view tip" = "My account";
+"device id tip" = "Device ID:";
+"contacts info be binded tip" = "Binded contacts info:";
+"my account tip" = "User name:";
+"binded account logout button title" = "Logout";
 "bind contact info group tip" = "Bind contact info";
-"bind contact info account login button title" = "Bind contact info account login";
+"bind contact info description label text" = "Bind the following contacts info, you can synchronize, see and plan your meetings in any device, then it is better for you to using ZhiHui.";
+"binded account login button title" = "Bind contact info account login";
 
 // support view
 "support view title" = "Help";
@@ -48,3 +53,6 @@
 "user interface author label text" = "UI Design\nLi Xin";
 "copyright label text" = "Copyright © 2013\nHefei Youyun Info Tech Ltd.\nAll Rights Reserved";
 "acknowledgement label text" = "Acknowledgement\nNanjing Futuo Network Tech Ltd.";
+
+// network unavailable
+"network unavailable tip label text" = "There is no active network, please back and retry again later!";

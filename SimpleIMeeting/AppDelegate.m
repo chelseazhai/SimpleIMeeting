@@ -46,6 +46,10 @@
     NSString *_storageBindedAccountLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINNAME];
     NSString *_storageBindedAccountLoginPwd = [[NSUserDefaults standardUserDefaults] objectForKey:BINDEDACCOUNT_LOGINPWD];
     
+    // test by ares
+    _storageBindedAccountLoginName = @"18001582338";
+    _storageBindedAccountLoginPwd = [@"123" md5];
+    
     NSLog(@"storage binded account login name = %@ and password = %@", _storageBindedAccountLoginName, _storageBindedAccountLoginPwd);
     
     // generate local storage user

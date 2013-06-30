@@ -10,4 +10,5 @@
 "toast http request response error" = "远程服务器内部错误或连接异常";
 
 // binded account login and register and login with device combined unique id
+"toast binded account logout error" = "注销失败，请稍后重试";
 "toast binded account login user name or password wrong" = "用户名或密码错误";

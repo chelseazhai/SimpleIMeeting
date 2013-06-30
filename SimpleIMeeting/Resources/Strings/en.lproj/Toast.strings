@@ -10,4 +10,5 @@
 "toast http request response error" = "remote bgServer internal error or the connection exception";
 
 // binded account login and register and login with device combined unique id
+"toast binded account logout error" = "logout error, please retry again later";
 "toast binded account login user name or password wrong" = "login user name or password wrong";
