@@ -21,13 +21,23 @@
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWCONTROLLERBUTTON_HEIGHT    34.0
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_HEIGHT    320.0
 
+// new talking group started time select popup window present content view title and invite note label text font size
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABELTEXTFONTSIZE 18.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABELTEXTFONTSIZE    15.0
+
 @interface ContactsSelectView ()
 
 // generate contact list view draw rectangle
 - (CGRect)genContactListViewDrawRect;
 
+// generate new talking group invite note
+- (NSString *)genNewTalkingGroupInviteNote;
+
 // copy new talking group invite note to system clipboard
 - (void)copyNewTalkingGroupInviteNote2SystemClipboard;
+
+// new talking group started time select date picker date changed
+- (void)newTalkingGroupStartedTimeSelectDatePickerDateChanged;
 
 // schedule new talking group
 - (void)scheduleNewTalkingGroup;
@@ -167,17 +177,16 @@
         _presentContentViewTitleLabel.text = NSLocalizedString(@"new talking group started time select popup window title label text", nil);
         _presentContentViewTitleLabel.textColor = [UIColor whiteColor];
         _presentContentViewTitleLabel.textAlignment = NSTextAlignmentCenter;
-        _presentContentViewTitleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+        _presentContentViewTitleLabel.font = [UIFont boldSystemFontOfSize:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABELTEXTFONTSIZE];
         _presentContentViewTitleLabel.backgroundColor = [UIColor clearColor];
         
         // init new talking group started time select popup window present content view invite note label
         _mNewTalkingGroupInviteNoteLabel = [_mNewTalkingGroupInviteNoteLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mNewTalkingGroupInviteNoteLabel, [NSNumber numberWithFloat:_presentContentView.bounds.origin.x + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-4*%d-%d", FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT])];
         
         // set its attributes
-        // test by ares
-        _mNewTalkingGroupInviteNoteLabel.text = [NSString stringWithFormat:NSLocalizedString(@"new talking group invite note label text format string", nil), @"2013年7月1日 17:30", _mNew6SelectedContactsAddingTalkingGroupId];
+        _mNewTalkingGroupInviteNoteLabel.text = [self genNewTalkingGroupInviteNote];
         _mNewTalkingGroupInviteNoteLabel.textColor = [UIColor whiteColor];
-        _mNewTalkingGroupInviteNoteLabel.font = [UIFont systemFontOfSize:15.0];
+        _mNewTalkingGroupInviteNoteLabel.font = [UIFont systemFontOfSize:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABELTEXTFONTSIZE];
         _mNewTalkingGroupInviteNoteLabel.numberOfLines = 0;
         _mNewTalkingGroupInviteNoteLabel.backgroundColor = [UIColor clearColor];
         
@@ -195,6 +204,9 @@
         
         // set new talking group started time select popup window present content view date picker frame
         [_mNewTalkingGroupStartedTimeSelectDatePicker setFrame:CGRectMake(_presentContentView.bounds.origin.x, _presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height + _mNewTalkingGroupInviteNoteLabel.frame.size.height + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING, FILL_PARENT, NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWDATEPICKER_HEIGHT)];
+        
+        // add its date changed target and action selector
+        [_mNewTalkingGroupStartedTimeSelectDatePicker addTarget:self action:@selector(newTalkingGroupStartedTimeSelectDatePickerDateChanged) forControlEvents:UIControlEventValueChanged];
         
         // new talking group started time select popup window present content view controller button origin y number and width value
         NSNumber *_newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber = [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height + _mNewTalkingGroupInviteNoteLabel.frame.size.height + _mNewTalkingGroupStartedTimeSelectDatePicker.frame.size.height + 2 * NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING];
@@ -236,10 +248,15 @@
         _mNewTalkingGroupStartedTimeSelectPopupWindow.presentContentView = _presentContentView;
     }
     else {
-        NSLog(@"2");
+        // update new talking group started time select date picker
+        _mNewTalkingGroupStartedTimeSelectDatePicker.date = [NSDate date];
         
-        //
+        // update new talking group invite note label text
+        _mNewTalkingGroupInviteNoteLabel.text = [self genNewTalkingGroupInviteNote];
     }
+    
+//    // set current date as new talking goup started time select date picker minimum date
+//    _mNewTalkingGroupStartedTimeSelectDatePicker.minimumDate = [NSDate date];
     
     // show new talking group started time select popup window
     [_mNewTalkingGroupStartedTimeSelectPopupWindow showAtLocation:self];
@@ -325,18 +342,65 @@
     return _contactListViewDrawRectangle;
 }
 
+- (NSString *)genNewTalkingGroupInviteNote{
+    // define date format
+    NSDateFormatter *_dateFormat = [[NSDateFormatter alloc] init];
+    
+    // set time zone and date format
+    [_dateFormat setTimeZone:[NSTimeZone localTimeZone]];
+    [_dateFormat setDateFormat:NSLocalizedString(@"new talking group started time select date picker date format string", nil)];
+    
+    return [NSString stringWithFormat:NSLocalizedString(@"new talking group invite note label text format string", nil), [_dateFormat stringFromDate:_mNewTalkingGroupStartedTimeSelectDatePicker.date], _mNew6SelectedContactsAddingTalkingGroupId];
+}
+
 - (void)copyNewTalkingGroupInviteNote2SystemClipboard{
-    NSLog(@"copy new talking group invite note to system clipboard");
+    NSLog(@"copy new talking group invite note = %@ to system clipboard", _mNewTalkingGroupInviteNoteLabel.text);
     
     //
 }
 
+- (void)newTalkingGroupStartedTimeSelectDatePickerDateChanged{
+    // update new talking group invite note label text
+    _mNewTalkingGroupInviteNoteLabel.text = [self genNewTalkingGroupInviteNote];
+}
+
 - (void)scheduleNewTalkingGroup{
-    //
+    // define gregorian calendar and used unit flags
+    NSCalendar *_calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger _unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
+    
+    // define new talking group started time unix date
+    NSDate *_newTalkingGroupStartedTimeUnixDate;
+    
+    // compare new talking group started time with current date
+    switch ([_newTalkingGroupStartedTimeUnixDate = [_calendar dateFromComponents:[_calendar components:_unitFlags fromDate:_mNewTalkingGroupStartedTimeSelectDatePicker.date]] compare:[_calendar dateFromComponents:[_calendar components:_unitFlags fromDate:[NSDate date]]]]) {
+        case NSOrderedAscending:
+            // selected time has been passed
+            NSLog(@"Error: the selected started time for new talking group has been passed");
+            
+            // show toast
+            [[iToast makeText:NSToastLocalizedString(@"toast new talking group started time selected is too early", nil)] show:iToastTypeError];
+            break;
+            
+        case NSOrderedSame:
+            // create and start an new talking group immediately
+            NSLog(@"create and start new talking group immediately");
+            
+            //
+            break;
+            
+        case NSOrderedDescending:
+        default:
+            // schedule an new talking group at selected started time
+            NSLog(@"schedule an new talking group at selected time = %@", _newTalkingGroupStartedTimeUnixDate);
+            
+            //
+            break;
+    }
 }
 
 - (void)cancelScheduleNewTalkingGroup{
-    //
+    // dismiss new talking group started time select popup window
     [_mNewTalkingGroupStartedTimeSelectPopupWindow dismiss];
 }
 

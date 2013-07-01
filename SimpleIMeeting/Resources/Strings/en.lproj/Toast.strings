@@ -15,3 +15,4 @@
 
 // contacts select content view
 "toast select at least one contact for inviting to talking group" = "please select at least one contact for inviting to the meeting";
+"toast new talking group started time selected is too early" = "the select started time for new meeting has been passed";
