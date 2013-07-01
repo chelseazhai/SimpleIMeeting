@@ -22,7 +22,7 @@
 "contact phone numbers select actionSheet title format" = "Select %@'s phone number for join the conference";
 "invite the selected contacts to talking group button title" = "Invite";
 "new talking group started time select popup window title label text" = "Select meeting started time";
-"new talking group invite note label text format string" = "请于 %@ 拨打0551-62379997参加电话会议(会议号: %@)";
+"new talking group invite note label text format string" = "please dial 0551-62379997 to join the telephone meeting at %@(meeting No:%@)";
 "new talking group started time select date picker date format string" = "yyyy-MM-dd HH:mm";
 "new talking group invite note copy button title" = "Click copy";
 "schedule new talking group button title" = "OK";
