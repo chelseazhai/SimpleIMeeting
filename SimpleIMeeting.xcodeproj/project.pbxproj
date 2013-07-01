@@ -69,6 +69,13 @@
 		DC756BE1175358DC00F287FA /* ContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE0175358DC00F287FA /* ContactListView.m */; };
 		DC756BE41753590900F287FA /* SelectedContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE31753590900F287FA /* SelectedContactListView.m */; };
 		DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */; };
+		DC8052881781248800048D0B /* img_phonebind_disabled_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8052821781248800048D0B /* img_phonebind_disabled_bg.png */; };
+		DC8052891781248800048D0B /* img_phonebind_disabled_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8052831781248800048D0B /* img_phonebind_disabled_bg@2x.png */; };
+		DC80528A1781248800048D0B /* img_phonebind_highlighted_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8052841781248800048D0B /* img_phonebind_highlighted_bg.png */; };
+		DC80528B1781248800048D0B /* img_phonebind_highlighted_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8052851781248800048D0B /* img_phonebind_highlighted_bg@2x.png */; };
+		DC80528C1781248800048D0B /* img_phonebind_normal_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8052861781248800048D0B /* img_phonebind_normal_bg.png */; };
+		DC80528D1781248800048D0B /* img_phonebind_normal_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8052871781248800048D0B /* img_phonebind_normal_bg@2x.png */; };
+		DC8052901781350800048D0B /* UIContentAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC80528F1781350800048D0B /* UIContentAlertView.m */; };
 		DC80B06517741912009BA163 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06417741912009BA163 /* AddressBookUI.framework */; };
 		DC80B06717741918009BA163 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06617741918009BA163 /* libsqlite3.dylib */; };
 		DC80B06F17741B03009BA163 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC80B06E17741B02009BA163 /* AudioToolbox.framework */; };
@@ -176,6 +183,14 @@
 		DC756BE31753590900F287FA /* SelectedContactListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedContactListView.m; path = Views/SelectedContactListView.m; sourceTree = "<group>"; };
 		DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleIMeetingTableViewTipView.h; sourceTree = "<group>"; };
 		DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleIMeetingTableViewTipView.m; sourceTree = "<group>"; };
+		DC8052821781248800048D0B /* img_phonebind_disabled_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_phonebind_disabled_bg.png; path = SimpleIMeeting/Resources/Images/img_phonebind_disabled_bg.png; sourceTree = SOURCE_ROOT; };
+		DC8052831781248800048D0B /* img_phonebind_disabled_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_phonebind_disabled_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_phonebind_disabled_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC8052841781248800048D0B /* img_phonebind_highlighted_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_phonebind_highlighted_bg.png; path = SimpleIMeeting/Resources/Images/img_phonebind_highlighted_bg.png; sourceTree = SOURCE_ROOT; };
+		DC8052851781248800048D0B /* img_phonebind_highlighted_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_phonebind_highlighted_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_phonebind_highlighted_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC8052861781248800048D0B /* img_phonebind_normal_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_phonebind_normal_bg.png; path = SimpleIMeeting/Resources/Images/img_phonebind_normal_bg.png; sourceTree = SOURCE_ROOT; };
+		DC8052871781248800048D0B /* img_phonebind_normal_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_phonebind_normal_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_phonebind_normal_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC80528E1781350800048D0B /* UIContentAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIContentAlertView.h; sourceTree = "<group>"; };
+		DC80528F1781350800048D0B /* UIContentAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIContentAlertView.m; sourceTree = "<group>"; };
 		DC80B06417741912009BA163 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		DC80B06617741918009BA163 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		DC80B06E17741B02009BA163 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -391,6 +406,12 @@
 				DC95234C1779883B00587748 /* img_mytalkinggroups7attendeesview_bg@2x.png */,
 				DC5CE9B517545DBD0016835B /* img_navigationbar_bg.png */,
 				DC5CE9B617545DBD0016835B /* img_navigationbar_bg@2x.png */,
+				DC8052821781248800048D0B /* img_phonebind_disabled_bg.png */,
+				DC8052831781248800048D0B /* img_phonebind_disabled_bg@2x.png */,
+				DC8052841781248800048D0B /* img_phonebind_highlighted_bg.png */,
+				DC8052851781248800048D0B /* img_phonebind_highlighted_bg@2x.png */,
+				DC8052861781248800048D0B /* img_phonebind_normal_bg.png */,
+				DC8052871781248800048D0B /* img_phonebind_normal_bg@2x.png */,
 				DC68EA781777E6370034A807 /* img_preintalkinggroup_indicatephoto.png */,
 				DC68EA791777E6370034A807 /* img_preintalkinggroup_indicatephoto@2x.png */,
 				DC5CE9D0175497630016835B /* img_right_barbtnitem_bg.png */,
@@ -535,6 +556,8 @@
 			children = (
 				DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */,
 				DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */,
+				DC80528E1781350800048D0B /* UIContentAlertView.h */,
+				DC80528F1781350800048D0B /* UIContentAlertView.m */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -683,6 +706,12 @@
 				DCE5191A177BD65D000CA65D /* Url.strings in Resources */,
 				DCE5191F177BD666000CA65D /* Localizable.strings in Resources */,
 				DCE51920177BD666000CA65D /* Toast.strings in Resources */,
+				DC8052881781248800048D0B /* img_phonebind_disabled_bg.png in Resources */,
+				DC8052891781248800048D0B /* img_phonebind_disabled_bg@2x.png in Resources */,
+				DC80528A1781248800048D0B /* img_phonebind_highlighted_bg.png in Resources */,
+				DC80528B1781248800048D0B /* img_phonebind_highlighted_bg@2x.png in Resources */,
+				DC80528C1781248800048D0B /* img_phonebind_normal_bg.png in Resources */,
+				DC80528D1781248800048D0B /* img_phonebind_normal_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +748,7 @@
 				DCEC7E1A177D73C900E34BDF /* UserBean+BindContactInfo.m in Sources */,
 				DCEC7E27177D897000E34BDF /* BindedAccountLoginHttpRequestProcessor.m in Sources */,
 				DCEC7E28177D897000E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.m in Sources */,
+				DC8052901781350800048D0B /* UIContentAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,8 +800,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: guanghui hu (TS23V9C6Z2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: guanghui hu (TS23V9C6Z2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -786,7 +816,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "18325F67-E9FB-44CF-852B-BEEA2FF29D43";
+				PROVISIONING_PROFILE = "18325F67-E9FB-44CF-852B-BEEA2FF29D43";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -804,7 +834,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

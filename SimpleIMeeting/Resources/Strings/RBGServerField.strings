@@ -33,13 +33,13 @@
 //<string name="rbgServer_phoneBind_verificationCode" translatable="false">phonecode</string>
 //<string name="rbgServer_phoneBind_loginPassword" translatable="false">password</string>
 //<string name="rbgServer_phoneBind_loginConfirmationPwd" translatable="false">password1</string>
-//
+
 //<!-- contacts select view -->
 //<string name="rbgServer_scheduleNewTalkingGroup6inviteNewAddedContacts2TalkingGroup_attendees" translatable="false">attendees</string>
 //<string name="rbgServer_newTalkingGroup6inviteNewAddedAttendee_nickname" translatable="false">nickname</string>
 //<string name="rbgServer_newTalkingGroup6inviteNewAddedAttendee_phone" translatable="false">phone</string>
 //<string name="rbgServer_scheduleNewTalkingGroup_scheduleTime" translatable="false">scheduleTime</string>
-//
+
 //<!-- my talking group view -->
 //<string name="rbgServer_getMyTalkingGroups_offset" translatable="false">offset</string>
 //<string name="rbgServer_getMyTalkingGroupsReq_resp_pager" translatable="false">pager</string>
@@ -47,7 +47,7 @@
 //<string name="rbgServer_getMyTalkingGroupsReq_resp_pagerHasNext" translatable="false">hasNext</string>
 //<string name="rbgServer_getMyTalkingGroupsReq_resp_list" translatable="false">list</string>
 //<string name="rbgServer_getMyTalkingGroupsReq_resp_startedTimestamp" translatable="false">scheduled_time</string>
-//<string name="rbgServer_getMyTalkingGroups6newTalkingGroupIdReq_resp_id" translatable="false">conferenceId</string>
+"remote background server http request get my talking groups or new talking group id response id" = "conferenceId";
 //<string name="rbgServer_getMyTalkingGroupsReq_resp_status" translatable="false">status</string>
 //<string name="rbgServer_myTalkingGroup_talkingGroupOpened" translatable="false">OPEN</string>
 //<string name="rbgServer_myTalkingGroup_talkingGroupScheduled" translatable="false">SCHEDULE</string>

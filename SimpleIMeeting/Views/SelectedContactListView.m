@@ -157,18 +157,51 @@
     [(ContactsSelectView *)self.superview removeSelectedContactFromSelectedContactListView:indexPath.row];
 }
 
+// IHttpReqRespSelector
+- (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send get new talking group id http request succeed - request url = %@, response status code = %d and data string = %@", pRequest.url, [pRequest responseStatusCode], pRequest.responseString);
+    
+    // check status code
+    if (200 == [pRequest responseStatusCode]) {
+        // get response data json format
+        NSDictionary *_respDataJSONFormat = [pRequest.responseString objectFromJSONString];
+        
+        // get and check new talking group id
+        NSString *_newTalkingGroupId = [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups or new talking group id response id", nil)];
+        if (nil != _newTalkingGroupId && ![@"" isEqualToString:_newTalkingGroupId]) {
+            // show new talking group started time select view with new talking group id
+            [((ContactsSelectView *)self.superview) showNewTalkingGroupStartedTimeSelectView:_newTalkingGroupId];
+        }
+        else {
+            //
+        }
+    }
+    else {
+        //
+    }
+}
+
+- (void)httpRequestDidFailed:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send get new talking group id http request failed");
+    
+    //
+}
+
 // inner extension
 - (void)inviteSelectedContacts2TalkingGroup{
     // check prein talking group contacts info array
     if (0 < [_mPreinTalkingGroupContactsInfoArray count]) {
         // check in talking group attendees phone array
         if (0 < [_mInTalkingGroupAttendeesPhoneArray count]) {
+            NSLog(@"invite the prein talking group contacts to talking group");
+            
             // invite the prein talking group contacts to talking group
             //
         }
         else {
             // get new talking group id
-            //
+            // get the http request
+            [HttpUtils getSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"get new talking group id url format string", nil), NSUrlString(@"remote background server root url string", nil)] andParameter:nil andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
         }
     }
     // check in talking group attendees phone array again
@@ -182,7 +215,7 @@
         NSLog(@"Warning: you must select one contact for be invited to talking group at least");
         
         // show toast
-        //
+        [[iToast makeText:NSToastLocalizedString(@"toast select at least one contact for inviting to talking group", nil)] show:iToastTypeWarning];
     }
     
     //

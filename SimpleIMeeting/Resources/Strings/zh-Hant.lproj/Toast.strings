@@ -12,3 +12,6 @@
 // binded account login and register and login with device combined unique id
 "toast binded account logout error" = "注销失败，请稍后重试";
 "toast binded account login user name or password wrong" = "用户名或密码错误";
+
+// contacts select content view
+"toast select at least one contact for inviting to talking group" = "请至少选择一个联系人待加入会议";

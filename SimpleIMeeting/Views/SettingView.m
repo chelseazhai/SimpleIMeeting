@@ -28,9 +28,8 @@
 // my account or bind contact info group view height value
 #define MYACCOUNT6BINDCONTACTINFOGROUPVIEW_HEIGHTVALUE(selfWeight, totalWeight)  [NSValue valueWithCString:[[NSString stringWithFormat:@"((%d+%s)-2*(%d+%d)-%d)*%d/%d", (int)self.bounds.origin.y, FILL_PARENT_STRING, (int)MARGIN, (int)PADDING, (int)BINDEDACCOUNTLOGINBUTTON_HEIGHT, selfWeight, totalWeight] cStringUsingEncoding:NSUTF8StringEncoding]]
 
-// my account group view subview height weight and total weight
-#define MYACCOUNTGROUPVIEWSUBVIEW_HEIGHTWEIGHT  3
-#define MYACCOUNTGROUPVIEW_TOTALSUMWEIGHT   5.0
+// my account group view subview height
+#define MYACCOUNTGROUPVIEWSUBVIEW_HEIGHT    34.0
 
 // my account group view binded account logout button padding left
 #define MYACCOUNTGROUPVIEWBINDEDACCOUNTLOGOUTBUTTON_PADDINGLEFT 10.0
@@ -52,8 +51,9 @@
 // bind contact info description label text font size
 #define BINDCONTACTINFODESCRIPTIONLABELTEXTFONTSIZE 15.0
 
-// contact info bind button width
-#define CONTACTINFOBINDBUTTON_WIDTH 70.0
+// contact info bind button width and height
+#define CONTACTINFOBINDBUTTON_WIDTH 72.0
+#define CONTACTINFOBINDBUTTON_HEIGHT    96.0
 
 // binded account login button height
 #define BINDEDACCOUNTLOGINBUTTON_HEIGHT 40.0
@@ -103,11 +103,10 @@
         _myAccountGroupView.backgroundColor = [UIColor whiteColor];
         
         // my account group view subview origin y value and height number
-        NSValue *_myAccountGroupViewSubviewOriginYValue = [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s*((%d-%d)/(2*%d))", (int)_myAccountGroupView.bounds.origin.y, FILL_PARENT_STRING, (int)MYACCOUNTGROUPVIEW_TOTALSUMWEIGHT, MYACCOUNTGROUPVIEWSUBVIEW_HEIGHTWEIGHT, (int)MYACCOUNTGROUPVIEW_TOTALSUMWEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]];
-        NSNumber *_myAccountGroupViewSubviewHeightNumber = [NSNumber numberWithFloat:FILL_PARENT * (MYACCOUNTGROUPVIEWSUBVIEW_HEIGHTWEIGHT / MYACCOUNTGROUPVIEW_TOTALSUMWEIGHT)];
+        NSValue *_myAccountGroupViewSubviewOriginYValue = [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s-%d)/2", (int)_myAccountGroupView.bounds.origin.y, FILL_PARENT_STRING, (int)MYACCOUNTGROUPVIEWSUBVIEW_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]];
         
         // init device id or contacts info be binded or account tip label
-        _mDeviceId6ContactsInfoBeBinded6AccountTipLabel = [_mDeviceId6ContactsInfoBeBinded6AccountTipLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mDeviceId6ContactsInfoBeBinded6AccountTipLabel, [NSNumber numberWithFloat:_myAccountGroupView.bounds.origin.x], _myAccountGroupViewSubviewOriginYValue, [NSNumber numberWithFloat:DEVICEID6CONTACTSINFOBEBINDED6ACCOUNTTIPLABEL_WIDTH], _myAccountGroupViewSubviewHeightNumber)];
+        _mDeviceId6ContactsInfoBeBinded6AccountTipLabel = [_mDeviceId6ContactsInfoBeBinded6AccountTipLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mDeviceId6ContactsInfoBeBinded6AccountTipLabel, [NSNumber numberWithFloat:_myAccountGroupView.bounds.origin.x], _myAccountGroupViewSubviewOriginYValue, [NSNumber numberWithFloat:DEVICEID6CONTACTSINFOBEBINDED6ACCOUNTTIPLABEL_WIDTH], [NSNumber numberWithFloat:MYACCOUNTGROUPVIEWSUBVIEW_HEIGHT])];
         
         // set its attributes
         _mDeviceId6ContactsInfoBeBinded6AccountTipLabel.textAlignment = NSTextAlignmentCenter;
@@ -117,7 +116,7 @@
         // init device id or contacts info be binded or account label
         // get user bind contact info which in user manager
         NSString *_userBindContactInfo = [UserManager shareUserManager].userBean.bindContactInfo;
-        _mDeviceId6ContactsInfoBeBinded6AccountLabel = [_mDeviceId6ContactsInfoBeBinded6AccountLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mDeviceId6ContactsInfoBeBinded6AccountLabel, [NSNumber numberWithFloat:_myAccountGroupView.bounds.origin.x + DEVICEID6CONTACTSINFOBEBINDED6ACCOUNTTIPLABEL_WIDTH], _myAccountGroupViewSubviewOriginYValue, [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)DEVICEID6CONTACTSINFOBEBINDED6ACCOUNTTIPLABEL_WIDTH, nil != _userBindContactInfo && ![@"" isEqualToString:_userBindContactInfo] ? (int)(BINDEDACCOUNTLOGOUTBUTTON_WIDTH + MYACCOUNTGROUPVIEWBINDEDACCOUNTLOGOUTBUTTON_PADDINGLEFT) : 0] cStringUsingEncoding:NSUTF8StringEncoding]], _myAccountGroupViewSubviewHeightNumber)];
+        _mDeviceId6ContactsInfoBeBinded6AccountLabel = [_mDeviceId6ContactsInfoBeBinded6AccountLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mDeviceId6ContactsInfoBeBinded6AccountLabel, [NSNumber numberWithFloat:_myAccountGroupView.bounds.origin.x + DEVICEID6CONTACTSINFOBEBINDED6ACCOUNTTIPLABEL_WIDTH], _myAccountGroupViewSubviewOriginYValue, [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)DEVICEID6CONTACTSINFOBEBINDED6ACCOUNTTIPLABEL_WIDTH, nil != _userBindContactInfo && ![@"" isEqualToString:_userBindContactInfo] ? (int)(BINDEDACCOUNTLOGOUTBUTTON_WIDTH + MYACCOUNTGROUPVIEWBINDEDACCOUNTLOGOUTBUTTON_PADDINGLEFT) : 0] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:MYACCOUNTGROUPVIEWSUBVIEW_HEIGHT])];
         
         // set its attributes
         _mDeviceId6ContactsInfoBeBinded6AccountLabel.font = [UIFont systemFontOfSize:DEVICEID6CONTACTSINFOBEBINDED6ACCOUNTLABEL7TIPLABELTEXTFONTSIZE];
@@ -128,7 +127,7 @@
         _mBindedAccountLogoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         // set its frame
-        [_mBindedAccountLogoutButton setFrame:CGRectMakeWithFormat(_mBindedAccountLogoutButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s-%d", (int)_myAccountGroupView.bounds.origin.x, FILL_PARENT_STRING, (int)BINDEDACCOUNTLOGOUTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], _myAccountGroupViewSubviewOriginYValue, [NSNumber numberWithFloat:BINDEDACCOUNTLOGOUTBUTTON_WIDTH], _myAccountGroupViewSubviewHeightNumber)];
+        [_mBindedAccountLogoutButton setFrame:CGRectMakeWithFormat(_mBindedAccountLogoutButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s-%d", (int)_myAccountGroupView.bounds.origin.x, FILL_PARENT_STRING, (int)BINDEDACCOUNTLOGOUTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], _myAccountGroupViewSubviewOriginYValue, [NSNumber numberWithFloat:BINDEDACCOUNTLOGOUTBUTTON_WIDTH], [NSNumber numberWithFloat:MYACCOUNTGROUPVIEWSUBVIEW_HEIGHT])];
         
         // set its title for normal state
         [_mBindedAccountLogoutButton setTitle:NSLocalizedString(@"binded account logout button title", nil) forState:UIControlStateNormal];
@@ -164,10 +163,15 @@
         _bindContactInfoDescriptionLabel.backgroundColor = [UIColor clearColor];
         
         // init phone bind button
-        _mPhoneBindButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _mPhoneBindButton = [UIButton buttonWithType:UIButtonTypeCustom];
         
         // set its frame
-        [_mPhoneBindButton setFrame:CGRectMakeWithFormat(_mPhoneBindButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s-%d)/2", (int)_bindContactInfoGroupView.bounds.origin.x, FILL_PARENT_STRING, (int)CONTACTINFOBINDBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_bindContactInfoGroupView.bounds.origin.y + _bindContactInfoDescriptionLabel.frame.size.height], [NSNumber numberWithFloat:CONTACTINFOBINDBUTTON_WIDTH], [NSNumber numberWithFloat:FILL_PARENT * (CONTACTINFOTYPEBEBINDEDBUTTON_WEIGHT / BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT)])];
+        [_mPhoneBindButton setFrame:CGRectMakeWithFormat(_mPhoneBindButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s-%d)/2", (int)_bindContactInfoGroupView.bounds.origin.x, FILL_PARENT_STRING, (int)CONTACTINFOBINDBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s*(%d/%d)+(%s*(%d/%d)-%d)/2", (int)_bindContactInfoGroupView.bounds.origin.y, FILL_PARENT_STRING, BINDCONTACTINFODESCRIPTIONLABEL_WEIGHT, (int)BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT, FILL_PARENT_STRING, CONTACTINFOTYPEBEBINDEDBUTTON_WEIGHT, (int)BINDCONTACTINFOGROUPVIEW_TOTALSUMWEIGHT, (int)CONTACTINFOBINDBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:CONTACTINFOBINDBUTTON_WIDTH], [NSNumber numberWithFloat:CONTACTINFOBINDBUTTON_HEIGHT])];
+        
+        // set background image for normal, highlighted and disable state
+        [_mPhoneBindButton setBackgroundImage:[UIImage imageNamed:@"img_phonebind_normal_bg"] forState:UIControlStateNormal];
+        [_mPhoneBindButton setBackgroundImage:[UIImage imageNamed:@"img_phonebind_highlighted_bg"] forState:UIControlStateHighlighted];
+        [_mPhoneBindButton setBackgroundImage:[UIImage imageNamed:@"img_phonebind_disabled_bg"] forState:UIControlStateDisabled];
         
         // add action selector and its response target for event
         [_mPhoneBindButton addTarget:self action:@selector(phoneBindButtonOnClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -274,7 +278,13 @@
     // test by ares
     _mDeviceId6ContactsInfoBeBinded6AccountLabel.backgroundColor = [UIColor orangeColor];
     
-    //
+    // check login user contacts info type be binded and set phone bind button enable or disable
+    if (nil != _loginUserContactsInfoTypeBeBinded && [NSRBGServerFieldString(@"remote background server http request login or register and login with device id or phone bind response phone binded status", nil) isEqualToString:_loginUserContactsInfoTypeBeBinded]) {
+        _mPhoneBindButton.enabled = NO;
+    }
+    else {
+        _mPhoneBindButton.enabled = YES;
+    }
 }
 
 - (void)bindedAccountLogout{
@@ -294,6 +304,9 @@
     [_regAndLoginWithDeviceIdLoginHttpRequestProcessor setReg7LoginWithDeviceIdCompletion:^(NSInteger result) {
         // check register and login with device combined unique id request response result
         if (0 == result) {
+            // my account is changed
+            _mIsMyAccountChanged = YES;
+            
             // register and login with device combined unique id succeed, update my account and contacts info bind group UI
             [self updateMyAccount7ContactsInfoBindGroupUI];
         }
@@ -310,14 +323,19 @@
 - (void)phoneBindButtonOnClicked{
     NSLog(@"phone bind button on clicked");
     
-    // test by ares
-    NSLog(@"phone bind button frame = %@", NSStringFromCGRect(_mPhoneBindButton.frame));
-    
     //
 }
 
 - (void)bindedAccountLoginButtonOnClicked{
     NSLog(@"binded account login button on clicked");
+    
+    // test by ares
+    UIAlertView *_alertView = [[UIAlertView alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+    UILabel *_l = [[UILabel alloc] initWithFrame:CGRectMake(12.0, 60.0, 260.0, 125.0)];
+    _l.backgroundColor = [UIColor redColor];
+    //[_alertView addSubview:_l];
+    [_alertView show];
+    NSLog(@"show alertView frame = %@", NSStringFromCGRect(_alertView.frame));
     
     //
 }

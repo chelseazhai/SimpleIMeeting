@@ -10,12 +10,22 @@
 
 #import "NewTalkingGroupProtocol.h"
 
+#import <CommonToolkit/CommonToolkit.h>
+
 @class ContactListView;
 @class SelectedContactListView;
 
 @interface ContactsSelectView : UIView <NewTalkingGroupProtocol> {
     // ready for adding selected contact for inviting to the new talking group
     BOOL _mReady4AddingSelectedContact4Inviting;
+    
+    // new or selected contacts adding talking group id
+    NSString *_mNew6SelectedContactsAddingTalkingGroupId;
+    
+    // new talking group started time select popup window, invite note label and date picker
+    UIPopupWindow *_mNewTalkingGroupStartedTimeSelectPopupWindow;
+    UILabel *_mNewTalkingGroupInviteNoteLabel;
+    UIDatePicker *_mNewTalkingGroupStartedTimeSelectDatePicker;
     
     // present subviews
     // subview addressbook contact list view
@@ -35,6 +45,9 @@
 
 // remove the selected contact from selected contact list view with index
 - (void)removeSelectedContactFromSelectedContactListView:(NSInteger)index;
+
+// show new talking group started time select view with talking group id
+- (void)showNewTalkingGroupStartedTimeSelectView:(NSString *)newTalkingGroupId;
 
 // cancel or finish contacts selecting
 - (void)cancel6finishContactsSelecting;

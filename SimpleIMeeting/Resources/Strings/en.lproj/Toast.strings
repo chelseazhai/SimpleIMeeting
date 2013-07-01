@@ -12,3 +12,6 @@
 // binded account login and register and login with device combined unique id
 "toast binded account logout error" = "logout error, please retry again later";
 "toast binded account login user name or password wrong" = "login user name or password wrong";
+
+// contacts select content view
+"toast select at least one contact for inviting to talking group" = "please select at least one contact for inviting to the meeting";

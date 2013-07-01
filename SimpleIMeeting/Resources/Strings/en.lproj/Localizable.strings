@@ -21,6 +21,11 @@
 "contact has no phone number alertView reselect button title" = "Reselect again";
 "contact phone numbers select actionSheet title format" = "Select %@'s phone number for join the conference";
 "invite the selected contacts to talking group button title" = "Invite";
+"new talking group started time select popup window title label text" = "Select meeting started time";
+"new talking group invite note label text format string" = "请于 %@ 拨打0551-62379997参加电话会议(会议号: %@)";
+"new talking group invite note copy button title" = "Click copy";
+"schedule new talking group button title" = "OK";
+"cancel schedule new talking group button title" = "Cancel";
 
 // my talking group list content view
 "contacts select left bar button item title" = "My meetings";

@@ -8,17 +8,32 @@
 
 #import "ContactsSelectView.h"
 
-#import <CommonToolkit/CommonToolkit.h>
-
 #import "ContactListView.h"
 #import "SelectedContactListView.h"
 
 #import "ContactBean+ContactsSelect.h"
 
+// new talking group started time select popup window present content view and its subview height
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING    6.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABEL_HEIGHT  30.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT  58.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWDATEPICKER_HEIGHT  180.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWCONTROLLERBUTTON_HEIGHT    34.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_HEIGHT    320.0
+
 @interface ContactsSelectView ()
 
 // generate contact list view draw rectangle
 - (CGRect)genContactListViewDrawRect;
+
+// copy new talking group invite note to system clipboard
+- (void)copyNewTalkingGroupInviteNote2SystemClipboard;
+
+// schedule new talking group
+- (void)scheduleNewTalkingGroup;
+
+// cancel schedule new talking group
+- (void)cancelScheduleNewTalkingGroup;
 
 @end
 
@@ -124,6 +139,112 @@
     [_mSelectedContactListView removeSelectedContactFromPreinTalkingGroupSection:index];
 }
 
+- (void)showNewTalkingGroupStartedTimeSelectView:(NSString *)newTalkingGroupId{
+    // save new talking group id
+    _mNew6SelectedContactsAddingTalkingGroupId = newTalkingGroupId;
+    
+    // check new talking group started time select popup window
+    if (nil == _mNewTalkingGroupStartedTimeSelectPopupWindow) {
+        // init new talking group started time select popup window
+        _mNewTalkingGroupStartedTimeSelectPopupWindow = [[UIPopupWindow alloc] init];
+        
+        // define new talking group started time select popup window present content view
+        UIView *_presentContentView;
+        
+        // init new talking group started time select popup window present content view
+        _presentContentView = [_presentContentView = [UIView alloc] initWithFrame:CGRectMakeWithFormat(_presentContentView, [NSNumber numberWithFloat:_mNewTalkingGroupStartedTimeSelectPopupWindow.bounds.origin.x], [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s-%d)", (int)_mNewTalkingGroupStartedTimeSelectPopupWindow.bounds.origin.y, FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:FILL_PARENT], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_HEIGHT])];
+        
+        // set its background color
+        _presentContentView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];
+        
+        // init new talking group started time select popup window present content view date picker
+        _mNewTalkingGroupStartedTimeSelectDatePicker = [[UIDatePicker alloc] init];
+        
+        // init new talking group started time select popup window present content view title label
+        UILabel *_presentContentViewTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_presentContentView.bounds.origin.x, _presentContentView.bounds.origin.y, FILL_PARENT, NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABEL_HEIGHT)];
+        
+        // set its attributes
+        _presentContentViewTitleLabel.text = NSLocalizedString(@"new talking group started time select popup window title label text", nil);
+        _presentContentViewTitleLabel.textColor = [UIColor whiteColor];
+        _presentContentViewTitleLabel.textAlignment = NSTextAlignmentCenter;
+        _presentContentViewTitleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+        _presentContentViewTitleLabel.backgroundColor = [UIColor clearColor];
+        
+        // init new talking group started time select popup window present content view invite note label
+        _mNewTalkingGroupInviteNoteLabel = [_mNewTalkingGroupInviteNoteLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mNewTalkingGroupInviteNoteLabel, [NSNumber numberWithFloat:_presentContentView.bounds.origin.x + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-4*%d-%d", FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT])];
+        
+        // set its attributes
+        // test by ares
+        _mNewTalkingGroupInviteNoteLabel.text = [NSString stringWithFormat:NSLocalizedString(@"new talking group invite note label text format string", nil), @"2013年7月1日 17:30", _mNew6SelectedContactsAddingTalkingGroupId];
+        _mNewTalkingGroupInviteNoteLabel.textColor = [UIColor whiteColor];
+        _mNewTalkingGroupInviteNoteLabel.font = [UIFont systemFontOfSize:15.0];
+        _mNewTalkingGroupInviteNoteLabel.numberOfLines = 0;
+        _mNewTalkingGroupInviteNoteLabel.backgroundColor = [UIColor clearColor];
+        
+        // init new talking group invite note copy button
+        UIButton *_copyNewTalkingGroupInviteNoteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        // set its frame
+        [_copyNewTalkingGroupInviteNoteButton setFrame:CGRectMakeWithFormat(_copyNewTalkingGroupInviteNoteButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s-%d-%d", (int)_presentContentView.bounds.origin.x, FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT])];
+        
+        // set its title for normal state
+        [_copyNewTalkingGroupInviteNoteButton setTitle:NSLocalizedString(@"new talking group invite note copy button title", nil) forState:UIControlStateNormal];
+        
+        // add action selector and its response target for event
+        [_copyNewTalkingGroupInviteNoteButton addTarget:self action:@selector(copyNewTalkingGroupInviteNote2SystemClipboard) forControlEvents:UIControlEventTouchUpInside];
+        
+        // set new talking group started time select popup window present content view date picker frame
+        [_mNewTalkingGroupStartedTimeSelectDatePicker setFrame:CGRectMake(_presentContentView.bounds.origin.x, _presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height + _mNewTalkingGroupInviteNoteLabel.frame.size.height + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING, FILL_PARENT, NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWDATEPICKER_HEIGHT)];
+        
+        // new talking group started time select popup window present content view controller button origin y number and width value
+        NSNumber *_newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber = [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height + _mNewTalkingGroupInviteNoteLabel.frame.size.height + _mNewTalkingGroupStartedTimeSelectDatePicker.frame.size.height + 2 * NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING];
+        NSValue *_newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue = [NSValue valueWithCString:[[NSString stringWithFormat:@"(%s-4*%d)/2", FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING] cStringUsingEncoding:NSUTF8StringEncoding]];
+        
+        // init schedule new talking group controller button
+        UIButton *_scheduleNewTalkingGroupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        // set its frame
+        [_scheduleNewTalkingGroupButton setFrame:CGRectMakeWithFormat(_scheduleNewTalkingGroupButton, [NSNumber numberWithFloat:_presentContentView.bounds.origin.x + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING], _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber, _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue, [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWCONTROLLERBUTTON_HEIGHT])];
+        
+        // set its title for normal state
+        [_scheduleNewTalkingGroupButton setTitle:NSLocalizedString(@"schedule new talking group button title", nil) forState:UIControlStateNormal];
+        
+        // add action selector and its response target for event
+        [_scheduleNewTalkingGroupButton addTarget:self action:@selector(scheduleNewTalkingGroup) forControlEvents:UIControlEventTouchUpInside];
+        
+        // init cancel schedule new talking group controller button
+        UIButton *_cancelScheduleNewTalkingGroupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        // set its frame
+        [_cancelScheduleNewTalkingGroupButton setFrame:CGRectMakeWithFormat(_cancelScheduleNewTalkingGroupButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%@+3*%d", (int)_presentContentView.bounds.origin.x, _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue.stringValue, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING] cStringUsingEncoding:NSUTF8StringEncoding]], _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber, _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue, [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWCONTROLLERBUTTON_HEIGHT])];
+        
+        // set its title for normal state
+        [_cancelScheduleNewTalkingGroupButton setTitle:NSLocalizedString(@"cancel schedule new talking group button title", nil) forState:UIControlStateNormal];
+        
+        // add action selector and its response target for event
+        [_cancelScheduleNewTalkingGroupButton addTarget:self action:@selector(cancelScheduleNewTalkingGroup) forControlEvents:UIControlEventTouchUpInside];
+        
+        // add title, new talking group invite note label, copy new talking group invite note button, new talking group started time select date picker, schedule and cancel schedule new talking group button as subviews of new talking group started time select present content view
+        [_presentContentView addSubview:_presentContentViewTitleLabel];
+        [_presentContentView addSubview:_mNewTalkingGroupInviteNoteLabel];
+        [_presentContentView addSubview:_copyNewTalkingGroupInviteNoteButton];
+        [_presentContentView addSubview:_mNewTalkingGroupStartedTimeSelectDatePicker];
+        [_presentContentView addSubview:_scheduleNewTalkingGroupButton];
+        [_presentContentView addSubview:_cancelScheduleNewTalkingGroupButton];
+        
+        // set its present content view
+        _mNewTalkingGroupStartedTimeSelectPopupWindow.presentContentView = _presentContentView;
+    }
+    else {
+        NSLog(@"2");
+        
+        //
+    }
+    
+    // show new talking group started time select popup window
+    [_mNewTalkingGroupStartedTimeSelectPopupWindow showAtLocation:self];
+}
+
 - (void)cancel6finishContactsSelecting{
     // clear in talking group attendees phone array if needed
     if (0 < [self.inTalkingGroupAttendeesPhoneArray count]) {
@@ -202,6 +323,21 @@
     }
     
     return _contactListViewDrawRectangle;
+}
+
+- (void)copyNewTalkingGroupInviteNote2SystemClipboard{
+    NSLog(@"copy new talking group invite note to system clipboard");
+    
+    //
+}
+
+- (void)scheduleNewTalkingGroup{
+    //
+}
+
+- (void)cancelScheduleNewTalkingGroup{
+    //
+    [_mNewTalkingGroupStartedTimeSelectPopupWindow dismiss];
 }
 
 @end
