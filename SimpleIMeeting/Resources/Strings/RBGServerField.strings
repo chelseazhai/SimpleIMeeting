@@ -35,20 +35,20 @@
 //<string name="rbgServer_phoneBind_loginConfirmationPwd" translatable="false">password1</string>
 
 // my talking groups
-//<string name="rbgServer_getMyTalkingGroups_offset" translatable="false">offset</string>
-//<string name="rbgServer_getMyTalkingGroupsReq_resp_pager" translatable="false">pager</string>
-//<string name="rbgServer_getMyTalkingGroupsReq_resp_pagerOffset" translatable="false">offset</string>
-//<string name="rbgServer_getMyTalkingGroupsReq_resp_pagerHasNext" translatable="false">hasNext</string>
-//<string name="rbgServer_getMyTalkingGroupsReq_resp_list" translatable="false">list</string>
-//<string name="rbgServer_getMyTalkingGroupsReq_resp_startedTimestamp" translatable="false">scheduled_time</string>
+"remote background server http request get my talking groups offset" = "offset";
+"remote background server http request get my talking groups response pager" = "pager";
+"remote background server http request get my talking groups response pager has next" = "hasNext";
+"remote background server http request get my talking groups response pager offset" = "offset";
+"remote background server http request get my talking groups response info list" = "list";
+"remote background server http request get my talking groups response info list talking group started time timestamp" = "scheduled_time";
 "remote background server http request get my talking groups or new talking group id response id" = "conferenceId";
+"remote background server http request get my talking groups response info list talking group status" = "status";
+"remote background server http request get my talking groups response info list talking group open status" = "OPEN";
+"remote background server http request get my talking groups response info list talking group schedule status" = "SCHEDULE";
 "remote background server http request schedule new talking group or invite new added contacts to talking group attendees" = "attendees";
 "remote background server http request schedule new talking group or invite new added attendee nickname" = "nickname";
 "remote background server http request schedule new talking group or invite new added attendee phone" = "phone";
 "remote background server http request schedule new talking group scheduled time" = "scheduleTime";
-//<string name="rbgServer_getMyTalkingGroupsReq_resp_status" translatable="false">status</string>
-//<string name="rbgServer_myTalkingGroup_talkingGroupOpened" translatable="false">OPEN</string>
-//<string name="rbgServer_myTalkingGroup_talkingGroupScheduled" translatable="false">SCHEDULE</string>
 //<string name="rbgServer_getMyTalkingGroupsReq_resp_attendees" translatable="false">attendees</string>
 //<string name="rbgServer_myTalkingGroupAttendee_phone" translatable="false">phone</string>
 "remote background server http request get selected talking group attendees or schedule new talking group or invite new added contacts to talking group id" = "conferenceId";

@@ -35,6 +35,12 @@
 "my talking group attendees head tip view text" = "Attendees";
 "my talking groups loading tip" = "Loading my meetings ...";
 "no talking group tip label Text" = "There is no meeting with you, you can tap to generate new meeting by yourself";
+"talking group started time tip" = "Started time:";
+"talking group id tip" = "Meeting No:";
+"talking group status tip" = "Meeting status:";
+"talking group is opened" = "Going ...";
+"talking group is invalided" = "Invalid";
+"talking group is unopened" = "%@ later start";
 
 // setting view
 "setting view title" = "Setting";

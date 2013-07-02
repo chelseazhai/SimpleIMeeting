@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyTalkingGroupListView : UIView <UITableViewDataSource, UITableViewDelegate> {
-    // my talking groups info array
+#import "IHttpReqRespSelector.h"
+
+@interface MyTalkingGroupListView : UIView <UITableViewDataSource, UITableViewDelegate, IHttpReqRespSelector> {
+    // my talking groups pager json object and info array
+    NSDictionary *_mMyTalkingGroupsPagerJSONObject;
     NSMutableArray *_mMyTalkingGroupsInfoArray;
     
     // load my talking group list table view data source completion block

@@ -26,6 +26,9 @@
 
 @implementation In6PreinTalkingGroupContactTableViewCell
 
+@synthesize contactIsInTalkingGroupFlag = _mContactIsInTalkingGroupFlag;
+@synthesize displayName = _mDisplayName;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

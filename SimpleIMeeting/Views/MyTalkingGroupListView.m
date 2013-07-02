@@ -14,6 +14,16 @@
 
 #import "MyTalkingGroupListTableViewCell.h"
 
+@interface MyTalkingGroupListView ()
+
+// send get my talking groups http request
+- (void)sendGetMyTalkingGroupsHttpRequest;
+
+// get my talking groups http request did finished selector
+- (void)getMyTalkingGroupsHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
+
+@end
+
 @implementation MyTalkingGroupListView
 
 @synthesize myTalkingGroupsInfoArray = _mMyTalkingGroupsInfoArray;
@@ -62,20 +72,12 @@
 }
 */
 
-// test by ares
-- (void)testByAres{
-    _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(0);
-}
-
 - (void)loadMyTalkingGroupListTableViewDataSource:(void (^)(NSInteger))completion{
     // save loading my talking group list table view data source completion block
     _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock = completion;
     
-    // test by ares
-    [_mMyTalkingGroupsInfoArray addObjectsFromArray:[NSArray arrayWithObjects:@"123", @"456", @"789", nil]];
-    [_mMyTalkingGroupListTableView reloadData];
-    
-    [self performSelector:@selector(testByAres) withObject:nil afterDelay:3.0];
+    // send get my talking groups http request
+    [self sendGetMyTalkingGroupsHttpRequest];
 }
 
 // UITableViewDataSource
@@ -95,16 +97,76 @@
     }
     
     // Configure the cell...
-    _cell.textLabel.text = @"会议";
+    // get my talking group info json object
+    NSDictionary *_myTalkingGroupInfoJSONObject = [_mMyTalkingGroupsInfoArray objectAtIndex:indexPath.row];
+    
+    // set my talking group started time timestamp, id and status
+    _cell.startedTimeTimestamp = [[_myTalkingGroupInfoJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group started time timestamp", nil)] description];
+    _cell.talkingGroupId = [_myTalkingGroupInfoJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups or new talking group id response id", nil)];
+    _cell.talkingGroupStatus = [_myTalkingGroupInfoJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group status", nil)];
     
     return _cell;
 }
 
 // UITableViewDelegate
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    // Return the height for row at indexPath.
+    return [MyTalkingGroupListTableViewCell cellHeight];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"my talking groups did select row at index path = %@", indexPath);
     
     //
+}
+
+// IHttpReqRespSelector
+- (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send http request succeed - request url = %@", pRequest.url);
+    
+    // check the request url string
+    if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
+        // get my talking groups http request
+        [self getMyTalkingGroupsHttpRequestDidFinished:pRequest];
+    }
+    else {
+        //
+    }
+}
+
+- (void)httpRequestDidFailed:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send http request failed - request url = %@", pRequest.url);
+    
+    //
+}
+
+// inner extension
+- (void)sendGetMyTalkingGroupsHttpRequest{
+    // post the http request
+    [HttpUtils postSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:nil andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+}
+
+- (void)getMyTalkingGroupsHttpRequestDidFinished:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send get my talking groups http request succeed - request url = %@, response status code = %d and data string = %@", pRequest.url, [pRequest responseStatusCode], pRequest.responseString);
+    
+    // check status code
+    if (200 == [pRequest responseStatusCode]) {
+        // get response data json format
+        NSDictionary *_respDataJSONFormat = [pRequest.responseString objectFromJSONString];
+        
+        // get my talking groups pager and info list from response data json format
+        _mMyTalkingGroupsPagerJSONObject = [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response pager", nil)];
+        [_mMyTalkingGroupsInfoArray addObjectsFromArray:[_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response info list", nil)]];
+        
+        // reload my talking group list table view data
+        [_mMyTalkingGroupListTableView reloadData];
+        
+        // load my talking group list table view data source succeed completion
+        _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(0);
+    }
+    else {
+        //
+    }
 }
 
 @end

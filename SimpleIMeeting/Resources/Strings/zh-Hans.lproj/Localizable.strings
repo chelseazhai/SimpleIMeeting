@@ -35,6 +35,12 @@
 "my talking group attendees head tip view text" = "与会者";
 "my talking groups loading tip" = "正在加载我的会议 ...";
 "no talking group tip label Text" = "当前没有待参与的会议，你可以点击来开启一个新的会议";
+"talking group started time tip" = "开始时间：";
+"talking group id tip" = "会议号码：";
+"talking group status tip" = "会议状态：";
+"talking group is opened" = "进行中 ...";
+"talking group is invalided" = "无效会议";
+"talking group is unopened" = "%@后开始";
 
 // setting view
 "setting view title" = "设置";
