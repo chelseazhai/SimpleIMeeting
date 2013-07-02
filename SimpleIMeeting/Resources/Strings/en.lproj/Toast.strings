@@ -13,6 +13,8 @@
 "toast binded account logout error" = "logout error, please retry again later";
 "toast binded account login user name or password wrong" = "login user name or password wrong";
 
-// contacts select content view
+// contacts select
 "toast select at least one contact for inviting to talking group" = "please select at least one contact for inviting to the meeting";
+"toast copy new talking group invite note to pasteboard successful" = "new talking group invite note has been copied to pasteboard";
 "toast new talking group started time selected is too early" = "the select started time for new meeting has been passed";
+"toast remote background server can't accept to schedule new talking group" = "remote background server refuse to schedule new meeting";

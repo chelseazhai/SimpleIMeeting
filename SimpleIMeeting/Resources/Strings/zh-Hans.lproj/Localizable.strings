@@ -25,7 +25,7 @@
 "new talking group invite note label text format string" = "请于 %@ 拨打0551-62379997参加电话会议(会议号：%@)";
 "new talking group started time select date picker date format string" = "yyyy年MM月dd日 HH:mm";
 "new talking group invite note copy button title" = "点击拷贝";
-"schedule new talking group button title" = "确定";
+"confirm schedule new talking group button title" = "确定";
 "cancel schedule new talking group button title" = "取消";
 
 // my talking group list content view

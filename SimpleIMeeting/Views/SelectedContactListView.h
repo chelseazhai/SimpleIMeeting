@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "IHttpReqRespSelector.h"
-
-@interface SelectedContactListView : UIView <UITableViewDataSource, UITableViewDelegate, IHttpReqRespSelector> {
+@interface SelectedContactListView : UIView <UITableViewDataSource, UITableViewDelegate> {
     // in talking group attendees phone array
     NSMutableArray *_mInTalkingGroupAttendeesPhoneArray;
     

@@ -25,7 +25,7 @@
 "new talking group invite note label text format string" = "please dial 0551-62379997 to join the telephone meeting at %@(meeting No: %@)";
 "new talking group started time select date picker date format string" = "yyyy-MM-dd HH:mm";
 "new talking group invite note copy button title" = "Click copy";
-"schedule new talking group button title" = "OK";
+"confirm schedule new talking group button title" = "OK";
 "cancel schedule new talking group button title" = "Cancel";
 
 // my talking group list content view

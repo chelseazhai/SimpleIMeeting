@@ -12,10 +12,12 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
+#import "IHttpReqRespSelector.h"
+
 @class ContactListView;
 @class SelectedContactListView;
 
-@interface ContactsSelectView : UIView <NewTalkingGroupProtocol> {
+@interface ContactsSelectView : UIView <NewTalkingGroupProtocol, IHttpReqRespSelector> {
     // ready for adding selected contact for inviting to the new talking group
     BOOL _mReady4AddingSelectedContact4Inviting;
     
@@ -46,8 +48,11 @@
 // remove the selected contact from selected contact list view with index
 - (void)removeSelectedContactFromSelectedContactListView:(NSInteger)index;
 
-// show new talking group started time select view with talking group id
-- (void)showNewTalkingGroupStartedTimeSelectView:(NSString *)newTalkingGroupId;
+// schedule new talking group
+- (void)scheduleNewTalkingGroup;
+
+// invite new added attendees to talking group
+- (void)inviteNewAddedAttendees2TalkingGroup;
 
 // cancel or finish contacts selecting
 - (void)cancel6finishContactsSelecting;
