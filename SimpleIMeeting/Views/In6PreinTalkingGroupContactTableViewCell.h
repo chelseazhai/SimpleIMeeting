@@ -13,11 +13,11 @@
 @interface In6PreinTalkingGroupContactTableViewCell : UITableViewCell {
     // contact in talking gruop flag
     BOOL _mContactIsInTalkingGroupFlag;
-    // contact display name label text
+    // contact display name
     NSString *_mDisplayName;
     
-    // contact indicate photo imageview
-    UIImageView *_mIndicatePhotoImgView;
+    // contact indicate imageview
+    UIImageView *_mIndicateImgView;
     // contact display name label
     UILabel *_mDisplayNameLabel;
 }

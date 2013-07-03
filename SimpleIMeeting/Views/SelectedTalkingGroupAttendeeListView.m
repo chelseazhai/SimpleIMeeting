@@ -22,6 +22,13 @@
 #define ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINTB    4.0
 #define ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINLR    10.0
 
+@interface SelectedTalkingGroupAttendeeListView ()
+
+// add more attendees to the selected talking group
+- (void)addMoreAttendees2SelectedTalkingGroup;
+
+@end
+
 @implementation SelectedTalkingGroupAttendeeListView
 
 - (id)initWithFrame:(CGRect)frame
@@ -59,7 +66,7 @@
         [_addMoreAttendees2SelectedTalkingGroupButton setTitle:NSLocalizedString(@"add more attendees to the selected talking group button title", nil) forState:UIControlStateNormal];
         
         // add action selector and its response target for event
-        [_addMoreAttendees2SelectedTalkingGroupButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+        [_addMoreAttendees2SelectedTalkingGroupButton addTarget:self action:@selector(addMoreAttendees2SelectedTalkingGroup) forControlEvents:UIControlEventTouchUpInside];
         
         // add selected talking group attendees head tip view, selected talking group attendee list table view and add more attendees to the selected talking group button as subviews of selected talking group attendee list view
         [self addSubview:_selectedTalkingGroupAttendeesHeadTipView];
@@ -80,7 +87,7 @@
 
 // UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 25;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -99,9 +106,17 @@
     return _cell;
 }
 
-//// UITableViewDelegate
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    //
-//}
+// UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    // Return the height for row at indexPath.
+    return [SelectedTalkingGroupAttendeeListTableViewCell cellHeight];
+}
+
+// inner extension
+- (void)addMoreAttendees2SelectedTalkingGroup{
+    NSLog(@"addMoreAttendees2SelectedTalkingGroup");
+    
+    //
+}
 
 @end

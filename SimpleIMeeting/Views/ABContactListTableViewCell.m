@@ -115,7 +115,7 @@
 }
 
 - (void)setDisplayName:(NSString *)displayName{
-    // set display name text
+    // set display name
     _mDisplayName = displayName;
     
     // set display name label text

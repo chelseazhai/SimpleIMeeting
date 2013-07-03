@@ -8,19 +8,19 @@
 
 #import "In6PreinTalkingGroupContactTableViewCell.h"
 
-// prein talking group contact indicate photo
-#define PREINTALKINGGROUPCONTACT_INDICATE_PHOTO [UIImage imageNamed:@"img_preintalkinggroup_indicatephoto"]
+// prein talking group contact indicate image
+#define PREINTALKINGGROUPCONTACT_INDICATEIMAGE  [UIImage imageNamed:@"img_preintalkinggroup_indicateimage"]
 
 // tableViewCell margin
 #define MARGIN  6.0
 // tableViewCell padding
 #define PADDING 2.0
 
-// cell indicate photo imageview margin
-#define INDICATEPHOTOIMGVIEW_MARGIN 4.0
+// cell indicate imageview margin
+#define INDICATEIMGVIEW_MARGIN  4.0
 
-// cell indicate photo imageview width and height
-#define INDICATEPHOTOIMGVIEW_WIDTH7HEIGHT   14.0
+// cell indicate imageview width and height
+#define INDICATEIMGVIEW_WIDTH7HEIGHT    14.0
 // cell display name label height
 #define DISPLAYNAMELABEL_HEIGHT 22.0
 
@@ -38,14 +38,14 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         // init contentView subviews
-        // contact indicate photo image view
-        _mIndicatePhotoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGIN + INDICATEPHOTOIMGVIEW_MARGIN, self.bounds.origin.y + MARGIN + INDICATEPHOTOIMGVIEW_MARGIN, INDICATEPHOTOIMGVIEW_WIDTH7HEIGHT, INDICATEPHOTOIMGVIEW_WIDTH7HEIGHT)];
+        // contact indicate image view
+        _mIndicateImgView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGIN + INDICATEIMGVIEW_MARGIN, self.bounds.origin.y + MARGIN + INDICATEIMGVIEW_MARGIN, INDICATEIMGVIEW_WIDTH7HEIGHT, INDICATEIMGVIEW_WIDTH7HEIGHT)];
         
         // add to content view
-        [self.contentView addSubview:_mIndicatePhotoImgView];
+        [self.contentView addSubview:_mIndicateImgView];
         
         // contact display name label
-        _mDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_mIndicatePhotoImgView.frame.origin.x + _mIndicatePhotoImgView.frame.size.width + INDICATEPHOTOIMGVIEW_MARGIN + 4 * PADDING, self.bounds.origin.y + MARGIN, self.frame.size.width - 2 * (MARGIN + INDICATEPHOTOIMGVIEW_MARGIN) - (_mIndicatePhotoImgView.frame.size.width + 4 * PADDING), DISPLAYNAMELABEL_HEIGHT)];
+        _mDisplayNameLabel = [_mDisplayNameLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mDisplayNameLabel, [NSNumber numberWithFloat:_mIndicateImgView.frame.origin.x + _mIndicateImgView.frame.size.width + INDICATEIMGVIEW_MARGIN + PADDING], [NSNumber numberWithFloat:self.bounds.origin.y + MARGIN], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*(%d+%d)-(%d+%d)", FILL_PARENT_STRING, (int)MARGIN, (int)INDICATEIMGVIEW_MARGIN, (int)INDICATEIMGVIEW_WIDTH7HEIGHT, (int)PADDING] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:DISPLAYNAMELABEL_HEIGHT])];
         
         // set text color and font
         _mDisplayNameLabel.textColor = [UIColor darkGrayColor];
@@ -81,23 +81,34 @@
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+//    // update contact display name label frame
+//    [_mDisplayNameLabel setFrame:CGRectMake(_mIndicateImgView.frame.origin.x + _mIndicateImgView.frame.size.width + INDICATEIMGVIEW_MARGIN + PADDING, self.bounds.origin.y + MARGIN, self.frame.size.width - 2 * (MARGIN + INDICATEIMGVIEW_MARGIN) - (_mIndicateImgView.frame.size.width + PADDING), DISPLAYNAMELABEL_HEIGHT)];
+    
+    // resize all subviews
+    [self resizesSubviews];
+}
+
 - (void)setContactIsInTalkingGroupFlag:(BOOL)contactIsInTalkingGroupFlag{
     // set contact is in talking group flag
     _mContactIsInTalkingGroupFlag = contactIsInTalkingGroupFlag;
     
     // check contact if or not in talking group
     if (contactIsInTalkingGroupFlag) {
-        // clear indicate photo image view image
-        _mIndicatePhotoImgView.image = nil;
+        // clear indicate image view image
+        _mIndicateImgView.image = nil;
     }
     else {
-        // set prein talking group contact indicate photo as indicate photo image view image
-        _mIndicatePhotoImgView.image = PREINTALKINGGROUPCONTACT_INDICATE_PHOTO;
+        // set prein talking group contact indicate as indicate image view image
+        _mIndicateImgView.image = PREINTALKINGGROUPCONTACT_INDICATEIMAGE;
     }
 }
 
 - (void)setDisplayName:(NSString *)displayName{
-    // set display name text
+    // set display name
     _mDisplayName = displayName;
     
     // set display name label text

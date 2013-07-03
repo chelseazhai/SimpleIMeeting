@@ -49,11 +49,11 @@
 "remote background server http request schedule new talking group or invite new added attendee nickname" = "nickname";
 "remote background server http request schedule new talking group or invite new added attendee phone" = "phone";
 "remote background server http request schedule new talking group scheduled time" = "scheduleTime";
-//<string name="rbgServer_getMyTalkingGroupsReq_resp_attendees" translatable="false">attendees</string>
+//"remote background server http request get my talking groups response info list attendees" = "attendees";
 //<string name="rbgServer_myTalkingGroupAttendee_phone" translatable="false">phone</string>
 "remote background server http request get selected talking group attendees or schedule new talking group or invite new added contacts to talking group id" = "conferenceId";
-//<string name="rbgServer_getTalkingGroupAttendeesReq_resp_nickname" translatable="false">nickname</string>
-//<string name="rbgServer_getTalkingGroupAttendeesReq_resp_phone" translatable="false">phone</string>
-//<string name="rbgServer_getTalkingGroupAttendeesReq_resp_status" translatable="false">telephone_status</string>
-//<string name="rbgServer_talkingGroupAttendee_attendeeIn" translatable="false">Established</string>
-//<string name="rbgServer_talkingGroupAttendee_attendeeOut" translatable="false">Terminated</string>
+"remote background server http request get selected talking group attendees response info list nickname" = "nickname";
+"remote background server http request get selected talking group attendees response info list phone" = "phone";
+"remote background server http request get selected talking group attendees response info list status" = "telephone_status";
+"remote background server http request get selected talking group attendees response info list attendee in status" = "Established";
+"remote background server http request get selected talking group attendees response info list attendee out status" = "Terminated";

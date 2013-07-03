@@ -13,7 +13,7 @@
 @interface ABContactListTableViewCell : UITableViewCell {
     // contact selected flag
     BOOL _mContactIsSelectedFlag;
-    // contact display name label text
+    // contact display name
     NSString *_mDisplayName;
     // contact full name array
     NSArray *_mFullNames;
