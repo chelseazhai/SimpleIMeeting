@@ -40,7 +40,11 @@
 "talking group status tip" = "Meeting status:";
 "talking group is opened" = "Going ...";
 "talking group is invalided" = "Invalid";
-"talking group is unopened" = "%@ later start";
+"talking group will open" = "will open soon";
+"talking group is unopened days remain format string" = "%d days later start";
+"talking group is unopened hours remain format string" = "%d hours later start";
+"talking group is unopened minutes remain format string" = "%d minutes later start";
+"add more attendees to the selected talking group button title" = "Add";
 
 // setting view
 "setting view title" = "Setting";

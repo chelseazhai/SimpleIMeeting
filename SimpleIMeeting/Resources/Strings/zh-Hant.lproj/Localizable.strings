@@ -40,7 +40,11 @@
 "talking group status tip" = "会议状态：";
 "talking group is opened" = "进行中 ...";
 "talking group is invalided" = "无效会议";
-"talking group is unopened" = "%@后开始";
+"talking group will open" = "即将开始";
+"talking group is unopened days remain format string" = "%d天后开始";
+"talking group is unopened hours remain format string" = "%d小时后开始";
+"talking group is unopened minutes remain format string" = "%d分钟后开始";
+"add more attendees to the selected talking group button title" = "添加";
 
 // setting view
 "setting view title" = "设置";

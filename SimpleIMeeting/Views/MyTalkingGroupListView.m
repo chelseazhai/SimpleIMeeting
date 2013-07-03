@@ -59,6 +59,11 @@
         // add my talking groups head tip view and my talking group list table view as subviews of my talking group list view
         [self addSubview:_myTalkingGroupsHeadTipView];
         [self addSubview:_mMyTalkingGroupListTableView];
+        
+        // set my talking group list view all subviews auto resizing mask
+        for (int _index = 0; _index < [self.subviews count]; _index++) {
+            ((UIView *)[self.subviews objectAtIndex:_index]).autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        }
     }
     return self;
 }

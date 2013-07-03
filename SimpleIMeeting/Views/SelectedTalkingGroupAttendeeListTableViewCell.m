@@ -15,6 +15,10 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        // set selection style is UITableViewCellSelectionStyleNone
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        //
     }
     return self;
 }

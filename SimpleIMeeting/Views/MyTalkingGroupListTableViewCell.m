@@ -10,8 +10,10 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
-// tableViewCell margin left, top and right
-#define MARGINLTR   8.0
+// tableViewCell margin top
+#define MARGINTOP   10.0
+// tableViewCell margin left and tight
+#define MARGINLR    14.0
 // tableViewCell margin bottom
 #define MARGINBOTTOM    16.0
 
@@ -19,7 +21,7 @@
 #define TIPLABEL_WIDTH  76.0
 
 // cell label height
-#define LABEL_HEIGHT    30.0
+#define LABEL_HEIGHT    22.0
 
 // set label attributes with text
 #define SetLabelAttributes(label, labelText)   \
@@ -32,7 +34,12 @@
     }
 
 // milliseconds per second
-#define MILLISECONDS_PER_SECOND 1000.0
+#define MILLISECONDS_PER_SECOND 1000
+
+// seconds per minute, hour and day
+#define SECONDS_PER_MINUTE  60
+#define SECONDS_PER_HOUR    (60 * 60)
+#define SECONDS_PER_DAY (24 * 60 * 60)
 
 @implementation MyTalkingGroupListTableViewCell
 
@@ -49,7 +56,7 @@
         
         // init contentView subviews
         // talking group started time tip label
-        UILabel *_startedTimeTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLTR, self.bounds.origin.y + MARGINLTR, TIPLABEL_WIDTH, LABEL_HEIGHT)];
+        UILabel *_startedTimeTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLR, self.bounds.origin.y + MARGINTOP, TIPLABEL_WIDTH, LABEL_HEIGHT)];
         
         // set its attributes
         SetLabelAttributes(_startedTimeTipLabel, NSLocalizedString(@"talking group started time tip", nil));
@@ -58,7 +65,7 @@
         [self.contentView addSubview:_startedTimeTipLabel];
         
         // talking group started time label
-        _mStartedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLTR + _startedTimeTipLabel.frame.size.width, _startedTimeTipLabel.frame.origin.y, self.frame.size.width - _startedTimeTipLabel.frame.size.width - 2 * MARGINLTR, LABEL_HEIGHT)];
+        _mStartedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLR + _startedTimeTipLabel.frame.size.width, _startedTimeTipLabel.frame.origin.y, self.frame.size.width - _startedTimeTipLabel.frame.size.width - 2 * MARGINLR, LABEL_HEIGHT)];
         
         // set its attributes
         SetLabelAttributes(_mStartedTimeLabel, nil);
@@ -67,7 +74,7 @@
         [self.contentView addSubview:_mStartedTimeLabel];
         
         // talking group id tip label
-        UILabel *_talkingGroupIdTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLTR, self.bounds.origin.y + MARGINLTR + _startedTimeTipLabel.frame.size.height, TIPLABEL_WIDTH, LABEL_HEIGHT)];
+        UILabel *_talkingGroupIdTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLR, self.bounds.origin.y + MARGINTOP + _startedTimeTipLabel.frame.size.height, TIPLABEL_WIDTH, LABEL_HEIGHT)];
         
         // set its attributes
         SetLabelAttributes(_talkingGroupIdTipLabel, NSLocalizedString(@"talking group id tip", nil));
@@ -76,7 +83,7 @@
         [self.contentView addSubview:_talkingGroupIdTipLabel];
         
         // talking group id label
-        _mTalkingGroupIdLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLTR + _talkingGroupIdTipLabel.frame.size.width, _talkingGroupIdTipLabel.frame.origin.y, self.frame.size.width - _talkingGroupIdTipLabel.frame.size.width - 2 * MARGINLTR, LABEL_HEIGHT)];
+        _mTalkingGroupIdLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLR + _talkingGroupIdTipLabel.frame.size.width, _talkingGroupIdTipLabel.frame.origin.y, self.frame.size.width - _talkingGroupIdTipLabel.frame.size.width - 2 * MARGINLR, LABEL_HEIGHT)];
         
         // set its attributes
         SetLabelAttributes(_mTalkingGroupIdLabel, nil);
@@ -85,7 +92,7 @@
         [self.contentView addSubview:_mTalkingGroupIdLabel];
         
         // talking group status tip label
-        UILabel *_talkingGroupStatusTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLTR, self.bounds.origin.y + MARGINLTR + _startedTimeTipLabel.frame.size.height + _talkingGroupIdTipLabel.frame.size.height, TIPLABEL_WIDTH, LABEL_HEIGHT)];
+        UILabel *_talkingGroupStatusTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLR, self.bounds.origin.y + MARGINTOP + _startedTimeTipLabel.frame.size.height + _talkingGroupIdTipLabel.frame.size.height, TIPLABEL_WIDTH, LABEL_HEIGHT)];
         
         // set its attributes
         SetLabelAttributes(_talkingGroupStatusTipLabel, NSLocalizedString(@"talking group status tip", nil));
@@ -94,7 +101,7 @@
         [self.contentView addSubview:_talkingGroupStatusTipLabel];
         
         // talking group status label
-        _mTalkingGroupStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLTR + _talkingGroupStatusTipLabel.frame.size.width, _talkingGroupStatusTipLabel.frame.origin.y, self.frame.size.width - _talkingGroupStatusTipLabel.frame.size.width - 2 * MARGINLTR, LABEL_HEIGHT)];
+        _mTalkingGroupStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + MARGINLR + _talkingGroupStatusTipLabel.frame.size.width, _talkingGroupStatusTipLabel.frame.origin.y, self.frame.size.width - _talkingGroupStatusTipLabel.frame.size.width - 2 * MARGINLR, LABEL_HEIGHT)];
         
         // set its attributes
         SetLabelAttributes(_mTalkingGroupStatusLabel, nil);
@@ -112,10 +119,10 @@
     // Configure the view for the selected state
     // set the view background for selected and unselected state
     if (selected) {
-        self.backgroundColor = [UIColor grayColor];
+        self.backgroundImg = [UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_selected_bg" : @"img_talkinggroup_short_selected_bg"];
     }
     else {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundImg = [UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_normal_bg" : @"img_talkinggroup_short_normal_bg"];
     }
 }
 
@@ -152,8 +159,11 @@
         _statusTipString = NSLocalizedString(@"talking group is opened", nil);
     }
     else if ([NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group schedule status", nil) isEqualToString:talkingGroupStatus]) {
+        // get current date
+        NSDate *_currentDate = [NSDate date];
+        
         // compare talking group started time with current date
-        switch ([[NSDate dateWithTimeIntervalSince1970:_mStartedTimeUnixTimestamp] compare:[NSDate date] componentUnitFlags:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit]) {
+        switch ([[NSDate dateWithTimeIntervalSince1970:_mStartedTimeUnixTimestamp] compare:_currentDate componentUnitFlags:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit]) {
             case NSOrderedAscending:
                 // invalid talking group
                 NSLog(@"Error: the talking group is invalided");
@@ -162,10 +172,32 @@
                 break;
                 
             case NSOrderedSame:
+                // will open soon
+                _statusTipString = NSLocalizedString(@"talking group will open", nil);
+                break;
+                
             case NSOrderedDescending:
             default:
-                // test by ares
-                _statusTipString = [NSString stringWithFormat:NSLocalizedString(@"talking group is unopened", nil), @"3分钟"];
+                {
+                    // get and check remain time interval
+                    NSTimeInterval _remainTimeInterval = _mStartedTimeUnixTimestamp - _currentDate.timeIntervalSince1970;
+                    if (SECONDS_PER_DAY <= _remainTimeInterval) {
+                        // days remain
+                        _statusTipString = [NSString stringWithFormat:NSLocalizedString(@"talking group is unopened days remain format string", nil), (int)(_remainTimeInterval / SECONDS_PER_DAY)];
+                    }
+                    else if (SECONDS_PER_HOUR <= _remainTimeInterval) {
+                        // hours remain
+                        _statusTipString = [NSString stringWithFormat:NSLocalizedString(@"talking group is unopened hours remain format string", nil), (int)(_remainTimeInterval / SECONDS_PER_HOUR)];
+                    }
+                    else if (SECONDS_PER_MINUTE <= _remainTimeInterval) {
+                        // minutes remain
+                        _statusTipString = [NSString stringWithFormat:NSLocalizedString(@"talking group is unopened minutes remain format string", nil), (int)(_remainTimeInterval / SECONDS_PER_MINUTE)];
+                    }
+                    else {
+                        // less then one minute, will open soon
+                        _statusTipString = NSLocalizedString(@"talking group will open", nil);
+                    }
+                }
                 break;
         }
     }
@@ -175,7 +207,7 @@
 
 + (CGFloat)cellHeight{
     // set tableViewCell default height
-    return /*top margin*/MARGINLTR + /*bottom margin*/MARGINBOTTOM + /*label height*/3 * LABEL_HEIGHT;
+    return /*top margin*/MARGINTOP + /*bottom margin*/MARGINBOTTOM + /*label height*/3 * LABEL_HEIGHT;
 }
 
 @end

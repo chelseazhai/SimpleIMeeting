@@ -14,6 +14,14 @@
 
 #import "SelectedTalkingGroupAttendeeListTableViewCell.h"
 
+// selected talking group attendee list table view margin top and bottom
+#define SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB   6.0
+
+// add more attendees to selected talking group button height and margin
+#define ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_HEIGHT  34.0
+#define ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINTB    4.0
+#define ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINLR    10.0
+
 @implementation SelectedTalkingGroupAttendeeListView
 
 - (id)initWithFrame:(CGRect)frame
@@ -21,6 +29,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        // set background image
+        self.backgroundImg = [UIImage compatibleImageNamed:@"img_selectedtalkinggroupattendeesview_bg"];
+        
         // create and init subviews
         // init selected talking group attendees head tip view
         SimpleIMeetingTableViewTipView *_selectedTalkingGroupAttendeesHeadTipView = [[SimpleIMeetingTableViewTipView alloc] initWithTipViewMode:RightAlign_TipView andParentView:self];
@@ -29,15 +40,31 @@
         [_selectedTalkingGroupAttendeesHeadTipView setTipViewText:NSLocalizedString(@"my talking group attendees head tip view text", nil)];
         
         // init selected talking group attendee list table view
-        _mSelectedTalkingGroupAttendeeListTableView = [_mSelectedTalkingGroupAttendeeListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mSelectedTalkingGroupAttendeeListTableView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + _selectedTalkingGroupAttendeesHeadTipView.height], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_selectedTalkingGroupAttendeesHeadTipView.height] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        _mSelectedTalkingGroupAttendeeListTableView = [_mSelectedTalkingGroupAttendeeListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mSelectedTalkingGroupAttendeeListTableView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + _selectedTalkingGroupAttendeesHeadTipView.height + SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-2*%d-(2*%d+%d)", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_selectedTalkingGroupAttendeesHeadTipView.height, (int)SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINTB, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        
+        // set its background color
+        _mSelectedTalkingGroupAttendeeListTableView.backgroundColor = [UIColor clearColor];
         
         // set selected talking group attendee list table view dataSource and delegate
         _mSelectedTalkingGroupAttendeeListTableView.dataSource = self;
         _mSelectedTalkingGroupAttendeeListTableView.delegate = self;
         
-        // add selected talking group attendees head tip view and selected talking group attendee list table view as subviews of selected talking group attendee list view
+        // init add more attendees to the selected talking group button
+        UIButton *_addMoreAttendees2SelectedTalkingGroupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        // set its frame
+        [_addMoreAttendees2SelectedTalkingGroupButton setFrame:CGRectMakeWithFormat(_addMoreAttendees2SelectedTalkingGroupButton, [NSNumber numberWithFloat:self.bounds.origin.x + ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINLR], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-%d-%d", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_HEIGHT, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINTB] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINLR] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_HEIGHT])];
+        
+        // set its title for normal state
+        [_addMoreAttendees2SelectedTalkingGroupButton setTitle:NSLocalizedString(@"add more attendees to the selected talking group button title", nil) forState:UIControlStateNormal];
+        
+        // add action selector and its response target for event
+        [_addMoreAttendees2SelectedTalkingGroupButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+        
+        // add selected talking group attendees head tip view, selected talking group attendee list table view and add more attendees to the selected talking group button as subviews of selected talking group attendee list view
         [self addSubview:_selectedTalkingGroupAttendeesHeadTipView];
         [self addSubview:_mSelectedTalkingGroupAttendeeListTableView];
+        [self addSubview:_addMoreAttendees2SelectedTalkingGroupButton];
     }
     return self;
 }
@@ -72,11 +99,9 @@
     return _cell;
 }
 
-// UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"selected talking group attendees did select row at index path = %@", indexPath);
-    
-    //
-}
+//// UITableViewDelegate
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    //
+//}
 
 @end

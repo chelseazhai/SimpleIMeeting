@@ -129,6 +129,11 @@
                 // show my talking group list table view if needed
                 if ([_mMyTalkingGroupListView isHidden]) {
                     _mMyTalkingGroupListView.hidden = NO;
+                    
+                    // test by ares
+                    _mOneTalkingGroupBeSelected = YES;
+                    [_mMyTalkingGroupListView setFrame:[self genMyTalkingGroupListViewDrawRect]];
+                    _mSelectedTalkingGroupAttendeeListView.hidden = NO;
                 }
             }
         }
