@@ -69,6 +69,10 @@
 		DC756BE1175358DC00F287FA /* ContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE0175358DC00F287FA /* ContactListView.m */; };
 		DC756BE41753590900F287FA /* SelectedContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE31753590900F287FA /* SelectedContactListView.m */; };
 		DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */; };
+		DC7B17B417857272001E61BA /* img_selectedtalkinggroupattendee_inimage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7B17B017857272001E61BA /* img_selectedtalkinggroupattendee_inimage.png */; };
+		DC7B17B517857272001E61BA /* img_selectedtalkinggroupattendee_inimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7B17B117857272001E61BA /* img_selectedtalkinggroupattendee_inimage@2x.png */; };
+		DC7B17B617857272001E61BA /* img_selectedtalkinggroupattendee_outimage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7B17B217857272001E61BA /* img_selectedtalkinggroupattendee_outimage.png */; };
+		DC7B17B717857272001E61BA /* img_selectedtalkinggroupattendee_outimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7B17B317857272001E61BA /* img_selectedtalkinggroupattendee_outimage@2x.png */; };
 		DC8052881781248800048D0B /* img_phonebind_disabled_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8052821781248800048D0B /* img_phonebind_disabled_bg.png */; };
 		DC8052891781248800048D0B /* img_phonebind_disabled_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8052831781248800048D0B /* img_phonebind_disabled_bg@2x.png */; };
 		DC80528A1781248800048D0B /* img_phonebind_highlighted_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8052841781248800048D0B /* img_phonebind_highlighted_bg.png */; };
@@ -194,6 +198,10 @@
 		DC756BE31753590900F287FA /* SelectedContactListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedContactListView.m; path = Views/SelectedContactListView.m; sourceTree = "<group>"; };
 		DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleIMeetingTableViewTipView.h; sourceTree = "<group>"; };
 		DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleIMeetingTableViewTipView.m; sourceTree = "<group>"; };
+		DC7B17B017857272001E61BA /* img_selectedtalkinggroupattendee_inimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_selectedtalkinggroupattendee_inimage.png; path = SimpleIMeeting/Resources/Images/img_selectedtalkinggroupattendee_inimage.png; sourceTree = SOURCE_ROOT; };
+		DC7B17B117857272001E61BA /* img_selectedtalkinggroupattendee_inimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_selectedtalkinggroupattendee_inimage@2x.png"; path = "SimpleIMeeting/Resources/Images/img_selectedtalkinggroupattendee_inimage@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC7B17B217857272001E61BA /* img_selectedtalkinggroupattendee_outimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_selectedtalkinggroupattendee_outimage.png; path = SimpleIMeeting/Resources/Images/img_selectedtalkinggroupattendee_outimage.png; sourceTree = SOURCE_ROOT; };
+		DC7B17B317857272001E61BA /* img_selectedtalkinggroupattendee_outimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_selectedtalkinggroupattendee_outimage@2x.png"; path = "SimpleIMeeting/Resources/Images/img_selectedtalkinggroupattendee_outimage@2x.png"; sourceTree = SOURCE_ROOT; };
 		DC8052821781248800048D0B /* img_phonebind_disabled_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_phonebind_disabled_bg.png; path = SimpleIMeeting/Resources/Images/img_phonebind_disabled_bg.png; sourceTree = SOURCE_ROOT; };
 		DC8052831781248800048D0B /* img_phonebind_disabled_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_phonebind_disabled_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_phonebind_disabled_bg@2x.png"; sourceTree = SOURCE_ROOT; };
 		DC8052841781248800048D0B /* img_phonebind_highlighted_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_phonebind_highlighted_bg.png; path = SimpleIMeeting/Resources/Images/img_phonebind_highlighted_bg.png; sourceTree = SOURCE_ROOT; };
@@ -442,6 +450,10 @@
 				DC68EA6F1777DF3C0034A807 /* img_selectedcontactsview_bg-568h@2x.png */,
 				DC68EA701777DF3C0034A807 /* img_selectedcontactsview_bg.png */,
 				DC68EA711777DF3C0034A807 /* img_selectedcontactsview_bg@2x.png */,
+				DC7B17B017857272001E61BA /* img_selectedtalkinggroupattendee_inimage.png */,
+				DC7B17B117857272001E61BA /* img_selectedtalkinggroupattendee_inimage@2x.png */,
+				DC7B17B217857272001E61BA /* img_selectedtalkinggroupattendee_outimage.png */,
+				DC7B17B317857272001E61BA /* img_selectedtalkinggroupattendee_outimage@2x.png */,
 				DC84E56817840AC300DDCBDF /* img_selectedtalkinggroupattendeesview_bg-568h@2x.png */,
 				DC84E5641783F32A00DDCBDF /* img_selectedtalkinggroupattendeesview_bg.png */,
 				DC84E566178405E200DDCBDF /* img_selectedtalkinggroupattendeesview_bg@2x.png */,
@@ -756,6 +768,10 @@
 				DC84E56D17841F7200DDCBDF /* img_talkinggroup_short_normal_bg.png in Resources */,
 				DC84E5701784202A00DDCBDF /* img_talkinggroup_short_selected_bg.png in Resources */,
 				DC84E5711784202A00DDCBDF /* img_talkinggroup_short_selected_bg@2x.png in Resources */,
+				DC7B17B417857272001E61BA /* img_selectedtalkinggroupattendee_inimage.png in Resources */,
+				DC7B17B517857272001E61BA /* img_selectedtalkinggroupattendee_inimage@2x.png in Resources */,
+				DC7B17B617857272001E61BA /* img_selectedtalkinggroupattendee_outimage.png in Resources */,
+				DC7B17B717857272001E61BA /* img_selectedtalkinggroupattendee_outimage@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

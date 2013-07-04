@@ -19,9 +19,6 @@
     // my talking group list table view need to refresh
     BOOL _mMyTalkingGroupsNeed2Refresh;
     
-    // there is one talking group be selected
-    BOOL _mOneTalkingGroupBeSelected;
-    
     // present subviews
     // subview my talking groups loading indicator view
     UIDataLoadingIndicatorView *_mMyTalkingGroupsLoadingIndicatorView;
@@ -38,7 +35,13 @@
 // my talking groups info array
 @property (nonatomic, readonly) NSArray *myTalkingGroupsInfoArray;
 
+// selected talking group attendees info array
+@property (nonatomic, retain) NSArray *selectedTalkingGroupAttendeesInfoArray;
+
 // refresh my talking groups
 - (void)refreshMyTalkingGroups;
+
+// resize my talking group and selected talking group attendee list view
+- (void)resizeMyTalkingGroupsAndAttendeesView;
 
 @end

@@ -53,7 +53,7 @@
         }
         
         // selected talking group attendee display name label
-        _mDisplayNameLabel = [_mDisplayNameLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mDisplayNameLabel, [NSNumber numberWithFloat:_mAttendeeStatusImgView.frame.origin.x + _mAttendeeStatusImgView.frame.size.width + isOpened ? ATTENDEESTATUSIMGVIEW_MARGIN : MARGINTRB], [NSNumber numberWithFloat:self.bounds.origin.y + MARGINTRB], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-(%d+2*%d)-%d", FILL_PARENT_STRING, (int)MARGINTRB, (int)(isOpened ? ATTENDEESTATUSIMGVIEW_MARGIN : 0.0), (int)(isOpened ? ATTENDEESTATUSIMGVIEW_WIDTH7HEIGHT : MARGINTRB)] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:DISPLAYNAMELABEL_HEIGHT])];
+        _mDisplayNameLabel = [_mDisplayNameLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mDisplayNameLabel, [NSNumber numberWithFloat:_mAttendeeStatusImgView.frame.origin.x + _mAttendeeStatusImgView.frame.size.width + (isOpened ? ATTENDEESTATUSIMGVIEW_MARGIN : MARGINTRB)], [NSNumber numberWithFloat:self.bounds.origin.y + MARGINTRB], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-(%d+2*%d)-%d", FILL_PARENT_STRING, (int)MARGINTRB, (int)(isOpened ? ATTENDEESTATUSIMGVIEW_MARGIN : 0.0), (int)(isOpened ? ATTENDEESTATUSIMGVIEW_WIDTH7HEIGHT : MARGINTRB)] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:DISPLAYNAMELABEL_HEIGHT])];
         
         // set text color and font
         _mDisplayNameLabel.textColor = [UIColor darkGrayColor];
@@ -87,7 +87,13 @@
     // set selected talking group attendee status
     _mAttendeeStatus = attendeeStatus;
     
-    //
+    // check attendee status and set selected talking group attendee status image view image
+    if ([NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list attendee in status", nil) isEqualToString:attendeeStatus]) {
+        _mAttendeeStatusImgView.image = [UIImage imageNamed:@"img_selectedtalkinggroupattendee_inimage"];
+    }
+    else if ([NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list attendee out status", nil) isEqualToString:attendeeStatus]) {
+        _mAttendeeStatusImgView.image = [UIImage imageNamed:@"img_selectedtalkinggroupattendee_outimage"];
+    }
 }
 
 - (void)setDisplayName:(NSString *)displayName{

@@ -20,8 +20,8 @@
 
 @interface MyTalkingGroups7AttendeesView ()
 
-// generate my talking group list view draw rectangle
-- (CGRect)genMyTalkingGroupListViewDrawRect;
+// generate my talking group list view draw rectangle with has one talking group be selected flag
+- (CGRect)genMyTalkingGroupListViewDrawRect:(BOOL)hasOneTalkingGroupBeSelected;
 
 @end
 
@@ -55,7 +55,7 @@
         _mNoTalkingGroupTipLabel.hidden = YES;
         
         // init my talking group list view
-        _mMyTalkingGroupListView = [[MyTalkingGroupListView alloc] initWithFrame:[self genMyTalkingGroupListViewDrawRect]];
+        _mMyTalkingGroupListView = [[MyTalkingGroupListView alloc] initWithFrame:[self genMyTalkingGroupListViewDrawRect:NO]];
         
         // hidden first
         _mMyTalkingGroupListView.hidden = YES;
@@ -86,6 +86,15 @@
 
 - (NSArray *)myTalkingGroupsInfoArray{
     return _mMyTalkingGroupListView.myTalkingGroupsInfoArray;
+}
+
+- (NSArray *)selectedTalkingGroupAttendeesInfoArray{
+    return _mSelectedTalkingGroupAttendeeListView.selectedTalkingGroupAttendeesInfoArray;
+}
+
+- (void)setSelectedTalkingGroupAttendeesInfoArray:(NSArray *)selectedTalkingGroupAttendeesInfoArray{
+    // reload selected talking group attendee list table view data source with selected talking group is opened flag
+    [_mSelectedTalkingGroupAttendeeListView loadSelectedTalkingGroupAttendeeListTableViewDataSource:selectedTalkingGroupAttendeesInfoArray selectedTalkingGroupOpened:_mMyTalkingGroupListView.selectedTalkingGroupIsOpened];
 }
 
 - (void)refreshMyTalkingGroups{
@@ -129,11 +138,6 @@
                 // show my talking group list table view if needed
                 if ([_mMyTalkingGroupListView isHidden]) {
                     _mMyTalkingGroupListView.hidden = NO;
-                    
-                    // test by ares
-                    _mOneTalkingGroupBeSelected = YES;
-                    [_mMyTalkingGroupListView setFrame:[self genMyTalkingGroupListViewDrawRect]];
-                    _mSelectedTalkingGroupAttendeeListView.hidden = NO;
                 }
             }
         }
@@ -144,6 +148,16 @@
             }
         }
     }];
+}
+
+- (void)resizeMyTalkingGroupsAndAttendeesView{
+    // update my talking group list view frame
+    [_mMyTalkingGroupListView setFrame:[self genMyTalkingGroupListViewDrawRect:YES]];
+    
+    // show selected talking group attendee list view if needed
+    if ([_mSelectedTalkingGroupAttendeeListView isHidden]) {
+        _mSelectedTalkingGroupAttendeeListView.hidden = NO;
+    }
 }
 
 // NewTalkingGroupProtocol
@@ -158,7 +172,7 @@
 }
 
 // inner extension
-- (CGRect)genMyTalkingGroupListViewDrawRect{
+- (CGRect)genMyTalkingGroupListViewDrawRect:(BOOL)hasOneTalkingGroupBeSelected{
     CGRect _myTalkingGroupListViewDrawRectangle;
     
     // check my talking group list view if or not init
@@ -170,7 +184,7 @@
         _myTalkingGroupListViewDrawRectangle = _mMyTalkingGroupListView.frame;
         
         // check there is  or no one talking group be selected and update my talking group list view draw rectangle width
-        if (_mOneTalkingGroupBeSelected) {
+        if (hasOneTalkingGroupBeSelected) {
             // compare my talking group list view frame size width with its parent view frame size width
             if (self.frame.size.width == _mMyTalkingGroupListView.frame.size.width) {
                 _myTalkingGroupListViewDrawRectangle.size.width = _mMyTalkingGroupListView.frame.size.width * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT);

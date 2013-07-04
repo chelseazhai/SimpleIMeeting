@@ -33,6 +33,8 @@
 
 @implementation SelectedTalkingGroupAttendeeListView
 
+@synthesize selectedTalkingGroupAttendeesInfoArray = _mSelectedTalkingGroupAttendeesJSONInfoArray;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -50,6 +52,9 @@
         
         // init selected talking group attendee list table view
         _mSelectedTalkingGroupAttendeeListTableView = [_mSelectedTalkingGroupAttendeeListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mSelectedTalkingGroupAttendeeListTableView, [NSNumber numberWithFloat:self.bounds.origin.x + SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINLR], [NSNumber numberWithFloat:self.bounds.origin.y + _selectedTalkingGroupAttendeesHeadTipView.height + SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINLR] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-2*%d-(2*%d+%d)", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_selectedTalkingGroupAttendeesHeadTipView.height, (int)SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINTB, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        
+        // init selected talking group attendees info array
+        _mSelectedTalkingGroupAttendeesJSONInfoArray = [[NSMutableArray alloc] init];
         
         // set its background color
         _mSelectedTalkingGroupAttendeeListTableView.backgroundColor = [UIColor clearColor];
@@ -87,23 +92,50 @@
 }
 */
 
+- (void)loadSelectedTalkingGroupAttendeeListTableViewDataSource:(NSArray *)selectedTalkingGroupAttendeesInfoArray selectedTalkingGroupOpened:(BOOL)isOpened{
+    // set selected talking group is opened flag
+    _mSelectedTalkingGroupIsOpened = isOpened;
+    
+    // clear selected talking group attendees info array if needed
+    if (0 < [_mSelectedTalkingGroupAttendeesJSONInfoArray count]) {
+        [_mSelectedTalkingGroupAttendeesJSONInfoArray removeAllObjects];
+    }
+    
+    // set selected talking group attendees info array if not nil
+    if (nil != selectedTalkingGroupAttendeesInfoArray) {
+        [_mSelectedTalkingGroupAttendeesJSONInfoArray addObjectsFromArray:selectedTalkingGroupAttendeesInfoArray];
+    }
+    
+    // reload selected talking group attendee list table view data source
+    [_mSelectedTalkingGroupAttendeeListTableView reloadData];
+}
+
 // UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    // Return the number of rows in the section.
+    return [_mSelectedTalkingGroupAttendeesJSONInfoArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @"Selected talking group attendee cell";
+    static NSString *cellIdentifierSelectedTalkingGroupOpened = @"Selected talking group(opened) attendee cell";
+    static NSString *cellIdentifierSelectedTalkingGroupScheduled = @"Selected talking group(scheduled) attendee cell";
     
     // get selected talking group attendee list table view cell
-    SelectedTalkingGroupAttendeeListTableViewCell *_cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    SelectedTalkingGroupAttendeeListTableViewCell *_cell = [tableView dequeueReusableCellWithIdentifier:_mSelectedTalkingGroupIsOpened ? cellIdentifierSelectedTalkingGroupOpened : cellIdentifierSelectedTalkingGroupScheduled];
     
     if (nil == _cell) {
-        _cell = [[SelectedTalkingGroupAttendeeListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        _cell = [[SelectedTalkingGroupAttendeeListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:_mSelectedTalkingGroupIsOpened ? cellIdentifierSelectedTalkingGroupOpened : cellIdentifierSelectedTalkingGroupScheduled selectedTalkingGroupOpened:_mSelectedTalkingGroupIsOpened];
     }
     
     // Configure the cell...
-    _cell.displayName = @"参与者";
+    // get selected talking group attendee info json object
+    NSDictionary *_selectedTalkingGroupAttendeeInfoJSONObject = [_mSelectedTalkingGroupAttendeesJSONInfoArray objectAtIndex:indexPath.row];
+    
+    // get selected talking group attendee nickname
+    NSString *_selectedTalkingGroupAttendeeNickname = [_selectedTalkingGroupAttendeeInfoJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list nickname", nil)];
+    
+    _cell.attendeeStatus = [_selectedTalkingGroupAttendeeInfoJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list status", nil)];
+    _cell.displayName = nil != _selectedTalkingGroupAttendeeNickname && ![@"" isEqualToString:_selectedTalkingGroupAttendeeNickname] ? _selectedTalkingGroupAttendeeNickname : [[[AddressBookManager shareAddressBookManager] contactsDisplayNameArrayWithPhoneNumber:[_selectedTalkingGroupAttendeeInfoJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list phone", nil)]] objectAtIndex:0];
     
     return _cell;
 }

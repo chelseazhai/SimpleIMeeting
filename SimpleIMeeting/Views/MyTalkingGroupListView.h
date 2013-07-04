@@ -13,10 +13,13 @@
 @interface MyTalkingGroupListView : UIView <UITableViewDataSource, UITableViewDelegate, IHttpReqRespSelector> {
     // my talking groups pager json object and info array
     NSDictionary *_mMyTalkingGroupsPagerJSONObject;
-    NSMutableArray *_mMyTalkingGroupsInfoArray;
+    NSMutableArray *_mMyTalkingGroupsJSONInfoArray;
     
     // load my talking group list table view data source completion block
     void (^ _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock)(NSInteger);
+    
+    // selected talking group cell index
+    NSInteger _mSelectedTalkingGroupCellIndex;
     
     // present subviews
     // subview my talking group list table view
@@ -24,6 +27,9 @@
 }
 
 @property (nonatomic, readonly) NSMutableArray *myTalkingGroupsInfoArray;
+
+// selected talking group is opened
+@property (nonatomic, readonly) BOOL selectedTalkingGroupIsOpened;
 
 // load my talking group list table view data source
 - (void)loadMyTalkingGroupListTableViewDataSource:(void (^)(NSInteger))completion;

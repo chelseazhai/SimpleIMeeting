@@ -126,6 +126,14 @@
     }
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    // update the view background
+    [self setSelected:self.selected animated:NO];
+}
+
 - (NSString *)startedTimeTimestamp{
     // return started time timestamp
     return [NSString stringWithFormat:@"%f", _mStartedTimeUnixTimestamp * MILLISECONDS_PER_SECOND];
