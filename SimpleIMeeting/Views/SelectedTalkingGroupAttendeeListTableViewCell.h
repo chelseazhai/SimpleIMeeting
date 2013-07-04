@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SelectedTalkingGroupAttendeeListTableViewCell : UITableViewCell {
-    // is selected talking gruop opened
-    BOOL _mIsSelectedTalkingGroupOpened;
-    
     // selected talking group attendee status
     NSString *_mAttendeeStatus;
     // selected talking group attendee display name
@@ -22,6 +19,12 @@
     // selected talking group attendee display name label
     UILabel *_mDisplayNameLabel;
 }
+
+@property (nonatomic, retain) NSString *attendeeStatus;
+@property (nonatomic, retain) NSString *displayName;
+
+// init with style, reuse identifier and selected talking group is opened flag
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier selectedTalkingGroupOpened:(BOOL)isOpened;
 
 // get the height of the selected talking group attendee list tableViewCell
 + (CGFloat)cellHeight;

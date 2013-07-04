@@ -11,14 +11,14 @@
 #import <CommonToolkit/CommonToolkit.h>
 
 @interface In6PreinTalkingGroupContactTableViewCell : UITableViewCell {
-    // contact in talking gruop flag
+    // prein talking group contact in talking gruop flag
     BOOL _mContactIsInTalkingGroupFlag;
-    // contact display name
+    // prein talking group contact display name
     NSString *_mDisplayName;
     
-    // contact indicate imageview
+    // prein talking group contact indicate imageview
     UIImageView *_mIndicateImgView;
-    // contact display name label
+    // prein talking group contact display name label
     UILabel *_mDisplayNameLabel;
 }
 

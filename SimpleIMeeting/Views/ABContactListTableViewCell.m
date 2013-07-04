@@ -115,29 +115,29 @@
 }
 
 - (void)setDisplayName:(NSString *)displayName{
-    // set display name
+    // set contact display name
     _mDisplayName = displayName;
     
-    // set display name label text
+    // set contact display name label text
     //_mDisplayNameLabel.text = displayName;
     NSMutableAttributedString *_attributedDisplayName = [NSMutableAttributedString attributedStringWithString:displayName];
     // set font
     [_attributedDisplayName setFont:[UIFont systemFontOfSize:15.0]];
-    // set display name attributed label attributed text
+    // set contact display name attributed label attributed text
     _mDisplayNameLabel.attributedText = _attributedDisplayName;
 }
 
 - (void)setPhoneNumbersArray:(NSArray *)phoneNumbersArray{
-    // set phone number array
+    // set contact phone number array
     _mPhoneNumbersArray = phoneNumbersArray;
     
-    // set phone number label number of lines
+    // set contact phone number label number of lines
     _mPhoneNumbersLabel.numberOfLines = ([phoneNumbersArray count] == 0) ? 1 : [phoneNumbersArray count];
     
-    // update phone number label frame
+    // update contact phone number label frame
     _mPhoneNumbersLabel.frame = CGRectMake(_mDisplayNameLabel.frame.origin.x, _mDisplayNameLabel.frame.origin.y + _mDisplayNameLabel.frame.size.height + PADDING, _mDisplayNameLabel.frame.size.width, PHONENUMBERSLABEL_DEFAULTHEIGHT * _mPhoneNumbersLabel.numberOfLines);
     
-    // set phone number label text
+    // set contact phone number label text
     _mPhoneNumbersLabel.text = [phoneNumbersArray getContactPhoneNumbersDisplayTextWithStyle:vertical];
 }
 
@@ -173,11 +173,11 @@
             [_attributedDisplayName setTextColor:MATCHINGTEXTCOLOR range:NSMakeRange(_range.location, NAME_CHARACTER_FULLMATCHING.integerValue == ((NSNumber *)[_indexDic.allValues objectAtIndex:0]).integerValue ? _range.length : ((NSNumber *)[_indexDic.allValues objectAtIndex:0]).integerValue)];
         }
         
-        // set display name label attributed text
+        // set contact display name label attributed text
         _mDisplayNameLabel.attributedText = _attributedDisplayName;
     }
     else {
-        // reset display name label text
+        // reset contact display name label text
         self.displayName = _mDisplayName;
     }
 }
@@ -211,24 +211,24 @@
                 }
             }
             
-            // generate each phone number attributed label and add to phone number attributed label parent view
+            // generate each contact phone number attributed label and add it to contact phone number attributed label parent view
             @autoreleasepool {
                 UIAttributedLabel *_phoneNumberAttributedLabel = [[UIAttributedLabel alloc] initWithFrame:CGRectMake(0.0, _index * PHONENUMBERSLABEL_DEFAULTHEIGHT, _mPhoneNumbersLabel.frame.size.width, PHONENUMBERSLABEL_DEFAULTHEIGHT)];
                 // set background color
                 _phoneNumberAttributedLabel.backgroundColor = [UIColor clearColor];
-                // set phone number attributed label attributed text
+                // set contact phone number attributed label attributed text
                 _phoneNumberAttributedLabel.attributedText = _attributedPhoneNumber;
-                // add to phone number attributed label parent view
+                // add to contact phone number attributed label parent view
                 [_mPhoneNumbersAttributedLabelParentView addSubview:_phoneNumberAttributedLabel];
             }
         }
         
-        // hide phone number label and add phone number attributed label parent view to cell content view
+        // hide contact phone number label and add contact phone number attributed label parent view to cell content view
         _mPhoneNumbersLabel.hidden = YES;
         [self.contentView addSubview:_mPhoneNumbersAttributedLabelParentView];
     }
     else {
-        // show phone number label and remove phone number attributed label parent view
+        // show contact phone number label and remove contact phone number attributed label parent view
         _mPhoneNumbersLabel.hidden = NO;
         for (UIView *_view in _mPhoneNumbersAttributedLabelParentView.subviews) {
             [_view removeFromSuperview];

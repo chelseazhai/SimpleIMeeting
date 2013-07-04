@@ -16,6 +16,8 @@
 
 // selected talking group attendee list table view margin top and bottom
 #define SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB   6.0
+// selected talking group attendee list table view margin left and right
+#define SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINLR   8.0
 
 // add more attendees to selected talking group button height and margin
 #define ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_HEIGHT  34.0
@@ -47,7 +49,7 @@
         [_selectedTalkingGroupAttendeesHeadTipView setTipViewText:NSLocalizedString(@"my talking group attendees head tip view text", nil)];
         
         // init selected talking group attendee list table view
-        _mSelectedTalkingGroupAttendeeListTableView = [_mSelectedTalkingGroupAttendeeListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mSelectedTalkingGroupAttendeeListTableView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + _selectedTalkingGroupAttendeesHeadTipView.height + SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-2*%d-(2*%d+%d)", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_selectedTalkingGroupAttendeesHeadTipView.height, (int)SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINTB, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        _mSelectedTalkingGroupAttendeeListTableView = [_mSelectedTalkingGroupAttendeeListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mSelectedTalkingGroupAttendeeListTableView, [NSNumber numberWithFloat:self.bounds.origin.x + SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINLR], [NSNumber numberWithFloat:self.bounds.origin.y + _selectedTalkingGroupAttendeesHeadTipView.height + SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINLR] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-2*%d-(2*%d+%d)", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_selectedTalkingGroupAttendeesHeadTipView.height, (int)SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_MARGINTB, (int)ADDMOREATTENDEES2SELECTEDTALKINGGROUPBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]])];
         
         // set its background color
         _mSelectedTalkingGroupAttendeeListTableView.backgroundColor = [UIColor clearColor];
@@ -97,11 +99,11 @@
     SelectedTalkingGroupAttendeeListTableViewCell *_cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (nil == _cell) {
-        _cell = [[SelectedTalkingGroupAttendeeListTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        _cell = [[SelectedTalkingGroupAttendeeListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
     // Configure the cell...
-    _cell.textLabel.text = @"参与者";
+    _cell.displayName = @"参与者";
     
     return _cell;
 }
