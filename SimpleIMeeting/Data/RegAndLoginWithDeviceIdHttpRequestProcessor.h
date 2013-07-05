@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IHttpReqRespSelector.h"
+#import "IHttpReqRespProtocol.h"
 
 // register and login with device combined id type
 typedef NS_ENUM(NSInteger, Reg7LoginWithDeviceIdType){
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, Reg7LoginWithDeviceIdType){
     APPLAUNCH_REG7LOGINWITHDEVICEID, BINDEDACCOUNTLOGOUT_REG7LOGINWITHDEVICEID
 };
 
-@interface RegAndLoginWithDeviceIdHttpRequestProcessor : NSObject <IHttpReqRespSelector> {
+@interface RegAndLoginWithDeviceIdHttpRequestProcessor : NSObject <IHttpReqRespProtocol> {
     // register and login with device combined id type
     Reg7LoginWithDeviceIdType _mReg7LoginWithDeviceIdType;
     

@@ -14,6 +14,10 @@
 
 #import "SelectedTalkingGroupAttendeeListTableViewCell.h"
 
+#import "MyTalkingGroups7AttendeesView.h"
+
+#import "SimpleIMeetingContentContainerView.h"
+
 // selected talking group attendee list table view margin top and bottom
 #define SELECTEDTALKINGGROUPATTENDEELISTTABLEVIEWMARGINTB   6.0
 // selected talking group attendee list table view margin left and right
@@ -27,7 +31,7 @@
 @interface SelectedTalkingGroupAttendeeListView ()
 
 // add more attendees to the selected talking group
-- (void)addMoreAttendees2SelectedTalkingGroup;
+- (void)addMoreAttendees2SelectedTalkingGroup:(UIButton *)addButton;
 
 @end
 
@@ -73,7 +77,7 @@
         [_addMoreAttendees2SelectedTalkingGroupButton setTitle:NSLocalizedString(@"add more attendees to the selected talking group button title", nil) forState:UIControlStateNormal];
         
         // add action selector and its response target for event
-        [_addMoreAttendees2SelectedTalkingGroupButton addTarget:self action:@selector(addMoreAttendees2SelectedTalkingGroup) forControlEvents:UIControlEventTouchUpInside];
+        [_addMoreAttendees2SelectedTalkingGroupButton addTarget:self action:@selector(addMoreAttendees2SelectedTalkingGroup:) forControlEvents:UIControlEventTouchUpInside];
         
         // add selected talking group attendees head tip view, selected talking group attendee list table view and add more attendees to the selected talking group button as subviews of selected talking group attendee list view
         [self addSubview:_selectedTalkingGroupAttendeesHeadTipView];
@@ -147,10 +151,12 @@
 }
 
 // inner extension
-- (void)addMoreAttendees2SelectedTalkingGroup{
-    NSLog(@"addMoreAttendees2SelectedTalkingGroup");
+- (void)addMoreAttendees2SelectedTalkingGroup:(UIButton *)addButton{
+    // get parent view: my talking groups and selected talking group attendees view
+    MyTalkingGroups7AttendeesView *_myTalkingGroups7AttendeesView = (MyTalkingGroups7AttendeesView *)self.superview;
     
-    //
+    // set it is ready for adding selected contact for inviting to talking group
+    [(SimpleIMeetingContentContainerView *)_myTalkingGroups7AttendeesView.superview generateTalkingGroup:addButton];
 }
 
 @end

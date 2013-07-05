@@ -89,31 +89,42 @@
     [self resizesSubviews];
 }
 
-- (void)tap2GenerateNewTalkingGroup{
+- (void)generateTalkingGroup:(UIResponder *)responder{
     // update navigation title and left bar button item
     [self setNavigationTitle7LeftBarButtonItem:_mContentViewType ready4AddingSelectedContact4InvitingFlag:YES];
     
-    // generate new talking group using its implementation
-    [_mNewTalkingGroupProtocolImpl generateNewTalkingGroup];
+    // check generate talking group responder
+    if ([responder isKindOfClass:[UIButton class]]) {
+        // update existed talking group attendees using its implementation
+        [_mTalkingGroupGeneratorProtocolImpl updateTalkingGroupAttendees];
+    }
+    else if ([responder isKindOfClass:[UILabel class]] || [responder isKindOfClass:[UITableViewCell class]]) {
+        // generate new talking group using its implementation
+        [_mTalkingGroupGeneratorProtocolImpl generateNewTalkingGroup];
+    }
 }
 
-- (void)switch2ContactsSelectContentView4AddingSelectedContact4Inviting{
+- (void)switch2ContactsSelectContentView4AddingSelectedContact4Inviting:(NSArray *)hadBeenAddedContactsPhones{
     // set conatcts select content view as content view of simple imeeting content container view
     [self setContentView:ADDRESSBOOKCONTACTS];
     
+    // test by ares
+    // set had been added contacts phone array as contacts select content view in talking group attendees phone array
+    _mContactsSelectContentView.inTalkingGroupAttendeesPhoneArray = hadBeenAddedContactsPhones;
+    
     // set contacts select content view is ready for adding selected contact for inviting to talking group
-    [_mNewTalkingGroupProtocolImpl generateNewTalkingGroup];
+    [_mTalkingGroupGeneratorProtocolImpl generateNewTalkingGroup];
     
     // recover new talking group protocol implementation
-    _mNewTalkingGroupProtocolImpl = _mMyTalkingGroups7AttendeesContentView;
+    _mTalkingGroupGeneratorProtocolImpl = _mMyTalkingGroups7AttendeesContentView;
 }
 
 - (void)back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting{
     // set contacts select content view is not ready for adding selected contact for inviting to talking group
-    [_mContactsSelectContentView cancelGenNewTalkingGroup];
+    [_mContactsSelectContentView cancelGenTalkingGroup];
     
     // set my talking groups and selected talking group attendees content view as content view of simple imeeting content container view
-    [self setContentView:MYTALKINGGROUPS];
+    [self switchContentView];
 }
 
 - (void)setMyTalkingGroupsNeed2Refresh{
@@ -147,7 +158,7 @@
     // check view if it is or not tap to generate new talking group title view
     if (_mTap2GenNewTalkingGroupTitleView == pView) {
         // tap to generate new talking group
-        [self tap2GenerateNewTalkingGroup];
+        [self generateTalkingGroup:pView];
     }
 }
 
@@ -238,8 +249,8 @@
     // update navigation title and left bar button item
     [self setNavigationTitle7LeftBarButtonItem:_mContentViewType ready4AddingSelectedContact4InvitingFlag:NO];
     
-    // cancel generate new talking group using its implementation
-    [_mNewTalkingGroupProtocolImpl cancelGenNewTalkingGroup];
+    // cancel generate talking group using its implementation
+    [_mTalkingGroupGeneratorProtocolImpl cancelGenTalkingGroup];
 }
 
 - (void)setContentView:(SIMContentViewMode)contentViewType{
@@ -264,7 +275,7 @@
             }
             
             // set my talking groups and selected talking group attendees content view as new talking group protocol implementation
-            _mNewTalkingGroupProtocolImpl = _mMyTalkingGroups7AttendeesContentView;
+            _mTalkingGroupGeneratorProtocolImpl = _mMyTalkingGroups7AttendeesContentView;
             
             break;
             
@@ -279,7 +290,7 @@
             }
             
             // set contacts select content view as new talking group protocol implementation
-            _mNewTalkingGroupProtocolImpl = _mContactsSelectContentView;
+            _mTalkingGroupGeneratorProtocolImpl = _mContactsSelectContentView;
             
             break;
     }

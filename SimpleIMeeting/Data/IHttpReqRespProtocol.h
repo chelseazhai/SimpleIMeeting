@@ -1,5 +1,5 @@
 //
-//  IHttpReqRespSelector.h
+//  IHttpReqRespProtocol.h
 //  SimpleIMeeting
 //
 //  Created by Ares on 13-6-28.
@@ -10,7 +10,7 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
-@protocol IHttpReqRespSelector <NSObject>
+@protocol IHttpReqRespProtocol <NSObject>
 
 @required
 

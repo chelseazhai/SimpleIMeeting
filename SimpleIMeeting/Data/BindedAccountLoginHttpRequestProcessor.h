@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IHttpReqRespSelector.h"
+#import "IHttpReqRespProtocol.h"
 
 // binded account login type
 typedef NS_ENUM(NSInteger, BindedAccountLoginType){
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, BindedAccountLoginType){
     BINDEDACCOUNT_AUTOLOGIN, BINDEDACCOUNT_MANUALLOGIN
 };
 
-@interface BindedAccountLoginHttpRequestProcessor : NSObject <IHttpReqRespSelector> {
+@interface BindedAccountLoginHttpRequestProcessor : NSObject <IHttpReqRespProtocol> {
     // binded account login type
     BindedAccountLoginType _mLoginType;
     

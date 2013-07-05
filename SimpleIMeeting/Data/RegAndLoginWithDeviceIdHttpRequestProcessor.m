@@ -32,7 +32,7 @@
     _mReg7LoginWithDeviceIdProcessCompletionBlock = completion;
 }
 
-// IHttpReqRespSelector
+// IHttpReqRespProtocol
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send register and login with device id http request succeed - request url = %@, response status code = %d and data string = %@", pRequest.url, [pRequest responseStatusCode], pRequest.responseString);
     

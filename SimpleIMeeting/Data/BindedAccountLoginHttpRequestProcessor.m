@@ -45,7 +45,7 @@
     _mBindedAccountLoginProcessCompletionBlock = completion;
 }
 
-// IHttpReqRespSelector
+// IHttpReqRespProtocol
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send binded account login http request succeed - request url = %@, response status code = %d and data string = %@", pRequest.url, [pRequest responseStatusCode], pRequest.responseString);
     

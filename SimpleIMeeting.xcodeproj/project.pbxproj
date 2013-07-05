@@ -238,7 +238,7 @@
 		DC84E56C17841F7200DDCBDF /* img_talkinggroup_short_normal_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_talkinggroup_short_normal_bg.png; path = SimpleIMeeting/Resources/Images/img_talkinggroup_short_normal_bg.png; sourceTree = SOURCE_ROOT; };
 		DC84E56E1784202A00DDCBDF /* img_talkinggroup_short_selected_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_talkinggroup_short_selected_bg.png; path = SimpleIMeeting/Resources/Images/img_talkinggroup_short_selected_bg.png; sourceTree = SOURCE_ROOT; };
 		DC84E56F1784202A00DDCBDF /* img_talkinggroup_short_selected_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_talkinggroup_short_selected_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_talkinggroup_short_selected_bg@2x.png"; sourceTree = SOURCE_ROOT; };
-		DC95233A177934A700587748 /* NewTalkingGroupProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NewTalkingGroupProtocol.h; path = Data/NewTalkingGroupProtocol.h; sourceTree = "<group>"; };
+		DC95233A177934A700587748 /* ITalkingGroupGeneratorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ITalkingGroupGeneratorProtocol.h; path = Data/ITalkingGroupGeneratorProtocol.h; sourceTree = "<group>"; };
 		DC95233B1779702300587748 /* MyTalkingGroupListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTalkingGroupListTableViewCell.h; path = Views/MyTalkingGroupListTableViewCell.h; sourceTree = "<group>"; };
 		DC95233C1779702300587748 /* MyTalkingGroupListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTalkingGroupListTableViewCell.m; path = Views/MyTalkingGroupListTableViewCell.m; sourceTree = "<group>"; };
 		DC95233E1779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectedTalkingGroupAttendeeListTableViewCell.h; path = Views/SelectedTalkingGroupAttendeeListTableViewCell.h; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 		DCE51924177BD676000CA65D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Strings/zh-Hant.lproj/Toast.strings"; sourceTree = "<group>"; };
 		DCEC7E18177D73C900E34BDF /* UserBean+BindContactInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UserBean+BindContactInfo.h"; path = "Data/UserBean+BindContactInfo.h"; sourceTree = "<group>"; };
 		DCEC7E19177D73C900E34BDF /* UserBean+BindContactInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UserBean+BindContactInfo.m"; path = "Data/UserBean+BindContactInfo.m"; sourceTree = "<group>"; };
-		DCEC7E22177D893800E34BDF /* IHttpReqRespSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IHttpReqRespSelector.h; path = Data/IHttpReqRespSelector.h; sourceTree = "<group>"; };
+		DCEC7E22177D893800E34BDF /* IHttpReqRespProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IHttpReqRespProtocol.h; path = Data/IHttpReqRespProtocol.h; sourceTree = "<group>"; };
 		DCEC7E23177D896E00E34BDF /* BindedAccountLoginHttpRequestProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BindedAccountLoginHttpRequestProcessor.h; path = Data/BindedAccountLoginHttpRequestProcessor.h; sourceTree = "<group>"; };
 		DCEC7E24177D896F00E34BDF /* BindedAccountLoginHttpRequestProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BindedAccountLoginHttpRequestProcessor.m; path = Data/BindedAccountLoginHttpRequestProcessor.m; sourceTree = "<group>"; };
 		DCEC7E25177D896F00E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegAndLoginWithDeviceIdHttpRequestProcessor.h; path = Data/RegAndLoginWithDeviceIdHttpRequestProcessor.h; sourceTree = "<group>"; };
@@ -562,7 +562,7 @@
 			isa = PBXGroup;
 			children = (
 				DC756BCA1752F72300F287FA /* ContactsSelect */,
-				DC95233A177934A700587748 /* NewTalkingGroupProtocol.h */,
+				DC95233A177934A700587748 /* ITalkingGroupGeneratorProtocol.h */,
 				DC756BD01752F8B200F287FA /* SimpleIMeetingContentContainerView.h */,
 				DC756BD11752F8B200F287FA /* SimpleIMeetingContentContainerView.m */,
 				DC756BCD1752F81E00F287FA /* SimpleIMeetingContentViewController.h */,
@@ -643,7 +643,7 @@
 			children = (
 				DCEC7E23177D896E00E34BDF /* BindedAccountLoginHttpRequestProcessor.h */,
 				DCEC7E24177D896F00E34BDF /* BindedAccountLoginHttpRequestProcessor.m */,
-				DCEC7E22177D893800E34BDF /* IHttpReqRespSelector.h */,
+				DCEC7E22177D893800E34BDF /* IHttpReqRespProtocol.h */,
 				DCEC7E25177D896F00E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.h */,
 				DCEC7E26177D896F00E34BDF /* RegAndLoginWithDeviceIdHttpRequestProcessor.m */,
 			);

@@ -27,6 +27,9 @@
 // get selected talking group attendees http request did finished selector
 - (void)getSelectedTalkingGroupAttendeesHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
 
+// set selected talking group attendees info array and resize my talking groups and selected talking group attendees view
+- (void)setSelectedTalkingGroupAttendeesInfoArrayAnsResizeMyTalkingGroups7AttendeesView:(NSArray *)selectedTalkingGroupAttendeesInfoArray;
+
 @end
 
 @implementation MyTalkingGroupListView
@@ -82,13 +85,19 @@
 }
 */
 
-- (BOOL)selectedTalkingGroupIsOpened{
-    return [NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group open status", nil) isEqualToString:[[_mMyTalkingGroupsJSONInfoArray objectAtIndex:_mSelectedTalkingGroupCellIndex] objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group status", nil)]];
+- (NSDictionary *)selectedTalkingGroupJSONObjectInfo{
+    return 0 <= _mSelectedTalkingGroupCellIndex ? [_mMyTalkingGroupsJSONInfoArray objectAtIndex:_mSelectedTalkingGroupCellIndex] : nil;
 }
 
 - (void)loadMyTalkingGroupListTableViewDataSource:(void (^)(NSInteger))completion{
     // save loading my talking group list table view data source completion block
     _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock = completion;
+    
+    // clear selected talking group cell index
+    _mSelectedTalkingGroupCellIndex = -1;
+    
+    // clear selected talking group attenees info array and resize my talking groups and selected talking group attendees view
+    [self setSelectedTalkingGroupAttendeesInfoArrayAnsResizeMyTalkingGroups7AttendeesView:nil];
     
     // send get my talking groups http request
     [self sendGetMyTalkingGroupsHttpRequest];
@@ -143,7 +152,7 @@
     [HttpUtils postSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"get selected talking group attendee list url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_getSelectedTalkingGroupAttendeesParamMap andUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:NSUTF8StringEncoding], HTTPREQUESTRESPONSEENCODING, nil] andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
 }
 
-// IHttpReqRespSelector
+// IHttpReqRespProtocol
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send http request succeed - request url = %@", pRequest.url);
     
@@ -204,18 +213,23 @@
         // get response data json format
         NSArray *_respDataJSONFormat = [pRequest.responseString objectFromJSONString];
         
-        // get parent view: my talking groups and selected talking group attendees view
-        MyTalkingGroups7AttendeesView *_myTalkingGroups7AttendeesView = (MyTalkingGroups7AttendeesView *)self.superview;
-        
-        // set selected talking group attendees info array
-        _myTalkingGroups7AttendeesView.selectedTalkingGroupAttendeesInfoArray = _respDataJSONFormat;
-        
-        // resize my talking groups and selected talking group attendees view
-        [_myTalkingGroups7AttendeesView resizeMyTalkingGroupsAndAttendeesView];
+        // set selected talking group attendees info array and resize my talking groups and selected talking group attendees view
+        [self setSelectedTalkingGroupAttendeesInfoArrayAnsResizeMyTalkingGroups7AttendeesView:_respDataJSONFormat];
     }
     else {
         //
     }
+}
+
+- (void)setSelectedTalkingGroupAttendeesInfoArrayAnsResizeMyTalkingGroups7AttendeesView:(NSArray *)selectedTalkingGroupAttendeesInfoArray{
+    // get parent view: my talking groups and selected talking group attendees view
+    MyTalkingGroups7AttendeesView *_myTalkingGroups7AttendeesView = (MyTalkingGroups7AttendeesView *)self.superview;
+    
+    // set selected talking group attendees info array
+    _myTalkingGroups7AttendeesView.selectedTalkingGroupAttendeesInfoArray = selectedTalkingGroupAttendeesInfoArray;
+    
+    // resize my talking groups and selected talking group attendees view
+    [_myTalkingGroups7AttendeesView resizeMyTalkingGroupsAndAttendeesView:nil != selectedTalkingGroupAttendeesInfoArray && 0 != [selectedTalkingGroupAttendeesInfoArray count] ? YES : NO];
 }
 
 @end

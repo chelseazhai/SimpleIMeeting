@@ -84,17 +84,13 @@
 }
 */
 
-- (NSArray *)myTalkingGroupsInfoArray{
-    return _mMyTalkingGroupListView.myTalkingGroupsInfoArray;
+- (void)setSelectedTalkingGroupAttendeesInfoArray:(NSArray *)selectedTalkingGroupAttendeesInfoArray{
+    // reload selected talking group attendee list table view data source with selected talking group is opened flag
+    [_mSelectedTalkingGroupAttendeeListView loadSelectedTalkingGroupAttendeeListTableViewDataSource:selectedTalkingGroupAttendeesInfoArray selectedTalkingGroupOpened:[NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group open status", nil) isEqualToString:[_mMyTalkingGroupListView.selectedTalkingGroupJSONObjectInfo objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group status", nil)]]];
 }
 
 - (NSArray *)selectedTalkingGroupAttendeesInfoArray{
     return _mSelectedTalkingGroupAttendeeListView.selectedTalkingGroupAttendeesInfoArray;
-}
-
-- (void)setSelectedTalkingGroupAttendeesInfoArray:(NSArray *)selectedTalkingGroupAttendeesInfoArray{
-    // reload selected talking group attendee list table view data source with selected talking group is opened flag
-    [_mSelectedTalkingGroupAttendeeListView loadSelectedTalkingGroupAttendeeListTableViewDataSource:selectedTalkingGroupAttendeesInfoArray selectedTalkingGroupOpened:_mMyTalkingGroupListView.selectedTalkingGroupIsOpened];
 }
 
 - (void)refreshMyTalkingGroups{
@@ -121,7 +117,7 @@
         // check load my talking group list table view data source result
         if (0 == result) {
             // check my talking groups info array
-            if (0 == [[self myTalkingGroupsInfoArray] count]) {
+            if (0 == [_mMyTalkingGroupListView.myTalkingGroupsInfoArray count]) {
                 // update no talking group tip label number of lines and show it if needed
                 if ([_mNoTalkingGroupTipLabel isHidden]) {
                     // get no talking group tip label number of lines float
@@ -150,25 +146,47 @@
     }];
 }
 
-- (void)resizeMyTalkingGroupsAndAttendeesView{
+- (void)resizeMyTalkingGroupsAndAttendeesView:(BOOL)hasOneTalkingGroupBeSelected{
     // update my talking group list view frame
-    [_mMyTalkingGroupListView setFrame:[self genMyTalkingGroupListViewDrawRect:YES]];
+    [_mMyTalkingGroupListView setFrame:[self genMyTalkingGroupListViewDrawRect:hasOneTalkingGroupBeSelected]];
     
     // show selected talking group attendee list view if needed
-    if ([_mSelectedTalkingGroupAttendeeListView isHidden]) {
+    if (hasOneTalkingGroupBeSelected && [_mSelectedTalkingGroupAttendeeListView isHidden]) {
         _mSelectedTalkingGroupAttendeeListView.hidden = NO;
+    }
+    
+    // hide selected talking group attendee list view if needed
+    if (!hasOneTalkingGroupBeSelected && ![_mSelectedTalkingGroupAttendeeListView isHidden]) {
+        _mSelectedTalkingGroupAttendeeListView.hidden = YES;
     }
 }
 
-// NewTalkingGroupProtocol
+// ITalkingGroupGeneratorProtocol
 - (void)generateNewTalkingGroup{
     // switch to contacts select content view for adding selected contact for inviting to talking group
-    [((SimpleIMeetingContentContainerView *)self.superview) switch2ContactsSelectContentView4AddingSelectedContact4Inviting];
+    [((SimpleIMeetingContentContainerView *)self.superview) switch2ContactsSelectContentView4AddingSelectedContact4Inviting:nil];
 }
 
-- (void)cancelGenNewTalkingGroup{
+- (void)cancelGenTalkingGroup{
     // back to my talking groups and selected talking group attendees content view for ending add selected contact for inviting to talking group
     [((SimpleIMeetingContentContainerView *)self.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting];
+}
+
+- (void)updateTalkingGroupAttendees{
+    // test by ares
+    NSLog(@"selectedTalkingGroupJSONObjectInfo = %@", _mMyTalkingGroupListView.selectedTalkingGroupJSONObjectInfo);
+    
+    // define selected talking group attendees phone array
+    NSMutableArray *_selectedTalkingGroupAttendeesPhoneArray = [[NSMutableArray alloc] initWithCapacity:[[self selectedTalkingGroupAttendeesInfoArray] count]];
+    
+    // process each selected talking group attendees info array
+    for (int index = 0; index < [[self selectedTalkingGroupAttendeesInfoArray] count]; index++) {
+        // get selected talking group attendee phone and add it to selected talking group attendees phone array
+        [_selectedTalkingGroupAttendeesPhoneArray addObject:[[[self selectedTalkingGroupAttendeesInfoArray] objectAtIndex:index] objectForKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list phone", nil)]];
+    }
+    
+    // switch to contacts select content view for adding selected contact for inviting to talking group
+    [((SimpleIMeetingContentContainerView *)self.superview) switch2ContactsSelectContentView4AddingSelectedContact4Inviting:_selectedTalkingGroupAttendeesPhoneArray];
 }
 
 // inner extension

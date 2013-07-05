@@ -57,6 +57,9 @@
 // schedule new talking group http request did finished selector
 - (void)scheduleNewTalkingGroupHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
 
+// invite new added attendees to the talking group http request did finished selector
+- (void)inviteNewAddedAttendees2TalkingGroupHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
+
 @end
 
 @implementation ContactsSelectView
@@ -113,7 +116,7 @@
 }
 
 - (void)addContact2SelectedContactListView{
-    // add contact to in or prein talking group contact list table view prein talking group section
+    // add contact to in and prein talking group contact list table view prein talking group section
     [_mSelectedContactListView addContact2PreinTalkingGroupSection];
 }
 
@@ -157,7 +160,7 @@
     // remove the selected contact from prein talking group contacts info array
     [self.preinTalkingGroupContactsInfoArray removeObjectAtIndex:index];
     
-    // remove the selected contact from in or prein talking group contact list table view prein talking group section
+    // remove the selected contact from in and prein talking group contact list table view prein talking group section
     [_mSelectedContactListView removeSelectedContactFromPreinTalkingGroupSection:index];
 }
 
@@ -167,15 +170,22 @@
     [HttpUtils getSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"get new talking group id url format string", nil), NSUrlString(@"remote background server root url string", nil)] andParameter:nil andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
 }
 
-- (void)inviteNewAddedAttendees2TalkingGroup{
-    //
+- (void)addMoreAttendees2TalkingGroup{
+    // invite new added attendees to the talking group
+    // generate invite new added attendees to the talking group param map
+    NSMutableDictionary *_inviteNewAddedAttendees2TalkingGroupParamMap = [[NSMutableDictionary alloc] init];
+    
+    // set some params
+    [_inviteNewAddedAttendees2TalkingGroupParamMap setObject:_mNew6SelectedContactsAddingTalkingGroupId forKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees or schedule new talking group or invite new added contacts to talking group id", nil)];
+    [_inviteNewAddedAttendees2TalkingGroupParamMap setObject:nil forKey:NSRBGServerFieldString(@"remote background server http request schedule new talking group or invite new added contacts to talking group attendees", nil)];
+    
+    // post the http request
+    [HttpUtils postSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"invite new member to talking group url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_inviteNewAddedAttendees2TalkingGroupParamMap andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
 }
 
 - (void)cancel6finishContactsSelecting{
-    // clear in talking group attendees phone array if needed
-    if (0 < [self.inTalkingGroupAttendeesPhoneArray count]) {
-        [self setInTalkingGroupAttendeesPhoneArray:nil];
-    }
+    // clear contact list view contact search text field text and selected address book contact cell index
+    [_mABContactListView clearContactSearchTextFieldText7SelectedABContactCellIndex];
     
     // clear prein talking group contacts info array if needed
     while (0 < [self.preinTalkingGroupContactsInfoArray count]) {
@@ -189,11 +199,13 @@
         [self removeSelectedContactFromSelectedContactListView:_index];
     }
     
-    // clear contact list view contact search text field text and selected address book contact cell index
-    [_mABContactListView clearContactSearchTextFieldText7SelectedABContactCellIndex];
+    // clear in talking group attendees phone array if needed
+    if (0 < [self.inTalkingGroupAttendeesPhoneArray count]) {
+        [self setInTalkingGroupAttendeesPhoneArray:nil];
+    }
 }
 
-// NewTalkingGroupProtocol
+// ITalkingGroupGeneratorProtocol
 - (void)generateNewTalkingGroup{
     // set it is ready for adding selected contact for inviting
     _mReady4AddingSelectedContact4Inviting = YES;
@@ -201,13 +213,16 @@
     // update address book contact list view
     [_mABContactListView setFrame:[self genContactListViewDrawRect]];
     
-    // show selected contact list view
+    // show selected contact list view if needed
     if ([_mSelectedContactListView isHidden]) {
         _mSelectedContactListView.hidden = NO;
+        
+        // reload selected contact list table view in and prein talking group contact list table view data source
+        [_mSelectedContactListView loadInPreinTalkingGroupContactListTableViewDataSource];
     }
 }
 
-- (void)cancelGenNewTalkingGroup{
+- (void)cancelGenTalkingGroup{
     // set it is not ready for adding selected contact for inviting
     _mReady4AddingSelectedContact4Inviting = NO;
     
@@ -223,7 +238,7 @@
     [self cancel6finishContactsSelecting];
 }
 
-// IHttpReqRespSelector
+// IHttpReqRespProtocol
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send http request succeed - request url = %@", pRequest.url);
     
@@ -235,6 +250,10 @@
     else if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"schedule new talking group url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
         // schedule new talking group http request
         [self scheduleNewTalkingGroupHttpRequestDidFinished:pRequest];
+    }
+    else if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"invite new member to talking group url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
+        // invite new added attendees to the talking group http request
+        [self inviteNewAddedAttendees2TalkingGroupHttpRequestDidFinished:pRequest];
     }
     else {
         //
@@ -517,6 +536,18 @@
         
         // show toast
         [[iToast makeText:NSToastLocalizedString(@"toast remote background server can't accept to schedule new talking group", nil)] show:iToastTypeError];
+    }
+}
+
+- (void)inviteNewAddedAttendees2TalkingGroupHttpRequestDidFinished:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send invite new added attendees to the talking group http request succeed - request url = %@, response status code = %d and data string = %@", pRequest.url, [pRequest responseStatusCode], pRequest.responseString);
+    
+    // check status code
+    if (200 == [pRequest responseStatusCode]) {
+        //
+    }
+    else {
+        //
     }
 }
 

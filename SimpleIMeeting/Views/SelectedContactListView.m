@@ -16,6 +16,8 @@
 
 #import "ContactsSelectView.h"
 
+#import "SimpleIMeetingContentContainerView.h"
+
 // section number ans each row number array
 #define SECTIONNUMBER_ROWSNUMBERARRAY   [NSArray arrayWithObjects:[NSNumber numberWithInteger:[_mInTalkingGroupAttendeesPhoneArray count]], [NSNumber numberWithInteger:[_mPreinTalkingGroupContactsInfoArray count]], nil]
 
@@ -51,22 +53,22 @@
         // set selected contacts head tip view text
         [_selectedContactsHeadTipView setTipViewText:NSLocalizedString(@"contacts select selected contacts head tip view text", nil)];
         
-        // init in or prein talking group contact list table view
-        _mIn6PreinTalkingGroupContactListTableView = [_mIn6PreinTalkingGroupContactListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mIn6PreinTalkingGroupContactListTableView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + _selectedContactsHeadTipView.height], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-(2*%d+%d)", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_selectedContactsHeadTipView.height, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_MARGIN, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]])];
+        // init in and prein talking group contact list table view
+        _mInPreinTalkingGroupContactListTableView = [_mInPreinTalkingGroupContactListTableView = [UITableView alloc] initWithFrame:CGRectMakeWithFormat(_mInPreinTalkingGroupContactListTableView, [NSNumber numberWithFloat:self.bounds.origin.x], [NSNumber numberWithFloat:self.bounds.origin.y + _selectedContactsHeadTipView.height], [NSNumber numberWithFloat:FILL_PARENT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%d-(2*%d+%d)", FILL_PARENT_STRING, (int)self.bounds.origin.y, (int)_selectedContactsHeadTipView.height, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_MARGIN, (int)INVITESELECTEDCONTACTS2TALKINGGROUPBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]])];
         
         // set its background color
-        _mIn6PreinTalkingGroupContactListTableView.backgroundColor = [UIColor clearColor];
+        _mInPreinTalkingGroupContactListTableView.backgroundColor = [UIColor clearColor];
         
         // set separator style UITableViewCellSeparatorStyleNone
-        _mIn6PreinTalkingGroupContactListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _mInPreinTalkingGroupContactListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         // init in talking group attendees phone array and prein talking group contacts info array
         _mInTalkingGroupAttendeesPhoneArray = [[NSMutableArray alloc] init];
         _mPreinTalkingGroupContactsInfoArray = [[NSMutableArray alloc] init];
         
-        // set in or prein talking group contact list table view dataSource and delegate
-        _mIn6PreinTalkingGroupContactListTableView.dataSource = self;
-        _mIn6PreinTalkingGroupContactListTableView.delegate = self;
+        // set in and prein talking group contact list table view dataSource and delegate
+        _mInPreinTalkingGroupContactListTableView.dataSource = self;
+        _mInPreinTalkingGroupContactListTableView.delegate = self;
         
         // init invite selected contacts to the talking group button
         UIButton *_inviteSelectedContacts2TalkingGroupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -80,9 +82,9 @@
         // add action selector and its response target for event
         [_inviteSelectedContacts2TalkingGroupButton addTarget:self action:@selector(inviteSelectedContacts2TalkingGroup) forControlEvents:UIControlEventTouchUpInside];
         
-        // add selected contacts head tip view, in or prein talking group contact list table view and invite selected contacts to talking group button as subviews of selected contact list view
+        // add selected contacts head tip view, in and prein talking group contact list table view and invite selected contacts to talking group button as subviews of selected contact list view
         [self addSubview:_selectedContactsHeadTipView];
-        [self addSubview:_mIn6PreinTalkingGroupContactListTableView];
+        [self addSubview:_mInPreinTalkingGroupContactListTableView];
         [self addSubview:_inviteSelectedContacts2TalkingGroupButton];
     }
     return self;
@@ -97,14 +99,19 @@
 }
 */
 
+- (void)loadInPreinTalkingGroupContactListTableViewDataSource{
+    // reload in and prein talking group contact list table view data source
+    [_mInPreinTalkingGroupContactListTableView reloadData];
+}
+
 - (void)addContact2PreinTalkingGroupSection{
-    // insert the selected contact to the end of in or prein talking group contact list table view prein talking group section
-    [_mIn6PreinTalkingGroupContactListTableView insertRowAtIndexPath:[NSIndexPath indexPathForRow:[_mPreinTalkingGroupContactsInfoArray count] - 1 inSection:_mIn6PreinTalkingGroupContactListTableView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationLeft];
+    // insert the selected contact to the end of in and prein talking group contact list table view prein talking group section
+    [_mInPreinTalkingGroupContactListTableView insertRowAtIndexPath:[NSIndexPath indexPathForRow:[_mPreinTalkingGroupContactsInfoArray count] - 1 inSection:_mInPreinTalkingGroupContactListTableView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationLeft];
 }
 
 - (void)removeSelectedContactFromPreinTalkingGroupSection:(NSInteger)index{
-    // remove the selected contact from in or prein talking group contact list table view prein talking group section
-    [_mIn6PreinTalkingGroupContactListTableView deleteRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:_mIn6PreinTalkingGroupContactListTableView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationTop];
+    // remove the selected contact from in and prein talking group contact list table view prein talking group section
+    [_mInPreinTalkingGroupContactListTableView deleteRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:_mInPreinTalkingGroupContactListTableView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationTop];
 }
 
 // UITableViewDataSource
@@ -121,7 +128,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentifier = @"In or Prein talking group contact cell";
     
-    // get in or prein talking group contact list table view cell
+    // get in and prein talking group contact list table view cell
     In6PreinTalkingGroupContactTableViewCell *_cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (nil == _cell) {
@@ -130,7 +137,7 @@
     
     // Configure the cell...
     _cell.contactIsInTalkingGroupFlag = 0 == indexPath.section ? YES : NO;
-    _cell.displayName = 0 == indexPath.section ? [_mInTalkingGroupAttendeesPhoneArray objectAtIndex:indexPath.row] : ((ContactBean *)[_mPreinTalkingGroupContactsInfoArray objectAtIndex:indexPath.row]).displayName;
+    _cell.displayName = 0 == indexPath.section ? [[[AddressBookManager shareAddressBookManager] contactsDisplayNameArrayWithPhoneNumber:[_mInTalkingGroupAttendeesPhoneArray objectAtIndex:indexPath.row]] objectAtIndex:0] : ((ContactBean *)[_mPreinTalkingGroupContactsInfoArray objectAtIndex:indexPath.row]).displayName;
     
     return _cell;
 }
@@ -153,7 +160,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    // remove the selected contact from in or prein talking group contact list table view prein talking group section
+    // remove the selected contact from in and prein talking group contact list table view prein talking group section
     [(ContactsSelectView *)self.superview removeSelectedContactFromSelectedContactListView:indexPath.row];
 }
 
@@ -166,10 +173,8 @@
     if (0 < [_mPreinTalkingGroupContactsInfoArray count]) {
         // check in talking group attendees phone array
         if (0 < [_mInTalkingGroupAttendeesPhoneArray count]) {
-            NSLog(@"invite the prein talking group contacts to talking group");
-            
-            // invite new added attendees to talking group
-            [_contactsSelectView inviteNewAddedAttendees2TalkingGroup];
+            // add more attendees to the talking group
+            [_contactsSelectView addMoreAttendees2TalkingGroup];
         }
         else {
             // schedule new talking group
@@ -184,7 +189,7 @@
         //
         
         // finish contacts selecting
-        [_contactsSelectView cancel6finishContactsSelecting];
+        [((SimpleIMeetingContentContainerView *)_contactsSelectView.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting];
     }
     else {
         NSLog(@"Warning: you must select one contact for be invited to talking group at least");

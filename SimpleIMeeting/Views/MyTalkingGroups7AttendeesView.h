@@ -10,12 +10,12 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
-#import "NewTalkingGroupProtocol.h"
+#import "ITalkingGroupGeneratorProtocol.h"
 
 @class MyTalkingGroupListView;
 @class SelectedTalkingGroupAttendeeListView;
 
-@interface MyTalkingGroups7AttendeesView : UIView <NewTalkingGroupProtocol> {
+@interface MyTalkingGroups7AttendeesView : UIView <ITalkingGroupGeneratorProtocol> {
     // my talking group list table view need to refresh
     BOOL _mMyTalkingGroupsNeed2Refresh;
     
@@ -32,9 +32,6 @@
 
 @property (nonatomic, assign) BOOL myTalkingGroupsNeed2Refresh;
 
-// my talking groups info array
-@property (nonatomic, readonly) NSArray *myTalkingGroupsInfoArray;
-
 // selected talking group attendees info array
 @property (nonatomic, retain) NSArray *selectedTalkingGroupAttendeesInfoArray;
 
@@ -42,6 +39,6 @@
 - (void)refreshMyTalkingGroups;
 
 // resize my talking group and selected talking group attendee list view
-- (void)resizeMyTalkingGroupsAndAttendeesView;
+- (void)resizeMyTalkingGroupsAndAttendeesView:(BOOL)hasOneTalkingGroupBeSelected;
 
 @end

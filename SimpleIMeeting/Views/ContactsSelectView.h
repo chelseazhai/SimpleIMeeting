@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-#import "NewTalkingGroupProtocol.h"
+#import "ITalkingGroupGeneratorProtocol.h"
 
 #import <CommonToolkit/CommonToolkit.h>
 
-#import "IHttpReqRespSelector.h"
+#import "IHttpReqRespProtocol.h"
 
 @class ContactListView;
 @class SelectedContactListView;
 
-@interface ContactsSelectView : UIView <NewTalkingGroupProtocol, IHttpReqRespSelector> {
+@interface ContactsSelectView : UIView <ITalkingGroupGeneratorProtocol, IHttpReqRespProtocol> {
     // ready for adding selected contact for inviting to the new talking group
     BOOL _mReady4AddingSelectedContact4Inviting;
     
@@ -51,8 +51,8 @@
 // schedule new talking group
 - (void)scheduleNewTalkingGroup;
 
-// invite new added attendees to talking group
-- (void)inviteNewAddedAttendees2TalkingGroup;
+// add more attendees to the talking group
+- (void)addMoreAttendees2TalkingGroup;
 
 // cancel or finish contacts selecting
 - (void)cancel6finishContactsSelecting;

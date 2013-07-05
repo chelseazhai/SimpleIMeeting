@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "IHttpReqRespSelector.h"
+#import "IHttpReqRespProtocol.h"
 
-@interface MyTalkingGroupListView : UIView <UITableViewDataSource, UITableViewDelegate, IHttpReqRespSelector> {
+@interface MyTalkingGroupListView : UIView <UITableViewDataSource, UITableViewDelegate, IHttpReqRespProtocol> {
     // my talking groups pager json object and info array
     NSDictionary *_mMyTalkingGroupsPagerJSONObject;
     NSMutableArray *_mMyTalkingGroupsJSONInfoArray;
@@ -28,8 +28,8 @@
 
 @property (nonatomic, readonly) NSMutableArray *myTalkingGroupsInfoArray;
 
-// selected talking group is opened
-@property (nonatomic, readonly) BOOL selectedTalkingGroupIsOpened;
+// selected talking group json object info
+@property (nonatomic, readonly) NSDictionary *selectedTalkingGroupJSONObjectInfo;
 
 // load my talking group list table view data source
 - (void)loadMyTalkingGroupListTableViewDataSource:(void (^)(NSInteger))completion;
