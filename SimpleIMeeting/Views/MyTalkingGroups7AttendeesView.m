@@ -169,24 +169,25 @@
 
 - (void)cancelGenTalkingGroup{
     // back to my talking groups and selected talking group attendees content view for ending add selected contact for inviting to talking group
-    [((SimpleIMeetingContentContainerView *)self.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting];
+    [((SimpleIMeetingContentContainerView *)self.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting:NOREFRESH];
 }
 
 - (void)updateTalkingGroupAttendees{
-    // test by ares
-    NSLog(@"selectedTalkingGroupJSONObjectInfo = %@", _mMyTalkingGroupListView.selectedTalkingGroupJSONObjectInfo);
+    // define selected talking group id, invite note and attendees phone array
+    NSMutableArray *_selectedTalkingGroupId7InviteNote7AttendeesPhoneArray = [[NSMutableArray alloc] init];
     
-    // define selected talking group attendees phone array
-    NSMutableArray *_selectedTalkingGroupAttendeesPhoneArray = [[NSMutableArray alloc] initWithCapacity:[[self selectedTalkingGroupAttendeesInfoArray] count]];
+    // add selected talking group id and started time timestamp
+    [_selectedTalkingGroupId7InviteNote7AttendeesPhoneArray addObject:[_mMyTalkingGroupListView.selectedTalkingGroupJSONObjectInfo objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups or new talking group id response id", nil)]];
+    [_selectedTalkingGroupId7InviteNote7AttendeesPhoneArray addObject:[_mMyTalkingGroupListView.selectedTalkingGroupJSONObjectInfo objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group started time timestamp", nil)]];
     
     // process each selected talking group attendees info array
     for (int index = 0; index < [[self selectedTalkingGroupAttendeesInfoArray] count]; index++) {
-        // get selected talking group attendee phone and add it to selected talking group attendees phone array
-        [_selectedTalkingGroupAttendeesPhoneArray addObject:[[[self selectedTalkingGroupAttendeesInfoArray] objectAtIndex:index] objectForKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list phone", nil)]];
+        // get selected talking group attendee phone and add it to selected talking group id, invite note and attendees phone array
+        [_selectedTalkingGroupId7InviteNote7AttendeesPhoneArray addObject:[[[self selectedTalkingGroupAttendeesInfoArray] objectAtIndex:index] objectForKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list phone", nil)]];
     }
     
     // switch to contacts select content view for adding selected contact for inviting to talking group
-    [((SimpleIMeetingContentContainerView *)self.superview) switch2ContactsSelectContentView4AddingSelectedContact4Inviting:_selectedTalkingGroupAttendeesPhoneArray];
+    [((SimpleIMeetingContentContainerView *)self.superview) switch2ContactsSelectContentView4AddingSelectedContact4Inviting:_selectedTalkingGroupId7InviteNote7AttendeesPhoneArray];
 }
 
 // inner extension

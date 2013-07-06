@@ -141,7 +141,7 @@
 
 - (void)setStartedTimeTimestamp:(NSString *)startedTimeTimestamp{
     // set started time unix timestamp
-    _mStartedTimeUnixTimestamp = [NSNumber numberWithString:startedTimeTimestamp].doubleValue / MILLISECONDS_PER_SECOND;
+    _mStartedTimeUnixTimestamp = startedTimeTimestamp.doubleValue / MILLISECONDS_PER_SECOND;
     
     // set started time label text
     _mStartedTimeLabel.text = [[NSDate dateWithTimeIntervalSince1970:_mStartedTimeUnixTimestamp] stringWithFormat:@"yy-MM-dd HH:mm"];

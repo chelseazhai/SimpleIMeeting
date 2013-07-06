@@ -190,8 +190,14 @@
         // get response data json format
         NSDictionary *_respDataJSONFormat = [pRequest.responseString objectFromJSONString];
         
-        // get my talking groups pager and info list from response data json format
+        // get my talking groups pager from response data json format and set it
         _mMyTalkingGroupsPagerJSONObject = [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response pager", nil)];
+        
+        // get my talking groups info list from response data json format and set it
+        // clear my talking groups info list json format if needed
+        if (0 < [_mMyTalkingGroupsJSONInfoArray count]) {
+            [_mMyTalkingGroupsJSONInfoArray removeAllObjects];
+        }
         [_mMyTalkingGroupsJSONInfoArray addObjectsFromArray:[_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response info list", nil)]];
         
         // reload my talking group list table view data

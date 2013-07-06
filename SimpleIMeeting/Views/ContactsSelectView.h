@@ -21,8 +21,11 @@
     // ready for adding selected contact for inviting to the new talking group
     BOOL _mReady4AddingSelectedContact4Inviting;
     
-    // new or selected contacts adding talking group id
-    NSString *_mNew6SelectedContactsAddingTalkingGroupId;
+    // new or selected contacts for adding to the talking group id
+    NSString *_mNew6SelectedContacts4Adding2TalkingGroupId;
+    
+    // selected contacts for adding to the talking group invite note
+    NSString *_mSelectedContacts4Adding2TalkingGroupInviteNote;
     
     // new talking group started time select popup window, invite note label and date picker
     UIPopupWindow *_mNewTalkingGroupStartedTimeSelectPopupWindow;
@@ -42,6 +45,9 @@
 // prein talking group contacts info array
 @property (nonatomic, readonly) NSMutableArray *preinTalkingGroupContactsInfoArray;
 
+// set talking group id and started time timtstamp which is for adding selected contacts to
+- (void)setSelectedContacts4Adding2TalkingGroupId:(NSString *)talkingGroupId startedTimestamp:(NSString *)startedTimestamp;
+
 // add contact to selected contact list view
 - (void)addContact2SelectedContactListView;
 
@@ -50,6 +56,9 @@
 
 // schedule new talking group
 - (void)scheduleNewTalkingGroup;
+
+// send invite sms with recipients and body
+- (void)sendInviteSMS:(NSArray *)recipients body:(NSString *)body;
 
 // add more attendees to the talking group
 - (void)addMoreAttendees2TalkingGroup;

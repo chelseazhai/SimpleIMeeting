@@ -12,6 +12,8 @@
 
 #import "ITalkingGroupGeneratorProtocol.h"
 
+#import "MyTalkingGroups7AttendeesView.h"
+
 @class ContactsSelectView;
 @class MyTalkingGroups7AttendeesView;
 
@@ -52,11 +54,11 @@ typedef NS_ENUM(NSInteger, SIMContentViewMode) {
 // generate talking group with responder
 - (void)generateTalkingGroup:(UIResponder *)responder;
 
-// switch to contacts select content view for adding selected contact for inviting to talking group with had been added contacts phone array
-- (void)switch2ContactsSelectContentView4AddingSelectedContact4Inviting:(NSArray *)hadBeenAddedContactsPhones;
+// switch to contacts select content view for adding selected contact for inviting to talking group with selected contacts for adding to the talking group id, started time timestamp and added contacts phone array
+- (void)switch2ContactsSelectContentView4AddingSelectedContact4Inviting:(NSArray *)selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones;
 
 // back to my talking groups and selected talking group attendees content view for ending add selected contact for inviting to talking group
-- (void)back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting;
+- (void)back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting:(MyTalkingGroups7AttendeesViewRefreshType)myTalkingGroups7AttendeesViewRefreshType;
 
 // set my talking groups need to refresh
 - (void)setMyTalkingGroupsNeed2Refresh;

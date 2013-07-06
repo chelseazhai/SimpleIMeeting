@@ -15,6 +15,11 @@
 @class MyTalkingGroupListView;
 @class SelectedTalkingGroupAttendeeListView;
 
+// my talking groups and selected talking group attendees view needed to refresh type
+typedef NS_ENUM(NSInteger, MyTalkingGroups7AttendeesViewRefreshType){
+    NOREFRESH, REFRESH_TALKINGGROUPS, REFRESH_SELECTEDTALKINGGROUP_ATTENDEES
+};
+
 @interface MyTalkingGroups7AttendeesView : UIView <ITalkingGroupGeneratorProtocol> {
     // my talking group list table view need to refresh
     BOOL _mMyTalkingGroupsNeed2Refresh;

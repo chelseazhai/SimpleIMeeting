@@ -13,6 +13,8 @@
 
 #import "ContactBean+ContactsSelect.h"
 
+#import "SimpleIMeetingContentContainerView.h"
+
 // new talking group started time select popup window present content view and its subview height
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING    6.0
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABEL_HEIGHT  30.0
@@ -25,8 +27,11 @@
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABELTEXTFONTSIZE 18.0
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABELTEXTFONTSIZE    15.0
 
-// new talking group invite note
-#define NEWTALKINGGROUPINVITENOTE(startedTime, talkingGroupId)  [NSString stringWithFormat:NSLocalizedString(@"new talking group invite note label text format string", nil), [startedTime stringWithFormat:NSLocalizedString(@"new talking group started time select date picker date format string", nil)], talkingGroupId]
+// talking group invite note
+#define TALKINGGROUPINVITENOTE(startedTime, talkingGroupId)  [NSString stringWithFormat:NSLocalizedString(@"new talking group invite note label text format string", nil), [startedTime stringWithFormat:NSLocalizedString(@"new talking group started time select date picker date format string", nil)], talkingGroupId]
+
+// milliseconds per second
+#define MILLISECONDS_PER_SECOND 1000
 
 @interface ContactsSelectView ()
 
@@ -115,6 +120,12 @@
     return _mSelectedContactListView.preinTalkingGroupContactsInfoArray;
 }
 
+- (void)setSelectedContacts4Adding2TalkingGroupId:(NSString *)talkingGroupId startedTimestamp:(NSString *)startedTimestamp{
+    // set sekected contacts for adding to the talking group id and invite note 
+    _mNew6SelectedContacts4Adding2TalkingGroupId = talkingGroupId;
+    _mSelectedContacts4Adding2TalkingGroupInviteNote = TALKINGGROUPINVITENOTE([NSDate dateWithTimeIntervalSince1970:startedTimestamp.doubleValue / MILLISECONDS_PER_SECOND], talkingGroupId);
+}
+
 - (void)addContact2SelectedContactListView{
     // add contact to in and prein talking group contact list table view prein talking group section
     [_mSelectedContactListView addContact2PreinTalkingGroupSection];
@@ -170,14 +181,26 @@
     [HttpUtils getSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"get new talking group id url format string", nil), NSUrlString(@"remote background server root url string", nil)] andParameter:nil andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
 }
 
+- (void)sendInviteSMS:(NSArray *)recipients body:(NSString *)body{
+    // check invite sms body
+    if (nil == body || [@"" isEqualToString:body]) {
+        // send invite short message to all attendees of talking group again
+        body = _mSelectedContacts4Adding2TalkingGroupInviteNote;
+    }
+    
+    NSLog(@"send invite short message to all attendees = %@ of talking group, invite note = %@", recipients, body);
+    
+    //
+}
+
 - (void)addMoreAttendees2TalkingGroup{
     // invite new added attendees to the talking group
     // generate invite new added attendees to the talking group param map
     NSMutableDictionary *_inviteNewAddedAttendees2TalkingGroupParamMap = [[NSMutableDictionary alloc] init];
     
     // set some params
-    [_inviteNewAddedAttendees2TalkingGroupParamMap setObject:_mNew6SelectedContactsAddingTalkingGroupId forKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees or schedule new talking group or invite new added contacts to talking group id", nil)];
-    [_inviteNewAddedAttendees2TalkingGroupParamMap setObject:nil forKey:NSRBGServerFieldString(@"remote background server http request schedule new talking group or invite new added contacts to talking group attendees", nil)];
+    [_inviteNewAddedAttendees2TalkingGroupParamMap setObject:_mNew6SelectedContacts4Adding2TalkingGroupId forKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees or schedule new talking group or invite new added contacts to talking group id", nil)];
+    [_inviteNewAddedAttendees2TalkingGroupParamMap setObject:[[self generateNewTalkingGroup6InviteNewAddedAttendeesInfoJSONArray] JSONString] forKey:NSRBGServerFieldString(@"remote background server http request schedule new talking group or invite new added contacts to talking group attendees", nil)];
     
     // post the http request
     [HttpUtils postSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"invite new member to talking group url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_inviteNewAddedAttendees2TalkingGroupParamMap andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
@@ -306,7 +329,7 @@
         NSString *_newTalkingGroupId = [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups or new talking group id response id", nil)];
         if (nil != _newTalkingGroupId && ![@"" isEqualToString:_newTalkingGroupId]) {
             // save new talking group id
-            _mNew6SelectedContactsAddingTalkingGroupId = _newTalkingGroupId;
+            _mNew6SelectedContacts4Adding2TalkingGroupId = _newTalkingGroupId;
             
             // show new talking group started time select popup window
             [self showNewTalkingGroupStartedTimeSelectPopupWindow];
@@ -352,7 +375,7 @@
         _mNewTalkingGroupInviteNoteLabel = [_mNewTalkingGroupInviteNoteLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mNewTalkingGroupInviteNoteLabel, [NSNumber numberWithFloat:_presentContentView.bounds.origin.x + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-4*%d-%d", FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT])];
         
         // set its attributes
-        _mNewTalkingGroupInviteNoteLabel.text = NEWTALKINGGROUPINVITENOTE(_mNewTalkingGroupStartedTimeSelectDatePicker.date, _mNew6SelectedContactsAddingTalkingGroupId);
+        _mNewTalkingGroupInviteNoteLabel.text = TALKINGGROUPINVITENOTE(_mNewTalkingGroupStartedTimeSelectDatePicker.date, _mNew6SelectedContacts4Adding2TalkingGroupId);
         _mNewTalkingGroupInviteNoteLabel.textColor = [UIColor whiteColor];
         _mNewTalkingGroupInviteNoteLabel.font = [UIFont systemFontOfSize:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABELTEXTFONTSIZE];
         _mNewTalkingGroupInviteNoteLabel.numberOfLines = 0;
@@ -420,7 +443,7 @@
         _mNewTalkingGroupStartedTimeSelectDatePicker.date = [NSDate date];
         
         // update new talking group invite note label text
-        _mNewTalkingGroupInviteNoteLabel.text = NEWTALKINGGROUPINVITENOTE(_mNewTalkingGroupStartedTimeSelectDatePicker.date, _mNew6SelectedContactsAddingTalkingGroupId);
+        _mNewTalkingGroupInviteNoteLabel.text = TALKINGGROUPINVITENOTE(_mNewTalkingGroupStartedTimeSelectDatePicker.date, _mNew6SelectedContacts4Adding2TalkingGroupId);
     }
     
 //    // set current date as new talking goup started time select date picker minimum date
@@ -440,7 +463,7 @@
 
 - (void)newTalkingGroupStartedTimeSelectDatePickerDateChanged{
     // update new talking group invite note label text
-    _mNewTalkingGroupInviteNoteLabel.text = NEWTALKINGGROUPINVITENOTE(_mNewTalkingGroupStartedTimeSelectDatePicker.date, _mNew6SelectedContactsAddingTalkingGroupId);
+    _mNewTalkingGroupInviteNoteLabel.text = TALKINGGROUPINVITENOTE(_mNewTalkingGroupStartedTimeSelectDatePicker.date, _mNew6SelectedContacts4Adding2TalkingGroupId);
 }
 
 - (void)confirmScheduleNewTalkingGroup{
@@ -462,7 +485,7 @@
         NSMutableDictionary *_confirmScheduleNewTalkingGroupParamMap = [[NSMutableDictionary alloc] init];
         
         // set some params
-        [_confirmScheduleNewTalkingGroupParamMap setObject:_mNew6SelectedContactsAddingTalkingGroupId forKey:NSRBGServerFieldString(@"remote background server http request get my talking groups or new talking group id response id", nil)];
+        [_confirmScheduleNewTalkingGroupParamMap setObject:_mNew6SelectedContacts4Adding2TalkingGroupId forKey:NSRBGServerFieldString(@"remote background server http request get my talking groups or new talking group id response id", nil)];
         [_confirmScheduleNewTalkingGroupParamMap setObject:[[self generateNewTalkingGroup6InviteNewAddedAttendeesInfoJSONArray] JSONString] forKey:NSRBGServerFieldString(@"remote background server http request schedule new talking group or invite new added contacts to talking group attendees", nil)];
         
         // check the comparison result again
@@ -525,11 +548,11 @@
         // dismiss new talking group started time select popup window
         [_mNewTalkingGroupStartedTimeSelectPopupWindow dismiss];
         
-        // send invite short message to all attendees of the scheduled new talking group
-        //
-        
         // finish contacts selecting
-        [self cancel6finishContactsSelecting];
+        [((SimpleIMeetingContentContainerView *)self.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting:REFRESH_TALKINGGROUPS];
+        
+        // send invite short message to all attendees of the scheduled new talking group
+        [self sendInviteSMS:[self generateNewTalkingGroup6InviteNewAddedAttendeesInfoJSONArray] body:_mNewTalkingGroupInviteNoteLabel.text];
     }
     else {
         NSLog(@"Error, schedule new talking group failed, remote background server refuse");
@@ -545,6 +568,9 @@
     // check status code
     if (200 == [pRequest responseStatusCode]) {
         //
+        
+        // finish contacts selecting
+        [self cancel6finishContactsSelecting];
     }
     else {
         //

@@ -104,13 +104,25 @@
     }
 }
 
-- (void)switch2ContactsSelectContentView4AddingSelectedContact4Inviting:(NSArray *)hadBeenAddedContactsPhones{
+- (void)switch2ContactsSelectContentView4AddingSelectedContact4Inviting:(NSArray *)selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones{
     // set conatcts select content view as content view of simple imeeting content container view
     [self setContentView:ADDRESSBOOKCONTACTS];
     
-    // test by ares
-    // set had been added contacts phone array as contacts select content view in talking group attendees phone array
-    _mContactsSelectContentView.inTalkingGroupAttendeesPhoneArray = hadBeenAddedContactsPhones;
+    // check selected contacts for adding to the talking group id, started time timestamp and added contacts phones
+    if (nil == selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones) {
+        // set had been added contacts phone array as contacts select content view in talking group attendees phone array
+        _mContactsSelectContentView.inTalkingGroupAttendeesPhoneArray = selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones;
+    }
+    else if (nil != selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones && 2 <= [selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones count]) {
+        // set selected contacts for adding to the talking group id and started time timestamp
+        [_mContactsSelectContentView setSelectedContacts4Adding2TalkingGroupId:[selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones objectAtIndex:0] startedTimestamp:[selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones objectAtIndex:1]];
+        
+        // set had been added contacts phone array as contacts select content view in talking group attendees phone array
+        _mContactsSelectContentView.inTalkingGroupAttendeesPhoneArray = [selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones subarrayWithRange:NSMakeRange(2, [selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones count] - 2)];
+    }
+    else {
+        NSLog(@"Error: set contacts select content view in talking group attendees phone array error, selected contacts for adding to the talking group id, started time timestamp and added contacts phones = %@", selectedContacts4Adding2TalkingGroupId7StartedTimestampAndAddedContactsPhones);
+    }
     
     // set contacts select content view is ready for adding selected contact for inviting to talking group
     [_mTalkingGroupGeneratorProtocolImpl generateNewTalkingGroup];
@@ -119,9 +131,26 @@
     _mTalkingGroupGeneratorProtocolImpl = _mMyTalkingGroups7AttendeesContentView;
 }
 
-- (void)back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting{
+- (void)back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting:(MyTalkingGroups7AttendeesViewRefreshType)myTalkingGroups7AttendeesViewRefreshType{
     // set contacts select content view is not ready for adding selected contact for inviting to talking group
     [_mContactsSelectContentView cancelGenTalkingGroup];
+    
+    // check my talking groups and selected talking group attendees view needed to refresh type
+    switch (myTalkingGroups7AttendeesViewRefreshType) {
+        case REFRESH_TALKINGGROUPS:
+            // set my talking groups needed to refresh
+            _mMyTalkingGroups7AttendeesContentView.myTalkingGroupsNeed2Refresh = YES;
+            break;
+            
+        case REFRESH_SELECTEDTALKINGGROUP_ATTENDEES:
+            //
+            break;
+            
+        case NOREFRESH:
+        default:
+            // needn't to refresh my talking groups and selected talking group attendees
+            break;
+    }
     
     // set my talking groups and selected talking group attendees content view as content view of simple imeeting content container view
     [self switchContentView];
