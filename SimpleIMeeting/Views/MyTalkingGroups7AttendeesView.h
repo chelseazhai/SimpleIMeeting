@@ -46,4 +46,7 @@ typedef NS_ENUM(NSInteger, MyTalkingGroups7AttendeesViewRefreshType){
 // resize my talking group and selected talking group attendee list view
 - (void)resizeMyTalkingGroupsAndAttendeesView:(BOOL)hasOneTalkingGroupBeSelected;
 
+// refresh the selected talking group attendees
+- (void)refreshSelectedTalkingGroupAttendees;
+
 @end

@@ -34,4 +34,7 @@
 // load my talking group list table view data source
 - (void)loadMyTalkingGroupListTableViewDataSource:(void (^)(NSInteger))completion;
 
+// load the selected talking group attendee list table view data source
+- (void)loadSelectedTalkingGroupAttendeeListTableViewDataSource;
+
 @end

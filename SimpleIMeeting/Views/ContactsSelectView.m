@@ -279,7 +279,7 @@
         [self inviteNewAddedAttendees2TalkingGroupHttpRequestDidFinished:pRequest];
     }
     else {
-        //
+        NSLog(@"Warning: the request not recognized");
     }
 }
 
@@ -567,10 +567,11 @@
     
     // check status code
     if (200 == [pRequest responseStatusCode]) {
-        //
-        
         // finish contacts selecting
-        [self cancel6finishContactsSelecting];
+        [((SimpleIMeetingContentContainerView *)self.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting:REFRESH_SELECTEDTALKINGGROUP_ATTENDEES];
+        
+        // send invite short message to all attendees of the scheduled new talking group
+        [self sendInviteSMS:[self generateNewTalkingGroup6InviteNewAddedAttendeesInfoJSONArray] body:_mSelectedContacts4Adding2TalkingGroupInviteNote];
     }
     else {
         //

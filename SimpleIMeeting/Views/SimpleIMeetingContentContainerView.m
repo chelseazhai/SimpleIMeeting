@@ -143,7 +143,8 @@
             break;
             
         case REFRESH_SELECTEDTALKINGGROUP_ATTENDEES:
-            //
+            // refresh the selected talking group attendees
+            [_mMyTalkingGroups7AttendeesContentView refreshSelectedTalkingGroupAttendees];
             break;
             
         case NOREFRESH:

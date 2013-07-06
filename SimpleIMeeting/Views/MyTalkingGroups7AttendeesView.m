@@ -161,6 +161,11 @@
     }
 }
 
+- (void)refreshSelectedTalkingGroupAttendees{
+    // load the selected talking group attendee list table view data source
+    [_mMyTalkingGroupListView loadSelectedTalkingGroupAttendeeListTableViewDataSource];
+}
+
 // ITalkingGroupGeneratorProtocol
 - (void)generateNewTalkingGroup{
     // switch to contacts select content view for adding selected contact for inviting to talking group

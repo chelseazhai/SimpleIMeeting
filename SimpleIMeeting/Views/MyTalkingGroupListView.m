@@ -103,6 +103,21 @@
     [self sendGetMyTalkingGroupsHttpRequest];
 }
 
+- (void)loadSelectedTalkingGroupAttendeeListTableViewDataSource{
+    // set selected talking group cell index and get selected talking group info json object
+    NSDictionary *_selectedTalkingGroupInfoJSONObject = [_mMyTalkingGroupsJSONInfoArray objectAtIndex:_mSelectedTalkingGroupCellIndex];
+    
+    // get selected talking group attendees
+    // generate get the selected talking group attendees param map
+    NSMutableDictionary *_getSelectedTalkingGroupAttendeesParamMap = [[NSMutableDictionary alloc] init];
+    
+    // set some params
+    [_getSelectedTalkingGroupAttendeesParamMap setObject:[_selectedTalkingGroupInfoJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups or new talking group id response id", nil)] forKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees or schedule new talking group or invite new added contacts to talking group id", nil)];
+    
+    // post the http request
+    [HttpUtils postSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"get selected talking group attendee list url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_getSelectedTalkingGroupAttendeesParamMap andUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:NSUTF8StringEncoding], HTTPREQUESTRESPONSEENCODING, nil] andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+}
+
 // UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     // Return the number of rows in the section.
@@ -138,18 +153,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    // set selected talking group cell index and get selected talking group info json object
-    NSDictionary *_selectedTalkingGroupInfoJSONObject = [_mMyTalkingGroupsJSONInfoArray objectAtIndex:_mSelectedTalkingGroupCellIndex = indexPath.row];
+    // set selected talking group cell index
+    _mSelectedTalkingGroupCellIndex = indexPath.row;
     
-    // get selected talking group attendees
-    // generate get the selected talking group attendees param map
-    NSMutableDictionary *_getSelectedTalkingGroupAttendeesParamMap = [[NSMutableDictionary alloc] init];
-    
-    // set some params
-    [_getSelectedTalkingGroupAttendeesParamMap setObject:[_selectedTalkingGroupInfoJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups or new talking group id response id", nil)] forKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees or schedule new talking group or invite new added contacts to talking group id", nil)];
-    
-    // post the http request
-    [HttpUtils postSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"get selected talking group attendee list url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_getSelectedTalkingGroupAttendeesParamMap andUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:NSUTF8StringEncoding], HTTPREQUESTRESPONSEENCODING, nil] andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+    // load the selected talking group attendee list table view data source
+    [self loadSelectedTalkingGroupAttendeeListTableViewDataSource];
 }
 
 // IHttpReqRespProtocol
@@ -166,7 +174,7 @@
         [self getSelectedTalkingGroupAttendeesHttpRequestDidFinished:pRequest];
     }
     else {
-        //
+        NSLog(@"Warning: the request not recognized");
     }
 }
 
