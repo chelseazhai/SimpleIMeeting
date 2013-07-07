@@ -16,6 +16,8 @@
 
 #import "BindedAccountLoginHttpRequestProcessor.h"
 
+#import "UIWindow+AsyncHttpReqMBProgressHUD.h"
+
 // margin and padding
 #define MARGIN  10.0
 #define PADDING 20.0
@@ -288,6 +290,9 @@
 }
 
 - (void)bindedAccountLogout{
+    // show asynchronous http request progress view
+    [self.window showMBProgressHUD];
+    
     // revert to register and login with device combined unique id
     // generate register and login with device combined unique id param map
     NSMutableDictionary *_reg7LoginWithDeviceIdParamMap = [[NSMutableDictionary alloc] init];
@@ -302,6 +307,9 @@
     // set register and login with device combined unique id http request processor register and login with device id type and completion
     [_regAndLoginWithDeviceIdLoginHttpRequestProcessor setReg7LoginWithDeviceIdType:BINDEDACCOUNTLOGOUT_REG7LOGINWITHDEVICEID];
     [_regAndLoginWithDeviceIdLoginHttpRequestProcessor setReg7LoginWithDeviceIdCompletion:^(NSInteger result) {
+        // hide asynchronous http request progress view
+        [self.window hideMBProgressHUD];
+        
         // check register and login with device combined unique id request response result
         if (0 == result) {
             // my account is changed
@@ -312,7 +320,7 @@
         }
         else {
             // register and login with device combined unique id failed, show binded account logout error toast
-            [[iToast makeText:NSToastLocalizedString(@"toast binded account logout error", nil)] show];
+            [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast binded account logout error", nil)) show:iToastTypeError];
         }
     }];
     

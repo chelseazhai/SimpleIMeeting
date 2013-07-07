@@ -16,6 +16,8 @@
 
 #import "MyTalkingGroups7AttendeesView.h"
 
+#import "UIWindow+AsyncHttpReqMBProgressHUD.h"
+
 @interface MyTalkingGroupListView ()
 
 // send get my talking groups http request
@@ -107,6 +109,9 @@
     // set selected talking group cell index and get selected talking group info json object
     NSDictionary *_selectedTalkingGroupInfoJSONObject = [_mMyTalkingGroupsJSONInfoArray objectAtIndex:_mSelectedTalkingGroupCellIndex];
     
+    // show asynchronous http request progress view
+    [self.window showMBProgressHUD];
+    
     // get selected talking group attendees
     // generate get the selected talking group attendees param map
     NSMutableDictionary *_getSelectedTalkingGroupAttendeesParamMap = [[NSMutableDictionary alloc] init];
@@ -164,6 +169,9 @@
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send http request succeed - request url = %@", pRequest.url);
     
+    // hide asynchronous http request progress view
+    [self.window hideMBProgressHUD];
+    
     // check the request url string
     if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
         // get my talking groups http request
@@ -181,7 +189,23 @@
 - (void)httpRequestDidFailed:(ASIHTTPRequest *)pRequest{
     NSLog(@"send http request failed - request url = %@", pRequest.url);
     
-    //
+    // hide asynchronous http request progress view
+    [self.window hideMBProgressHUD];
+    
+    // check the request url string
+    if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
+        // get my talking groups http request
+        // load my talking group list table view data source succeed completion
+        _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(-1);
+    }
+    else if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"get selected talking group attendee list url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
+        // get selected talking group attendees http request
+        // show toast
+        [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil)) show:iToastTypeError];
+    }
+    else {
+        NSLog(@"Warning: the request not recognized");
+    }
 }
 
 // inner extension
@@ -215,7 +239,8 @@
         _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(0);
     }
     else {
-        //
+        // load my talking group list table view data source succeed completion
+        _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(-1);
     }
 }
 
@@ -231,7 +256,8 @@
         [self setSelectedTalkingGroupAttendeesInfoArrayAnsResizeMyTalkingGroups7AttendeesView:_respDataJSONFormat];
     }
     else {
-        //
+        // show toast
+        [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil)) show:iToastTypeError];
     }
 }
 

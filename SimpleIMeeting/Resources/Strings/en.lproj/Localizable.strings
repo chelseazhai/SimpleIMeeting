@@ -8,6 +8,9 @@
 
 // simple imeeting content container view
 "tap to generate new talking group title view title" = "Tap to gen new meeting";
+"more menu setting item title" = "Setting";
+"more menu support item title" = "Help";
+"more menu about item title" = "About";
 "back to content view bar button item title" = "Back";
 "ready for adding selected contact for inviting to talking group title" = "Add contacts";
 
@@ -72,3 +75,5 @@
 
 // network unavailable
 "network unavailable tip label text" = "There is no active network, please back and retry again later!";
+
+"asynchronous http request progress view message" = "Processing ...";

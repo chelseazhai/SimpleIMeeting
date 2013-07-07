@@ -11,6 +11,8 @@
 #import "ContactsSelectView.h"
 #import "MyTalkingGroups7AttendeesView.h"
 
+#import "KxMenu.h"
+
 #import "SettingViewController.h"
 
 #import "AssistantCommonViewController.h"
@@ -29,7 +31,10 @@
 - (void)setNavigationTitle7LeftBarButtonItem:(SIMContentViewMode)contentViewType ready4AddingSelectedContact4InvitingFlag:(BOOL)isReady4AddingSelectedContact4Inviting;
 
 // more menu bar button item action selector
-- (void)moreMenuBarBtnItemClicked;
+- (void)moreMenuBarBtnItemClicked:(UIButton *)moreMenuBarBtnItem;
+
+// more menu setting, support and about item action selector
+- (void)moreMenuItemActionSelector:(KxMenuItem *)moreMenuItem;
 
 // back to my talking groups and selected talking group attendees or contacts select content view
 - (void)back2MyTalkingGroups7Attendees6ContactsSelectContentView;
@@ -53,7 +58,7 @@
         [self setNavigationTitle7LeftBarButtonItem:_mContentViewType = ADDRESSBOOKCONTACTS ready4AddingSelectedContact4InvitingFlag:NO];
         
         // set more menu as right bar button item
-        self.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"img_moremenu_barbuttonitem"] bgImage:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(moreMenuBarBtnItemClicked)];
+        self.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"img_moremenu_barbuttonitem"] bgImage:[UIImage imageNamed:@"img_right_barbtnitem_bg"] target:self action:@selector(moreMenuBarBtnItemClicked:)];
         
         // create and init subviews and switch one as content view
         // init contacts select content view
@@ -264,15 +269,31 @@
     self.leftBarButtonItem = _leftBarBtnItem;
 }
 
-- (void)moreMenuBarBtnItemClicked{
+- (void)moreMenuBarBtnItemClicked:(UIButton *)moreMenuBarBtnItem{
+    // define more menu items
+    NSArray *_moreMenuItems =
+    @[
+      [KxMenuItem menuItem:NSLocalizedString(@"more menu setting item title", nil) image:nil target:self action:@selector(moreMenuItemActionSelector:)], [KxMenuItem menuItem:NSLocalizedString(@"more menu support item title", nil) image:nil target:self action:@selector(moreMenuItemActionSelector:)], [KxMenuItem menuItem:NSLocalizedString(@"more menu about item title", nil) image:nil target:self action:@selector(moreMenuItemActionSelector:)]
+      ];
+    
     // show more menu as popup menu
-    NSLog(@"Show more menu as popup menu");
-    
-    // go to setting view using setting view controller
-    [self.viewControllerRef.navigationController pushViewController:[[SettingViewController alloc] initWithSponsorContentViewType:_mContentViewType] animated:YES];
-    
-//    // go to support or about view using assistant common view controller
-//    [self.viewControllerRef.navigationController pushViewController:[[AssistantCommonViewController alloc] initWithSponsorContentViewType:_mContentViewType presentView:[[AboutView alloc] init]] animated:YES];
+    [KxMenu showMenuInView:self.window fromRect:CGRectMake(moreMenuBarBtnItem.frame.origin.x, moreMenuBarBtnItem.frame.size.height - moreMenuBarBtnItem.frame.origin.y / 2, moreMenuBarBtnItem.frame.size.width, moreMenuBarBtnItem.frame.size.height) menuItems:_moreMenuItems];
+}
+
+- (void)moreMenuItemActionSelector:(KxMenuItem *)moreMenuItem{
+    // check more menu item title
+    if ([NSLocalizedString(@"more menu setting item title", nil) isEqualToString:moreMenuItem.title]) {
+        // go to setting view using setting view controller
+        [self.viewControllerRef.navigationController pushViewController:[[SettingViewController alloc] initWithSponsorContentViewType:_mContentViewType] animated:YES];
+    }
+    else if ([NSLocalizedString(@"more menu support item title", nil) isEqualToString:moreMenuItem.title]) {
+        // go to support view using assistant common view controller
+        [self.viewControllerRef.navigationController pushViewController:[[AssistantCommonViewController alloc] initWithSponsorContentViewType:_mContentViewType presentView:[[SupportView alloc] init]] animated:YES];
+    }
+    else if ([NSLocalizedString(@"more menu about item title", nil) isEqualToString:moreMenuItem.title]) {
+        // go to about view using assistant common view controller
+        [self.viewControllerRef.navigationController pushViewController:[[AssistantCommonViewController alloc] initWithSponsorContentViewType:_mContentViewType presentView:[[AboutView alloc] init]] animated:YES];
+    }
 }
 
 - (void)back2MyTalkingGroups7Attendees6ContactsSelectContentView{

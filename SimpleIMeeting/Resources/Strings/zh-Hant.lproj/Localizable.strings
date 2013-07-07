@@ -8,6 +8,9 @@
 
 // simple imeeting content container view
 "tap to generate new talking group title view title" = "点击安排会议";
+"more menu setting item title" = "设置";
+"more menu support item title" = "帮助";
+"more menu about item title" = "关于";
 "back to content view bar button item title" = "返回";
 "ready for adding selected contact for inviting to talking group title" = "添加联系人";
 
@@ -72,3 +75,5 @@
 
 // network unavailable
 "network unavailable tip label text" = "当前网络不可用，请退出后稍后重试！";
+
+"asynchronous http request progress view message" = "正在处理，请稍后 ...";

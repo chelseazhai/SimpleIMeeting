@@ -15,6 +15,8 @@
 
 #import "SimpleIMeetingContentContainerView.h"
 
+#import "UIWindow+AsyncHttpReqMBProgressHUD.h"
+
 // new talking group started time select popup window present content view and its subview height
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING    6.0
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABEL_HEIGHT  30.0
@@ -176,6 +178,9 @@
 }
 
 - (void)scheduleNewTalkingGroup{
+    // show asynchronous http request progress view
+    [self.window showMBProgressHUD];
+    
     // get new talking group id
     // get the http request
     [HttpUtils getSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"get new talking group id url format string", nil), NSUrlString(@"remote background server root url string", nil)] andParameter:nil andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
@@ -194,6 +199,9 @@
 }
 
 - (void)addMoreAttendees2TalkingGroup{
+    // show asynchronous http request progress view
+    [self.window showMBProgressHUD];
+    
     // invite new added attendees to the talking group
     // generate invite new added attendees to the talking group param map
     NSMutableDictionary *_inviteNewAddedAttendees2TalkingGroupParamMap = [[NSMutableDictionary alloc] init];
@@ -265,6 +273,11 @@
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send http request succeed - request url = %@", pRequest.url);
     
+    // hide asynchronous http request progress view
+    if (![self.window hideMBProgressHUD]) {
+        [_mNewTalkingGroupStartedTimeSelectPopupWindow.window hideMBProgressHUD];
+    }
+    
     // check the request url string
     if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"get new talking group id url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
         // get new talking group id http request
@@ -286,7 +299,13 @@
 - (void)httpRequestDidFailed:(ASIHTTPRequest *)pRequest{
     NSLog(@"send http request failed - request url = %@", pRequest.url);
     
-    //
+    // hide asynchronous http request progress view
+    if (![self.window hideMBProgressHUD]) {
+        [_mNewTalkingGroupStartedTimeSelectPopupWindow.window hideMBProgressHUD];
+    }
+    
+    // show toast
+    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil)) show:iToastTypeError];
 }
 
 // inner extension
@@ -335,11 +354,13 @@
             [self showNewTalkingGroupStartedTimeSelectPopupWindow];
         }
         else {
-            //
+            // show toast
+            [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil)) show:iToastTypeError];
         }
     }
     else {
-        //
+        // show toast
+        [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil)) show:iToastTypeError];
     }
 }
 
@@ -474,9 +495,12 @@
         NSLog(@"Error: the selected started time for new talking group has been passed");
         
         // show toast
-        [[iToast makeText:NSToastLocalizedString(@"toast new talking group started time selected is too early", nil)] show:iToastTypeError];
+        [[iToast makeText:NSToastLocalizedString(@"toast new talking group started time selected is too early", nil)] show:iToastTypeWarning];
     }
     else {
+        // show asynchronous http request progress view
+        [_mNewTalkingGroupStartedTimeSelectPopupWindow.window showMBProgressHUD];
+        
         // confirm schedule new talking group
         // define confirm schedule new talking group http request url
         NSString *_confirmScheduleNewTalkingGroupUrl;
@@ -558,7 +582,7 @@
         NSLog(@"Error, schedule new talking group failed, remote background server refuse");
         
         // show toast
-        [[iToast makeText:NSToastLocalizedString(@"toast remote background server can't accept to schedule new talking group", nil)] show:iToastTypeError];
+        [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast remote background server can't accept to schedule new talking group", nil)) show:iToastTypeError];
     }
 }
 
@@ -574,7 +598,8 @@
         [self sendInviteSMS:[self generateNewTalkingGroup6InviteNewAddedAttendeesInfoJSONArray] body:_mSelectedContacts4Adding2TalkingGroupInviteNote];
     }
     else {
-        //
+        // show toast
+        [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil)) show:iToastTypeError];
     }
 }
 
