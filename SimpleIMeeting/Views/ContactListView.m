@@ -56,6 +56,15 @@
 
 @end
 
+
+// contact operate view
+@interface ContactOperateView : UIView
+
+//
+
+@end
+
+
 @implementation ContactListView
 
 @synthesize allContactsInfoArrayInABRef = _mAllContactsInfoArrayInABRef;
@@ -78,7 +87,7 @@
         [_contactListHeadTipView setTipViewText:NSLocalizedString(@"contacts select contact list head tip view text", nil)];
         
         // init contact operate view
-        UIView *_contactOperateView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + _contactListHeadTipView.height, FILL_PARENT, CONTACTOPERATEVIEW_HEIGHT)];
+        ContactOperateView *_contactOperateView = [[ContactOperateView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + _contactListHeadTipView.height, FILL_PARENT, CONTACTOPERATEVIEW_HEIGHT)];
         
         // init contact search text field
         _mContactSearchTextField = [_mContactSearchTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mContactSearchTextField, [NSNumber numberWithFloat:_contactOperateView.bounds.origin.x + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSNumber numberWithFloat:_contactOperateView.bounds.origin.y + CONTACTOPERATEVIEW_MATGIN7PADDING], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d-%d-%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING, (int)ADDTEMPADDEDCONTACTBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-2*%d", FILL_PARENT_STRING, (int)CONTACTOPERATEVIEW_MATGIN7PADDING] cStringUsingEncoding:NSUTF8StringEncoding]])];
@@ -369,9 +378,68 @@
 
 // AddressBookChangedDelegate
 - (void)addressBookChanged:(ABAddressBookRef)pAddressBook info:(NSDictionary *)pInfo observer:(id)pObserver{
-    NSLog(@"addressBookChanged");
-    
-    //
+//    // reset all contacts info array from address book and present contacts info array of addressBook contacts list table view
+//    NSArray *_newAllContactsInfoArrayInAB = [[AddressBookManager shareAddressBookManager].allContactsInfoArray optPhoneticsSortedContactsInfoArray];
+//    
+//    // process changed contact id array
+//    for (NSNumber *_contactId in [pInfo allKeys]) {
+//        // get action
+//        switch (((NSNumber *)[[pInfo objectForKey:_contactId] objectForKey:CONTACT_ACTION]).intValue) {
+//            case contactAdd:
+//            {
+//                // add to all contacts info array in addressBook reference
+//                for (NSInteger _index = 0; _index < [_newAllContactsInfoArrayInAB count]; _index++) {
+//                    if (((ContactBean *)[_newAllContactsInfoArrayInAB objectAtIndex:_index]).id == _contactId.integerValue) {
+//                        [_mAllContactsInfoArrayInABRef insertObject:[_newAllContactsInfoArrayInAB objectAtIndex:_index] atIndex:_index];
+//                        
+//                        [self searchBar:_mContactSearchBar textDidChange:_mContactSearchBar.text];
+//                        
+//                        break;
+//                    }
+//                }
+//            }
+//                break;
+//                
+//            case contactModify:
+//            {
+//                // save the modify contact index of all contacts info array in addressBook reference and new temp all contacts info array in addressBook
+//                NSInteger _oldindex = 0, _newIndex = 0;
+//                for (NSInteger _index = 0; _index < [_mAllContactsInfoArrayInABRef count]; _index++) {
+//                    if (((ContactBean *)[_mAllContactsInfoArrayInABRef objectAtIndex:_index]).id == _contactId.integerValue) {
+//                        _oldindex = _index;
+//                        
+//                        _newIndex = [_newAllContactsInfoArrayInAB indexOfObject:[_mAllContactsInfoArrayInABRef objectAtIndex:_index]];
+//                        
+//                        break;
+//                    }
+//                }
+//                
+//                // check the two indexes
+//                if (_oldindex != _newIndex) {
+//                    [_mAllContactsInfoArrayInABRef removeObjectAtIndex:_oldindex];
+//                    [_mAllContactsInfoArrayInABRef insertObject:[_newAllContactsInfoArrayInAB objectAtIndex:_newIndex] atIndex:_newIndex];
+//                }
+//                
+//                [self searchBar:_mContactSearchBar textDidChange:_mContactSearchBar.text];
+//            }
+//                break;
+//                
+//            case contactDelete:
+//            {
+//                // delete from all contacts info array in addressBook reference
+//                for (NSInteger _index = 0; _index < [_mAllContactsInfoArrayInABRef count]; _index++) {
+//                    if (((ContactBean *)[_mAllContactsInfoArrayInABRef objectAtIndex:_index]).id == _contactId.integerValue) {
+//                        [_mAllContactsInfoArrayInABRef removeObjectAtIndex:_index];
+//                        
+//                        [self searchBar:_mContactSearchBar textDidChange:_mContactSearchBar.text];
+//                        
+//                        break;
+//                    }
+//                }
+//            }
+//                break;
+//        }
+//    }
 }
 
 // inner extension
@@ -488,6 +556,48 @@
 - (void)selectedContactPhonesSelectActionSheet:(UIActionSheet *)pActionSheet clickedButtonAtIndex:(NSInteger)pButtonIndex{
     // add the selected contact with the selected phone number to in and prein talking group contact list table view prein talking group section
     [self addSelectedContact2PreinTalkingGroupSection:[_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex.integerValue] andSelectedPhone:[pActionSheet buttonTitleAtIndex:pButtonIndex]];
+}
+
+@end
+
+
+@implementation ContactOperateView
+
+- (id)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
+
+- (void)layoutSubviews{
+    // get the last subview button
+    UIButton *_lastSubviewButton = [[self subviews] objectAtIndex:[[self subviews] count] - 1];
+    
+    // compare its origin x and width size sum with contact operate view size width
+    if (_lastSubviewButton.frame.origin.x + _lastSubviewButton.frame.size.width + CONTACTOPERATEVIEW_MATGIN7PADDING != self.frame.size.width) {
+        // get the D-value
+        float _dValue = self.frame.size.width - (_lastSubviewButton.frame.origin.x + _lastSubviewButton.frame.size.width + CONTACTOPERATEVIEW_MATGIN7PADDING);
+        
+        // update subview button center
+        _lastSubviewButton.center = CGPointMake(_lastSubviewButton.center.x + _dValue, _lastSubviewButton.center.y);
+        
+        // get the other subview(the first) textField
+        UITextField *_firstSubviewTextField = [[self subviews] objectAtIndex:0];
+        
+        // update its frame
+        _firstSubviewTextField.frame = CGRectMake(_firstSubviewTextField.frame.origin.x, _firstSubviewTextField.frame.origin.y, _firstSubviewTextField.frame.size.width + _dValue, _firstSubviewTextField.frame.size.height);
+    }
 }
 
 @end
