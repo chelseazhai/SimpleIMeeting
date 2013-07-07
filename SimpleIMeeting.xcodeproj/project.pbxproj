@@ -888,7 +888,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: guanghui hu (TS23V9C6Z2)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -904,7 +904,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "18325F67-E9FB-44CF-852B-BEEA2FF29D43";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -938,6 +937,7 @@
 		DC756B6F1752EADB00F287FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: guanghui hu (TS23V9C6Z2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/SimpleIMeeting/OtherFrameworks\"",
@@ -946,6 +946,7 @@
 				GCC_PREFIX_HEADER = "SimpleIMeeting/SimpleIMeeting-Prefix.pch";
 				INFOPLIST_FILE = "SimpleIMeeting/SimpleIMeeting-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "B17C6A1C-5AD8-4FC2-92B7-C84B46C8F339";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -953,6 +954,7 @@
 		DC756B701752EADB00F287FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: guanghui hu (TS23V9C6Z2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/SimpleIMeeting/OtherFrameworks\"",
@@ -961,6 +963,7 @@
 				GCC_PREFIX_HEADER = "SimpleIMeeting/SimpleIMeeting-Prefix.pch";
 				INFOPLIST_FILE = "SimpleIMeeting/SimpleIMeeting-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "B17C6A1C-5AD8-4FC2-92B7-C84B46C8F339";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
