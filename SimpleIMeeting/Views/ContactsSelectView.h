@@ -27,6 +27,11 @@
     // selected contacts for adding to the talking group invite note
     NSString *_mSelectedContacts4Adding2TalkingGroupInviteNote;
     
+    // add temp added contact popup window, temp added contact phone text field and confirm completion block
+    UIPopupWindow *_mAddTempAddedContactPopupWindow;
+    UITextField *_mTempAddedContactPhoneTextField;
+    void (^_mConfirmAddTempAddedContactCompletionBlock)(void);
+    
     // new talking group started time select popup window, invite note label and date picker
     UIPopupWindow *_mNewTalkingGroupStartedTimeSelectPopupWindow;
     UILabel *_mNewTalkingGroupInviteNoteLabel;
@@ -47,6 +52,9 @@
 
 // set talking group id and started time timtstamp which is for adding selected contacts to
 - (void)setSelectedContacts4Adding2TalkingGroupId:(NSString *)talkingGroupId startedTimestamp:(NSString *)startedTimestamp;
+
+// add temp added contact to selected contact list view with confirm block
+- (void)addTempAddedContact2SelectedContactListView:(void (^)(void))confirmCompletion;
 
 // add contact to selected contact list view
 - (void)addContact2SelectedContactListView;

@@ -22,6 +22,8 @@
 "contact search text field placeholder" = "Search contact with character or phone";
 "contact has no phone number alertView title" = "The contact has no phone number";
 "contact has no phone number alertView reselect button title" = "Reselect again";
+"temp added contact phone text field placeholder" = "Please input the phone number";
+"confirm add temp added contact button title" = "Add";
 "contact phone numbers select actionSheet title format" = "Select %@'s phone number for join the conference";
 "invite the selected contacts to talking group button title" = "Invite";
 "new talking group started time select popup window title label text" = "Select meeting started time";

@@ -22,6 +22,8 @@
 "contact search text field placeholder" = "搜索联系人，可使用字母或号码";
 "contact has no phone number alertView title" = "此联系人没有号码";
 "contact has no phone number alertView reselect button title" = "重新选择";
+"temp added contact phone text field placeholder" = "请输入手机号码";
+"confirm add temp added contact button title" = "添加";
 "contact phone numbers select actionSheet title format" = "选择邀请 %@ 加入会议的号码";
 "invite the selected contacts to talking group button title" = "邀请";
 "new talking group started time select popup window title label text" = "请选择会议开始时间";

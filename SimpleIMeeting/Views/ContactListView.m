@@ -46,7 +46,7 @@
 - (void)setReady4AddingSelectedContact4Inviting2TalkingGroup:(UIResponder *)responder;
 
 // add temp added contact button on clicked
-- (void)addTempAddedContactButtonOnClicked;
+- (void)addTempAddedContactButtonOnClicked:(UIButton *)tempAddedContactButton;
 
 // add the selected contact with the selected phone number to in and prein talking group contact list table view prein talking group section
 - (void)addSelectedContact2PreinTalkingGroupSection:(ContactBean *)selectedContact andSelectedPhone:(NSString *)selectedPhoneNumber;
@@ -130,7 +130,7 @@
         [_addTempAddedContactButton setBackgroundImage:[UIImage imageNamed:@"img_addtempaddedcontactbutton_bg"] forState:UIControlStateNormal];
         
         // add action selector and its response target for event
-        [_addTempAddedContactButton addTarget:self action:@selector(addTempAddedContactButtonOnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_addTempAddedContactButton addTarget:self action:@selector(addTempAddedContactButtonOnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         // add contact search text field and add temp added contact button as subviews of contact operate view
         [_contactOperateView addSubview:_mContactSearchTextField];
@@ -516,10 +516,12 @@
     }
 }
 
-- (void)addTempAddedContactButtonOnClicked{
-    NSLog(@"addTempAddedContactButtonOnClicked");
-    
-    //
+- (void)addTempAddedContactButtonOnClicked:(UIButton *)tempAddedContactButton{
+    // add temp added contact to selected contact list view
+    [(ContactsSelectView *)self.superview addTempAddedContact2SelectedContactListView:^{
+        // set it is ready for adding selected contact for inviting to talking group
+        [self setReady4AddingSelectedContact4Inviting2TalkingGroup:tempAddedContactButton];
+    }];
 }
 
 - (void)addSelectedContact2PreinTalkingGroupSection:(ContactBean *)selectedContact andSelectedPhone:(NSString *)selectedPhoneNumber{

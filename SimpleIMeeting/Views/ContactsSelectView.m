@@ -17,13 +17,33 @@
 
 #import "UIWindow+AsyncHttpReqMBProgressHUD.h"
 
+// add temp added contact popup window present content view margin bottom
+#define ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_MARGINBOTTOM   226.0
+
+// add temp added contact popup window present content view and its subview width, height
+#define ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CANCELADDBUTTON_WIDTH7HEIGHT   14.0
+#define ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_TEMPADDEDCONTACTPHONETEXTFIELD_HEIGHT 28.0
+#define ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CONFIRMADDBUTTON_WIDTH 80.0
+#define ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CONFIRMADDBUTTON_HEIGHT    32.0
+#define ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_WIDTH  240.0
+#define ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_HEIGHT 120.0
+
+// add temp added contact popup window present content view subview margin and padding
+#define ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_MARGIN 6.0
+#define ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING    16.0
+
+// temp added contact phone text field text font size
+#define TEMPADDEDCONTACTPHONETEXTFIELDTEXTFONTSIZE  14.0
+
 // new talking group started time select popup window present content view and its subview height
-#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING    6.0
-#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABEL_HEIGHT  30.0
-#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT  58.0
-#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWDATEPICKER_HEIGHT  180.0
-#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWCONTROLLERBUTTON_HEIGHT    34.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_TITLELABEL_HEIGHT 30.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_INVITENOTELABEL6COPYBUTTON_HEIGHT 58.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_DATEPICKER_HEIGHT 180.0
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_CONTROLLERBUTTON_HEIGHT   34.0
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_HEIGHT    320.0
+
+// new talking group started time select popup window present content view subview padding
+#define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING    6.0
 
 // new talking group started time select popup window present content view title and invite note label text font size
 #define NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABELTEXTFONTSIZE 18.0
@@ -39,6 +59,12 @@
 
 // generate contact list view draw rectangle
 - (CGRect)genContactListViewDrawRect;
+
+// confirm add temp added contact to selected contact list view
+- (void)confirmAddTempAddedContact2SelectedContactListView;
+
+// cancel add temp added contact to selected contact list view
+- (void)cancelAddTempAddedContact2SelectedContactListView;
 
 // get new talking group id http request did finished selector
 - (void)getNewTalkingGroupIdHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
@@ -57,6 +83,9 @@
 
 // cancel schedule new talking group
 - (void)cancelScheduleNewTalkingGroup;
+
+// generate new talking group or invite new atted attendees phone array as invite sms recipients
+- (NSArray *)generateNewTalkingGroup6InviteNewAddedAttendeesInviteSMSRecipients;
 
 // generate new talking group or invite new added attendees info json array
 - (NSArray *)generateNewTalkingGroup6InviteNewAddedAttendeesInfoJSONArray;
@@ -126,6 +155,83 @@
     // set sekected contacts for adding to the talking group id and invite note 
     _mNew6SelectedContacts4Adding2TalkingGroupId = talkingGroupId;
     _mSelectedContacts4Adding2TalkingGroupInviteNote = TALKINGGROUPINVITENOTE([NSDate dateWithTimeIntervalSince1970:startedTimestamp.doubleValue / MILLISECONDS_PER_SECOND], talkingGroupId);
+}
+
+- (void)addTempAddedContact2SelectedContactListView:(void (^)(void))confirmCompletion{
+    // save add temp added contact confirm completion block
+    _mConfirmAddTempAddedContactCompletionBlock = confirmCompletion;
+    
+    // check add temp added contact popup window
+    if (nil == _mAddTempAddedContactPopupWindow) {
+        // init add temp added contact popup window
+        _mAddTempAddedContactPopupWindow = [[UIPopupWindow alloc] init];
+        
+        // define add temp added contact popup window present content view
+        UIView *_presentContentView;
+        
+        // init add temp added contact popup window present content view
+        _presentContentView = [_presentContentView = [UIView alloc] initWithFrame:CGRectMakeWithFormat(_presentContentView, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s-%d)/2", (int)_mAddTempAddedContactPopupWindow.bounds.origin.x, FILL_PARENT_STRING, (int)ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s-%d)", (int)_mAddTempAddedContactPopupWindow.bounds.origin.y, FILL_PARENT_STRING, (int)(ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_MARGINBOTTOM + ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_HEIGHT)] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_WIDTH], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_HEIGHT])];
+        
+        // set its background color
+        _presentContentView.backgroundColor = [UIColor blackColor];
+        
+        // set corner radius and border
+        [_presentContentView setCornerRadius:5.0];
+        [_presentContentView setBorderWithWidth:1.0 andColor:[UIColor colorWithWhite:0.0 alpha:0.6]];
+        
+        // init add temp added contact popup window present content view cancel add button
+        UIButton *_cancelAddButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        // set its frame
+        [_cancelAddButton setFrame:CGRectMakeWithFormat(_cancelAddButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s-%d-%d)", (int)_presentContentView.bounds.origin.x, FILL_PARENT_STRING, (int)ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_MARGIN, (int)ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CANCELADDBUTTON_WIDTH7HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_MARGIN], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CANCELADDBUTTON_WIDTH7HEIGHT], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CANCELADDBUTTON_WIDTH7HEIGHT])];
+        
+        // set its title for normal state
+        [_cancelAddButton setTitle:@"×" forState:UIControlStateNormal];
+        
+        // add action selector and its response target for event
+        [_cancelAddButton addTarget:self action:@selector(cancelAddTempAddedContact2SelectedContactListView) forControlEvents:UIControlEventTouchUpInside];
+        
+        // init temp added contact phone text field
+        _mTempAddedContactPhoneTextField = [_mTempAddedContactPhoneTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mTempAddedContactPhoneTextField, [NSNumber numberWithFloat:_presentContentView.bounds.origin.x + 3 * ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_MARGIN + ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CANCELADDBUTTON_WIDTH7HEIGHT], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_MARGIN + ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CANCELADDBUTTON_WIDTH7HEIGHT + ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-6*%d-2*%d", FILL_PARENT_STRING, (int)ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_MARGIN, (int)ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CANCELADDBUTTON_WIDTH7HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_TEMPADDEDCONTACTPHONETEXTFIELD_HEIGHT])];
+        
+        // set contact search text field border style, content vertical alignment, clear button, keyboard type, text font and placeholder
+        _mTempAddedContactPhoneTextField.borderStyle = UITextBorderStyleRoundedRect;
+        _mTempAddedContactPhoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        _mTempAddedContactPhoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _mTempAddedContactPhoneTextField.keyboardType = UIKeyboardTypePhonePad;
+        _mTempAddedContactPhoneTextField.font = [UIFont systemFontOfSize:TEMPADDEDCONTACTPHONETEXTFIELDTEXTFONTSIZE];
+        _mTempAddedContactPhoneTextField.placeholder = NSLocalizedString(@"temp added contact phone text field placeholder", nil);
+        
+        // init add temp added contact popup window present content view confirm add button
+        UIButton *_confirmAddButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        // set its frame
+        [_confirmAddButton setFrame:CGRectMakeWithFormat(_confirmAddButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+(%s-%d)/2", (int)_presentContentView.bounds.origin.x, FILL_PARENT_STRING, (int)ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CONFIRMADDBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_MARGIN + ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CANCELADDBUTTON_WIDTH7HEIGHT + ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_TEMPADDEDCONTACTPHONETEXTFIELD_HEIGHT + 2 * ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CONFIRMADDBUTTON_WIDTH], [NSNumber numberWithFloat:ADDTEMPADDEDCONTACTPOPUPWINDOWPRESENTCONTENTVIEW_CONFIRMADDBUTTON_HEIGHT])];
+        
+        // set its title for normal state
+        [_confirmAddButton setTitle:NSLocalizedString(@"confirm add temp added contact button title", nil) forState:UIControlStateNormal];
+        
+        // add action selector and its response target for event
+        [_confirmAddButton addTarget:self action:@selector(confirmAddTempAddedContact2SelectedContactListView) forControlEvents:UIControlEventTouchUpInside];
+        
+        // add cancel add button, temp added contact phone text field and confirm add button as subviews of add temp added contact present content view
+        [_presentContentView addSubview:_cancelAddButton];
+        [_presentContentView addSubview:_mTempAddedContactPhoneTextField];
+        [_presentContentView addSubview:_confirmAddButton];
+        
+        // set its present content view
+        _mAddTempAddedContactPopupWindow.presentContentView = _presentContentView;
+    }
+    else {
+        // clear temp added contact phone text field text
+        _mTempAddedContactPhoneTextField.text = nil;
+    }
+    
+    // show temp added contact phone text field keyboard
+    [_mTempAddedContactPhoneTextField becomeFirstResponder];
+    
+    // show add temp added contact popup window
+    [_mAddTempAddedContactPopupWindow showAtLocation:self];
 }
 
 - (void)addContact2SelectedContactListView{
@@ -269,6 +375,11 @@
     [self cancel6finishContactsSelecting];
 }
 
+- (void)updateTalkingGroupAttendees{
+    // generate new talking group
+    [self generateNewTalkingGroup];
+}
+
 // IHttpReqRespProtocol
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send http request succeed - request url = %@", pRequest.url);
@@ -336,6 +447,61 @@
     return _contactListViewDrawRectangle;
 }
 
+- (void)confirmAddTempAddedContact2SelectedContactListView{
+    // get temp added contact phone number
+    NSString *_tempAddedContactPhoneNumber = _mTempAddedContactPhoneTextField.text;
+    
+    // check temp added contact phone number
+    if (nil == _tempAddedContactPhoneNumber || [@"" isEqualToString:_tempAddedContactPhoneNumber]) {
+        NSLog(@"Warning: temp added contact phone number is nil");
+        
+        // show toast
+        [[iToast makeText:NSToastLocalizedString(@"toast manual input contact for inviting to talking group whose phone number is null", nil)] show:iToastTypeWarning];
+    }
+    else {
+//        // has searched result
+//        if ([_mABContactListView.presentContactsInfoArrayRef count] > 0) {
+//            // process each result
+//            for (NSInteger _index = 0; _index < [_mABContactListView.presentContactsInfoArrayRef count]; _index++) {
+//                // add searched contact to meeting contacts list table view prein meeting section
+//                if ([((ContactBean *)[_mABContactListView.presentContactsInfoArrayRef objectAtIndex:_index]).phoneNumbers containsObject:_tempAddedContactPhoneNumber] && ![[self preinTalkingGroupContactsInfoArray] containsObject:[_mABContactListView.presentContactsInfoArrayRef objectAtIndex:_index]]) {
+//                    //
+//                }
+//                // the searched contact has been existed in meeting contacts list table view prein meeting section with another phone number
+//                else if ([((ContactBean *)[_mABContactListView.presentContactsInfoArrayRef objectAtIndex:_index]).phoneNumbers containsObject:_tempAddedContactPhoneNumber]) {
+//                    NSLog(@"Error: has a contact with user input phone number has been existed in prein meeting");
+//                    
+//                    // show toast
+//                    [[[iToast makeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is existed", nil), ((ContactBean *)[_mABContactListView.presentContactsInfoArrayRef objectAtIndex:_index]).displayName]] setDuration:iToastDurationLong] show];
+//                }
+//                // add the user input phone number to meeting contacts list table view prein meeting section
+//                else {
+//                    // generate contact with user input phone number and add to meeting contacts list table view prein meeting section
+//                    //[self addNewContactToMeetingWithPhoneNumber:_tempAddedContactPhoneNumber];
+//                    break;
+//                }
+//            }
+//        }
+//        // no result
+//        else {
+//            // add the user input phone number to meeting contacts list table view prein meeting section
+//            // generate contact with user input phone number and add to meeting contacts list table view prein meeting section
+//            //[self addNewContactToMeetingWithPhoneNumber:_tempAddedContactPhoneNumber];
+//        }
+        
+        // dismiss add temp added contact popup window
+        [_mAddTempAddedContactPopupWindow dismiss];
+        
+        // confirm add temp added contact completion
+        _mConfirmAddTempAddedContactCompletionBlock();
+    }
+}
+
+- (void)cancelAddTempAddedContact2SelectedContactListView{
+    // dismiss add temp added contact popup window
+    [_mAddTempAddedContactPopupWindow dismiss];
+}
+
 - (void)getNewTalkingGroupIdHttpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send get new talking group id http request succeed - request url = %@, response status code = %d and data string = %@", pRequest.url, [pRequest responseStatusCode], pRequest.responseString);
     
@@ -383,7 +549,7 @@
         _mNewTalkingGroupStartedTimeSelectDatePicker = [[UIDatePicker alloc] init];
         
         // init new talking group started time select popup window present content view title label
-        UILabel *_presentContentViewTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_presentContentView.bounds.origin.x, _presentContentView.bounds.origin.y, FILL_PARENT, NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWTITLELABEL_HEIGHT)];
+        UILabel *_presentContentViewTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_presentContentView.bounds.origin.x, _presentContentView.bounds.origin.y, FILL_PARENT, NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_TITLELABEL_HEIGHT)];
         
         // set its attributes
         _presentContentViewTitleLabel.text = NSLocalizedString(@"new talking group started time select popup window title label text", nil);
@@ -393,7 +559,7 @@
         _presentContentViewTitleLabel.backgroundColor = [UIColor clearColor];
         
         // init new talking group started time select popup window present content view invite note label
-        _mNewTalkingGroupInviteNoteLabel = [_mNewTalkingGroupInviteNoteLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mNewTalkingGroupInviteNoteLabel, [NSNumber numberWithFloat:_presentContentView.bounds.origin.x + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-4*%d-%d", FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT])];
+        _mNewTalkingGroupInviteNoteLabel = [_mNewTalkingGroupInviteNoteLabel = [UILabel alloc] initWithFrame:CGRectMakeWithFormat(_mNewTalkingGroupInviteNoteLabel, [NSNumber numberWithFloat:_presentContentView.bounds.origin.x + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height], [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-4*%d-%d", FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_INVITENOTELABEL6COPYBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_INVITENOTELABEL6COPYBUTTON_HEIGHT])];
         
         // set its attributes
         _mNewTalkingGroupInviteNoteLabel.text = TALKINGGROUPINVITENOTE(_mNewTalkingGroupStartedTimeSelectDatePicker.date, _mNew6SelectedContacts4Adding2TalkingGroupId);
@@ -406,7 +572,7 @@
         UIButton *_copyNewTalkingGroupInviteNoteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         // set its frame
-        [_copyNewTalkingGroupInviteNoteButton setFrame:CGRectMakeWithFormat(_copyNewTalkingGroupInviteNoteButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s-%d-%d", (int)_presentContentView.bounds.origin.x, FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWINVITENOTELABEL6COPYBUTTON_HEIGHT])];
+        [_copyNewTalkingGroupInviteNoteButton setFrame:CGRectMakeWithFormat(_copyNewTalkingGroupInviteNoteButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s-%d-%d", (int)_presentContentView.bounds.origin.x, FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_INVITENOTELABEL6COPYBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_INVITENOTELABEL6COPYBUTTON_HEIGHT], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_INVITENOTELABEL6COPYBUTTON_HEIGHT])];
         
         // set its title for normal state
         [_copyNewTalkingGroupInviteNoteButton setTitle:NSLocalizedString(@"new talking group invite note copy button title", nil) forState:UIControlStateNormal];
@@ -415,20 +581,20 @@
         [_copyNewTalkingGroupInviteNoteButton addTarget:self action:@selector(copyNewTalkingGroupInviteNote2Pasteboard) forControlEvents:UIControlEventTouchUpInside];
         
         // set new talking group started time select popup window present content view date picker frame
-        [_mNewTalkingGroupStartedTimeSelectDatePicker setFrame:CGRectMake(_presentContentView.bounds.origin.x, _presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height + _mNewTalkingGroupInviteNoteLabel.frame.size.height + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING, FILL_PARENT, NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWDATEPICKER_HEIGHT)];
+        [_mNewTalkingGroupStartedTimeSelectDatePicker setFrame:CGRectMake(_presentContentView.bounds.origin.x, _presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height + _mNewTalkingGroupInviteNoteLabel.frame.size.height + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING, FILL_PARENT, NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_DATEPICKER_HEIGHT)];
         
         // add its date changed target and action selector
         [_mNewTalkingGroupStartedTimeSelectDatePicker addTarget:self action:@selector(newTalkingGroupStartedTimeSelectDatePickerDateChanged) forControlEvents:UIControlEventValueChanged];
         
         // new talking group started time select popup window present content view controller button origin y number and width value
-        NSNumber *_newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber = [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height + _mNewTalkingGroupInviteNoteLabel.frame.size.height + _mNewTalkingGroupStartedTimeSelectDatePicker.frame.size.height + 2 * NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING];
-        NSValue *_newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue = [NSValue valueWithCString:[[NSString stringWithFormat:@"(%s-4*%d)/2", FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING] cStringUsingEncoding:NSUTF8StringEncoding]];
+        NSNumber *_newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber = [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height + _mNewTalkingGroupInviteNoteLabel.frame.size.height + _mNewTalkingGroupStartedTimeSelectDatePicker.frame.size.height + 2 * NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING];
+        NSValue *_newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue = [NSValue valueWithCString:[[NSString stringWithFormat:@"(%s-4*%d)/2", FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING] cStringUsingEncoding:NSUTF8StringEncoding]];
         
         // init confirm schedule new talking group controller button
         UIButton *_confirmScheduleNewTalkingGroupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         // set its frame
-        [_confirmScheduleNewTalkingGroupButton setFrame:CGRectMakeWithFormat(_confirmScheduleNewTalkingGroupButton, [NSNumber numberWithFloat:_presentContentView.bounds.origin.x + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING], _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber, _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue, [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWCONTROLLERBUTTON_HEIGHT])];
+        [_confirmScheduleNewTalkingGroupButton setFrame:CGRectMakeWithFormat(_confirmScheduleNewTalkingGroupButton, [NSNumber numberWithFloat:_presentContentView.bounds.origin.x + NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING], _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber, _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue, [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_CONTROLLERBUTTON_HEIGHT])];
         
         // set its title for normal state
         [_confirmScheduleNewTalkingGroupButton setTitle:NSLocalizedString(@"confirm schedule new talking group button title", nil) forState:UIControlStateNormal];
@@ -440,7 +606,7 @@
         UIButton *_cancelScheduleNewTalkingGroupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         // set its frame
-        [_cancelScheduleNewTalkingGroupButton setFrame:CGRectMakeWithFormat(_cancelScheduleNewTalkingGroupButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%@+3*%d", (int)_presentContentView.bounds.origin.x, _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue.stringValue, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWPADDING] cStringUsingEncoding:NSUTF8StringEncoding]], _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber, _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue, [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEWCONTROLLERBUTTON_HEIGHT])];
+        [_cancelScheduleNewTalkingGroupButton setFrame:CGRectMakeWithFormat(_cancelScheduleNewTalkingGroupButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%@+3*%d", (int)_presentContentView.bounds.origin.x, _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue.stringValue, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING] cStringUsingEncoding:NSUTF8StringEncoding]], _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonOriginYNumber, _newTalkingGroupStartedTimeSelectPopupWindowControllerButtonWidthValue, [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_CONTROLLERBUTTON_HEIGHT])];
         
         // set its title for normal state
         [_cancelScheduleNewTalkingGroupButton setTitle:NSLocalizedString(@"cancel schedule new talking group button title", nil) forState:UIControlStateNormal];
@@ -541,6 +707,19 @@
     [_mNewTalkingGroupStartedTimeSelectPopupWindow dismiss];
 }
 
+- (NSArray *)generateNewTalkingGroup6InviteNewAddedAttendeesInviteSMSRecipients{
+    // define new talking group or invite new added attendees phone array
+    NSMutableArray *_newTalkingGroup6InviteNewAddedAttendeesPhoneArray = [[NSMutableArray alloc] init];
+    
+    // process each prein talking group contact
+    for (int index = 0; index < [[self preinTalkingGroupContactsInfoArray] count]; index++) {
+        // put prein talking group contact selected phone to new talking group or invite new added attendees phone array
+        [_newTalkingGroup6InviteNewAddedAttendeesPhoneArray addObject:((ContactBean *)[[self preinTalkingGroupContactsInfoArray] objectAtIndex:index]).selectedPhoneNumber];
+    }
+    
+    return _newTalkingGroup6InviteNewAddedAttendeesPhoneArray;
+}
+
 - (NSArray *)generateNewTalkingGroup6InviteNewAddedAttendeesInfoJSONArray{
     // define new talking group or invite new added attendees info json array
     NSMutableArray *_newTalkingGroup6InviteNewAddedAttendeesInfoJSONArray = [[NSMutableArray alloc] init];
@@ -572,11 +751,14 @@
         // dismiss new talking group started time select popup window
         [_mNewTalkingGroupStartedTimeSelectPopupWindow dismiss];
         
+        // get new talking group invite sms recipients
+        NSArray *_inviteSMSRecipients = [self generateNewTalkingGroup6InviteNewAddedAttendeesInviteSMSRecipients];
+        
         // finish contacts selecting
         [((SimpleIMeetingContentContainerView *)self.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting:REFRESH_TALKINGGROUPS];
         
         // send invite short message to all attendees of the scheduled new talking group
-        [self sendInviteSMS:[self generateNewTalkingGroup6InviteNewAddedAttendeesInfoJSONArray] body:_mNewTalkingGroupInviteNoteLabel.text];
+        [self sendInviteSMS:_inviteSMSRecipients body:_mNewTalkingGroupInviteNoteLabel.text];
     }
     else {
         NSLog(@"Error, schedule new talking group failed, remote background server refuse");
@@ -591,11 +773,14 @@
     
     // check status code
     if (200 == [pRequest responseStatusCode]) {
+        // get invite new atted attendees invite sms recipients
+        NSArray *_inviteSMSRecipients = [self generateNewTalkingGroup6InviteNewAddedAttendeesInviteSMSRecipients];
+        
         // finish contacts selecting
         [((SimpleIMeetingContentContainerView *)self.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting:REFRESH_SELECTEDTALKINGGROUP_ATTENDEES];
         
         // send invite short message to all attendees of the scheduled new talking group
-        [self sendInviteSMS:[self generateNewTalkingGroup6InviteNewAddedAttendeesInfoJSONArray] body:_mSelectedContacts4Adding2TalkingGroupInviteNote];
+        [self sendInviteSMS:_inviteSMSRecipients body:_mSelectedContacts4Adding2TalkingGroupInviteNote];
     }
     else {
         // show toast
