@@ -157,7 +157,7 @@
     _mSelectedContacts4Adding2TalkingGroupInviteNote = TALKINGGROUPINVITENOTE([NSDate dateWithTimeIntervalSince1970:startedTimestamp.doubleValue / MILLISECONDS_PER_SECOND], talkingGroupId);
 }
 
-- (void)addTempAddedContact2SelectedContactListView:(void (^)(void))confirmCompletion{
+- (void)addTempAddedContact2SelectedContactListView:(void (^)(ContactBean *))confirmCompletion{
     // save add temp added contact confirm completion block
     _mConfirmAddTempAddedContactCompletionBlock = confirmCompletion;
     
@@ -459,41 +459,86 @@
         [[iToast makeText:NSToastLocalizedString(@"toast manual input contact for inviting to talking group whose phone number is null", nil)] show:iToastTypeWarning];
     }
     else {
-//        // has searched result
-//        if ([_mABContactListView.presentContactsInfoArrayRef count] > 0) {
-//            // process each result
-//            for (NSInteger _index = 0; _index < [_mABContactListView.presentContactsInfoArrayRef count]; _index++) {
-//                // add searched contact to meeting contacts list table view prein meeting section
-//                if ([((ContactBean *)[_mABContactListView.presentContactsInfoArrayRef objectAtIndex:_index]).phoneNumbers containsObject:_tempAddedContactPhoneNumber] && ![[self preinTalkingGroupContactsInfoArray] containsObject:[_mABContactListView.presentContactsInfoArrayRef objectAtIndex:_index]]) {
-//                    //
-//                }
-//                // the searched contact has been existed in meeting contacts list table view prein meeting section with another phone number
-//                else if ([((ContactBean *)[_mABContactListView.presentContactsInfoArrayRef objectAtIndex:_index]).phoneNumbers containsObject:_tempAddedContactPhoneNumber]) {
-//                    NSLog(@"Error: has a contact with user input phone number has been existed in prein meeting");
-//                    
-//                    // show toast
-//                    [[[iToast makeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is existed", nil), ((ContactBean *)[_mABContactListView.presentContactsInfoArrayRef objectAtIndex:_index]).displayName]] setDuration:iToastDurationLong] show];
-//                }
-//                // add the user input phone number to meeting contacts list table view prein meeting section
-//                else {
-//                    // generate contact with user input phone number and add to meeting contacts list table view prein meeting section
-//                    //[self addNewContactToMeetingWithPhoneNumber:_tempAddedContactPhoneNumber];
-//                    break;
-//                }
-//            }
-//        }
-//        // no result
-//        else {
-//            // add the user input phone number to meeting contacts list table view prein meeting section
-//            // generate contact with user input phone number and add to meeting contacts list table view prein meeting section
-//            //[self addNewContactToMeetingWithPhoneNumber:_tempAddedContactPhoneNumber];
-//        }
+        // get address book manager
+        AddressBookManager *_addressBookManager = [AddressBookManager shareAddressBookManager];
         
-        // dismiss add temp added contact popup window
-        [_mAddTempAddedContactPopupWindow dismiss];
-        
-        // confirm add temp added contact completion
-        _mConfirmAddTempAddedContactCompletionBlock();
+        // check temp added contact with phone number is in address book
+        NSNumber *_tempAddedContactId = [_addressBookManager isContactWithPhoneInAddressBook:_tempAddedContactPhoneNumber];
+        if (nil == _tempAddedContactId) {
+            // define temp added contact is or not in prein talking group contacts flag and existed object
+            BOOL _isExisted = NO;
+            ContactBean *_existedTempContact = nil;
+            
+            // process each prein talking group contact
+            for (ContactBean *_preinTalkingGroupContact in [self preinTalkingGroupContactsInfoArray]) {
+                // check prein talking group contact is and selected phone number
+                if (-1 == _preinTalkingGroupContact.id && [_tempAddedContactPhoneNumber isEqualToString:_preinTalkingGroupContact.selectedPhoneNumber]) {
+                    _isExisted = YES;
+                    _existedTempContact = _preinTalkingGroupContact;
+                    
+                    break;
+                }
+            }
+            
+            // check temp added contact is or not in prein talking group contacts
+            if (_isExisted) {
+                NSLog(@"Warning: temp added contact = %@ with user input phone number = %@ has been existed in prein talking group contacts", _existedTempContact, _tempAddedContactPhoneNumber);
+                
+                // dismiss add temp added contact popup window
+                [_mAddTempAddedContactPopupWindow dismiss];
+                
+                // show toast
+                [[iToast makeText:[NSString stringWithFormat:@"%@%@", _existedTempContact.displayName, NSToastLocalizedString(@"toast selected contact existed in prein talking group contacts with the selected phone", nil)]] show:iToastTypeWarning];
+            }
+            else {
+                // generate new temp added contact
+                ContactBean *_newTempAddedContact = [[ContactBean alloc] init];
+                
+                // init new temp added contact
+                // set id
+                _newTempAddedContact.id = -1;
+                // set display name
+                _newTempAddedContact.displayName = _tempAddedContactPhoneNumber;
+                // set phone numbers
+                _newTempAddedContact.phoneNumbers = [NSArray arrayWithObject:_tempAddedContactPhoneNumber];
+                
+                // mark new temp added contact be selected
+                _newTempAddedContact.isSelected = YES;
+                _newTempAddedContact.selectedPhoneNumber = _tempAddedContactPhoneNumber;
+                
+                // dismiss add temp added contact popup window
+                [_mAddTempAddedContactPopupWindow dismiss];
+                
+                // confirm add temp added contact completion
+                _mConfirmAddTempAddedContactCompletionBlock(_newTempAddedContact);
+            }
+        }
+        else {
+            // get the matched contact
+            ContactBean *_matchedContact = [_addressBookManager getContactInfoById:_tempAddedContactId.integerValue];
+            
+            // check the matched contact is or not be selected
+            if (_matchedContact.isSelected) {
+                NSLog(@"Warning: contact = %@ with %@ has been existed in prein talking group contacts", _matchedContact, [_tempAddedContactPhoneNumber isEqualToString:_matchedContact.selectedPhoneNumber] ? [NSString stringWithFormat:@"user input phone number = %@", _tempAddedContactPhoneNumber] : [NSString stringWithFormat:@"another phone number = %@", _matchedContact.selectedPhoneNumber]);
+                
+                // dismiss add temp added contact popup window
+                [_mAddTempAddedContactPopupWindow dismiss];
+                
+                // show toast
+                [[iToast makeText:[NSString stringWithFormat:@"%@%@", _matchedContact.displayName, [_tempAddedContactPhoneNumber isEqualToString:_matchedContact.selectedPhoneNumber] ? NSToastLocalizedString(@"toast selected contact existed in prein talking group contacts with the selected phone", nil) : NSToastLocalizedString(@"toast selected contact existed in prein talking group contacts with another phone", nil)]] show:iToastTypeWarning];
+            }
+            else {
+                // mark the matched contact be selected
+                _matchedContact.isSelected = YES;
+                _matchedContact.selectedPhoneNumber = _tempAddedContactPhoneNumber;
+                
+                // dismiss add temp added contact popup window
+                [_mAddTempAddedContactPopupWindow dismiss];
+                
+                // confirm add temp added contact completion
+                _mConfirmAddTempAddedContactCompletionBlock(_matchedContact);
+            }
+        }
     }
 }
 

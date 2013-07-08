@@ -60,8 +60,6 @@
 // contact operate view
 @interface ContactOperateView : UIView
 
-//
-
 @end
 
 
@@ -518,7 +516,13 @@
 
 - (void)addTempAddedContactButtonOnClicked:(UIButton *)tempAddedContactButton{
     // add temp added contact to selected contact list view
-    [(ContactsSelectView *)self.superview addTempAddedContact2SelectedContactListView:^{
+    [(ContactsSelectView *)self.superview addTempAddedContact2SelectedContactListView:^(ContactBean * tempAddedContact) {
+        // get the temp added contact index of present contacts info array
+        _mSelectedABContactCellIndex = [NSNumber numberWithUnsignedInteger:[_mPresentContactsInfoArrayRef indexOfObject:tempAddedContact]];
+        
+        // add selected contact to prein talking group section
+        [self addSelectedContact2PreinTalkingGroupSection:tempAddedContact andSelectedPhone:tempAddedContact.selectedPhoneNumber];
+        
         // set it is ready for adding selected contact for inviting to talking group
         [self setReady4AddingSelectedContact4Inviting2TalkingGroup:tempAddedContactButton];
     }];
@@ -534,21 +538,18 @@
         // update selected address book contact list table view cell contact is selected flag
         ((ABContactListTableViewCell *)[_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex.integerValue inSection:0]]).contactIsSelectedFlag = YES;
         
-        // get the selected contact contactBean
-        ContactBean *_selectedContactBean = [_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex.integerValue];
-        
         // set the selected contact selected flag image and phone number
-        _selectedContactBean.isSelected = YES;
-        _selectedContactBean.selectedPhoneNumber = selectedPhoneNumber;
+        selectedContact.isSelected = YES;
+        selectedContact.selectedPhoneNumber = selectedPhoneNumber;
         
         // add the selected contact to prein talking group contacts info array
-        [_contactsSelectView.preinTalkingGroupContactsInfoArray addObject:_selectedContactBean];
+        [_contactsSelectView.preinTalkingGroupContactsInfoArray addObject:selectedContact];
         
         // add the selected contact to selected contact list view
         [_contactsSelectView addContact2SelectedContactListView];
     }
     else {
-        NSLog(@"Error: the selected contact = %@ with the selected phone number = %@ had been in the conference, mustn't add twice", selectedContact, selectedPhoneNumber);
+        NSLog(@"Warning: the selected contact = %@ with the selected phone number = %@ had existed in the talking group attendees, mustn't add twice", selectedContact, selectedPhoneNumber);
         
         // show toast
         [[iToast makeText:[NSString stringWithFormat:@"%@%@", selectedContact.displayName, NSToastLocalizedString(@"toast selected contact existed in talking group attendees", nil)]] show:iToastTypeWarning];

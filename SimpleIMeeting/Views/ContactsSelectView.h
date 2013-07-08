@@ -30,7 +30,7 @@
     // add temp added contact popup window, temp added contact phone text field and confirm completion block
     UIPopupWindow *_mAddTempAddedContactPopupWindow;
     UITextField *_mTempAddedContactPhoneTextField;
-    void (^_mConfirmAddTempAddedContactCompletionBlock)(void);
+    void (^_mConfirmAddTempAddedContactCompletionBlock)(ContactBean *);
     
     // new talking group started time select popup window, invite note label and date picker
     UIPopupWindow *_mNewTalkingGroupStartedTimeSelectPopupWindow;
@@ -54,7 +54,7 @@
 - (void)setSelectedContacts4Adding2TalkingGroupId:(NSString *)talkingGroupId startedTimestamp:(NSString *)startedTimestamp;
 
 // add temp added contact to selected contact list view with confirm block
-- (void)addTempAddedContact2SelectedContactListView:(void (^)(void))confirmCompletion;
+- (void)addTempAddedContact2SelectedContactListView:(void (^)(ContactBean *))confirmCompletion;
 
 // add contact to selected contact list view
 - (void)addContact2SelectedContactListView;
