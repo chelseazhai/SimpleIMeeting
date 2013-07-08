@@ -31,9 +31,6 @@
         // set its web view delegate
         _mSupportPageWebView.delegate = self;
         
-        // load support page
-        [_mSupportPageWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:NSUrlString(@"support url format string", nil), NSUrlString(@"remote background server root url string", nil)]]]];
-        
         // hidden first
         _mSupportPageWebView.hidden = YES;
         
@@ -61,8 +58,34 @@
     [self resizesSubviews];
 }
 
+- (void)startLoadSupportWebPage{
+    // load support web page
+    [_mSupportPageWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:NSUrlString(@"support url format string", nil), NSUrlString(@"remote background server root url string", nil)]]]];
+}
+
+- (void)cancelLoadingSupportWebPage{
+    // hide network activity indicator if needed
+    if ([UIApplication sharedApplication].isNetworkActivityIndicatorVisible) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }
+    
+    // check support page webview is loading or not
+    if (_mSupportPageWebView.isLoading) {
+        // stop loading support web page
+        [_mSupportPageWebView stopLoading];
+    }
+}
+
 // UIWebViewDelegate
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    // show network activity indicator
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
+    // hide network activity indicator
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
     // stop support page loading indicator view animating
     [_mSupportPageLoadingIndicatorView stopAnimating];
     

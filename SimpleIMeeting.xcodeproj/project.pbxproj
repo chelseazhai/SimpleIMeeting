@@ -103,6 +103,7 @@
 		DC84E56D17841F7200DDCBDF /* img_talkinggroup_short_normal_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC84E56C17841F7200DDCBDF /* img_talkinggroup_short_normal_bg.png */; };
 		DC84E5701784202A00DDCBDF /* img_talkinggroup_short_selected_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DC84E56E1784202A00DDCBDF /* img_talkinggroup_short_selected_bg.png */; };
 		DC84E5711784202A00DDCBDF /* img_talkinggroup_short_selected_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC84E56F1784202A00DDCBDF /* img_talkinggroup_short_selected_bg@2x.png */; };
+		DC8A9A26178A530700889B49 /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8A9A25178A530700889B49 /* SupportViewController.m */; };
 		DC95233D1779702400587748 /* MyTalkingGroupListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC95233C1779702300587748 /* MyTalkingGroupListTableViewCell.m */; };
 		DC9523401779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC95233F1779706000587748 /* SelectedTalkingGroupAttendeeListTableViewCell.m */; };
 		DC9523471779861B00587748 /* img_simpleimeeting_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC9523441779861B00587748 /* img_simpleimeeting_bg-568h@2x.png */; };
@@ -244,6 +245,8 @@
 		DC84E56C17841F7200DDCBDF /* img_talkinggroup_short_normal_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_talkinggroup_short_normal_bg.png; path = SimpleIMeeting/Resources/Images/img_talkinggroup_short_normal_bg.png; sourceTree = SOURCE_ROOT; };
 		DC84E56E1784202A00DDCBDF /* img_talkinggroup_short_selected_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_talkinggroup_short_selected_bg.png; path = SimpleIMeeting/Resources/Images/img_talkinggroup_short_selected_bg.png; sourceTree = SOURCE_ROOT; };
 		DC84E56F1784202A00DDCBDF /* img_talkinggroup_short_selected_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_talkinggroup_short_selected_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_talkinggroup_short_selected_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC8A9A24178A530700889B49 /* SupportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SupportViewController.h; path = ViewControllers/SupportViewController.h; sourceTree = "<group>"; };
+		DC8A9A25178A530700889B49 /* SupportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupportViewController.m; path = ViewControllers/SupportViewController.m; sourceTree = "<group>"; };
 		DC95233A177934A700587748 /* ITalkingGroupGeneratorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ITalkingGroupGeneratorProtocol.h; path = Data/ITalkingGroupGeneratorProtocol.h; sourceTree = "<group>"; };
 		DC95233B1779702300587748 /* MyTalkingGroupListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTalkingGroupListTableViewCell.h; path = Views/MyTalkingGroupListTableViewCell.h; sourceTree = "<group>"; };
 		DC95233C1779702300587748 /* MyTalkingGroupListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTalkingGroupListTableViewCell.m; path = Views/MyTalkingGroupListTableViewCell.m; sourceTree = "<group>"; };
@@ -545,6 +548,8 @@
 			children = (
 				DC82FB21177AAB1B00480E61 /* SupportView.h */,
 				DC82FB22177AAB1B00480E61 /* SupportView.m */,
+				DC8A9A24178A530700889B49 /* SupportViewController.h */,
+				DC8A9A25178A530700889B49 /* SupportViewController.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -837,6 +842,7 @@
 				DC8052901781350800048D0B /* UIContentAlertView.m in Sources */,
 				DC2F7A0D178929B0002B3274 /* UIWindow+AsyncHttpReqMBProgressHUD.m in Sources */,
 				DC2F7A1217895050002B3274 /* KxMenu.m in Sources */,
+				DC8A9A26178A530700889B49 /* SupportViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

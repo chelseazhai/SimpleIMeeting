@@ -325,7 +325,7 @@
     }];
     
     // post register and login with device combined unique id http request
-    [HttpUtils postRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"register and login with device id url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_reg7LoginWithDeviceIdParamMap andUserInfo:nil andRequestType:synchronous andProcessor:_regAndLoginWithDeviceIdLoginHttpRequestProcessor andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+    [HttpUtils postRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"register and login with device id url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_reg7LoginWithDeviceIdParamMap andUserInfo:nil andRequestType:asynchronous andProcessor:_regAndLoginWithDeviceIdLoginHttpRequestProcessor andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
 }
 
 - (void)phoneBindButtonOnClicked{

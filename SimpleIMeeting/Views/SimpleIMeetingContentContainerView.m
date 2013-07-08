@@ -15,8 +15,9 @@
 
 #import "SettingViewController.h"
 
+#import "SupportViewController.h"
+
 #import "AssistantCommonViewController.h"
-#import "SupportView.h"
 #import "AboutView.h"
 
 // tap to generate new talking group title view width
@@ -288,7 +289,7 @@
     }
     else if ([NSLocalizedString(@"more menu support item title", nil) isEqualToString:moreMenuItem.title]) {
         // go to support view using assistant common view controller
-        [self.viewControllerRef.navigationController pushViewController:[[AssistantCommonViewController alloc] initWithSponsorContentViewType:_mContentViewType presentView:[[SupportView alloc] init]] animated:YES];
+        [self.viewControllerRef.navigationController pushViewController:[[SupportViewController alloc] initWithSponsorContentViewType:_mContentViewType] animated:YES];
     }
     else if ([NSLocalizedString(@"more menu about item title", nil) isEqualToString:moreMenuItem.title]) {
         // go to about view using assistant common view controller

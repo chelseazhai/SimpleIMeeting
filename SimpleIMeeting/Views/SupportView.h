@@ -18,4 +18,10 @@
     UIWebView *_mSupportPageWebView;
 }
 
+// start load support web page
+- (void)startLoadSupportWebPage;
+
+// cancel loading support web page
+- (void)cancelLoadingSupportWebPage;
+
 @end

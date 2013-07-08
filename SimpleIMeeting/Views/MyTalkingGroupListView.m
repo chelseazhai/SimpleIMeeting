@@ -200,6 +200,9 @@
     }
     else if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"get selected talking group attendee list url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
         // get selected talking group attendees http request
+        // clear selected talking group attenees info array and resize my talking groups and selected talking group attendees view
+        [self setSelectedTalkingGroupAttendeesInfoArrayAnsResizeMyTalkingGroups7AttendeesView:nil];
+        
         // show toast
         [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil)) show:iToastTypeError];
     }
