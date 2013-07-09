@@ -976,7 +976,7 @@
 		DC756B701752EADB00F287FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: guanghui hu (TS23V9C6Z2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hefei Ucloud Information Technology Company Limited (RXR35953B8)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/SimpleIMeeting/OtherFrameworks\"",
@@ -985,7 +985,7 @@
 				GCC_PREFIX_HEADER = "SimpleIMeeting/SimpleIMeeting-Prefix.pch";
 				INFOPLIST_FILE = "SimpleIMeeting/SimpleIMeeting-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B17C6A1C-5AD8-4FC2-92B7-C84B46C8F339";
+				PROVISIONING_PROFILE = "2675EAA7-377F-4FA5-8F78-3E428926AEF9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
