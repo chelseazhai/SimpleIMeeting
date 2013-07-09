@@ -23,6 +23,9 @@
 // cell label height
 #define LABEL_HEIGHT    22.0
 
+// cell talking group be selected image view width and height
+#define TALKINGGROUPBESELECTEDIMGVIEW_WIDTH7HEIGHT  20.0
+
 // set label attributes with text
 #define SetLabelAttributes(label, labelText)   \
     {   \
@@ -108,6 +111,15 @@
         
         // add to content view
         [self.contentView addSubview:_mTalkingGroupStatusLabel];
+        
+        // talking group be selected image view
+        _mBeSelectedImgView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + self.frame.size.width - MARGINLR - TALKINGGROUPBESELECTEDIMGVIEW_WIDTH7HEIGHT, _talkingGroupIdTipLabel.frame.origin.y + (LABEL_HEIGHT - TALKINGGROUPBESELECTEDIMGVIEW_WIDTH7HEIGHT) / 2, TALKINGGROUPBESELECTEDIMGVIEW_WIDTH7HEIGHT, TALKINGGROUPBESELECTEDIMGVIEW_WIDTH7HEIGHT)];
+        
+        // hidden first
+        _mBeSelectedImgView.hidden = YES;
+        
+        // add to content view
+        [self.contentView addSubview:_mBeSelectedImgView];
     }
     return self;
 }
@@ -117,13 +129,28 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
-    // set the view background for selected and unselected state
+    // set the view background and talking group be selected image view visiablity for selected and unselected state
     if (selected) {
+        // check the view frame size width and set its background
         self.backgroundImg = [UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_selected_bg" : @"img_talkinggroup_short_selected_bg"];
+        
+        // show talking group be selected image view if needed
+        if ([_mBeSelectedImgView isHidden]) {
+            _mBeSelectedImgView.hidden = NO;
+        }
     }
     else {
+        // check the view frame size width and set its background
         self.backgroundImg = [UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_normal_bg" : @"img_talkinggroup_short_normal_bg"];
+        
+        // hide talking group be selected image view if needed
+        if (![_mBeSelectedImgView isHidden]) {
+            _mBeSelectedImgView.hidden = YES;
+        }
     }
+    
+    // update talking group be selected image view center
+    _mBeSelectedImgView.center = CGPointMake(self.frame.size.width - MARGINLR - TALKINGGROUPBESELECTEDIMGVIEW_WIDTH7HEIGHT / 2, _mBeSelectedImgView.center.y);
 }
 
 - (void)layoutSubviews
@@ -161,10 +188,14 @@
     // set talking group status
     _mTalkingGroupStatus = talkingGroupStatus;
     
-    // check talking group status, generate tip string and set it as talking group status label text
+    // check talking group status, generate talking group status tip string and set talking group be selected image view image
     NSString *_statusTipString;
     if ([NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group open status", nil) isEqualToString:talkingGroupStatus]) {
+        // generate talking group status tip string
         _statusTipString = NSLocalizedString(@"talking group is opened", nil);
+        
+        // set talking group be selected image view image
+        _mBeSelectedImgView.image = [UIImage imageNamed:@"img_openedtalkinggroup_beselectedimage"];
     }
     else if ([NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group schedule status", nil) isEqualToString:talkingGroupStatus]) {
         // get current date
@@ -208,9 +239,21 @@
                 }
                 break;
         }
+        
+        // set talking group be selected image view image
+        _mBeSelectedImgView.image = [UIImage imageNamed:@"img_scheduledtalkinggroup_beselectedimage"];
     }
     
+    // set talking group status label text
     _mTalkingGroupStatusLabel.text = _statusTipString;
+    
+    // update all label subview text color
+    for (UIView *_subview in [self.contentView subviews]) {
+        // just process label
+        if ([_subview isMemberOfClass:[UILabel class]]) {
+            ((UILabel *)_subview).textColor = [NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group open status", nil) isEqualToString:talkingGroupStatus] ? OPENEDTALKINGGROUP7INTALKINGGROUPATTENDEESTATUS_TEXTCOLOR : [UIColor darkGrayColor];
+        }
+    }
 }
 
 + (CGFloat)cellHeight{

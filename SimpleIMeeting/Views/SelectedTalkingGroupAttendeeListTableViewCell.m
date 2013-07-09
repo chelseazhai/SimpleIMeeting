@@ -94,6 +94,14 @@
     else if ([NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list attendee out status", nil) isEqualToString:attendeeStatus]) {
         _mAttendeeStatusImgView.image = [UIImage imageNamed:@"img_selectedtalkinggroupattendee_outimage"];
     }
+    
+    // update all label subview text color
+    for (UIView *_subview in [self.contentView subviews]) {
+        // just process label
+        if ([_subview isMemberOfClass:[UILabel class]]) {
+            ((UILabel *)_subview).textColor = [NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list attendee in status", nil) isEqualToString:attendeeStatus] ? OPENEDTALKINGGROUP7INTALKINGGROUPATTENDEESTATUS_TEXTCOLOR : [UIColor darkGrayColor];
+        }
+    }
 }
 
 - (void)setDisplayName:(NSString *)displayName{

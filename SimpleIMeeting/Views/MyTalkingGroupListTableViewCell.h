@@ -22,6 +22,8 @@
     UILabel *_mTalkingGroupIdLabel;
     // talking group status label
     UILabel *_mTalkingGroupStatusLabel;
+    // talking group be selected imageview
+    UIImageView *_mBeSelectedImgView;
 }
 
 @property (nonatomic, retain) NSString *startedTimeTimestamp;

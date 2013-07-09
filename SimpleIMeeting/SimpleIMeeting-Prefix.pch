@@ -26,4 +26,7 @@
     #define LEFTSEPARATESUBVIEW_WEIGHT  2
     #define RIGHTSEPARATESUBVIEW_WEIGHT 1
     #define TOTAL_WEIGHT    3.0
+
+    // opened talking group and in talking group attendee status text color
+    #define OPENEDTALKINGGROUP7INTALKINGGROUPATTENDEESTATUS_TEXTCOLOR   [UIColor colorWithIntegerRed:143 integerGreen:188 integerBlue:143 alpha:1.0]
 #endif
