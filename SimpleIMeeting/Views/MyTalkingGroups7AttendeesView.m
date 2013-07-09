@@ -211,7 +211,7 @@
         if (hasOneTalkingGroupBeSelected) {
             // compare my talking group list view frame size width with its parent view frame size width
             if (self.frame.size.width == _mMyTalkingGroupListView.frame.size.width) {
-                _myTalkingGroupListViewDrawRectangle.size.width = _mMyTalkingGroupListView.frame.size.width * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT);
+                _myTalkingGroupListViewDrawRectangle.size.width = _mMyTalkingGroupListView.frame.size.width * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT) + 1.0/*add i pixel*/;
             }
         }
         else {

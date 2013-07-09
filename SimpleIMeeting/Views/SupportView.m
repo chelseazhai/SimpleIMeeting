@@ -90,8 +90,24 @@
     [_mSupportPageLoadingIndicatorView stopAnimating];
     
     // show support page webview if needed
-    if ([_mSupportPageWebView isHidden]) {
-        _mSupportPageWebView.hidden = NO;
+    if ([webView isHidden]) {
+        webView.hidden = NO;
+    }
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    // hide network activity indicator
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    // stop support page loading indicator view animating
+    [_mSupportPageLoadingIndicatorView stopAnimating];
+    
+    // report the error inside the webview
+    [webView loadHTMLString:[NSString stringWithFormat:NSLocalizedString(@"support page retrieve error html string format", nil), error.localizedDescription] baseURL:nil];
+    
+    // show support page webview if needed
+    if ([webView isHidden]) {
+        webView.hidden = NO;
     }
 }
 

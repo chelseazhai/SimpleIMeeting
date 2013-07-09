@@ -435,7 +435,7 @@
         if (_mReady4AddingSelectedContact4Inviting) {
             // compare address book contact list view frame size width with its parent view frame size width
             if (self.frame.size.width == _mABContactListView.frame.size.width) {
-                _contactListViewDrawRectangle.size.width = _mABContactListView.frame.size.width * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT);
+                _contactListViewDrawRectangle.size.width = _mABContactListView.frame.size.width * (LEFTSEPARATESUBVIEW_WEIGHT / TOTAL_WEIGHT) + 1.0/*add i pixel*/;
             }
         }
         else {

@@ -24,7 +24,7 @@
 @implementation SimpleIMeetingTableViewTipView
 
 - (id)initWithTipViewMode:(SIMTableViewTipViewMode)tipViewType andParentView:(UIView *)parentView{
-    CGRect _frameRectangle = CGRectMake(0.0, 0.0, 0.0, 0.0);
+    CGRect _frameRectangle = CGRectMake(parentView.bounds.origin.x, parentView.bounds.origin.x, CGSizeZero.width, CGSizeZero.height);
     
     // save tip view mode
     _mTipViewType = tipViewType;

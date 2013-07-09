@@ -29,9 +29,9 @@
     return [super initWithSponsorContentViewType:contentViewType presentView:[[SupportView alloc] init]];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
     // start load support web page
     [((SupportView *)self.view) startLoadSupportWebPage];

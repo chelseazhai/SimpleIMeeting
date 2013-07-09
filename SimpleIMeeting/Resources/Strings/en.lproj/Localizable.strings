@@ -65,6 +65,7 @@
 // support view
 "support view title" = "Help";
 "support page loading tip" = "Loading ...";
+"support page retrieve error html string format" = "<html><body><center><font size=+5 color='gray'>Oops, something error happens!<br>%@</font></center></body></html>";
 
 // about view
 "about view title" = "About";

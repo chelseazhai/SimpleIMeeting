@@ -65,6 +65,7 @@
 // support view
 "support view title" = "帮助";
 "support page loading tip" = "正在加载 ...";
+"support page retrieve error html string format" = "<html><body><center><font size=+5 color='gray'>额。。。发生错误啦！<br>%@</font></center></body></html>";
 
 // about view
 "about view title" = "关于";
