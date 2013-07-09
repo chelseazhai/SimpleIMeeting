@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, SIMTableViewTipViewMode){
     SIMTableViewTipViewMode _mTipViewType;
     
     // present subviews
-    // tip label
+    // subview tip label
     UILabel *_mTipLabel;
 }
 

@@ -18,6 +18,8 @@
 
 #import "UIWindow+AsyncHttpReqMBProgressHUD.h"
 
+#import "UIContentAlertView.h"
+
 // margin and padding
 #define MARGIN  10.0
 #define PADDING 20.0
@@ -335,17 +337,17 @@
 }
 
 - (void)bindedAccountLoginButtonOnClicked{
-    NSLog(@"binded account login button on clicked");
+    // init binded account login alert view content view
+    UIView *_bindedAccountLoginAlertViewContentView = [[UIView alloc] initWithFrame:CGRectMake(CGPointZero.x, CGPointZero.y, CGSizeZero.width, 100.0)];
     
     // test by ares
-    UIAlertView *_alertView = [[UIAlertView alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-    UILabel *_l = [[UILabel alloc] initWithFrame:CGRectMake(12.0, 60.0, 260.0, 125.0)];
-    _l.backgroundColor = [UIColor redColor];
-    //[_alertView addSubview:_l];
-    [_alertView show];
-    NSLog(@"show alertView frame = %@", NSStringFromCGRect(_alertView.frame));
+    _bindedAccountLoginAlertViewContentView.backgroundColor = [UIColor whiteColor];
     
-    //
+    // init binded account login alert view
+    UIContentAlertView *_bindedAccountLoginAlertView = [[UIContentAlertView alloc] initWithTitle:@"用户登录" contentView:_bindedAccountLoginAlertViewContentView cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
+    
+    // show binded account login alert view
+    [_bindedAccountLoginAlertView show];
 }
 
 @end

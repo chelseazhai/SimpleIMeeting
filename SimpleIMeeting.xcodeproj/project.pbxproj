@@ -117,6 +117,8 @@
 		DCA0B059178BC8E600317F12 /* img_openedtalkinggroup_beselectedimage.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA0B057178BC8E600317F12 /* img_openedtalkinggroup_beselectedimage.png */; };
 		DCA0B05A178BC8E600317F12 /* img_scheduledtalkinggroup_beselectedimage.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA0B058178BC8E600317F12 /* img_scheduledtalkinggroup_beselectedimage.png */; };
 		DCA0B05C178BE9AC00317F12 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA0B05B178BE9AB00317F12 /* MessageUI.framework */; };
+		DCA0B05F178C108600317F12 /* img_contentalertview_titlelabel_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA0B05D178C108500317F12 /* img_contentalertview_titlelabel_bg.png */; };
+		DCA0B060178C108600317F12 /* img_contentalertview_titlelabel_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA0B05E178C108500317F12 /* img_contentalertview_titlelabel_bg@2x.png */; };
 		DCE51914177BD618000CA65D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51912177BD618000CA65D /* InfoPlist.strings */; };
 		DCE51919177BD65D000CA65D /* RBGServerField.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51917177BD65D000CA65D /* RBGServerField.strings */; };
 		DCE5191A177BD65D000CA65D /* Url.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51918177BD65D000CA65D /* Url.strings */; };
@@ -268,6 +270,8 @@
 		DCA0B057178BC8E600317F12 /* img_openedtalkinggroup_beselectedimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_openedtalkinggroup_beselectedimage.png; path = SimpleIMeeting/Resources/Images/img_openedtalkinggroup_beselectedimage.png; sourceTree = SOURCE_ROOT; };
 		DCA0B058178BC8E600317F12 /* img_scheduledtalkinggroup_beselectedimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_scheduledtalkinggroup_beselectedimage.png; path = SimpleIMeeting/Resources/Images/img_scheduledtalkinggroup_beselectedimage.png; sourceTree = SOURCE_ROOT; };
 		DCA0B05B178BE9AB00317F12 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		DCA0B05D178C108500317F12 /* img_contentalertview_titlelabel_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_contentalertview_titlelabel_bg.png; path = SimpleIMeeting/Resources/Images/img_contentalertview_titlelabel_bg.png; sourceTree = SOURCE_ROOT; };
+		DCA0B05E178C108500317F12 /* img_contentalertview_titlelabel_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_contentalertview_titlelabel_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_contentalertview_titlelabel_bg@2x.png"; sourceTree = SOURCE_ROOT; };
 		DCE51913177BD618000CA65D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/Strings/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCE51915177BD620000CA65D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Resources/Strings/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DCE51916177BD628000CA65D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Resources/Strings/zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -463,6 +467,8 @@
 				DC5A7EB717755DD600C8534F /* img_contactlistview_bg@2x.png */,
 				DC5A7EBF1775A1FD00C8534F /* img_contactsearchtextfield_search.png */,
 				DC5A7EC01775A1FD00C8534F /* img_contactsearchtextfield_search@2x.png */,
+				DCA0B05D178C108500317F12 /* img_contentalertview_titlelabel_bg.png */,
+				DCA0B05E178C108500317F12 /* img_contentalertview_titlelabel_bg@2x.png */,
 				DC68EA7C1777F2A90034A807 /* img_in6preintalkinggroupcontactcell_selected_bg.png */,
 				DC68EA7D1777F2A90034A807 /* img_in6preintalkinggroupcontactcell_selected_bg@2x.png */,
 				DC5CE9CF175497630016835B /* img_left_barbtnitem_bg.png */,
@@ -823,6 +829,8 @@
 				DCA0B056178BC72D00317F12 /* img_openedtalkinggroup_beselectedimage@2x.png in Resources */,
 				DCA0B059178BC8E600317F12 /* img_openedtalkinggroup_beselectedimage.png in Resources */,
 				DCA0B05A178BC8E600317F12 /* img_scheduledtalkinggroup_beselectedimage.png in Resources */,
+				DCA0B05F178C108600317F12 /* img_contentalertview_titlelabel_bg.png in Resources */,
+				DCA0B060178C108600317F12 /* img_contentalertview_titlelabel_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
