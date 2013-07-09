@@ -10,12 +10,10 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
-@interface SupportView : UIView <UIWebViewDelegate> {
+@interface SupportView : UIWebView <UIWebViewDelegate> {
     // present subviews
     // subview support page loading indicator view
     UIDataLoadingIndicatorView *_mSupportPageLoadingIndicatorView;
-    // subview support page webview
-    UIWebView *_mSupportPageWebView;
 }
 
 // start load support web page

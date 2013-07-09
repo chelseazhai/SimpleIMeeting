@@ -25,21 +25,14 @@
         // set its frame
         [_mSupportPageLoadingIndicatorView setFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, FILL_PARENT, FILL_PARENT)];
         
-        // init support page webview
-        _mSupportPageWebView = [[UIWebView alloc] initWithFrame:_mSupportPageLoadingIndicatorView.frame];
+        // set webview delegate
+        self.delegate = self;
         
-        // set its web view delegate
-        _mSupportPageWebView.delegate = self;
+        // hidden scroll view first
+        self.scrollView.hidden = YES;
         
-        // hidden first
-        _mSupportPageWebView.hidden = YES;
-        
-        // set support page webview background color as support view background color
-        self.backgroundColor = _mSupportPageWebView.backgroundColor;
-        
-        // add support page loading indicator view and support page webview as subviews of support view
+        // add support page loading indicator view as subview of support view
         [self addSubview:_mSupportPageLoadingIndicatorView];
-        [self addSubview:_mSupportPageWebView];
     }
     return self;
 }
@@ -60,7 +53,7 @@
 
 - (void)startLoadSupportWebPage{
     // load support web page
-    [_mSupportPageWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:NSUrlString(@"support url format string", nil), NSUrlString(@"remote background server root url string", nil)]]]];
+    [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:NSUrlString(@"support url format string", nil), NSUrlString(@"remote background server root url string", nil)]]]];
 }
 
 - (void)cancelLoadingSupportWebPage{
@@ -70,9 +63,9 @@
     }
     
     // check support page webview is loading or not
-    if (_mSupportPageWebView.isLoading) {
+    if (self.isLoading) {
         // stop loading support web page
-        [_mSupportPageWebView stopLoading];
+        [self stopLoading];
     }
 }
 
@@ -89,9 +82,9 @@
     // stop support page loading indicator view animating
     [_mSupportPageLoadingIndicatorView stopAnimating];
     
-    // show support page webview if needed
-    if ([webView isHidden]) {
-        webView.hidden = NO;
+    // show support page webview scroll view if needed
+    if ([webView.scrollView isHidden]) {
+        webView.scrollView.hidden = NO;
     }
 }
 
@@ -102,12 +95,12 @@
     // stop support page loading indicator view animating
     [_mSupportPageLoadingIndicatorView stopAnimating];
     
-    // report the error inside the webview
+    // load the error page inside the webview
     [webView loadHTMLString:[NSString stringWithFormat:NSLocalizedString(@"support page retrieve error html string format", nil), error.localizedDescription] baseURL:nil];
     
-    // show support page webview if needed
-    if ([webView isHidden]) {
-        webView.hidden = NO;
+    // show support page webview scroll view if needed
+    if ([webView.scrollView isHidden]) {
+        webView.scrollView.hidden = NO;
     }
 }
 
