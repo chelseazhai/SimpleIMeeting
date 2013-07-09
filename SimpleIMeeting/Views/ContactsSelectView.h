@@ -14,10 +14,12 @@
 
 #import "IHttpReqRespProtocol.h"
 
+#import <MessageUI/MessageUI.h>
+
 @class ContactListView;
 @class SelectedContactListView;
 
-@interface ContactsSelectView : UIView <ITalkingGroupGeneratorProtocol, IHttpReqRespProtocol> {
+@interface ContactsSelectView : UIView <ITalkingGroupGeneratorProtocol, IHttpReqRespProtocol, MFMessageComposeViewControllerDelegate> {
     // ready for adding selected contact for inviting to the new talking group
     BOOL _mReady4AddingSelectedContact4Inviting;
     

@@ -183,11 +183,14 @@
     }
     // check in talking group attendees phone array again
     else if (0 < [_mInTalkingGroupAttendeesPhoneArray count]) {
+        // get in talking group attendees invite sms recipients
+        NSArray *_inviteSMSRecipients = [_mInTalkingGroupAttendeesPhoneArray copy];
+        
         // finish contacts selecting
         [((SimpleIMeetingContentContainerView *)_contactsSelectView.superview) back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting:NOREFRESH];
         
         // send invite short message to all attendees of talking group again
-        [_contactsSelectView sendInviteSMS:_mInTalkingGroupAttendeesPhoneArray body:nil];
+        [_contactsSelectView sendInviteSMS:_inviteSMSRecipients body:nil];
     }
     else {
         NSLog(@"Warning: you must select one contact for be invited to talking group at least");

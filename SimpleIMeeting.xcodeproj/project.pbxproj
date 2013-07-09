@@ -116,6 +116,7 @@
 		DCA0B056178BC72D00317F12 /* img_openedtalkinggroup_beselectedimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA0B055178BC72D00317F12 /* img_openedtalkinggroup_beselectedimage@2x.png */; };
 		DCA0B059178BC8E600317F12 /* img_openedtalkinggroup_beselectedimage.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA0B057178BC8E600317F12 /* img_openedtalkinggroup_beselectedimage.png */; };
 		DCA0B05A178BC8E600317F12 /* img_scheduledtalkinggroup_beselectedimage.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA0B058178BC8E600317F12 /* img_scheduledtalkinggroup_beselectedimage.png */; };
+		DCA0B05C178BE9AC00317F12 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA0B05B178BE9AB00317F12 /* MessageUI.framework */; };
 		DCE51914177BD618000CA65D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51912177BD618000CA65D /* InfoPlist.strings */; };
 		DCE51919177BD65D000CA65D /* RBGServerField.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51917177BD65D000CA65D /* RBGServerField.strings */; };
 		DCE5191A177BD65D000CA65D /* Url.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51918177BD65D000CA65D /* Url.strings */; };
@@ -266,6 +267,7 @@
 		DCA0B055178BC72D00317F12 /* img_openedtalkinggroup_beselectedimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_openedtalkinggroup_beselectedimage@2x.png"; path = "SimpleIMeeting/Resources/Images/img_openedtalkinggroup_beselectedimage@2x.png"; sourceTree = SOURCE_ROOT; };
 		DCA0B057178BC8E600317F12 /* img_openedtalkinggroup_beselectedimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_openedtalkinggroup_beselectedimage.png; path = SimpleIMeeting/Resources/Images/img_openedtalkinggroup_beselectedimage.png; sourceTree = SOURCE_ROOT; };
 		DCA0B058178BC8E600317F12 /* img_scheduledtalkinggroup_beselectedimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_scheduledtalkinggroup_beselectedimage.png; path = SimpleIMeeting/Resources/Images/img_scheduledtalkinggroup_beselectedimage.png; sourceTree = SOURCE_ROOT; };
+		DCA0B05B178BE9AB00317F12 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		DCE51913177BD618000CA65D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/Strings/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCE51915177BD620000CA65D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Resources/Strings/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DCE51916177BD628000CA65D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Resources/Strings/zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCA0B05C178BE9AC00317F12 /* MessageUI.framework in Frameworks */,
 				DC80B06F17741B03009BA163 /* AudioToolbox.framework in Frameworks */,
 				DC80B06717741918009BA163 /* libsqlite3.dylib in Frameworks */,
 				DC80B06517741912009BA163 /* AddressBookUI.framework in Frameworks */,
@@ -381,6 +384,7 @@
 				DC756B581752EADB00F287FA /* CoreGraphics.framework */,
 				DC756BC41752F3B700F287FA /* CoreText.framework */,
 				DC756B561752EADB00F287FA /* Foundation.framework */,
+				DCA0B05B178BE9AB00317F12 /* MessageUI.framework */,
 				DC756BBE1752F39400F287FA /* MobileCoreServices.framework */,
 				DC756BBC1752F38D00F287FA /* SystemConfiguration.framework */,
 				DC756B541752EADB00F287FA /* UIKit.framework */,

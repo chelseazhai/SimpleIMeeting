@@ -32,6 +32,8 @@
 "new talking group invite note copy button title" = "Click copy";
 "confirm schedule new talking group button title" = "OK";
 "cancel schedule new talking group button title" = "Cancel";
+"device not support sms alertView message" = "Your device not supply for sms";
+"device not support sms alertView confirm button title" = "OK";
 
 // my talking group list content view
 "contacts select left bar button item title" = "My meetings";

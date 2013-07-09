@@ -22,3 +22,4 @@
 "toast copy new talking group invite note to pasteboard successful" = "会议邀请信息已拷贝到粘贴板";
 "toast new talking group started time selected is too early" = "时间无法倒流，会议开始时间已为过去时";
 "toast remote background server can't accept to schedule new talking group" = "远程服务器拒绝安排一个新的会议";
+"toast send inviting all talking group attendees to join the scheduled talking group failed" = "邀请参会者短信发送失败，请检查你的短信息";

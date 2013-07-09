@@ -22,3 +22,4 @@
 "toast copy new talking group invite note to pasteboard successful" = "new talking group invite note has been copied to pasteboard";
 "toast new talking group started time selected is too early" = "the select started time for new meeting has been passed";
 "toast remote background server can't accept to schedule new talking group" = "remote background server refuse to schedule new meeting";
+"toast send inviting all talking group attendees to join the scheduled talking group failed" = "send inviting all talking group attendees short message failed, please check your sms";

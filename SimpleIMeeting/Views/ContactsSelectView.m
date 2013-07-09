@@ -299,9 +299,27 @@
         body = _mSelectedContacts4Adding2TalkingGroupInviteNote;
     }
     
-    NSLog(@"send invite short message to all attendees = %@ of talking group, invite note = %@", recipients, body);
-    
-    //
+    // judge sms supply of the device
+    if([MFMessageComposeViewController canSendText]){
+        NSLog(@"send invite short message to all attendees = %@ of talking group and invite note = %@", recipients, body);
+        
+        // init invite short message compose view controller
+        MFMessageComposeViewController *_inviteShortMessageComposeViewController = [[MFMessageComposeViewController alloc] init];
+        
+        // set invite short message recipients and body
+        _inviteShortMessageComposeViewController.recipients = recipients;
+        _inviteShortMessageComposeViewController.body = body;
+        
+        // message compose delegate
+        _inviteShortMessageComposeViewController.messageComposeDelegate = self;
+        
+        // present invite short message compose view controller
+        [self.superview.viewControllerRef presentModalViewController:_inviteShortMessageComposeViewController animated:YES];
+    }
+    else{
+        // show the device not support sms alertView
+        [[[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"device not support sms alertView message", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"device not support sms alertView confirm button title", nil), nil] show];
+    }
 }
 
 - (void)addMoreAttendees2TalkingGroup{
@@ -417,6 +435,28 @@
     
     // show toast
     [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil)) show:iToastTypeError];
+}
+
+// MFMessageComposeViewControllerDelegate
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result{
+    // check the result
+    switch (result) {
+        case MessageComposeResultFailed:
+            NSLog(@"Error: invite short message send failed");
+            
+            // show toast
+            [[iToast makeText:NSToastLocalizedString(@"toast send inviting all talking group attendees to join the scheduled talking group failed", nil)] show:iToastTypeError];
+            break;
+            
+        case MessageComposeResultCancelled:
+        case MessageComposeResultSent:
+        default:
+            // nothing to do
+            break;
+    }
+    
+    // dismiss invite short message compose view controller
+    [self.superview.viewControllerRef dismissModalViewControllerAnimated:YES];
 }
 
 // inner extension

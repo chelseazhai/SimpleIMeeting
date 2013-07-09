@@ -32,6 +32,8 @@
 "new talking group invite note copy button title" = "点击拷贝";
 "confirm schedule new talking group button title" = "确定";
 "cancel schedule new talking group button title" = "取消";
+"device not support sms alertView message" = "你的设备不能发送短信";
+"device not support sms alertView confirm button title" = "好";
 
 // my talking group list content view
 "contacts select left bar button item title" = "我的会议";
