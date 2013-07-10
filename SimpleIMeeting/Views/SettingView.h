@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingView : UIView {
+#import "UIContentAlertView.h"
+
+@interface SettingView : UIView <UITextFieldDelegate> {
     // is my account changed
     BOOL _mIsMyAccountChanged;
     
@@ -23,6 +25,9 @@
     
     // subview bind contact info group view
     UIButton *_mPhoneBindButton;
+    
+    // phone bind and binded account login alert view
+    UIContentAlertView *_mPhoneBind7BindedAccountLoginAlertView;
 }
 
 // check and clear my account is changed flag

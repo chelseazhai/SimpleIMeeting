@@ -73,6 +73,7 @@
                 // save manual login user name and password to local storage
                 [[NSUserDefaults standardUserDefaults] setObject:_mManualLoginUserName forKey:BINDEDACCOUNT_LOGINNAME];
                 [[NSUserDefaults standardUserDefaults] setObject:[_mManualLoginPwd md5] forKey:BINDEDACCOUNT_LOGINPWD];
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 
 				// generate manual login user and set password and bind contact info
 				UserBean *_manualLoginUser = [[UserBean alloc] init];

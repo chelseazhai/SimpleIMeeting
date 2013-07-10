@@ -659,6 +659,9 @@
         // set its frame
         [_copyNewTalkingGroupInviteNoteButton setFrame:CGRectMakeWithFormat(_copyNewTalkingGroupInviteNoteButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s-%d-%d", (int)_presentContentView.bounds.origin.x, FILL_PARENT_STRING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_SUBVIEW_PADDING, (int)NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_INVITENOTELABEL6COPYBUTTON_HEIGHT] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_presentContentView.bounds.origin.y + _presentContentViewTitleLabel.frame.size.height], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_INVITENOTELABEL6COPYBUTTON_HEIGHT], [NSNumber numberWithFloat:NEWTALKINGGROUPSTARTEDTIMESELECTPOPUPWINDOWPRESENTCONTENTVIEW_INVITENOTELABEL6COPYBUTTON_HEIGHT])];
         
+        // set its title label line break mode
+        _copyNewTalkingGroupInviteNoteButton.titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        
         // set its title for normal state
         [_copyNewTalkingGroupInviteNoteButton setTitle:NSLocalizedString(@"new talking group invite note copy button title", nil) forState:UIControlStateNormal];
         

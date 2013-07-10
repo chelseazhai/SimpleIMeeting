@@ -29,7 +29,7 @@
 "new talking group started time select popup window title label text" = "Select meeting started time";
 "new talking group invite note label text format string" = "please dial 0551-62379997 to join the telephone meeting at %@(meeting No: %@)";
 "new talking group started time select date picker date format string" = "yyyy-MM-dd HH:mm";
-"new talking group invite note copy button title" = "Click copy";
+"new talking group invite note copy button title" = "Click\ncopy";
 "confirm schedule new talking group button title" = "OK";
 "cancel schedule new talking group button title" = "Cancel";
 "device not support sms alertView message" = "Your device not supply for sms";
@@ -62,7 +62,21 @@
 "binded account logout button title" = "Logout";
 "bind contact info group tip" = "Bind contact info";
 "bind contact info description label text" = "Bind the following contacts info, you can synchronize, see and plan your meetings in any device, then it is better for you to using ZhiHui.";
+"phone bind alertview title" = "Phone bind";
+"phone bind alertview content view bind phone label text" = "Phone number:";
+"phone bind alertview content view verification code label text" = "Verification code:";
+"phone bind alertview content view get verification code button normal title" = "Get verification code";
+"phone bind alertview content view get verification code button disabled title format string" = "%d seconds later get again";
+"phone bind alertview content view password label text" = "Password:";
+"phone bind alertview content view confirm password label text" = "Confirm pwd:";
+"phone bind alertview content view cancel bind button title" = "Cancel";
+"phone bind alertview content view confirm bind button title" = "Bind";
 "binded account login button title" = "Bind contact info account login";
+"binded account login alertview title" = "Account login";
+"binded account login alertview content view name label text" = "User name:";
+"binded account login alertview content view password label text" = "Password:";
+"binded account login alertview content view cancel login button title" = "Cancel";
+"binded account login alertview content view confirm login button title" = "Login";
 
 // support view
 "support view title" = "Help";

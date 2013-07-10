@@ -68,6 +68,7 @@
                 // clear binded account login user name and password from local storage
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:BINDEDACCOUNT_LOGINNAME];
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:BINDEDACCOUNT_LOGINPWD];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
             
             // register and login with device id succeed completion

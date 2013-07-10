@@ -37,6 +37,12 @@
 // phonetics indication string
 #define PHONETICSINDIACATION_STRING  @"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
 
+// contact operate view
+@interface ContactOperateView : UIView
+
+@end
+
+
 @interface ContactListView ()
 
 // contact search user input text field text did changed
@@ -57,8 +63,45 @@
 @end
 
 
-// contact operate view
-@interface ContactOperateView : UIView
+@implementation ContactOperateView
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
+
+- (void)layoutSubviews{
+    // get the last subview button
+    UIButton *_lastSubviewButton = [[self subviews] objectAtIndex:[[self subviews] count] - 1];
+    
+    // compare its origin x and width size sum with contact operate view size width
+    if (_lastSubviewButton.frame.origin.x + _lastSubviewButton.frame.size.width + CONTACTOPERATEVIEW_MATGIN7PADDING != self.frame.size.width) {
+        // get the D-value
+        float _dValue = self.frame.size.width - (_lastSubviewButton.frame.origin.x + _lastSubviewButton.frame.size.width + CONTACTOPERATEVIEW_MATGIN7PADDING);
+        
+        // update subview button center
+        _lastSubviewButton.center = CGPointMake(_lastSubviewButton.center.x + _dValue, _lastSubviewButton.center.y);
+        
+        // get the other subview(the first) textField
+        UITextField *_firstSubviewTextField = [[self subviews] objectAtIndex:0];
+        
+        // update its frame
+        _firstSubviewTextField.frame = CGRectMake(_firstSubviewTextField.frame.origin.x, _firstSubviewTextField.frame.origin.y, _firstSubviewTextField.frame.size.width + _dValue, _firstSubviewTextField.frame.size.height);
+    }
+}
 
 @end
 
@@ -559,48 +602,6 @@
 - (void)selectedContactPhonesSelectActionSheet:(UIActionSheet *)pActionSheet clickedButtonAtIndex:(NSInteger)pButtonIndex{
     // add the selected contact with the selected phone number to in and prein talking group contact list table view prein talking group section
     [self addSelectedContact2PreinTalkingGroupSection:[_mPresentContactsInfoArrayRef objectAtIndex:_mSelectedABContactCellIndex.integerValue] andSelectedPhone:[pActionSheet buttonTitleAtIndex:pButtonIndex]];
-}
-
-@end
-
-
-@implementation ContactOperateView
-
-- (id)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
-
-- (void)layoutSubviews{
-    // get the last subview button
-    UIButton *_lastSubviewButton = [[self subviews] objectAtIndex:[[self subviews] count] - 1];
-    
-    // compare its origin x and width size sum with contact operate view size width
-    if (_lastSubviewButton.frame.origin.x + _lastSubviewButton.frame.size.width + CONTACTOPERATEVIEW_MATGIN7PADDING != self.frame.size.width) {
-        // get the D-value
-        float _dValue = self.frame.size.width - (_lastSubviewButton.frame.origin.x + _lastSubviewButton.frame.size.width + CONTACTOPERATEVIEW_MATGIN7PADDING);
-        
-        // update subview button center
-        _lastSubviewButton.center = CGPointMake(_lastSubviewButton.center.x + _dValue, _lastSubviewButton.center.y);
-        
-        // get the other subview(the first) textField
-        UITextField *_firstSubviewTextField = [[self subviews] objectAtIndex:0];
-        
-        // update its frame
-        _firstSubviewTextField.frame = CGRectMake(_firstSubviewTextField.frame.origin.x, _firstSubviewTextField.frame.origin.y, _firstSubviewTextField.frame.size.width + _dValue, _firstSubviewTextField.frame.size.height);
-    }
 }
 
 @end

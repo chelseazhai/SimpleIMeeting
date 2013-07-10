@@ -29,7 +29,7 @@
 "new talking group started time select popup window title label text" = "请选择会议开始时间";
 "new talking group invite note label text format string" = "请于 %@ 拨打0551-62379997参加电话会议(会议号：%@)";
 "new talking group started time select date picker date format string" = "yyyy年MM月dd日 HH:mm";
-"new talking group invite note copy button title" = "点击拷贝";
+"new talking group invite note copy button title" = "点击\n拷贝";
 "confirm schedule new talking group button title" = "确定";
 "cancel schedule new talking group button title" = "取消";
 "device not support sms alertView message" = "你的设备不能发送短信";
@@ -62,7 +62,21 @@
 "binded account logout button title" = "注销";
 "bind contact info group tip" = "绑定联系方式";
 "bind contact info description label text" = "绑定以下联系方式，可让您在任何设备上同步，查看和安排您的会议，以便更好的使用智会。";
+"phone bind alertview title" = "手机号码绑定";
+"phone bind alertview content view bind phone label text" = "手机号码：";
+"phone bind alertview content view verification code label text" = "验证码：";
+"phone bind alertview content view get verification code button normal title" = "获取验证码";
+"phone bind alertview content view get verification code button disabled title format string" = "%d秒后再获取";
+"phone bind alertview content view password label text" = "密码：";
+"phone bind alertview content view confirm password label text" = "确认密码：";
+"phone bind alertview content view cancel bind button title" = "取消";
+"phone bind alertview content view confirm bind button title" = "绑定";
 "binded account login button title" = "绑定过联系方式的用户登录";
+"binded account login alertview title" = "用户登录";
+"binded account login alertview content view name label text" = "用户名：";
+"binded account login alertview content view password label text" = "密码：";
+"binded account login alertview content view cancel login button title" = "取消";
+"binded account login alertview content view confirm login button title" = "登录";
 
 // support view
 "support view title" = "帮助";

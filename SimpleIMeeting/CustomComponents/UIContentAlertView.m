@@ -10,9 +10,39 @@
 
 #import <CommonToolkit/CommonToolkit.h>
 
-// content alert view title and message
+// content alert view title
 #define CONTENTALERTVIEW_TITLE  @"`1234 title ~!@#$"
-#define CONTENTALERTVIEW_MESSAGE    @"`1234567890-= *** this is content alert view message *** +_)(*&^%$#@!~"
+
+// content alert view margin top and bottom
+#define CONTENTALERTVIEW_MARGONTB   3.0
+
+@implementation UIContentAlertViewContentView
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
+
+- (void)layoutSubviews{
+    // resize all subviews
+    [self resizesSubviews];
+}
+
+@end
+
 
 @implementation UIContentAlertView
 
@@ -25,8 +55,8 @@
     return self;
 }
 
-- (id)initWithTitle:(NSString *)title contentView:(UIView *)contentView cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...{
-    self = [super initWithTitle:CONTENTALERTVIEW_TITLE message:CONTENTALERTVIEW_MESSAGE delegate:self cancelButtonTitle:cancelButtonTitle otherButtonTitles:otherButtonTitles, nil];
+- (id)initWithTitle:(NSString *)title contentView:(UIView *)contentView{
+    self = [super initWithTitle:CONTENTALERTVIEW_TITLE message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
     if (self) {
         // Initialization code
         // save title
@@ -52,22 +82,18 @@
 }
 */
 
+- (void)dismissAnimated:(BOOL)animated{
+    // dismiss content alert view with animation
+    [self dismissWithClickedButtonIndex:0 animated:animated];
+}
+
 // UIAlertViewDelegate
 - (void)willPresentAlertView:(UIAlertView *)alertView{
-//    // test by ares
-//    for (UIView *_subview in [self subviews]) {
-//        NSLog(@"_subview = %@", _subview);
-//        
-//        if ([_subview isMemberOfClass:[UILabel class]] && [((UILabel *)_subview).text isEqualToString:@"message"]) {
-//            NSLog(@"_subview = %@", _subview);
-//            
-//            _subview.frame = CGRectMake(_subview.frame.origin.x / 2, _subview.frame.origin.y, _subview.frame.size.width + _subview.frame.origin.x, _subview.frame.size.height + 100.0 + [self viewWithTag:1].frame.size.height + 16.0);
-//            
-//            _subview.backgroundColor = [UIColor blackColor];
-//        }
-//    }
-//    
-//    alertView.frame = CGRectMake(alertView.frame.origin.x, alertView.frame.origin.y - 50.0, alertView.frame.size.width, alertView.frame.size.height + 100.0);
+    // define content alert view title label
+    UILabel *_titleLabel;
+    
+    // define frame size height remain value(except title label)
+    CGFloat _remainHeight;
     
     // process all subviews of content alert view
     for (UIView *_subview in [self subviews]) {
@@ -77,35 +103,33 @@
             ((UIImageView *)_subview).image = nil;
             _subview.backgroundColor = [UIColor blackColor];
         }
-        // process title and message
-        else if ([_subview isMemberOfClass:[UILabel class]]) {
-            // process title
-            if ([CONTENTALERTVIEW_TITLE isEqualToString:((UILabel *)_subview).text]) {
-                NSLog(@"before title = %@", NSStringFromCGRect(_subview.frame));
-                
-                // update title frame
-                [_subview setFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + 3.0, _subview.frame.size.width + 2 * _subview.frame.origin.x, _subview.frame.size.height + _subview.frame.origin.y - 3.0)];
-                _subview.backgroundImg = [UIImage imageNamed:@"img_contentalertview_titlelabel_bg"];
-                
-                NSLog(@"after title = %@", NSStringFromCGRect(_subview.frame));
-                
-                // set content alert view real title
-                ((UILabel *)_subview).text = _mTitle;
-                
-                // test by ares
-                //_subview.backgroundColor = [UIColor redColor];
-            }
-            // process message
-            else if ([CONTENTALERTVIEW_MESSAGE isEqualToString:((UILabel *)_subview).text]) {
-                //
-                _subview.backgroundColor = [UIColor greenColor];
-            }
-        }
-        else {
-            NSLog(@"other subview = %@", _subview);
+        // process title
+        else if ([_subview isMemberOfClass:[UILabel class]] && [CONTENTALERTVIEW_TITLE isEqualToString:((UILabel *)_subview).text]) {
+            // update title frame
+            [_subview setFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + CONTENTALERTVIEW_MARGONTB, _subview.frame.size.width + 2 * _subview.frame.origin.x, _subview.frame.size.height + _subview.frame.origin.y - CONTENTALERTVIEW_MARGONTB)];
+            
+            // set title label background image
+            _subview.backgroundImg = [UIImage imageNamed:@"img_contentalertview_titlelabel_bg"];
+            
+            // set content alert view real title as text of title label
+            (_titleLabel = (UILabel *)_subview).text = _mTitle;
+            
+            // set remain height
+            _remainHeight = self.frame.size.height - _subview.frame.size.height - 2 * CONTENTALERTVIEW_MARGONTB;
         }
     }
     
+    // get content alert view increase height
+    CGFloat _increaseHeight = _mContentView.frame.size.height - _remainHeight;
+    
+    // update content view frame
+    [_mContentView setFrame:CGRectMake(self.bounds.origin.x, _titleLabel.frame.origin.y + _titleLabel.frame.size.height, self.frame.size.width, _mContentView.frame.size.height)];
+    
+    // add content view as subview of content alert view
+    [self addSubview:_mContentView];
+    
+    // update content alert view frame
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y - _increaseHeight / 2, self.frame.size.width, self.frame.size.height + _increaseHeight)];
 }
 
 @end
