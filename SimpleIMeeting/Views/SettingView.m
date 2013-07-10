@@ -109,6 +109,9 @@
 // content alert view content view confirm button origin x value
 #define CONTENTALERTVIEWCONTENTVIEWCONFIRMBUTTON_ORIGINXVALUE   [NSValue valueWithCString:[[NSString stringWithFormat:@"%s-%d-%@", FILL_PARENT_STRING, (int)CONTENTALERTVIEWCONTENTVIEW_MARGIN, CONTENTALERTVIEWCONTENTVIEWCANCEL7CONFIRMBUTTON_WIDTHVALUE.stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]
 
+// phone bind and binded account login alert view toast
+#define ALERTVIEWTOASTMAKER(toast) [[iToast makeText:toast] setGravity:iToastGravityBottom]
+
 @interface SettingView ()
 
 // update my account and contacts info bind group UI
@@ -123,11 +126,17 @@
 // get phone bind verification code
 - (void)getPhoneBindVerificationCode;
 
+// get phone bind verification code http request did finished selector
+- (void)getPhoneBindVerificationCodeHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
+
 // phone bind or binded account login canceled
 - (void)phoneBind6bindedAccountLoginCanceled;
 
 // phone bind confirm bind
-- (void)phoneBind;
+- (void)registerUser;
+
+// user register http request did finished selector
+- (void)userRegisterHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
 
 // binded account login button on clicked
 - (void)bindedAccountLoginButtonOnClicked;
@@ -292,9 +301,43 @@
     return _isMyAccountChanged;
 }
 
+// IHttpReqRespProtocol
+- (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send http request succeed - request url = %@", pRequest.url);
+    
+    // hide asynchronous http request progress view
+    [_mPhoneBind7BindedAccountLoginAlertView.window hideMBProgressHUD];
+    
+    // check the request url string
+    if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"retrieve phone bind authentication code url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
+        // get phone bind verification code http request
+        [self getPhoneBindVerificationCodeHttpRequestDidFinished:pRequest];
+    }
+    else if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"user register url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
+        // user register http request
+        [self userRegisterHttpRequestDidFinished:pRequest];
+    }
+    else {
+        NSLog(@"Warning: the request not recognized");
+    }
+}
+
+- (void)httpRequestDidFailed:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send http request failed - request url = %@", pRequest.url);
+    
+    // hide asynchronous http request progress view
+    [_mPhoneBind7BindedAccountLoginAlertView.window hideMBProgressHUD];
+    
+    // show toast
+    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil))  show:iToastTypeError];
+}
+
 // UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     NSLog(@"textField = %@ - textFieldDidBeginEditing", textField);
+    
+    // save last editing text field
+    _mLastEditingTextField = textField;
     
     //
     [UIView beginAnimations:nil context:NULL];
@@ -303,7 +346,7 @@
     
     // test by ares
     NSLog(@"%@ -- %@", NSStringFromCGRect(_mPhoneBind7BindedAccountLoginAlertView.frame), NSStringFromCGRect(textField.frame));
-    textField.text = @"123456789";
+    textField.text = @"18001582338";
     
     //
 }
@@ -311,7 +354,11 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"textField = %@ - textFieldDidEndEditing", textField);
     
-    //
+    // dismiss soft input keyboard
+    [textField resignFirstResponder];
+    
+    // clear last editing text field
+    _mLastEditingTextField = nil;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -431,14 +478,11 @@
     // set its attributes
     SetContentAlertViewLabelAttributes(_phoneNumberLabel, NSLocalizedString(@"phone bind alertview content view bind phone label text", nil));
     
-    // define phone bind alert view content view subview phone number text field
-    UITextField *_phoneNumberTextField;
-    
     // init phone bind alert view content view subview phone number text field
-    _phoneNumberTextField = [_phoneNumberTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_phoneNumberTextField, [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
+    _mPhoneBindPhoneNumberTextField = [_mPhoneBindPhoneNumberTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mPhoneBindPhoneNumberTextField, [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
     
     // set its attributes
-    SetContentAlertViewTextFieldAttributes(_phoneNumberTextField, UIKeyboardTypePhonePad, @"");
+    SetContentAlertViewTextFieldAttributes(_mPhoneBindPhoneNumberTextField, UIKeyboardTypePhonePad, @"");
     
     // init phone bind alert view content view subview verification code label
     UILabel *_verificationCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN, _phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT, CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH, CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT)];
@@ -446,26 +490,23 @@
     // set its attributes
     SetContentAlertViewLabelAttributes(_verificationCodeLabel, NSLocalizedString(@"phone bind alertview content view verification code label text", nil));
     
-    // define phone bind alert view content view subview verification code text field
-    UITextField *_verificationCodeTextField;
-    
     // init phone bind alert view content view subview verification code text field
-    _verificationCodeTextField = [_verificationCodeTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_verificationCodeTextField, [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%@-(%d+%d/2)", _textFieldWidthValue.stringValue, (int)PHONEBINDCONTENTALERTVIEWGETVERIFICATIONCODEBUTTON_WIDTH, (int)CONTENTALERTVIEWCONTENTVIEW_PADDING] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
+    _mPhoneBindVerificationCodeTextField = [_mPhoneBindVerificationCodeTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mPhoneBindVerificationCodeTextField, [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT], [NSValue valueWithCString:[[NSString stringWithFormat:@"%@-(%d+%d/2)", _textFieldWidthValue.stringValue, (int)PHONEBINDCONTENTALERTVIEWGETVERIFICATIONCODEBUTTON_WIDTH, (int)CONTENTALERTVIEWCONTENTVIEW_PADDING] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
     
     // set its attributes
-    SetContentAlertViewTextFieldAttributes(_verificationCodeTextField, UIKeyboardTypeNumberPad, @"");
+    SetContentAlertViewTextFieldAttributes(_mPhoneBindVerificationCodeTextField, UIKeyboardTypeNumberPad, @"");
     
     // init phone bind alert view content view subview get verification code button
-    UIButton *_getVerificationCodeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _mPhoneBindGetVerificationCodeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     
     // set its frame
-    [_getVerificationCodeButton setFrame:CGRectMakeWithFormat(_getVerificationCodeButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s-%d-%d", (int)_phoneBindAlertViewContentView.bounds.origin.x, FILL_PARENT_STRING, (int)CONTENTALERTVIEWCONTENTVIEW_MARGIN, (int)PHONEBINDCONTENTALERTVIEWGETVERIFICATIONCODEBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT], [NSNumber numberWithFloat:PHONEBINDCONTENTALERTVIEWGETVERIFICATIONCODEBUTTON_WIDTH], [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
+    [_mPhoneBindGetVerificationCodeButton setFrame:CGRectMakeWithFormat(_mPhoneBindGetVerificationCodeButton, [NSValue valueWithCString:[[NSString stringWithFormat:@"%d+%s-%d-%d", (int)_phoneBindAlertViewContentView.bounds.origin.x, FILL_PARENT_STRING, (int)CONTENTALERTVIEWCONTENTVIEW_MARGIN, (int)PHONEBINDCONTENTALERTVIEWGETVERIFICATIONCODEBUTTON_WIDTH] cStringUsingEncoding:NSUTF8StringEncoding]], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT], [NSNumber numberWithFloat:PHONEBINDCONTENTALERTVIEWGETVERIFICATIONCODEBUTTON_WIDTH], [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
     
     // set its title for normal state
-    [_getVerificationCodeButton setTitle:NSLocalizedString(@"phone bind alertview content view get verification code button normal title", nil) forState:UIControlStateNormal];
+    [_mPhoneBindGetVerificationCodeButton setTitle:NSLocalizedString(@"phone bind alertview content view get verification code button normal title", nil) forState:UIControlStateNormal];
     
     // add action selector and its response target for event
-    [_getVerificationCodeButton addTarget:self action:@selector(getPhoneBindVerificationCode) forControlEvents:UIControlEventTouchUpInside];
+    [_mPhoneBindGetVerificationCodeButton addTarget:self action:@selector(getPhoneBindVerificationCode) forControlEvents:UIControlEventTouchUpInside];
     
     // init phone bind alert view content view subview password label
     UILabel *_passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN, _phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + 2 * (CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT), CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH, CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT)];
@@ -473,17 +514,14 @@
     // set its attributes
     SetContentAlertViewLabelAttributes(_passwordLabel, NSLocalizedString(@"phone bind alertview content view password label text", nil));
     
-    // define phone bind alert view content view subview password text field
-    UITextField *_passwordTextField;
-    
     // init phone bind alert view content view subview password text field
-    _passwordTextField = [_passwordTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_passwordTextField, [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + 2 * (CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT)], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
+    _mPhoneBindPasswordTextField = [_mPhoneBindPasswordTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mPhoneBindPasswordTextField, [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + 2 * (CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT)], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
     
     // set its attributes
-    SetContentAlertViewTextFieldAttributes(_passwordTextField, UIKeyboardTypeASCIICapable, @"");
+    SetContentAlertViewTextFieldAttributes(_mPhoneBindPasswordTextField, UIKeyboardTypeASCIICapable, @"");
     
     // set using secure text
-    _passwordTextField.secureTextEntry = YES;
+    _mPhoneBindPasswordTextField.secureTextEntry = YES;
     
     // init phone bind alert view content view subview confirm password label
     UILabel *_confirmPwdLabel = [[UILabel alloc] initWithFrame:CGRectMake(_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN, _phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + 3 * (CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT), CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH, CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT)];
@@ -491,17 +529,14 @@
     // set its attributes
     SetContentAlertViewLabelAttributes(_confirmPwdLabel, NSLocalizedString(@"phone bind alertview content view confirm password label text", nil));
     
-    // define phone bind alert view content view subview confirm password text field
-    UITextField *_confirmPwdTextField;
-    
     // init phone bind alert view content view subview confirm password text field
-    _confirmPwdTextField = [_confirmPwdTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_confirmPwdTextField, [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + 3 * (CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT)], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
+    _mPhoneBindConfirmPwdTextField = [_mPhoneBindConfirmPwdTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mPhoneBindConfirmPwdTextField, [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_phoneBindAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + 3 * (CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT)], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
     
     // set its attributes
-    SetContentAlertViewTextFieldAttributes(_confirmPwdTextField, UIKeyboardTypeASCIICapable, @"");
+    SetContentAlertViewTextFieldAttributes(_mPhoneBindConfirmPwdTextField, UIKeyboardTypeASCIICapable, @"");
     
     // set using secure text
-    _confirmPwdTextField.secureTextEntry = YES;
+    _mPhoneBindConfirmPwdTextField.secureTextEntry = YES;
     
     // init phone bind alert view content view subview cancel bind button
     UIButton *_cancelBindButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -525,18 +560,18 @@
     [_confirmBindButton setTitle:NSLocalizedString(@"phone bind alertview content view confirm bind button title", nil) forState:UIControlStateNormal];
     
     // add action selector and its response target for event
-    [_confirmBindButton addTarget:self action:@selector(phoneBind) forControlEvents:UIControlEventTouchUpInside];
+    [_confirmBindButton addTarget:self action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
     
     // add phone bind phone number, verification code, password, confirm password label, text field, get verification code, cancel and confirm bind button as subviews of phone bind alert view content view
     [_phoneBindAlertViewContentView addSubview:_phoneNumberLabel];
-    [_phoneBindAlertViewContentView addSubview:_phoneNumberTextField];
+    [_phoneBindAlertViewContentView addSubview:_mPhoneBindPhoneNumberTextField];
     [_phoneBindAlertViewContentView addSubview:_verificationCodeLabel];
-    [_phoneBindAlertViewContentView addSubview:_verificationCodeTextField];
-    [_phoneBindAlertViewContentView addSubview:_getVerificationCodeButton];
+    [_phoneBindAlertViewContentView addSubview:_mPhoneBindVerificationCodeTextField];
+    [_phoneBindAlertViewContentView addSubview:_mPhoneBindGetVerificationCodeButton];
     [_phoneBindAlertViewContentView addSubview:_passwordLabel];
-    [_phoneBindAlertViewContentView addSubview:_passwordTextField];
+    [_phoneBindAlertViewContentView addSubview:_mPhoneBindPasswordTextField];
     [_phoneBindAlertViewContentView addSubview:_confirmPwdLabel];
-    [_phoneBindAlertViewContentView addSubview:_confirmPwdTextField];
+    [_phoneBindAlertViewContentView addSubview:_mPhoneBindConfirmPwdTextField];
     [_phoneBindAlertViewContentView addSubview:_cancelBindButton];
     [_phoneBindAlertViewContentView addSubview:_confirmBindButton];
     
@@ -551,9 +586,94 @@
 }
 
 - (void)getPhoneBindVerificationCode{
-    NSLog(@"get phone bind verification code");
+    // force make last editing text field end editing
+    [_mLastEditingTextField endEditing:YES];
     
-    //
+    // get and check phone bind phone number
+    NSString *_phoneBindPhoneNumber = _mPhoneBindPhoneNumberTextField.text;
+    if (nil == _phoneBindPhoneNumber || [@"" isEqualToString:_phoneBindPhoneNumber]) {
+        NSLog(@"Warning: phone bind phone number is nil, phone number = %@", _phoneBindPhoneNumber);
+        
+        // show toast
+        [ALERTVIEWTOASTMAKER(NSToastLocalizedString(@"toast phone bind phone number is null", nil)) show:iToastTypeWarning];
+    }
+    else {
+        // show asynchronous http request progress view
+        [_mPhoneBind7BindedAccountLoginAlertView.window showMBProgressHUD];
+        
+        // get phone bind verification code
+        // generate get phone bind verification code param map
+        NSMutableDictionary *_getPhoneBindVerificationCodeParamMap = [[NSMutableDictionary alloc] init];
+        
+        // set some params
+        [_getPhoneBindVerificationCodeParamMap setObject:_phoneBindPhoneNumber forKey:NSRBGServerFieldString(@"remote background server http request get phone bind verification code or user register phone number", nil)];
+        
+        // post the http request
+        [HttpUtils postRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"retrieve phone bind authentication code url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_getPhoneBindVerificationCodeParamMap andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+    }
+}
+
+- (void)getPhoneBindVerificationCodeHttpRequestDidFinished:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send get phone bind verification code http request succeed - request url = %@, response status code = %d and data string = %@", pRequest.url, [pRequest responseStatusCode], pRequest.responseString);
+    
+    // check status code
+    if (200 == [pRequest responseStatusCode]) {
+        // get response data json format
+        NSDictionary *_respDataJSONFormat = [pRequest.responseString objectFromJSONString];
+        
+        // get and check response data result
+        NSString *_respDataResult = nil != _respDataJSONFormat ? [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request response result", nil)] : nil;
+        if (nil != _respDataResult) {
+            // check response data result again
+            switch (_respDataResult.intValue) {
+                case 0:
+                    // test by ares
+                    // update get verification code button title and set it disabled
+                    [_mPhoneBindGetVerificationCodeButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"phone bind alertview content view get verification code button disabled title format string", nil), 59] forState:UIControlStateDisabled];
+                    
+                    _mPhoneBindGetVerificationCodeButton.enabled = NO;
+                    break;
+                    
+                case 1:
+                    NSLog(@"Error: get phone bined verification code failed, the being binded phone number = %@ is empty", _mPhoneBindPhoneNumberTextField.text);
+                    
+                    // show toast
+                    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast phone bind phone number is null", nil)) show:iToastTypeError];
+                    break;
+                    
+                case 2:
+                    NSLog(@"Error: get phone bined verification code failed, the being binded phone number = %@ is invalid", _mPhoneBindPhoneNumberTextField.text);
+                    
+                    // show toast
+                    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast phone bind phone number is invalid", nil)) show:iToastTypeError];
+                    break;
+                    
+                case 3:
+                    NSLog(@"Error: get phone bind verification code failed, the being bined phone number = %@ has been binded with other device", _mPhoneBindPhoneNumberTextField.text);
+                    
+                    // show toast
+                    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast phone bind phone number has be binded with other device", nil)) show:iToastTypeError];
+                    break;
+                    
+                default:
+                    NSLog(@"Warning: the response result not recognized");
+                    
+                    // show toast
+                    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil))  show:iToastTypeError];
+                    break;
+            }
+        }
+        else {
+            NSLog(@"Warning: the response result not recognized");
+            
+            // show toast
+            [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil))  show:iToastTypeError];
+        }
+    }
+    else {
+        // show toast
+        [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil))  show:iToastTypeError];
+    }
 }
 
 - (void)phoneBind6bindedAccountLoginCanceled{
@@ -561,10 +681,163 @@
     [_mPhoneBind7BindedAccountLoginAlertView dismissAnimated:YES];
 }
 
-- (void)phoneBind{
-    NSLog(@"phone bind");
+- (void)registerUser{
+    // force make last editing text field end editing
+    [_mLastEditingTextField endEditing:YES];
     
-    //
+    // get phone bind phone number, verification code, password and confirm password
+    NSString *_phoneBindPhoneNumber = _mPhoneBindPhoneNumberTextField.text;
+    NSString *_phoneBindVerificationCode = _mPhoneBindVerificationCodeTextField.text;
+    NSString *_phoneBindPassword = _mPhoneBindPasswordTextField.text;
+    NSString *_phoneBindConfirmPwd = _mPhoneBindConfirmPwdTextField.text;
+    
+    // check phone bind phone number, verification code, password and confirm password
+    if (nil == _phoneBindPhoneNumber || [@"" isEqualToString:_phoneBindPhoneNumber]) {
+        NSLog(@"Warning: phone bind phone number is nil, phone number = %@", _phoneBindPhoneNumber);
+        
+        // show toast
+        [ALERTVIEWTOASTMAKER(NSToastLocalizedString(@"toast phone bind phone number is null", nil)) show:iToastTypeWarning];
+    }
+    else if (nil == _phoneBindVerificationCode || [@"" isEqualToString:_phoneBindVerificationCode]) {
+        NSLog(@"Warning: phone bind verification code is nil, verification code = %@", _phoneBindVerificationCode);
+        
+        // show toast
+        [ALERTVIEWTOASTMAKER(NSToastLocalizedString(@"toast phone bind verification code is null", nil)) show:iToastTypeWarning];
+    }
+    else if (nil == _phoneBindPassword || [@"" isEqualToString:_phoneBindPassword]) {
+        NSLog(@"Warning: phone bind password is nil, password = %@", _phoneBindPassword);
+        
+        // show toast
+        [ALERTVIEWTOASTMAKER(NSToastLocalizedString(@"toast phone bind password is null", nil)) show:iToastTypeWarning];
+    }
+    else if (nil == _phoneBindConfirmPwd || [@"" isEqualToString:_phoneBindConfirmPwd]) {
+        NSLog(@"Warning: phone bind confirm password is nil, confirm password = %@", _phoneBindConfirmPwd);
+        
+        // show toast
+        [ALERTVIEWTOASTMAKER(NSToastLocalizedString(@"toast phone bind confirm password is null", nil)) show:iToastTypeWarning];
+    }
+    else if (![_phoneBindPassword isEqualToString:_phoneBindConfirmPwd]) {
+        NSLog(@"Warning: phone bind password not matched with confirm password, password = %@ and confirm password = %@", _phoneBindPassword, _phoneBindConfirmPwd);
+        
+        // show toast
+        [ALERTVIEWTOASTMAKER(NSToastLocalizedString(@"toast phone bind password not matched with confirm password", nil)) show:iToastTypeWarning];
+    }
+    else {
+        // phone bind confirm, register user
+        // generate user register param map
+        NSMutableDictionary *_userRegisterParamMap = [[NSMutableDictionary alloc] init];
+        
+        // set some params
+        [_userRegisterParamMap setObject:_phoneBindPhoneNumber forKey:NSRBGServerFieldString(@"remote background server http request get phone bind verification code or user register phone number", nil)];
+        [_userRegisterParamMap setObject:_phoneBindVerificationCode forKey:NSRBGServerFieldString(@"remote background server http request user register verification code", nil)];
+        [_userRegisterParamMap setObject:_phoneBindPassword forKey:NSRBGServerFieldString(@"remote background server http request user register password", nil)];
+        [_userRegisterParamMap setObject:_phoneBindConfirmPwd forKey:NSRBGServerFieldString(@"remote background server http request user register confirm password", nil)];
+        [_userRegisterParamMap setObject:[[UIDevice currentDevice] combinedUniqueId] forKey:NSRBGServerFieldString(@"remote background server http request register and login with device id or contact info bind device id", nil)];
+        
+        // post the http request
+        [HttpUtils postRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"user register url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_userRegisterParamMap andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+    }
+}
+
+- (void)userRegisterHttpRequestDidFinished:(ASIHTTPRequest *)pRequest{
+    NSLog(@"send user register http request succeed - request url = %@, response status code = %d and data string = %@", pRequest.url, [pRequest responseStatusCode], pRequest.responseString);
+    
+    // check status code
+    if (200 == [pRequest responseStatusCode]) {
+        // get response data json format
+        NSDictionary *_respDataJSONFormat = [pRequest.responseString objectFromJSONString];
+        
+        // get and check response data result
+        NSString *_respDataResult = nil != _respDataJSONFormat ? [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request response result", nil)] : nil;
+        if (nil != _respDataResult) {
+            // check response data result again
+            switch (_respDataResult.intValue) {
+                case 0:
+                    {
+                        // get binded phone number and register user login password
+                        NSString *_bindedPhone = _mPhoneBindPhoneNumberTextField.text;
+                        NSString *_registerUserLoginPwd = _mPhoneBindPasswordTextField.text;
+                        
+                        // dismiss phone bind alert view
+                        [_mPhoneBind7BindedAccountLoginAlertView dismissAnimated:YES];
+                        
+                        // add binded phone number and register user login password to local storage
+                        [[NSUserDefaults standardUserDefaults] setObject:_bindedPhone forKey:BINDEDACCOUNT_LOGINNAME];
+                        [[NSUserDefaults standardUserDefaults] setObject:_registerUserLoginPwd forKey:BINDEDACCOUNT_LOGINPWD];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                        
+                        // get user register response response userId, userKey and bindStatus
+                        NSString *_userRegisterRespUserId = [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request login or contact info bind response user id", nil)];
+                        NSString *_userRegisterRespUserKey = [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request login or contact info bind response user key", nil)];
+                        NSString *_userRegisterRespBindStatus = [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request login or register and login with device id or phone bind response bind status", nil)];
+                        
+                        NSLog(@"user register successful, response user id = %@, user key = %@ and bind status = %@", _userRegisterRespUserId, _userRegisterRespUserKey, _userRegisterRespBindStatus);
+                        
+                        // generate new register user bean and set other attributes
+                        UserBean *_newRegisterUser = [[UserBean alloc] init];
+                        _newRegisterUser.name = _userRegisterRespUserId;
+                        _newRegisterUser.password = _registerUserLoginPwd;
+                        _newRegisterUser.userKey = _userRegisterRespUserKey;
+                        
+                        _newRegisterUser.bindContactInfo = _bindedPhone;
+                        _newRegisterUser.contactsInfoTypeBeBinded = _userRegisterRespBindStatus;
+                        
+                        // add it to user manager
+                        [[UserManager shareUserManager] setUserBean:_newRegisterUser];
+                        
+                        // phone bind succeed, update my account and contacts info bind group UI
+                        [self updateMyAccount7ContactsInfoBindGroupUI];
+                    }
+                    break;
+                    
+                case 1:
+                    NSLog(@"Error: user register failed, the verification code = %@ is empty", _mPhoneBindVerificationCodeTextField.text);
+                    
+                    // show toast
+                    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast phone bind verification code is null", nil)) show:iToastTypeError];
+                    break;
+                    
+                case 2:
+                    NSLog(@"Error: user register failed, the verification code = %@ is wrong", _mPhoneBindVerificationCodeTextField.text);
+                    
+                    // show toast
+                    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast phone bind verification code wrong", nil)) show:iToastTypeError];
+                    break;
+                    
+                case 5:
+                    NSLog(@"Error: user register failed, the user register password = %@ not matched with confirm password = %@", _mPhoneBindPasswordTextField.text, _mPhoneBindConfirmPwdTextField.text);
+                    
+                    // show toast
+                    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast phone bind password not matched with confirm password", nil)) show:iToastTypeError];
+                    break;
+                    
+                case 6:
+                case 7:
+                    NSLog(@"Error: user register failed, the verification code = %@ is timeout", _mPhoneBindVerificationCodeTextField.text);
+                    
+                    // show toast
+                    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast phone bind verification code timeout", nil)) show:iToastTypeError];
+                    break;
+                
+                default:
+                    NSLog(@"Warning: the response result not recognized");
+                    
+                    // show toast
+                    [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil))  show:iToastTypeError];
+                    break;
+            }
+        }
+        else {
+            NSLog(@"Warning: the response result not recognized");
+            
+            // show toast
+            [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil))  show:iToastTypeError];
+        }
+    }
+    else {
+        // show toast
+        [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil))  show:iToastTypeError];
+    }
 }
 
 - (void)bindedAccountLoginButtonOnClicked{
@@ -583,14 +856,11 @@
     // set its attributes
     SetContentAlertViewLabelAttributes(_loginNameLabel, NSLocalizedString(@"binded account login alertview content view name label text", nil));
     
-    // define binded account login alert view content view subview login name text field
-    UITextField *_loginNameTextField;
-    
     // init binded account login alert view content view subview login name text field
-    _loginNameTextField = [_loginNameTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_loginNameTextField, [NSNumber numberWithFloat:_bindedAccountLoginAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_bindedAccountLoginAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
+    _mBindedAccountLoginNameTextField = [_mBindedAccountLoginNameTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mBindedAccountLoginNameTextField, [NSNumber numberWithFloat:_bindedAccountLoginAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_bindedAccountLoginAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
     
     // set its attributes
-    SetContentAlertViewTextFieldAttributes(_loginNameTextField, UIKeyboardTypeASCIICapable, @"");
+    SetContentAlertViewTextFieldAttributes(_mBindedAccountLoginNameTextField, UIKeyboardTypeASCIICapable, @"");
     
     // init binded account login alert view content view subview login password label
     UILabel *_loginPwdLabel = [[UILabel alloc] initWithFrame:CGRectMake(_bindedAccountLoginAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN, _bindedAccountLoginAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT, CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH, CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT)];
@@ -598,17 +868,14 @@
     // set its attributes
     SetContentAlertViewLabelAttributes(_loginPwdLabel, NSLocalizedString(@"binded account login alertview content view password label text", nil));
     
-    // define binded account login alert view content view subview login password text field
-    UITextField *_loginPwdTextField;
-    
     // init binded account login alert view content view subview login password text field
-    _loginPwdTextField = [_loginPwdTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_loginPwdTextField, [NSNumber numberWithFloat:_bindedAccountLoginAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_bindedAccountLoginAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
+    _mBindedAccountLoginPasswordTextField = [_mBindedAccountLoginPasswordTextField = [UITextField alloc] initWithFrame:CGRectMakeWithFormat(_mBindedAccountLoginPasswordTextField, [NSNumber numberWithFloat:_bindedAccountLoginAlertViewContentView.bounds.origin.x + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEWTIPLABEL_WIDTH], [NSNumber numberWithFloat:_bindedAccountLoginAlertViewContentView.bounds.origin.y + CONTENTALERTVIEWCONTENTVIEW_MARGIN + CONTENTALERTVIEWCONTENTVIEW_PADDING + CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT], _textFieldWidthValue, [NSNumber numberWithFloat:CONTENTALERTVIEWCONTENTVIEWTIPLABEL7TEXTFIELD_HEIGHT])];
     
     // set its attributes
-    SetContentAlertViewTextFieldAttributes(_loginPwdTextField, UIKeyboardTypeASCIICapable, @"");
+    SetContentAlertViewTextFieldAttributes(_mBindedAccountLoginPasswordTextField, UIKeyboardTypeASCIICapable, @"");
     
     // set using secure text
-    _loginPwdTextField.secureTextEntry = YES;
+    _mBindedAccountLoginPasswordTextField.secureTextEntry = YES;
     
     // init binded account login alert view content view subview cancel login button
     UIButton *_cancelLoginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -636,9 +903,9 @@
     
     // add binded account login name, password label, text field, cancel and confirm login button as subviews of binded account login alert view content view
     [_bindedAccountLoginAlertViewContentView addSubview:_loginNameLabel];
-    [_bindedAccountLoginAlertViewContentView addSubview:_loginNameTextField];
+    [_bindedAccountLoginAlertViewContentView addSubview:_mBindedAccountLoginNameTextField];
     [_bindedAccountLoginAlertViewContentView addSubview:_loginPwdLabel];
-    [_bindedAccountLoginAlertViewContentView addSubview:_loginPwdTextField];
+    [_bindedAccountLoginAlertViewContentView addSubview:_mBindedAccountLoginPasswordTextField];
     [_bindedAccountLoginAlertViewContentView addSubview:_cancelLoginButton];
     [_bindedAccountLoginAlertViewContentView addSubview:_confirmLoginButton];
     
@@ -653,48 +920,66 @@
 }
 
 - (void)bindedAccountLogin{
-    // test by ares
-    NSString *_manualLoginName = @"18001582338";
-    NSString *_manualLoginPwd = @"123";
+    // force make last editing text field end editing
+    [_mLastEditingTextField endEditing:YES];
     
-    // show asynchronous http request progress view
-    [_mPhoneBind7BindedAccountLoginAlertView.window showMBProgressHUD];
+    // get binded account login name and password
+    NSString *_bindedAccountLoginName = _mBindedAccountLoginNameTextField.text;
+    NSString *_bindedAccountLoginPwd = _mBindedAccountLoginPasswordTextField.text;
     
-    // binded account user login
-    // generate binded account login param map
-    NSMutableDictionary *_bindedAccountLoginParamMap = [[NSMutableDictionary alloc] init];
-    
-    // set some params
-    [_bindedAccountLoginParamMap setObject:_manualLoginName forKey:NSRBGServerFieldString(@"remote background server http request binded account login name", nil)];
-    [_bindedAccountLoginParamMap setObject:[_manualLoginPwd md5] forKey:NSRBGServerFieldString(@"remote background server http request binded account login password", nil)];
-    [_bindedAccountLoginParamMap addEntriesFromDictionary:REQUESTPARAMWITHDEVICEINFOIDC];
-    
-    // define binded account login http request processor
-    BindedAccountLoginHttpRequestProcessor *_bindedAccountLoginHttpRequestProcessor = [[BindedAccountLoginHttpRequestProcessor alloc] init];
-    
-    // set binded account login http request processor login type, login name, password and completion
-    [_bindedAccountLoginHttpRequestProcessor setLoginType:BINDEDACCOUNT_MANUALLOGIN];
-    [_bindedAccountLoginHttpRequestProcessor setManualLoginUserName:_manualLoginName password:_manualLoginPwd];
-    [_bindedAccountLoginHttpRequestProcessor setLoginCompletion:^(NSInteger result) {
-        // check binded account login request response result
-        if (0 == result) {
-            // dismiss binded account login alert view
-            [_mPhoneBind7BindedAccountLoginAlertView dismissAnimated:YES];
-            
-            // my account is changed
-            _mIsMyAccountChanged = YES;
-            
-            // binded account login succeed, update my account and contacts info bind group UI
-            [self updateMyAccount7ContactsInfoBindGroupUI];
-        }
-        else {
-            // hide asynchronous http request progress view
-            [_mPhoneBind7BindedAccountLoginAlertView.window hideMBProgressHUD];
-        }
-    }];
-    
-    // post binded account login http request
-    [HttpUtils postRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"binded account login url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_bindedAccountLoginParamMap andUserInfo:nil andRequestType:synchronous andProcessor:_bindedAccountLoginHttpRequestProcessor andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+    // check binded account login name and password
+    if (nil == _bindedAccountLoginName || [@"" isEqualToString:_bindedAccountLoginName]) {
+        NSLog(@"Warning: binded account login name is nil, login name = %@", _bindedAccountLoginName);
+        
+        // show toast
+        [ALERTVIEWTOASTMAKER(NSToastLocalizedString(@"toast binded account login user name is null", nil)) show:iToastTypeWarning];
+    }
+    else if (nil == _bindedAccountLoginPwd || [@"" isEqualToString:_bindedAccountLoginPwd]) {
+        NSLog(@"Warning: binded account login password is nil, login password = %@", _bindedAccountLoginPwd);
+        
+        // show toast
+        [ALERTVIEWTOASTMAKER(NSToastLocalizedString(@"toast binded account login password is null", nil)) show:iToastTypeWarning];
+    }
+    else {
+        // show asynchronous http request progress view
+        [_mPhoneBind7BindedAccountLoginAlertView.window showMBProgressHUD];
+        
+        // binded account user login
+        // generate binded account login param map
+        NSMutableDictionary *_bindedAccountLoginParamMap = [[NSMutableDictionary alloc] init];
+        
+        // set some params
+        [_bindedAccountLoginParamMap setObject:_bindedAccountLoginName forKey:NSRBGServerFieldString(@"remote background server http request binded account login name", nil)];
+        [_bindedAccountLoginParamMap setObject:[_bindedAccountLoginPwd md5] forKey:NSRBGServerFieldString(@"remote background server http request binded account login password", nil)];
+        [_bindedAccountLoginParamMap addEntriesFromDictionary:REQUESTPARAMWITHDEVICEINFOIDC];
+        
+        // define binded account login http request processor
+        BindedAccountLoginHttpRequestProcessor *_bindedAccountLoginHttpRequestProcessor = [[BindedAccountLoginHttpRequestProcessor alloc] init];
+        
+        // set binded account login http request processor login type, login name, password and completion
+        [_bindedAccountLoginHttpRequestProcessor setLoginType:BINDEDACCOUNT_MANUALLOGIN];
+        [_bindedAccountLoginHttpRequestProcessor setManualLoginUserName:_bindedAccountLoginName password:_bindedAccountLoginPwd];
+        [_bindedAccountLoginHttpRequestProcessor setLoginCompletion:^(NSInteger result) {
+            // check binded account login request response result
+            if (0 == result) {
+                // dismiss binded account login alert view
+                [_mPhoneBind7BindedAccountLoginAlertView dismissAnimated:YES];
+                
+                // my account is changed
+                _mIsMyAccountChanged = YES;
+                
+                // binded account login succeed, update my account and contacts info bind group UI
+                [self updateMyAccount7ContactsInfoBindGroupUI];
+            }
+            else {
+                // hide asynchronous http request progress view
+                [_mPhoneBind7BindedAccountLoginAlertView.window hideMBProgressHUD];
+            }
+        }];
+        
+        // post binded account login http request
+        [HttpUtils postRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"binded account login url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_bindedAccountLoginParamMap andUserInfo:nil andRequestType:synchronous andProcessor:_bindedAccountLoginHttpRequestProcessor andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+    }
 }
 
 @end

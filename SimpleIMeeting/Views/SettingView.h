@@ -10,7 +10,9 @@
 
 #import "UIContentAlertView.h"
 
-@interface SettingView : UIView <UITextFieldDelegate> {
+#import "IHttpReqRespProtocol.h"
+
+@interface SettingView : UIView <IHttpReqRespProtocol, UITextFieldDelegate> {
     // is my account changed
     BOOL _mIsMyAccountChanged;
     
@@ -28,6 +30,27 @@
     
     // phone bind and binded account login alert view
     UIContentAlertView *_mPhoneBind7BindedAccountLoginAlertView;
+    
+    // last editing text field
+    UITextField *_mLastEditingTextField;
+    
+    // phone bind alert view content view
+    // phone bind phone number text field
+    UITextField *_mPhoneBindPhoneNumberTextField;
+    // phone bind verification code text field
+    UITextField *_mPhoneBindVerificationCodeTextField;
+    // phone bind get verification code button
+    UIButton *_mPhoneBindGetVerificationCodeButton;
+    // phone bind password text field
+    UITextField *_mPhoneBindPasswordTextField;
+    // phone bind confirm password text field
+    UITextField *_mPhoneBindConfirmPwdTextField;
+    
+    // binded account login alert view content view
+    // binded account login name text field
+    UITextField *_mBindedAccountLoginNameTextField;
+    // binded account login password text field
+    UITextField *_mBindedAccountLoginPasswordTextField;
 }
 
 // check and clear my account is changed flag

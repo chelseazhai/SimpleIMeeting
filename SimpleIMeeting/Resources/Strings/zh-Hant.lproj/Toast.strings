@@ -12,6 +12,17 @@
 // binded account login and register and login with device combined unique id
 "toast binded account logout error" = "注销失败，请稍后重试";
 "toast binded account login user name or password wrong" = "用户名或密码错误";
+"toast phone bind phone number is null" = "绑定的手机号码不能为空";
+"toast phone bind phone number is invalid" = "绑定的手机号码不可用";
+"toast phone bind phone number has be binded with other device" = "此手机号码已与其他设备绑定过";
+"toast phone bind verification code is null" = "验证码不能为空";
+"toast phone bind password is null" = "手机绑定的密码不能为空";
+"toast phone bind confirm password is null" = "手机绑定的验证密码不能为空";
+"toast phone bind password not matched with confirm password" = "手机的绑定密码和验证密码不一致";
+"toast phone bind verification code wrong" = "验证码错误";
+"toast phone bind verification code timeout" = "验证码超时，请重新获取";
+"toast binded account login user name is null" = "登录用户名不能为空";
+"toast binded account login password is null" = "登录密码不能为空";
 
 // contacts select
 "toast manual input contact for inviting to talking group whose phone number is null" = "添加的手机号码不能为空";

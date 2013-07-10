@@ -10,7 +10,7 @@
 "remote background server root url string" = "http://www.wetalking.net/imeetings";
 //"remote background server root url string" = "http://192.168.1.50:8080/imeetings";
 
-// binded account login, register and login with device combined unique id, phone and email bind urls format
+// binded account login, register and login with device combined unique id and phone bind urls format
 "binded account login url format string" = "%@/user/login";
 "register and login with device id url format string" = "%@/user/regAndLoginWithDeviceID";
 "retrieve phone bind authentication code url format string" = "%@/user/getPhoneCode";

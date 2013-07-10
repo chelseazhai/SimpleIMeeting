@@ -28,11 +28,11 @@
 "remote background server http request login or register and login with device id or phone bind response phone binded status" = "bind_phone";
 "remote background server http request register and login with device id or contact info bind device id" = "deviceId";
 
-//<!-- phone and email bind -->
-//<string name="rbgServer_phoneBind_phoneNumber" translatable="false">phone</string>
-//<string name="rbgServer_phoneBind_verificationCode" translatable="false">phonecode</string>
-//<string name="rbgServer_phoneBind_loginPassword" translatable="false">password</string>
-//<string name="rbgServer_phoneBind_loginConfirmationPwd" translatable="false">password1</string>
+// phone bind
+"remote background server http request get phone bind verification code or user register phone number" = "phone";
+"remote background server http request user register verification code" = "phonecode";
+"remote background server http request user register password" = "password";
+"remote background server http request user register confirm password" = "password1";
 
 // my talking groups
 "remote background server http request get my talking groups offset" = "offset";

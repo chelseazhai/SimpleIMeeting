@@ -12,6 +12,17 @@
 // binded account login and register and login with device combined unique id
 "toast binded account logout error" = "logout error, please retry again later";
 "toast binded account login user name or password wrong" = "login user name or password wrong";
+"toast phone bind phone number is null" = "bind phone number mustn't be null";
+"toast phone bind phone number is invalid" = "bind phone number is invalid";
+"toast phone bind phone number has be binded with other device" = "bind phone number has be binded with other device";
+"toast phone bind verification code is null" = "phone bind verification code mustn't be null";
+"toast phone bind password is null" = "phone bind password mustn't be null";
+"toast phone bind confirm password is null" = "phone bind confirm password mustn't be null";
+"toast phone bind password not matched with confirm password" = "phone bind password not matched with the confirm one";
+"toast phone bind verification code wrong" = "phone bind verification code wrong";
+"toast phone bind verification code timeout" = "phone bind verification code is timeout, please get it again";
+"toast binded account login user name is null" = "binded account login user name mustn't be null";
+"toast binded account login password is null" = "binded account login password mustn't be null";
 
 // contacts select
 "toast manual input contact for inviting to talking group whose phone number is null" = "manual added contact phone number mustn't be null";
