@@ -338,17 +338,6 @@
     
     // save last editing text field
     _mLastEditingTextField = textField;
-    
-    //
-    [UIView beginAnimations:nil context:NULL];
-    [_mPhoneBind7BindedAccountLoginAlertView setTransform:CGAffineTransformMakeTranslation(0.0, BINDEDACCOUNTLOGINCONTENTALERTVIEW_HEIGHT == _mPhoneBind7BindedAccountLoginAlertView.tag ? -85.0 : PHONEBINDCONTENTALERTVIEW_HEIGHT == _mPhoneBind7BindedAccountLoginAlertView.tag ? -115.0 : 0.0)];
-    [UIView commitAnimations];
-    
-    // test by ares
-    NSLog(@"%@ -- %@", NSStringFromCGRect(_mPhoneBind7BindedAccountLoginAlertView.frame), NSStringFromCGRect(textField.frame));
-    textField.text = @"18001582338";
-    
-    //
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{

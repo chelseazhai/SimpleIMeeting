@@ -125,6 +125,17 @@
     // update content view frame
     [_mContentView setFrame:CGRectMake(self.bounds.origin.x, _titleLabel.frame.origin.y + _titleLabel.frame.size.height, self.frame.size.width, _mContentView.frame.size.height)];
     
+    // FIXME: This is a workaround. By uncomment below, UITextFields in content view will show characters when typing (possible keyboard reponder issue)
+    // check content view has text field subview
+    for (UIView *_subView in [_mContentView subviews]) {
+        if ([_subView isKindOfClass:[UITextField class]]) {
+            // add fake text field to content alert view
+            [self addSubview:[[UITextField alloc] initWithFrame:CGRectMake(CGPointZero.x, CGPointZero.y, CGSizeZero.width, CGSizeZero.height)]];
+            
+            break;
+        }
+    }
+    
     // add content view as subview of content alert view
     [self addSubview:_mContentView];
     
