@@ -60,8 +60,22 @@
 }
 
 - (NSString *)contactsInfoBeBinded{
-    // return user contacts info be binded be storage in user bean extension dictionary
-    return [self.extensionDic objectForKey:EXT_USERCONTACTSINFOBEBINDED_KEY];
+    // get user contacts info be binded be storage in user bean extension dictionary
+    NSString *_contactsInfobeBinded = [self.extensionDic objectForKey:EXT_USERCONTACTSINFOBEBINDED_KEY];
+    
+    // check got contacts info be binded
+    if (nil != _contactsInfobeBinded && ![@"" isEqualToString:_contactsInfobeBinded]) {
+        // get contacts info type be binded
+        NSString *_contactsInfoTypeBeBinded = [self contactsInfoTypeBeBinded];
+        
+        // check got contacts info type be binded
+        if (nil != _contactsInfoTypeBeBinded && [NSRBGServerFieldString(@"remote background server http request login or register and login with device id or phone bind response phone binded status", nil) isEqualToString:_contactsInfoTypeBeBinded]) {
+            // phone binded
+            _contactsInfobeBinded = [NSString stringWithFormat:NSLocalizedString(@"phone binded contacts info format string", nil), _contactsInfobeBinded];
+        }
+    }
+    
+    return _contactsInfobeBinded;
 }
 
 @end

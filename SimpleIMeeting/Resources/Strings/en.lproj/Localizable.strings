@@ -58,6 +58,7 @@
 "my account group view tip" = "My account";
 "device id tip" = "Device ID:";
 "contacts info be binded tip" = "Binded contacts info:";
+"phone binded contacts info format string" = "Phone-%@";
 "my account tip" = "User name:";
 "binded account logout button title" = "Logout";
 "bind contact info group tip" = "Bind contact info";

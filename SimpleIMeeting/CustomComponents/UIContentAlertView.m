@@ -67,8 +67,6 @@
         
         // set alert view delegate
         self.delegate = self;
-        
-        //
     }
     return self;
 }

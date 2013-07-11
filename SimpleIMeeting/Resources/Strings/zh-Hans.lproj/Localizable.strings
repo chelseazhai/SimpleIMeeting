@@ -58,6 +58,7 @@
 "my account group view tip" = "我的账户";
 "device id tip" = "设备号：";
 "contacts info be binded tip" = "绑定信息：";
+"phone binded contacts info format string" = "手机-%@";
 "my account tip" = "用户名：";
 "binded account logout button title" = "注销";
 "bind contact info group tip" = "绑定联系方式";

@@ -34,6 +34,10 @@
     // last editing text field
     UITextField *_mLastEditingTextField;
     
+    // get phone bind verification code again remain seconds and timer
+    NSInteger _mGetPhoneBindVerificationCodeAgainRemainSeconds;
+    NSTimer *_mGetPhoneBindVerificationCodeAgainTimer;
+    
     // phone bind alert view content view
     // phone bind phone number text field
     UITextField *_mPhoneBindPhoneNumberTextField;

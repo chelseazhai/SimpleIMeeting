@@ -76,6 +76,9 @@
 // get phone bind verification code button width
 #define PHONEBINDCONTENTALERTVIEWGETVERIFICATIONCODEBUTTON_WIDTH    98.0
 
+// seconds per minute
+#define SECONDS_PER_MINUTE  60
+
 // phone bind and binded account login content alert view height
 #define PHONEBINDCONTENTALERTVIEW_HEIGHT    234.0
 #define BINDEDACCOUNTLOGINCONTENTALERTVIEW_HEIGHT   142.0
@@ -128,6 +131,9 @@
 
 // get phone bind verification code http request did finished selector
 - (void)getPhoneBindVerificationCodeHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
+
+// update get phone bind verification code button title and state
+- (void)updateGetPhoneBindVerificationCodeButtonTitle7State;
 
 // phone bind or binded account login canceled
 - (void)phoneBind6bindedAccountLoginCanceled;
@@ -570,6 +576,13 @@
     // set phone bind alert view height as tag of phone bind alert view tag
     _mPhoneBind7BindedAccountLoginAlertView.tag = PHONEBINDCONTENTALERTVIEW_HEIGHT;
     
+    // int get phone bind verification code again remain seconds
+    _mGetPhoneBindVerificationCodeAgainRemainSeconds = SECONDS_PER_MINUTE;
+    // stop get phone bind verification code again timer if needed
+    if (nil != _mGetPhoneBindVerificationCodeAgainTimer && _mGetPhoneBindVerificationCodeAgainTimer.isValid) {
+        [_mGetPhoneBindVerificationCodeAgainTimer invalidate];
+    }
+    
     // show phone bind alert view
     [_mPhoneBind7BindedAccountLoginAlertView show];
 }
@@ -616,11 +629,8 @@
             // check response data result again
             switch (_respDataResult.intValue) {
                 case 0:
-                    // test by ares
-                    // update get verification code button title and set it disabled
-                    [_mPhoneBindGetVerificationCodeButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"phone bind alertview content view get verification code button disabled title format string", nil), 59] forState:UIControlStateDisabled];
-                    
-                    _mPhoneBindGetVerificationCodeButton.enabled = NO;
+                    // scheduled get phone bind verification code again timer
+                    _mGetPhoneBindVerificationCodeAgainTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateGetPhoneBindVerificationCodeButtonTitle7State) userInfo:nil repeats:YES];
                     break;
                     
                 case 1:
@@ -662,6 +672,29 @@
     else {
         // show toast
         [HTTPREQRESPRETTOASTMAKER(NSToastLocalizedString(@"toast http request response error", nil))  show:iToastTypeError];
+    }
+}
+
+- (void)updateGetPhoneBindVerificationCodeButtonTitle7State{
+    // check get phone bind verification code again remain seconds
+    if (0 < --_mGetPhoneBindVerificationCodeAgainRemainSeconds) {
+        // update get phone bind verification code button title for disabled state
+        [_mPhoneBindGetVerificationCodeButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"phone bind alertview content view get verification code button disabled title format string", nil), _mGetPhoneBindVerificationCodeAgainRemainSeconds] forState:UIControlStateDisabled];
+        
+        // set get phone bind verification code button disabled if needed
+        if ([_mPhoneBindGetVerificationCodeButton isEnabled]) {
+            _mPhoneBindGetVerificationCodeButton.enabled = NO;
+        }
+    }
+    else {
+        // stop get phone bind verification code again timer
+        [_mGetPhoneBindVerificationCodeAgainTimer invalidate];
+        
+        // reset get phone bind verification code again remain seconds
+        _mGetPhoneBindVerificationCodeAgainRemainSeconds = SECONDS_PER_MINUTE;
+        
+        // set get phone bind verification code button normal
+        _mPhoneBindGetVerificationCodeButton.enabled = YES;
     }
 }
 
