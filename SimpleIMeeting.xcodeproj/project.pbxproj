@@ -119,6 +119,9 @@
 		DCA0B05C178BE9AC00317F12 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA0B05B178BE9AB00317F12 /* MessageUI.framework */; };
 		DCA0B05F178C108600317F12 /* img_contentalertview_titlelabel_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA0B05D178C108500317F12 /* img_contentalertview_titlelabel_bg.png */; };
 		DCA0B060178C108600317F12 /* img_contentalertview_titlelabel_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA0B05E178C108500317F12 /* img_contentalertview_titlelabel_bg@2x.png */; };
+		DCD779E7178E77EB00312CEB /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD779E2178E77EB00312CEB /* AsyncSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DCD779E8178E77EB00312CEB /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD779E4178E77EB00312CEB /* SocketIO.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DCD779E9178E77EB00312CEB /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD779E6178E77EB00312CEB /* WebSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DCE51914177BD618000CA65D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51912177BD618000CA65D /* InfoPlist.strings */; };
 		DCE51919177BD65D000CA65D /* RBGServerField.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51917177BD65D000CA65D /* RBGServerField.strings */; };
 		DCE5191A177BD65D000CA65D /* Url.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE51918177BD65D000CA65D /* Url.strings */; };
@@ -272,6 +275,12 @@
 		DCA0B05B178BE9AB00317F12 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		DCA0B05D178C108500317F12 /* img_contentalertview_titlelabel_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_contentalertview_titlelabel_bg.png; path = SimpleIMeeting/Resources/Images/img_contentalertview_titlelabel_bg.png; sourceTree = SOURCE_ROOT; };
 		DCA0B05E178C108500317F12 /* img_contentalertview_titlelabel_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_contentalertview_titlelabel_bg@2x.png"; path = "SimpleIMeeting/Resources/Images/img_contentalertview_titlelabel_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		DCD779E1178E77EB00312CEB /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		DCD779E2178E77EB00312CEB /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		DCD779E3178E77EB00312CEB /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
+		DCD779E4178E77EB00312CEB /* SocketIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIO.m; sourceTree = "<group>"; };
+		DCD779E5178E77EB00312CEB /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocket.h; sourceTree = "<group>"; };
+		DCD779E6178E77EB00312CEB /* WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocket.m; sourceTree = "<group>"; };
 		DCE51913177BD618000CA65D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/Strings/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCE51915177BD620000CA65D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Resources/Strings/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DCE51916177BD628000CA65D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Resources/Strings/zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -322,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				DC2F7A0F17895050002B3274 /* KxMenu */,
+				DCD779E0178E77EB00312CEB /* WebSocket */,
 			);
 			path = ThirdPartyLibs;
 			sourceTree = "<group>";
@@ -682,6 +692,19 @@
 			name = "NetworkUnavailable ";
 			sourceTree = "<group>";
 		};
+		DCD779E0178E77EB00312CEB /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				DCD779E1178E77EB00312CEB /* AsyncSocket.h */,
+				DCD779E2178E77EB00312CEB /* AsyncSocket.m */,
+				DCD779E3178E77EB00312CEB /* SocketIO.h */,
+				DCD779E4178E77EB00312CEB /* SocketIO.m */,
+				DCD779E5178E77EB00312CEB /* WebSocket.h */,
+				DCD779E6178E77EB00312CEB /* WebSocket.m */,
+			);
+			path = WebSocket;
+			sourceTree = "<group>";
+		};
 		DCEC7E17177D738500E34BDF /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,6 +894,9 @@
 				DC2F7A0D178929B0002B3274 /* UIWindow+AsyncHttpReqMBProgressHUD.m in Sources */,
 				DC2F7A1217895050002B3274 /* KxMenu.m in Sources */,
 				DC8A9A26178A530700889B49 /* SupportViewController.m in Sources */,
+				DCD779E7178E77EB00312CEB /* AsyncSocket.m in Sources */,
+				DCD779E8178E77EB00312CEB /* SocketIO.m in Sources */,
+				DCD779E9178E77EB00312CEB /* WebSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

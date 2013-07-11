@@ -20,6 +20,9 @@
 
 @interface MyTalkingGroups7AttendeesView ()
 
+// connect my account soctet IO to notify server
+- (void)connectMyAccountSoctetIO2NotifyServer;
+
 // generate my talking group list view draw rectangle with has one talking group be selected flag
 - (CGRect)genMyTalkingGroupListViewDrawRect:(BOOL)hasOneTalkingGroupBeSelected;
 
@@ -36,6 +39,13 @@
         // Initialization code
         // set background image
         self.backgroundImg = [UIImage compatibleImageNamed:@"img_mytalkinggroups7attendeesview_bg"];
+        
+        // init my socket IO and make my socket IO need to reconnect again when disconnect or connect error
+        _mMyAccountSocketIO = [[SocketIO alloc] initWithDelegate:self];
+        _mMySocketIONeed2Reconnect = YES;
+        
+        // connect my account soctet IO to notify server
+        [self connectMyAccountSoctetIO2NotifyServer];
         
         // create and init subviews
         // init my talking groups loading indicator view
@@ -161,6 +171,14 @@
     }
 }
 
+- (void)stopGetMyAccountNoticeFromNotifyServer{
+    // set my socket io not need to reconnect
+    _mMySocketIONeed2Reconnect = NO;
+    
+    // disconnect my socket io
+    [_mMyAccountSocketIO disconnect];
+}
+
 - (void)refreshSelectedTalkingGroupAttendees{
     // load the selected talking group attendee list table view data source
     [_mMyTalkingGroupListView loadSelectedTalkingGroupAttendeeListTableViewDataSource];
@@ -195,7 +213,103 @@
     [((SimpleIMeetingContentContainerView *)self.superview) switch2ContactsSelectContentView4AddingSelectedContact4Inviting:_selectedTalkingGroupId7InviteNote7AttendeesPhoneArray];
 }
 
+// SocketIODelegate
+- (void)socketIODidConnect:(SocketIO *)socket{
+    // send subscribe event
+    // generate subscribe event data
+    NSMutableDictionary *_subscribeEventData = [[NSMutableDictionary alloc] init];
+    
+    // get user name and set it as subscribe and topic
+    NSString *_userName = [UserManager shareUserManager].userBean.name;
+    [_subscribeEventData setObject:_userName forKey:NSRBGServerFieldString(@"my account socket io notifier subscribe event data subscriber id", nil)];
+    [_subscribeEventData setObject:_userName forKey:NSRBGServerFieldString(@"my account socket io notifier subscribe event data topic", nil)];
+    
+    NSLog(@"subscribe event data = %@", _subscribeEventData);
+    
+    // send event
+    [socket sendEvent:NSRBGServerFieldString(@"my account socket io notifier subscribe event", nil) withData:_subscribeEventData];
+}
+
+- (void)socketIODidConnectError:(SocketIO *)socket error:(NSString *)errorMsg{
+    NSLog(@"socket = %@ did connect error = %@,%@need to reconnect", socket, errorMsg, _mMySocketIONeed2Reconnect ? @" " : @" not ");
+    
+    // check my socket io if or not need to reconnect
+    if (_mMySocketIONeed2Reconnect) {
+        [self connectMyAccountSoctetIO2NotifyServer];
+    }
+}
+
+- (void)socketIODidDisconnect:(SocketIO *)socket{
+    NSLog(@"socket = %@ did disconnect,%@need to reconnect", socket, _mMySocketIONeed2Reconnect ? @" " : @" not ");
+    
+    // check my socket io if or not need to reconnect
+    if (_mMySocketIONeed2Reconnect) {
+        [self connectMyAccountSoctetIO2NotifyServer];
+    }
+}
+
+- (void)socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet{
+    // get receive event name
+    NSString *_eventName = packet.name;
+    
+    // check receive event name, just process notice event
+    if ([NSRBGServerFieldString(@"my account socket io notifier notice event", nil) isEqualToString:_eventName]) {
+        // get notice event arguments
+        NSArray *_noticeEventArgs = packet.args;
+        
+        // get and check notice event command argument
+        NSString *_noticeEventCommandArgument = [[_noticeEventArgs objectAtIndex:0] objectForKey:NSRBGServerFieldString(@"my account socket io notifier notice event command argument", nil)];
+        if (nil != _noticeEventCommandArgument && ([NSRBGServerFieldString(@"my account socket io notifier notice event cache command", nil) isEqualToString:_noticeEventCommandArgument] || [NSRBGServerFieldString(@"my account socket io notifier notice event notify command", nil) isEqualToString:_noticeEventCommandArgument])) {
+            // get notice event notice list argument and process each one by one
+            NSArray *_noticeEventNoticeListArgument = [[_noticeEventArgs objectAtIndex:0] objectForKey:NSRBGServerFieldString(@"my account socket io notifier notice event notice list argument", nil)];
+            NSLog(@"needed to process notice event notice list = %@", _noticeEventNoticeListArgument);
+            
+            for (NSDictionary *_noticeEventNotice in _noticeEventNoticeListArgument) {
+                // get notice event notice action
+                NSString *_noticeEventNoticeAction = [_noticeEventNotice objectForKey:NSRBGServerFieldString(@"my account socket io notifier notice event notice action", nil)];
+                
+                // check notice event notice action
+                if ([NSRBGServerFieldString(@"my account socket io notifier notice event notice update my talking group list action", nil) isEqualToString:_noticeEventNoticeAction]) {
+                    // update my talking group list
+                    [self refreshMyTalkingGroups];
+                }
+                else if ([NSRBGServerFieldString(@"my account socket io notifier notice event notice update my talking group attendee list action", nil) isEqualToString:_noticeEventNoticeAction] || [NSRBGServerFieldString(@"my account socket io notifier notice event notice update my talking group attendee status action", nil) isEqualToString:_noticeEventNoticeAction]) {
+                    // get notice event notice talking group id
+                    NSString *_noticeEventNoticeTalkingGroupId = [_noticeEventNotice objectForKey:NSRBGServerFieldString(@"my account socket io notifier notice event notice talking group id for updating my talking group list or one of my talking group attendee list", nil)];
+                    
+                    // check selected talking group info and compare its talking group id with notice event notice talking group id
+                    if (nil != _mMyTalkingGroupListView.selectedTalkingGroupJSONObjectInfo && [[_mMyTalkingGroupListView.selectedTalkingGroupJSONObjectInfo objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups or new talking group id response id", nil)] isEqualToString:_noticeEventNoticeTalkingGroupId]) {
+                        // check notice event notice action again
+                        if ([NSRBGServerFieldString(@"my account socket io notifier notice event notice update my talking group attendee list action", nil) isEqualToString:_noticeEventNoticeAction]) {
+                            // update one of my talking group attendee list
+                            [self refreshSelectedTalkingGroupAttendees];
+                        }
+                        else {
+                            // update one of my talking group attendee status
+                            [_mSelectedTalkingGroupAttendeeListView updateAttendeeStatus:[_noticeEventNotice objectForKey:NSRBGServerFieldString(@"my account socket io notifier notice event notice attendee for updating one of my talking group attendee status", nil)]];
+                        }
+                    }
+                    else {
+                        NSLog(@"Warning: need to notice talking group id = %@ not be selected in my talking group list table view", _noticeEventNoticeTalkingGroupId);
+                    }
+                }
+            }
+        }
+        else {
+            NSLog(@"Warning: notice event command = %@ not needed to process", _noticeEventCommandArgument);
+        }
+    }
+    else {
+        NSLog(@"Warning: %@ event not needed to process", _eventName);
+    }
+}
+
 // inner extension
+- (void)connectMyAccountSoctetIO2NotifyServer{
+    // connect my account socket IO to notify server
+    [_mMyAccountSocketIO connectToHost:NSUrlString(@"web socket notify server url", nil) onPort:NSUrlString(@"web socket notify server port", nil).integerValue];
+}
+
 - (CGRect)genMyTalkingGroupListViewDrawRect:(BOOL)hasOneTalkingGroupBeSelected{
     CGRect _myTalkingGroupListViewDrawRectangle;
     

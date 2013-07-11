@@ -57,3 +57,19 @@
 "remote background server http request get selected talking group attendees response info list status" = "telephone_status";
 "remote background server http request get selected talking group attendees response info list attendee in status" = "Established";
 "remote background server http request get selected talking group attendees response info list attendee out status" = "Terminated";
+
+// my account socket IO notifier
+"my account socket io notifier subscribe event" = "subscribe";
+"my account socket io notifier notice event" = "notice";
+"my account socket io notifier subscribe event data subscriber id" = "subscriber_id";
+"my account socket io notifier subscribe event data topic" = "topic";
+"my account socket io notifier notice event command argument" = "cmd";
+"my account socket io notifier notice event cache command" = "cache";
+"my account socket io notifier notice event notify command" = "notify";
+"my account socket io notifier notice event notice list argument" = "notice_list";
+"my account socket io notifier notice event notice action" = "action";
+"my account socket io notifier notice event notice update my talking group list action" = "update_conf_list";
+"my account socket io notifier notice event notice update my talking group attendee list action" = "update_attendee_list";
+"my account socket io notifier notice event notice update my talking group attendee status action" = "update_status";
+"my account socket io notifier notice event notice talking group id for updating my talking group list or one of my talking group attendee list" = "conferenceId";
+"my account socket io notifier notice event notice attendee for updating one of my talking group attendee status" = "attendee";

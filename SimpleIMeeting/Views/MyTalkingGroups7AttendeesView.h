@@ -12,6 +12,8 @@
 
 #import "ITalkingGroupGeneratorProtocol.h"
 
+#import "SocketIO.h"
+
 @class MyTalkingGroupListView;
 @class SelectedTalkingGroupAttendeeListView;
 
@@ -20,9 +22,13 @@ typedef NS_ENUM(NSInteger, MyTalkingGroups7AttendeesViewRefreshType){
     NOREFRESH, REFRESH_TALKINGGROUPS, REFRESH_SELECTEDTALKINGGROUP_ATTENDEES
 };
 
-@interface MyTalkingGroups7AttendeesView : UIView <ITalkingGroupGeneratorProtocol> {
+@interface MyTalkingGroups7AttendeesView : UIView <ITalkingGroupGeneratorProtocol, SocketIODelegate> {
     // my talking group list table view need to refresh
     BOOL _mMyTalkingGroupsNeed2Refresh;
+    
+    // my account socket IO and need to reconnect again flag when disconnect or connect error
+    SocketIO *_mMyAccountSocketIO;
+    BOOL _mMySocketIONeed2Reconnect;
     
     // present subviews
     // subview my talking groups loading indicator view
@@ -45,6 +51,9 @@ typedef NS_ENUM(NSInteger, MyTalkingGroups7AttendeesViewRefreshType){
 
 // resize my talking group and selected talking group attendee list view
 - (void)resizeMyTalkingGroupsAndAttendeesView:(BOOL)hasOneTalkingGroupBeSelected;
+
+// stop get my account notice from notify server
+- (void)stopGetMyAccountNoticeFromNotifyServer;
 
 // refresh the selected talking group attendees
 - (void)refreshSelectedTalkingGroupAttendees;

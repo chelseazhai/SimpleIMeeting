@@ -25,4 +25,7 @@
 // load selected talking group attendee list table view data source with selected talking group is opened flag
 - (void)loadSelectedTalkingGroupAttendeeListTableViewDataSource:(NSArray *)selectedTalkingGroupAttendeesInfoArray selectedTalkingGroupOpened:(BOOL)isOpened;
 
+// update one if selected talking group attendee status
+- (void)updateAttendeeStatus:(NSDictionary *)updateAttendee;
+
 @end

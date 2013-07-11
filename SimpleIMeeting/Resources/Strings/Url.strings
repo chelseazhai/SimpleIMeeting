@@ -30,3 +30,7 @@
 
 // application version center url
 "application version center url string" = "http://www.wetalking.net/appvcenter";
+
+// web socket notify server url and port
+"web socket notify server url" = "msg.wetalking.net";
+"web socket notify server port" = "80";

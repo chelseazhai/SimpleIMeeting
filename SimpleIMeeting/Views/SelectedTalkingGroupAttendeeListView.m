@@ -114,6 +114,23 @@
     [_mSelectedTalkingGroupAttendeeListTableView reloadData];
 }
 
+- (void)updateAttendeeStatus:(NSDictionary *)updateAttendee{
+    // check the needed to update attendee is existed in selected talking group attendee list or not
+    for (int _index = 0; _index < [_mSelectedTalkingGroupAttendeesJSONInfoArray count]; _index++) {
+        // get the selected talking group attendee
+        NSDictionary *_selectedTalkingGroupAttendee = [_mSelectedTalkingGroupAttendeesJSONInfoArray objectAtIndex:_index];
+        
+        // compare selected talking group attendee phone with needed to update attendee phone
+        if ([[_selectedTalkingGroupAttendee objectForKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list phone", nil)] isEqualToString:[updateAttendee objectForKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list phone", nil)]]) {
+            // update the matched attendee status
+            ((SelectedTalkingGroupAttendeeListTableViewCell *)[_mSelectedTalkingGroupAttendeeListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_index inSection:0]]).attendeeStatus = [updateAttendee objectForKey:NSRBGServerFieldString(@"remote background server http request get selected talking group attendees response info list status", nil)];
+            
+            // break immediately
+            break;
+        }
+    }
+}
+
 // UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     // Return the number of rows in the section.
