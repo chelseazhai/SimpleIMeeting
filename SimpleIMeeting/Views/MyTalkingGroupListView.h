@@ -37,4 +37,7 @@
 // load the selected talking group attendee list table view data source
 - (void)loadSelectedTalkingGroupAttendeeListTableViewDataSource;
 
+// my account socket IO notify to reload the selected talking group attendee list table view data source
+- (void)notify2reloadSelectedTalkingGroupAttendeeListTableViewDataSource;
+
 @end

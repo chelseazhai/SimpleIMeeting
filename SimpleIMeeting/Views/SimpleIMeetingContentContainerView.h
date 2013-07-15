@@ -60,7 +60,7 @@ typedef NS_ENUM(NSInteger, SIMContentViewMode) {
 // back to my talking groups and selected talking group attendees content view for ending add selected contact for inviting to talking group
 - (void)back2MyTalkingGroups7AttendeesContentView4EndingAddSelectedContact4Inviting:(MyTalkingGroups7AttendeesViewRefreshType)myTalkingGroups7AttendeesViewRefreshType;
 
-// set my talking groups need to refresh
+// set my talking groups need to refresh, because of my account changed
 - (void)setMyTalkingGroupsNeed2Refresh;
 
 @end

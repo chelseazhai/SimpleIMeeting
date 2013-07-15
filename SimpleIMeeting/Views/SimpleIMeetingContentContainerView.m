@@ -164,6 +164,9 @@
 }
 
 - (void)setMyTalkingGroupsNeed2Refresh{
+    // reconnect my account soctet IO to notify server
+    [_mMyTalkingGroups7AttendeesContentView reconnectMyAccountSoctetIO2NotifyServer];
+    
     // check content view type
     if (ADDRESSBOOKCONTACTS == _mContentViewType) {
         // set my talking groups need to refresh

@@ -33,11 +33,14 @@
     
     // check it
 	if (nil != _hud) {
-        // remove it when hide
-		_hud.removeFromSuperViewOnHide = YES;
+//        // remove it when hide
+//		_hud.removeFromSuperViewOnHide = YES;
+//        
+//        // hide it
+//		[_hud hide:YES];
         
-        // hide it
-		[_hud hide:YES];
+        // hide all asynchronous http request MBProgressHUD from the window
+        [MBProgressHUD hideAllHUDsForView:self animated:YES];
         
 		return YES;
 	}

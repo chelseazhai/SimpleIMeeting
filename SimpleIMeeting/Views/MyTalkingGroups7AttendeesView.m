@@ -171,6 +171,12 @@
     }
 }
 
+- (void)reconnectMyAccountSoctetIO2NotifyServer{
+    // stop first and connect again
+    // fake to disconnect my socket io
+    [_mMyAccountSocketIO disconnect];
+}
+
 - (void)stopGetMyAccountNoticeFromNotifyServer{
     // set my socket io not need to reconnect
     _mMySocketIONeed2Reconnect = NO;
@@ -282,7 +288,7 @@
                         // check notice event notice action again
                         if ([NSRBGServerFieldString(@"my account socket io notifier notice event notice update my talking group attendee list action", nil) isEqualToString:_noticeEventNoticeAction]) {
                             // update one of my talking group attendee list
-                            [self refreshSelectedTalkingGroupAttendees];
+                            [_mMyTalkingGroupListView notify2reloadSelectedTalkingGroupAttendeeListTableViewDataSource];
                         }
                         else {
                             // update one of my talking group attendee status

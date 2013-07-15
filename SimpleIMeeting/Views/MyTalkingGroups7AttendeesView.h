@@ -52,6 +52,9 @@ typedef NS_ENUM(NSInteger, MyTalkingGroups7AttendeesViewRefreshType){
 // resize my talking group and selected talking group attendee list view
 - (void)resizeMyTalkingGroupsAndAttendeesView:(BOOL)hasOneTalkingGroupBeSelected;
 
+// reconnect my account soctet IO to notify server
+- (void)reconnectMyAccountSoctetIO2NotifyServer;
+
 // stop get my account notice from notify server
 - (void)stopGetMyAccountNoticeFromNotifyServer;
 
