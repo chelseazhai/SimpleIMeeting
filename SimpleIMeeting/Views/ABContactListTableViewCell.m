@@ -92,9 +92,19 @@
     // Configure the view for the selected state
     // set the view background for selected and unselected state
     if (selected) {
-        self.backgroundImg = [UIImage imageNamed:@"img_abcontactcell_selected_bg"];
+        if ([UIDevice currentDevice].systemVersionNum < 5.0) {
+            // set selected background view
+            self.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_abcontactcell_selected_bg"]];
+        }
+        else {
+            self.backgroundImg = [UIImage imageNamed:@"img_abcontactcell_selected_bg"];
+        }
     }
     else {
+        // clear selected background view if needed
+        if (nil != self.selectedBackgroundView) {
+            self.selectedBackgroundView = nil;
+        }
         self.backgroundColor = [UIColor clearColor];
     }
 }

@@ -132,7 +132,13 @@
     // set the view background and talking group be selected image view visiablity for selected and unselected state
     if (selected) {
         // check the view frame size width and set its background
-        self.backgroundImg = [UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_selected_bg" : @"img_talkinggroup_short_selected_bg"];
+        if ([UIDevice currentDevice].systemVersionNum < 5.0) {
+            // set selected background view
+            self.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_selected_bg" : @"img_talkinggroup_short_selected_bg"]];
+        }
+        else {
+            self.backgroundImg = [UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_selected_bg" : @"img_talkinggroup_short_selected_bg"];
+        }
         
         // show talking group be selected image view if needed
         if ([_mBeSelectedImgView isHidden]) {
@@ -141,7 +147,16 @@
     }
     else {
         // check the view frame size width and set its background
-        self.backgroundImg = [UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_normal_bg" : @"img_talkinggroup_short_normal_bg"];
+        if ([UIDevice currentDevice].systemVersionNum < 5.0) {
+            // clear selected background view if needed and set background view
+            if (nil != self.selectedBackgroundView) {
+                self.selectedBackgroundView = nil;
+            }
+            self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_normal_bg" : @"img_talkinggroup_short_normal_bg"]];
+        }
+        else {
+            self.backgroundImg = [UIImage imageNamed:[UIScreen mainScreen].bounds.size.width == self.frame.size.width ? @"img_talkinggroup_normal_bg" : @"img_talkinggroup_short_normal_bg"];
+        }
         
         // hide talking group be selected image view if needed
         if (![_mBeSelectedImgView isHidden]) {

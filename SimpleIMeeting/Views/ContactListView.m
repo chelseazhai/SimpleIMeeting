@@ -236,7 +236,7 @@
         // check selected address book contact cell index
         if (nil != _mSelectedABContactCellIndex) {
             // clear selected address book contact cell background color
-            [_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex.integerValue inSection:0]].backgroundColor = [UIColor clearColor];
+            [[_mABContactListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedABContactCellIndex.integerValue inSection:0]] setSelected:NO];
         }
     }
     
@@ -419,68 +419,68 @@
 
 // AddressBookChangedDelegate
 - (void)addressBookChanged:(ABAddressBookRef)pAddressBook info:(NSDictionary *)pInfo observer:(id)pObserver{
-//    // reset all contacts info array from address book and present contacts info array of addressBook contacts list table view
-//    NSArray *_newAllContactsInfoArrayInAB = [[AddressBookManager shareAddressBookManager].allContactsInfoArray optPhoneticsSortedContactsInfoArray];
-//    
-//    // process changed contact id array
-//    for (NSNumber *_contactId in [pInfo allKeys]) {
-//        // get action
-//        switch (((NSNumber *)[[pInfo objectForKey:_contactId] objectForKey:CONTACT_ACTION]).intValue) {
-//            case contactAdd:
-//            {
-//                // add to all contacts info array in addressBook reference
-//                for (NSInteger _index = 0; _index < [_newAllContactsInfoArrayInAB count]; _index++) {
-//                    if (((ContactBean *)[_newAllContactsInfoArrayInAB objectAtIndex:_index]).id == _contactId.integerValue) {
-//                        [_mAllContactsInfoArrayInABRef insertObject:[_newAllContactsInfoArrayInAB objectAtIndex:_index] atIndex:_index];
-//                        
-//                        [self searchBar:_mContactSearchBar textDidChange:_mContactSearchBar.text];
-//                        
-//                        break;
-//                    }
-//                }
-//            }
-//                break;
-//                
-//            case contactModify:
-//            {
-//                // save the modify contact index of all contacts info array in addressBook reference and new temp all contacts info array in addressBook
-//                NSInteger _oldindex = 0, _newIndex = 0;
-//                for (NSInteger _index = 0; _index < [_mAllContactsInfoArrayInABRef count]; _index++) {
-//                    if (((ContactBean *)[_mAllContactsInfoArrayInABRef objectAtIndex:_index]).id == _contactId.integerValue) {
-//                        _oldindex = _index;
-//                        
-//                        _newIndex = [_newAllContactsInfoArrayInAB indexOfObject:[_mAllContactsInfoArrayInABRef objectAtIndex:_index]];
-//                        
-//                        break;
-//                    }
-//                }
-//                
-//                // check the two indexes
-//                if (_oldindex != _newIndex) {
-//                    [_mAllContactsInfoArrayInABRef removeObjectAtIndex:_oldindex];
-//                    [_mAllContactsInfoArrayInABRef insertObject:[_newAllContactsInfoArrayInAB objectAtIndex:_newIndex] atIndex:_newIndex];
-//                }
-//                
-//                [self searchBar:_mContactSearchBar textDidChange:_mContactSearchBar.text];
-//            }
-//                break;
-//                
-//            case contactDelete:
-//            {
-//                // delete from all contacts info array in addressBook reference
-//                for (NSInteger _index = 0; _index < [_mAllContactsInfoArrayInABRef count]; _index++) {
-//                    if (((ContactBean *)[_mAllContactsInfoArrayInABRef objectAtIndex:_index]).id == _contactId.integerValue) {
-//                        [_mAllContactsInfoArrayInABRef removeObjectAtIndex:_index];
-//                        
-//                        [self searchBar:_mContactSearchBar textDidChange:_mContactSearchBar.text];
-//                        
-//                        break;
-//                    }
-//                }
-//            }
-//                break;
-//        }
-//    }
+    // reset all contacts info array from address book and present contacts info array of addressBook contacts list table view
+    NSArray *_newAllContactsInfoArrayInAB = [[AddressBookManager shareAddressBookManager].allContactsInfoArray optPhoneticsSortedContactsInfoArray];
+    
+    // process changed contact id array
+    for (NSNumber *_contactId in [pInfo allKeys]) {
+        // get action
+        switch (((NSNumber *)[[pInfo objectForKey:_contactId] objectForKey:CONTACT_ACTION]).intValue) {
+            case contactAdd:
+            {
+                // add to all contacts info array in addressBook reference
+                for (NSInteger _index = 0; _index < [_newAllContactsInfoArrayInAB count]; _index++) {
+                    if (((ContactBean *)[_newAllContactsInfoArrayInAB objectAtIndex:_index]).id == _contactId.integerValue) {
+                        [_mAllContactsInfoArrayInABRef insertObject:[_newAllContactsInfoArrayInAB objectAtIndex:_index] atIndex:_index];
+                        
+                        [self contactSearchTextDidChanged];
+                        
+                        break;
+                    }
+                }
+            }
+                break;
+                
+            case contactModify:
+            {
+                // save the modify contact index of all contacts info array in addressBook reference and new temp all contacts info array in addressBook
+                NSInteger _oldindex = 0, _newIndex = 0;
+                for (NSInteger _index = 0; _index < [_mAllContactsInfoArrayInABRef count]; _index++) {
+                    if (((ContactBean *)[_mAllContactsInfoArrayInABRef objectAtIndex:_index]).id == _contactId.integerValue) {
+                        _oldindex = _index;
+                        
+                        _newIndex = [_newAllContactsInfoArrayInAB indexOfObject:[_mAllContactsInfoArrayInABRef objectAtIndex:_index]];
+                        
+                        break;
+                    }
+                }
+                
+                // check the two indexes
+                if (_oldindex != _newIndex) {
+                    [_mAllContactsInfoArrayInABRef removeObjectAtIndex:_oldindex];
+                    [_mAllContactsInfoArrayInABRef insertObject:[_newAllContactsInfoArrayInAB objectAtIndex:_newIndex] atIndex:_newIndex];
+                }
+                
+                [self contactSearchTextDidChanged];
+            }
+                break;
+                
+            case contactDelete:
+            {
+                // delete from all contacts info array in addressBook reference
+                for (NSInteger _index = 0; _index < [_mAllContactsInfoArrayInABRef count]; _index++) {
+                    if (((ContactBean *)[_mAllContactsInfoArrayInABRef objectAtIndex:_index]).id == _contactId.integerValue) {
+                        [_mAllContactsInfoArrayInABRef removeObjectAtIndex:_index];
+                        
+                        [self contactSearchTextDidChanged];
+                        
+                        break;
+                    }
+                }
+            }
+                break;
+        }
+    }
 }
 
 // inner extension

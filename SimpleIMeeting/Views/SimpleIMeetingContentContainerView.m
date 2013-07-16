@@ -21,7 +21,7 @@
 #import "AboutView.h"
 
 // tap to generate new talking group title view width
-#define TAP2GENNEWTALKINGGROUPTITLEVIEW_WIDTH   100.0
+#define TAP2GENNEWTALKINGGROUPTITLEVIEW_WIDTH   130.0
 
 // tap to generate new talking group title view text font size
 #define TAP2GENNEWTALKINGGROUPTITLEVIEW_TEXTFONTSIZE    20.0
