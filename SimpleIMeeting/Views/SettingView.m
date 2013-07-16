@@ -359,6 +359,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     // dismiss soft input keyboard
     [textField resignFirstResponder];
+    [_mPhoneBind7BindedAccountLoginAlertView resignFirstResponder];
     
     return YES;
 }
