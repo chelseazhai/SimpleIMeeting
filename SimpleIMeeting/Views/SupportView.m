@@ -29,7 +29,9 @@
         self.delegate = self;
         
         // hidden scroll view first
-        self.scrollView.hidden = YES;
+        if ([self respondsToSelector:@selector(scrollView)]) {
+            self.scrollView.hidden = YES;
+        }
         
         // add support page loading indicator view as subview of support view
         [self addSubview:_mSupportPageLoadingIndicatorView];
@@ -83,7 +85,7 @@
     [_mSupportPageLoadingIndicatorView stopAnimating];
     
     // show support page webview scroll view if needed
-    if ([webView.scrollView isHidden]) {
+    if ([webView respondsToSelector:@selector(scrollView)] && [webView.scrollView isHidden]) {
         webView.scrollView.hidden = NO;
     }
 }
