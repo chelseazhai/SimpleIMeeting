@@ -97,3 +97,9 @@
 "network unavailable tip label text" = "There is no active network, please back and retry again later!";
 
 "asynchronous http request progress view message" = "Processing ...";
+
+// EGORefreshTableHeaderView
+"Last Updated" = "Last Updated";
+"Release to refresh..." = "Release to refresh...";
+"Pull down to refresh..." = "Pull down to refresh...";
+"Loading..." = "Loading...";

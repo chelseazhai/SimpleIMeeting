@@ -26,6 +26,9 @@
 // get my talking groups http request did finished selector
 - (void)getMyTalkingGroupsHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
 
+// done reloading my talking groups
+- (void)doneReloadingMyTalkingGroups;
+
 // get selected talking group attendees http request did finished selector
 - (void)getSelectedTalkingGroupAttendeesHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
 
@@ -65,6 +68,21 @@
         // set my talking group list table view dataSource and delegate
         _mMyTalkingGroupListTableView.dataSource = self;
         _mMyTalkingGroupListTableView.delegate = self;
+        
+        // init my talking group list table view refresh header view
+        _mMyTalkingGroupListTableViewRefreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(_mMyTalkingGroupListTableView.bounds.origin.x, -300.0, FILL_PARENT, 300.0)];
+        
+        // set its background color
+        _mMyTalkingGroupListTableViewRefreshHeaderView.backgroundColor = [UIColor clearColor];
+        
+        // set my talking group list table view refresh header view EGO refresh table header delegate
+        _mMyTalkingGroupListTableViewRefreshHeaderView.delegate = self;
+        
+        //  update the last update date
+        [_mMyTalkingGroupListTableViewRefreshHeaderView refreshLastUpdatedDate];
+        
+        // add my talking group list table view refresh header view as subview of my talking group list table view
+        [_mMyTalkingGroupListTableView addSubview:_mMyTalkingGroupListTableViewRefreshHeaderView];
         
         // add my talking groups head tip view and my talking group list table view as subviews of my talking group list view
         [self addSubview:_myTalkingGroupsHeadTipView];
@@ -167,6 +185,36 @@
     [self loadSelectedTalkingGroupAttendeeListTableViewDataSource];
 }
 
+// UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    // my talking group list table view did scroll
+    [_mMyTalkingGroupListTableViewRefreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    // my talking group list table view did end dragging
+    [_mMyTalkingGroupListTableViewRefreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+// EGORefreshTableHeaderDelegate
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView *)view{
+    // reloading my talking groups
+    _mIsReloadingMyTalkingGroups = YES;
+    
+    // send get my talking groups http request
+    [self sendGetMyTalkingGroupsHttpRequest];
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView *)view{
+    // should return if data source model is reloading
+    return _mIsReloadingMyTalkingGroups;
+}
+
+- (NSDate *)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView *)view{
+    // should return date data source was last changed
+    return [NSDate date];
+}
+
 // IHttpReqRespProtocol
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send http request succeed - request url = %@", pRequest.url);
@@ -176,6 +224,9 @@
     
     // check the request url string
     if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
+        // done reloading my talking groups
+        [self doneReloadingMyTalkingGroups];
+        
         // get my talking groups http request
         [self getMyTalkingGroupsHttpRequestDidFinished:pRequest];
     }
@@ -196,6 +247,9 @@
     
     // check the request url string
     if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
+        // done reloading my talking groups
+        [self doneReloadingMyTalkingGroups];
+        
         // get my talking groups http request
         // load my talking group list table view data source succeed completion
         _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(-1);
@@ -246,6 +300,20 @@
     else {
         // load my talking group list table view data source succeed completion
         _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(-1);
+    }
+}
+
+- (void)doneReloadingMyTalkingGroups{
+    // check my talking groups is reloading
+    if (_mIsReloadingMyTalkingGroups) {
+        // set done reloading my talking groups
+        _mIsReloadingMyTalkingGroups = NO;
+        
+        // my talking group list table view refresh header view did finished loading
+        [_mMyTalkingGroupListTableViewRefreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:_mMyTalkingGroupListTableView];
+        
+        // resize my talking groups and the selected talking group attendees view
+        [(MyTalkingGroups7AttendeesView *)self.superview resizeMyTalkingGroupsAndAttendeesView:NO];
     }
 }
 

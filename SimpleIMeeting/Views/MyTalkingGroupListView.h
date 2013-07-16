@@ -10,7 +10,9 @@
 
 #import "IHttpReqRespProtocol.h"
 
-@interface MyTalkingGroupListView : UIView <UITableViewDataSource, UITableViewDelegate, IHttpReqRespProtocol> {
+#import "EGORefreshTableHeaderView.h"
+
+@interface MyTalkingGroupListView : UIView <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, EGORefreshTableHeaderDelegate, IHttpReqRespProtocol> {
     // my talking groups pager json object and info array
     NSDictionary *_mMyTalkingGroupsPagerJSONObject;
     NSMutableArray *_mMyTalkingGroupsJSONInfoArray;
@@ -24,6 +26,10 @@
     // present subviews
     // subview my talking group list table view
     UITableView *_mMyTalkingGroupListTableView;
+    // my talking group list table view refresh header view
+    EGORefreshTableHeaderView *_mMyTalkingGroupListTableViewRefreshHeaderView;
+    // reload my talking group flag
+    BOOL _mIsReloadingMyTalkingGroups;
 }
 
 @property (nonatomic, readonly) NSMutableArray *myTalkingGroupsInfoArray;

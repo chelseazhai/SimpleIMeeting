@@ -97,3 +97,9 @@
 "network unavailable tip label text" = "当前网络不可用，请退出后稍后重试！";
 
 "asynchronous http request progress view message" = "正在处理，请稍后 ...";
+
+// EGORefreshTableHeaderView
+"Last Updated" = "上次更新";
+"Release to refresh..." = "松开即可刷新...";
+"Pull down to refresh..." = "下拉可以刷新...";
+"Loading..." = "加载中...";
