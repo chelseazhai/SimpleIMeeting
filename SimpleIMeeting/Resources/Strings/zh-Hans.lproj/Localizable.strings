@@ -103,3 +103,7 @@
 "Release to refresh..." = "松开即可刷新...";
 "Pull down to refresh..." = "下拉可以刷新...";
 "Loading..." = "加载中...";
+
+// AppendMoreTableFooterView
+"Appending more..." = "正在加载更多数据...";
+"No more data" = "没有更多数据";

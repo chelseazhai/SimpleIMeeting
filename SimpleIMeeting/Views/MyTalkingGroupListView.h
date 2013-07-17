@@ -12,7 +12,9 @@
 
 #import "EGORefreshTableHeaderView.h"
 
-@interface MyTalkingGroupListView : UIView <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, EGORefreshTableHeaderDelegate, IHttpReqRespProtocol> {
+#import "AppendMoreTableFooterView.h"
+
+@interface MyTalkingGroupListView : UIView <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, EGORefreshTableHeaderDelegate, AppendMoreTableFooterDelegate, IHttpReqRespProtocol> {
     // my talking groups pager json object and info array
     NSDictionary *_mMyTalkingGroupsPagerJSONObject;
     NSMutableArray *_mMyTalkingGroupsJSONInfoArray;
@@ -26,10 +28,16 @@
     // present subviews
     // subview my talking group list table view
     UITableView *_mMyTalkingGroupListTableView;
+    
     // my talking group list table view refresh header view
     EGORefreshTableHeaderView *_mMyTalkingGroupListTableViewRefreshHeaderView;
-    // reload my talking group flag
+    // reload my talking groups flag
     BOOL _mIsReloadingMyTalkingGroups;
+    
+    // my talking group list table view append more footer view
+    AppendMoreTableFooterView *_mMyTalkingGroupListTableViewAppendMoreFooterView;
+    // append more my talking groups flag
+    BOOL _mIsAppendingMoreMyTalkingGroups;
 }
 
 @property (nonatomic, readonly) NSMutableArray *myTalkingGroupsInfoArray;

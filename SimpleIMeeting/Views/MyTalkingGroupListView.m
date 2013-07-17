@@ -18,16 +18,31 @@
 
 #import "UIWindow+AsyncHttpReqMBProgressHUD.h"
 
+// get my talking groups mode
+typedef NS_ENUM(NSInteger, GetMyTalkingGroupsMode){
+    // reloading and get more my talking groups
+    RELOADING_MYTALKINGGROUPS, APPENDMORE_MYTALKINGGROUPS
+};
+
+// get my talking groups mode key for request user info
+#define GETMYTALKINGGROUPS_GETMODEKEY4REQUESTUSERINFO   @"get my talking groups mode"
+
+// my talking group list table view refresh header view height
+#define MYTALKINGGROUPLISTTABLEVIEWREFRESHHEADERVIEW_HEIGHT 300.0
+
 @interface MyTalkingGroupListView ()
 
-// send get my talking groups http request
-- (void)sendGetMyTalkingGroupsHttpRequest;
+// send get my talking groups http request with get mode
+- (void)sendGetMyTalkingGroupsHttpRequest:(GetMyTalkingGroupsMode)getMode;
 
 // get my talking groups http request did finished selector
 - (void)getMyTalkingGroupsHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
 
 // done reloading my talking groups
 - (void)doneReloadingMyTalkingGroups;
+
+// done appending more my talking groups
+- (void)doneAppendingMoreMyTalkingGroups;
 
 // get selected talking group attendees http request did finished selector
 - (void)getSelectedTalkingGroupAttendeesHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
@@ -70,7 +85,7 @@
         _mMyTalkingGroupListTableView.delegate = self;
         
         // init my talking group list table view refresh header view
-        _mMyTalkingGroupListTableViewRefreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(_mMyTalkingGroupListTableView.bounds.origin.x, -300.0, FILL_PARENT, 300.0)];
+        _mMyTalkingGroupListTableViewRefreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(_mMyTalkingGroupListTableView.bounds.origin.x, -MYTALKINGGROUPLISTTABLEVIEWREFRESHHEADERVIEW_HEIGHT, FILL_PARENT, MYTALKINGGROUPLISTTABLEVIEWREFRESHHEADERVIEW_HEIGHT)];
         
         // set its background color
         _mMyTalkingGroupListTableViewRefreshHeaderView.backgroundColor = [UIColor clearColor];
@@ -83,6 +98,12 @@
         
         // add my talking group list table view refresh header view as subview of my talking group list table view
         [_mMyTalkingGroupListTableView addSubview:_mMyTalkingGroupListTableViewRefreshHeaderView];
+        
+        // init my talking group list table view append more footer view
+        _mMyTalkingGroupListTableViewAppendMoreFooterView = [[AppendMoreTableFooterView alloc] initWithFrame:CGRectMake(_mMyTalkingGroupListTableView.bounds.origin.x, _mMyTalkingGroupListTableView.bounds.origin.y, FILL_PARENT, CGSizeZero.height)];
+        
+        // set my talking group list table view append more footer view append more footer delegate
+        _mMyTalkingGroupListTableViewAppendMoreFooterView.delegate = self;
         
         // add my talking groups head tip view and my talking group list table view as subviews of my talking group list view
         [self addSubview:_myTalkingGroupsHeadTipView];
@@ -120,7 +141,7 @@
     [self setSelectedTalkingGroupAttendeesInfoArrayAnsResizeMyTalkingGroups7AttendeesView:nil];
     
     // send get my talking groups http request
-    [self sendGetMyTalkingGroupsHttpRequest];
+    [self sendGetMyTalkingGroupsHttpRequest:RELOADING_MYTALKINGGROUPS];
 }
 
 - (void)loadSelectedTalkingGroupAttendeeListTableViewDataSource{
@@ -189,11 +210,17 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     // my talking group list table view did scroll
     [_mMyTalkingGroupListTableViewRefreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    [_mMyTalkingGroupListTableViewAppendMoreFooterView appendMoreScrollViewDidScroll:scrollView];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     // my talking group list table view did end dragging
     [_mMyTalkingGroupListTableViewRefreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    // my talking group list table view did end decelerating
+    [_mMyTalkingGroupListTableViewAppendMoreFooterView appendMoreScrollViewDidEndDecelerating:scrollView];
 }
 
 // EGORefreshTableHeaderDelegate
@@ -202,7 +229,7 @@
     _mIsReloadingMyTalkingGroups = YES;
     
     // send get my talking groups http request
-    [self sendGetMyTalkingGroupsHttpRequest];
+    [self sendGetMyTalkingGroupsHttpRequest:RELOADING_MYTALKINGGROUPS];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView *)view{
@@ -215,6 +242,20 @@
     return [NSDate date];
 }
 
+// AppendMoreTableFooterDelegate
+- (void)appendMoreTableFooterDidScrollAppend:(AppendMoreTableFooterView *)view{
+    // appending more my talking groups
+    _mIsAppendingMoreMyTalkingGroups = YES;
+    
+    // send get my talking groups http request
+    [self sendGetMyTalkingGroupsHttpRequest:APPENDMORE_MYTALKINGGROUPS];
+}
+
+- (BOOL)appendMoreTableFooterDataSourceIsAppending:(AppendMoreTableFooterView *)view{
+    // should return if more data source model is appending
+    return _mIsAppendingMoreMyTalkingGroups;
+}
+
 // IHttpReqRespProtocol
 - (void)httpRequestDidFinished:(ASIHTTPRequest *)pRequest{
     NSLog(@"send http request succeed - request url = %@", pRequest.url);
@@ -224,8 +265,19 @@
     
     // check the request url string
     if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
-        // done reloading my talking groups
-        [self doneReloadingMyTalkingGroups];
+        // get and check get my talking groups mode
+        switch (((NSNumber *)[pRequest.userInfo objectForKey:GETMYTALKINGGROUPS_GETMODEKEY4REQUESTUSERINFO]).integerValue) {
+            case APPENDMORE_MYTALKINGGROUPS:
+                // done appending more my talking groups
+                [self doneAppendingMoreMyTalkingGroups];
+                break;
+                
+            case RELOADING_MYTALKINGGROUPS:
+            default:
+                // done reloading my talking groups
+                [self doneReloadingMyTalkingGroups];
+                break;
+        }
         
         // get my talking groups http request
         [self getMyTalkingGroupsHttpRequestDidFinished:pRequest];
@@ -247,8 +299,19 @@
     
     // check the request url string
     if ([pRequest.url.absoluteString hasPrefix:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)]]) {
-        // done reloading my talking groups
-        [self doneReloadingMyTalkingGroups];
+        // get and check get my talking groups mode
+        switch (((NSNumber *)[pRequest.userInfo objectForKey:GETMYTALKINGGROUPS_GETMODEKEY4REQUESTUSERINFO]).integerValue) {
+            case APPENDMORE_MYTALKINGGROUPS:
+                // done appending more my talking groups
+                [self doneAppendingMoreMyTalkingGroups];
+                break;
+                
+            case RELOADING_MYTALKINGGROUPS:
+            default:
+                // done reloading my talking groups
+                [self doneReloadingMyTalkingGroups];
+                break;
+        }
         
         // get my talking groups http request
         // load my talking group list table view data source succeed completion
@@ -268,9 +331,20 @@
 }
 
 // inner extension
-- (void)sendGetMyTalkingGroupsHttpRequest{
+- (void)sendGetMyTalkingGroupsHttpRequest:(GetMyTalkingGroupsMode)getMode{
+    // get my talking groups
+    // generate get my talking groups param map and user info
+    NSMutableDictionary *_getMyTalkingGroupsParamMap = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *_getMyTalkingGroupsUserInfo = [[NSMutableDictionary alloc] init];
+    
+    // set some params and user info
+    if (APPENDMORE_MYTALKINGGROUPS == getMode) {
+        [_getMyTalkingGroupsParamMap setObject:[NSNumber numberWithInt:((NSNumber *)[_mMyTalkingGroupsPagerJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response pager offset", nil)]).intValue + 1] forKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response pager offset", nil)];
+        [_getMyTalkingGroupsUserInfo setObject:[NSNumber numberWithInteger:getMode] forKey:GETMYTALKINGGROUPS_GETMODEKEY4REQUESTUSERINFO];
+    }
+    
     // post the http request
-    [HttpUtils postSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:nil andUserInfo:nil andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
+    [HttpUtils postSignatureRequestWithUrl:[NSString stringWithFormat:NSUrlString(@"my talking groups url format string", nil), NSUrlString(@"remote background server root url string", nil)] andPostFormat:urlEncoded andParameter:_getMyTalkingGroupsParamMap andUserInfo:_getMyTalkingGroupsUserInfo andRequestType:asynchronous andProcessor:self andFinishedRespSelector:@selector(httpRequestDidFinished:) andFailedRespSelector:@selector(httpRequestDidFailed:)];
 }
 
 - (void)getMyTalkingGroupsHttpRequestDidFinished:(ASIHTTPRequest *)pRequest{
@@ -284,15 +358,27 @@
         // get my talking groups pager from response data json format and set it
         _mMyTalkingGroupsPagerJSONObject = [_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response pager", nil)];
         
+        // set my talking group list table view append more footer view has more data
+        _mMyTalkingGroupListTableViewAppendMoreFooterView.hasMoreData = ((NSNumber *)[_mMyTalkingGroupsPagerJSONObject objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response pager has next", nil)]).boolValue;
+        
         // get my talking groups info list from response data json format and set it
-        // clear my talking groups info list json format if needed
-        if (0 < [_mMyTalkingGroupsJSONInfoArray count]) {
-            [_mMyTalkingGroupsJSONInfoArray removeAllObjects];
+        // get and check get my talking groups mode
+        GetMyTalkingGroupsMode _getMyTalkingGroupsMode;
+        if (RELOADING_MYTALKINGGROUPS == (_getMyTalkingGroupsMode = ((NSNumber *)[pRequest.userInfo objectForKey:GETMYTALKINGGROUPS_GETMODEKEY4REQUESTUSERINFO]).integerValue)) {
+            // clear my talking groups info list json format if needed for reloading my talking groups
+            if (0 < [_mMyTalkingGroupsJSONInfoArray count]) {
+                [_mMyTalkingGroupsJSONInfoArray removeAllObjects];
+            }
         }
         [_mMyTalkingGroupsJSONInfoArray addObjectsFromArray:[_respDataJSONFormat objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response info list", nil)]];
         
         // reload my talking group list table view data
         [_mMyTalkingGroupListTableView reloadData];
+        
+        // check get my talking groups mode again
+        if (APPENDMORE_MYTALKINGGROUPS == _getMyTalkingGroupsMode) {
+//            [[_mMyTalkingGroupListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedTalkingGroupCellIndex inSection:0]] setSelected:YES];
+        }
         
         // load my talking group list table view data source succeed completion
         _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(0);
@@ -314,6 +400,17 @@
         
         // resize my talking groups and the selected talking group attendees view
         [(MyTalkingGroups7AttendeesView *)self.superview resizeMyTalkingGroupsAndAttendeesView:NO];
+    }
+}
+
+- (void)doneAppendingMoreMyTalkingGroups{
+    // check my talking groups is appending
+    if (_mIsAppendingMoreMyTalkingGroups) {
+        // set done appending my talking groups
+        _mIsAppendingMoreMyTalkingGroups = NO;
+        
+        // my talking group list table view append more footer view did finished appending
+        [_mMyTalkingGroupListTableViewAppendMoreFooterView appendMoreScrollViewDataSourceDidFinishedAppending:_mMyTalkingGroupListTableView];
     }
 }
 

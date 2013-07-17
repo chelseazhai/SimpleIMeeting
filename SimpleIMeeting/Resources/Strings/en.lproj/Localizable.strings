@@ -103,3 +103,7 @@
 "Release to refresh..." = "Release to refresh...";
 "Pull down to refresh..." = "Pull down to refresh...";
 "Loading..." = "Loading...";
+
+// AppendMoreTableFooterView
+"Appending more..." = "Appending more...";
+"No more data" = "No more data";

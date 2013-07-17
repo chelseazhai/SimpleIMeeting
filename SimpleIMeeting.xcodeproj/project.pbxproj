@@ -73,6 +73,7 @@
 		DC756BE1175358DC00F287FA /* ContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE0175358DC00F287FA /* ContactListView.m */; };
 		DC756BE41753590900F287FA /* SelectedContactListView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE31753590900F287FA /* SelectedContactListView.m */; };
 		DC756BE817535E5000F287FA /* SimpleIMeetingTableViewTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */; };
+		DC76554E1796367A00CB96B3 /* AppendMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC76554D1796367A00CB96B3 /* AppendMoreTableFooterView.m */; };
 		DC7B17B417857272001E61BA /* img_selectedtalkinggroupattendee_inimage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7B17B017857272001E61BA /* img_selectedtalkinggroupattendee_inimage.png */; };
 		DC7B17B517857272001E61BA /* img_selectedtalkinggroupattendee_inimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7B17B117857272001E61BA /* img_selectedtalkinggroupattendee_inimage@2x.png */; };
 		DC7B17B617857272001E61BA /* img_selectedtalkinggroupattendee_outimage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7B17B217857272001E61BA /* img_selectedtalkinggroupattendee_outimage.png */; };
@@ -221,6 +222,8 @@
 		DC756BE31753590900F287FA /* SelectedContactListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedContactListView.m; path = Views/SelectedContactListView.m; sourceTree = "<group>"; };
 		DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleIMeetingTableViewTipView.h; sourceTree = "<group>"; };
 		DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleIMeetingTableViewTipView.m; sourceTree = "<group>"; };
+		DC76554C1796367A00CB96B3 /* AppendMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppendMoreTableFooterView.h; sourceTree = "<group>"; };
+		DC76554D1796367A00CB96B3 /* AppendMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppendMoreTableFooterView.m; sourceTree = "<group>"; };
 		DC7B17B017857272001E61BA /* img_selectedtalkinggroupattendee_inimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_selectedtalkinggroupattendee_inimage.png; path = SimpleIMeeting/Resources/Images/img_selectedtalkinggroupattendee_inimage.png; sourceTree = SOURCE_ROOT; };
 		DC7B17B117857272001E61BA /* img_selectedtalkinggroupattendee_inimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img_selectedtalkinggroupattendee_inimage@2x.png"; path = "SimpleIMeeting/Resources/Images/img_selectedtalkinggroupattendee_inimage@2x.png"; sourceTree = SOURCE_ROOT; };
 		DC7B17B217857272001E61BA /* img_selectedtalkinggroupattendee_outimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_selectedtalkinggroupattendee_outimage.png; path = SimpleIMeeting/Resources/Images/img_selectedtalkinggroupattendee_outimage.png; sourceTree = SOURCE_ROOT; };
@@ -674,6 +677,8 @@
 		DC756BE517535D7B00F287FA /* CustomComponents */ = {
 			isa = PBXGroup;
 			children = (
+				DC76554C1796367A00CB96B3 /* AppendMoreTableFooterView.h */,
+				DC76554D1796367A00CB96B3 /* AppendMoreTableFooterView.m */,
 				DC756BE617535E5000F287FA /* SimpleIMeetingTableViewTipView.h */,
 				DC756BE717535E5000F287FA /* SimpleIMeetingTableViewTipView.m */,
 				DC80528E1781350800048D0B /* UIContentAlertView.h */,
@@ -923,6 +928,7 @@
 				DCD779E8178E77EB00312CEB /* SocketIO.m in Sources */,
 				DCD779E9178E77EB00312CEB /* WebSocket.m in Sources */,
 				DC7B39B71793EDC7001DF116 /* EGORefreshTableHeaderView.m in Sources */,
+				DC76554E1796367A00CB96B3 /* AppendMoreTableFooterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
