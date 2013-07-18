@@ -44,6 +44,9 @@ typedef NS_ENUM(NSInteger, GetMyTalkingGroupsMode){
 // done appending more my talking groups
 - (void)doneAppendingMoreMyTalkingGroups;
 
+// update all scheduled talking groups remain time
+- (void)updateAllScheduledTalkingGroupsRemainTime;
+
 // get selected talking group attendees http request did finished selector
 - (void)getSelectedTalkingGroupAttendeesHttpRequestDidFinished:(ASIHTTPRequest *)pRequest;
 
@@ -380,6 +383,11 @@ typedef NS_ENUM(NSInteger, GetMyTalkingGroupsMode){
 //            [[_mMyTalkingGroupListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_mSelectedTalkingGroupCellIndex inSection:0]] setSelected:YES];
         }
         
+        // check check all talking groups started time timer and started it
+        if (nil == _mCheckAllTalkingGroupsStartedTimeTimer) {
+            _mCheckAllTalkingGroupsStartedTimeTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(updateAllScheduledTalkingGroupsRemainTime) userInfo:nil repeats:YES];
+        }
+        
         // load my talking group list table view data source succeed completion
         _mLoadMyTalkingGroupListTableViewDataSourceCompletionBlock(0);
     }
@@ -411,6 +419,18 @@ typedef NS_ENUM(NSInteger, GetMyTalkingGroupsMode){
         
         // my talking group list table view append more footer view did finished appending
         [_mMyTalkingGroupListTableViewAppendMoreFooterView appendMoreScrollViewDataSourceDidFinishedAppending:_mMyTalkingGroupListTableView];
+    }
+}
+
+- (void)updateAllScheduledTalkingGroupsRemainTime{
+    // process each my talking group
+    for (NSDictionary *_myTalkingGroupJSONInfo in _mMyTalkingGroupsJSONInfoArray) {
+        // get and check my talking group status
+        NSString *_myTalkingGroupStatus = [_myTalkingGroupJSONInfo objectForKey:NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group status", nil)];
+        if ([NSRBGServerFieldString(@"remote background server http request get my talking groups response info list talking group schedule status", nil) isEqualToString:_myTalkingGroupStatus]) {
+            // update my talking group list table view cell talking group status
+            ((MyTalkingGroupListTableViewCell *)[_mMyTalkingGroupListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[_mMyTalkingGroupsJSONInfoArray indexOfObject:_myTalkingGroupJSONInfo] inSection:0]]).talkingGroupStatus = _myTalkingGroupStatus;
+        }
     }
 }
 

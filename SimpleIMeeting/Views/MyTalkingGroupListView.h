@@ -25,6 +25,9 @@
     // selected talking group cell index
     NSInteger _mSelectedTalkingGroupCellIndex;
     
+    // check all talking groups started time timer
+    NSTimer *_mCheckAllTalkingGroupsStartedTimeTimer;
+    
     // present subviews
     // subview my talking group list table view
     UITableView *_mMyTalkingGroupListTableView;
