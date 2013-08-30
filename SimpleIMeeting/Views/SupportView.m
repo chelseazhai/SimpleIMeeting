@@ -55,7 +55,7 @@
 
 - (void)startLoadSupportWebPage{
     // load support web page
-    [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:NSUrlString(@"support url format string", nil), NSUrlString(@"remote background server root url string", nil)]]]];
+    [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:/*[NSString stringWithFormat:NSUrlString(@"support url format string", nil), NSUrlString(@"remote background server root url string", nil)]*/NSUrlString(@"remote background server root url string", nil)]]];
 }
 
 - (void)cancelLoadingSupportWebPage{

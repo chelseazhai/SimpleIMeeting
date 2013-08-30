@@ -1038,7 +1038,7 @@
 				GCC_PREFIX_HEADER = "SimpleIMeeting/SimpleIMeeting-Prefix.pch";
 				INFOPLIST_FILE = "SimpleIMeeting/SimpleIMeeting-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B17C6A1C-5AD8-4FC2-92B7-C84B46C8F339";
+				PROVISIONING_PROFILE = "1D7F6D09-2A6E-4E0E-A5EF-1ED11539AAA7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

@@ -91,7 +91,7 @@
     UILabel *_titleLabel;
     
     // define frame size height remain value(except title label)
-    CGFloat _remainHeight;
+    CGFloat _remainHeight = 0.0;
     
     // process all subviews of content alert view
     for (UIView *_subview in [self subviews]) {
